@@ -48,5 +48,7 @@ private:
 	CharacterController m_charaCon;						//キャラクターコントローラー
 
 	PhysicsGhostObject m_ghost;							//ゴーストオブジェクト
+	Animation m_animation;								//アニメーション
+	AnimationClip m_animationClip[1];					//アニメーションクリップ
 };
 

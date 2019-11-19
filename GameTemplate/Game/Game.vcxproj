@@ -182,6 +182,7 @@
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Enemy-kari.fbx" />
     <MeshContentTask Include="Assets\modelData\GetAmi.fbx" />
+    <MeshContentTask Include="Assets\modelData\Player-kari.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_01.fbx" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>

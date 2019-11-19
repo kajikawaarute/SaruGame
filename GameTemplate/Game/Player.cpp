@@ -5,10 +5,17 @@
 Player::Player()
 {
 	//cmoファイルの読み込み。
-	m_model.Init(L"Assets/modelData/unityChan.cmo");
+	m_model.Init(L"Assets/modelData/Player-kari.cmo");
 
 	//キャラクターコントローラーの初期化
 	m_charaCon.Init(50.0f, 100.0f, m_position);
+
+	m_animationClip[0].Load(L"Assets/animData/Player-kari-walk.tka");
+	m_animationClip[0].SetLoopFlag(true);
+
+	m_animation.Init(m_model, m_animationClip, 1);
+
+	m_animation.Play(0);
 
 	m_ghost.CreateBox({1700.0f, 0.0f, -100.0f}, CQuaternion::Identity(), { 300.0f, 30.0f, 200.0f });
 }
@@ -44,6 +51,8 @@ void Player::Move()
 
 	m_moveSpeed.x = g_pad[0].GetLStickXF() * 1000.0f;
 	m_moveSpeed.z = g_pad[0].GetLStickYF() * 1000.0f;
+
+	m_animation.Update(1.0f / 30.0f);
 	
 	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 }
