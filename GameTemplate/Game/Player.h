@@ -49,6 +49,11 @@ private:
 
 	PhysicsGhostObject m_ghost;							//ゴーストオブジェクト
 	Animation m_animation;								//アニメーション
-	AnimationClip m_animationClip[1];					//アニメーションクリップ
+	AnimationClip m_animationClip[2];					//アニメーションクリップ
+	enum EnAnimationClip {
+		enAnim_walk,		//歩きアニメーション
+		enAnim_taiki,		//待機アニメーション
+		enAnim_num			//アニメーションクリップの数
+	};
 };
 

@@ -5,7 +5,6 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "GameCamera.h"
-#include "GetAmi.h"
 
 Game::Game()
 {
@@ -13,7 +12,6 @@ Game::Game()
 	m_stage = g_goMgr.NewGO<Stage>();
 	m_ene = g_goMgr.NewGO<Enemy>();
 	m_gCamera = g_goMgr.NewGO<GameCamera>();
-	//m_ami = g_goMgr.NewGO<GetAmi>();
 	m_gCamera->SetPlayer(m_pl);
 	m_ene->SetPlayer(m_pl);
 }

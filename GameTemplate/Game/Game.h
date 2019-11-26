@@ -1,6 +1,7 @@
 #pragma once
 #include "IGameObject.h"
 
+
 class Player;
 class Stage;
 class Enemy;
@@ -18,6 +19,6 @@ private:
 	Stage* m_stage = nullptr;		//ステージのインスタンス
 	Enemy* m_ene = nullptr;		//エネミーのインスタンス
 	GameCamera* m_gCamera = nullptr; //ゲームカメラのインスタンス
-	GetAmi* m_ami = nullptr;
+	
 };
 
