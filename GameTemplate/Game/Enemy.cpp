@@ -6,6 +6,11 @@
 Enemy::Enemy()
 {
 	m_model.Init(L"Assets/modelData/Enemy-kari.cmo");
+
+	m_animationClip[enAnim_walk].Load(L"Assets/animData/Enemy-kari-walk.tka");
+	m_animationClip[enAnim_walk].SetLoopFlag(true);
+
+	m_animation.Init(m_model, m_animationClip, enAnim_num);
 }
 
 
@@ -16,9 +21,10 @@ Enemy::~Enemy()
 void Enemy::Update()
 {
 	Move();
-	if (g_pad[0].IsTrigger(enButtonB)) {
-		g_goMgr.DeleteGO(this);
-	}
+
+	m_animation.Update(1.0f / 30.0f);
+	m_animation.Play(enAnim_walk);
+
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 

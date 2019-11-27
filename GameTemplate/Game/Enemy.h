@@ -34,6 +34,12 @@ private:
 	CVector3 m_scale = CVector3::One();					//拡大率
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
 	Player* m_pl = nullptr;								//プレイヤーのインスタンス
+	Animation m_animation;								//アニメーション
+	AnimationClip m_animationClip[1];					//アニメーションクリップ
+	enum EnAnimation {
+		enAnim_walk,									//歩きアニメーション
+		enAnim_num										//アニメーションの数
+	};
 
 };
 

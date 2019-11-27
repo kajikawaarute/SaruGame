@@ -14,6 +14,12 @@ Game::Game()
 	m_gCamera = g_goMgr.NewGO<GameCamera>();
 	m_gCamera->SetPlayer(m_pl);
 	m_ene->SetPlayer(m_pl);
+
+	//メインとなるレンダリングターゲットを作成する。
+	m_mainRenderTarget.Create(FRAME_BUFFER_W, FRAME_BUFFER_H, DXGI_FORMAT_R8G8B8A8_UNORM);
+
+	//
+	m_copyMainRtToFrameBufferSprite.Init(m_mainRenderTarget.GetRenderTargetSRV(), FRAME_BUFFER_W, FRAME_BUFFER_H);
 }
 
 

@@ -118,6 +118,7 @@
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="GetAmi.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -213,6 +214,7 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="GetAmi.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="RenderTarget.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -228,6 +230,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Player-kari.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Saru.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
