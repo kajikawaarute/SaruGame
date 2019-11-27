@@ -5,7 +5,7 @@
 Saru::Saru()
 {
 	m_model.Init(L"Assets/modelData/Saru.cmo");
-	m_animClip[enAnim_taiki].Load(L"Assets/animData/Saru-run.tka");
+	m_animClip[enAnim_taiki].Load(L"Assets/animData/Saru-taiki.tka");
 	m_animClip[enAnim_taiki].SetLoopFlag(true);
 
 	m_animation.Init(m_model, m_animClip, enAnim_num);
