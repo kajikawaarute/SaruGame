@@ -119,6 +119,7 @@
     <ClCompile Include="GetAmi.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="Saru.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -215,6 +216,7 @@
     <ClInclude Include="GetAmi.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="Saru.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

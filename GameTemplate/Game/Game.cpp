@@ -4,6 +4,7 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Saru.h"
 #include "GameCamera.h"
 
 Game::Game()
@@ -12,6 +13,7 @@ Game::Game()
 	m_stage = g_goMgr.NewGO<Stage>();
 	m_ene = g_goMgr.NewGO<Enemy>();
 	m_gCamera = g_goMgr.NewGO<GameCamera>();
+	m_saru = g_goMgr.NewGO<Saru>();
 	m_gCamera->SetPlayer(m_pl);
 	m_ene->SetPlayer(m_pl);
 

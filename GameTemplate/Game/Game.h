@@ -7,7 +7,7 @@ class Player;
 class Stage;
 class Enemy;
 class GameCamera;
-class GetAmi;
+class Saru;
 class Game : public IGameObject
 {
 public:
@@ -20,6 +20,7 @@ private:
 	Stage* m_stage = nullptr;					//ステージのインスタンス
 	Enemy* m_ene = nullptr;						//エネミーのインスタンス
 	GameCamera* m_gCamera = nullptr;			//ゲームカメラのインスタンス
+	Saru* m_saru = nullptr;						//サルクラスのインスタンス
 	RenderTarget m_mainRenderTarget;			//メインレンダリングターゲット
 	Sprite m_copyMainRtToFrameBufferSprite;		//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
 };
