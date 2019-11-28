@@ -16,6 +16,7 @@ Game::Game()
 	m_saru = g_goMgr.NewGO<Saru>();
 	m_gCamera->SetPlayer(m_pl);
 	m_ene->SetPlayer(m_pl);
+	m_saru->SetPlayer(m_pl);
 
 	//メインとなるレンダリングターゲットを作成する。
 	m_mainRenderTarget.Create(FRAME_BUFFER_W, FRAME_BUFFER_H, DXGI_FORMAT_R8G8B8A8_UNORM);
