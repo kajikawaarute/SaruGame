@@ -14,6 +14,7 @@ Saru::Saru()
 
 	m_animation.Init(m_model, m_animClip, enAnim_num);
 	m_position.z = 500.0f;
+	m_position.x = -100.0f;
 }
 
 Saru::~Saru()
@@ -22,7 +23,7 @@ Saru::~Saru()
 
 void Saru::Update()
 {
-	Move();
+	//Move();
 
 	m_animation.Update(1.0f / 30.0f);
 	//ワールド行列の更新。
@@ -65,4 +66,9 @@ void Saru::Draw()
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix()
 	);
+}
+
+void Saru::GetSaru()
+{
+	g_goMgr.DeleteGO(this);
 }

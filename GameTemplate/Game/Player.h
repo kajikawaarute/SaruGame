@@ -3,6 +3,7 @@
 #include "IGameObject.h"
 #include "PhysicsGhostObject.h"
 
+class Saru;
 class Player : public IGameObject
 {
 public:
@@ -39,6 +40,11 @@ public:
 	{
 		return m_position;
 	}
+
+	void SetSaru(Saru* saru)
+	{
+		m_saru = saru;
+	}
 private:
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -49,11 +55,16 @@ private:
 
 	PhysicsGhostObject m_ghost;							//ゴーストオブジェクト
 	Animation m_animation;								//アニメーション
-	AnimationClip m_animationClip[2];					//アニメーションクリップ
+	AnimationClip m_animationClip[3];					//アニメーションクリップ
 	enum EnAnimationClip {
 		enAnim_walk,		//歩きアニメーション
 		enAnim_taiki,		//待機アニメーション
+		enAnim_saruGet,		//サルの捕獲アニメーション
 		enAnim_num			//アニメーションクリップの数
 	};
+	EnAnimationClip m_enAnimClip;
+	int m_timer = 0;
+
+	Saru* m_saru = nullptr;
 };
 

@@ -116,7 +116,6 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="PhysicsGhostObject.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
-    <ClCompile Include="GetAmi.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Saru.cpp" />
@@ -213,7 +212,6 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="PhysicsGhostObject.h" />
     <ClInclude Include="BoxCollider.h" />
-    <ClInclude Include="GetAmi.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Saru.h" />

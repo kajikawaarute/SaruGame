@@ -23,6 +23,15 @@ public:
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// エネミーの座標を取得
+	/// </summary>
+	/// <returns></returns>
+	CVector3& GetPos()
+	{
+		return m_position;
+	}
+
 	void SetPlayer(Player* player)
 	{
 		m_pl = player;

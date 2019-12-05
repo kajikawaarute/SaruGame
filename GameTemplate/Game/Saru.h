@@ -19,6 +19,18 @@ public:
 	/// サルの描画関数
 	/// </summary>
 	void Draw();
+	/// <summary>
+	/// サルの座標を取得
+	/// </summary>
+	/// <returns></returns>
+	CVector3& GetPos()
+	{
+		return m_position;
+	}
+	/// <summary>
+	/// サルが捕まえられた時の処理
+	/// </summary>
+	void GetSaru();
 
 	void SetPlayer(Player* player)
 	{
