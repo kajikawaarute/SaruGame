@@ -9,6 +9,7 @@ Saru::Saru()
 
 	m_animClip[enAnim_taiki].Load(L"Assets/animData/Saru-taiki.tka");
 	m_animClip[enAnim_run].Load(L"Assets/animData/Saru-run.tka");
+	m_animClip[enAnim_attack].Load(L"Assets/animData/Saru-Attack.tka");
 	m_animClip[enAnim_taiki].SetLoopFlag(true);
 	m_animClip[enAnim_run].SetLoopFlag(true);
 
@@ -23,7 +24,11 @@ Saru::~Saru()
 
 void Saru::Update()
 {
-	//Move();
+	Move();
+
+	if (g_pad[0].IsTrigger(enButtonA)) {
+		m_animation.Play(enAnim_attack);
+	}
 
 	m_animation.Update(1.0f / 30.0f);
 	//ワールド行列の更新。

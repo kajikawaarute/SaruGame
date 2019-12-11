@@ -77,27 +77,7 @@ void Player::Update()
 		}
 		break;
 	case enAnim_saruGet:
-		m_animation.Play(enAnim_saruGet);
-		m_timer++;
-		if (m_timer == 60) {
-			m_enAnimClip = enAnim_taiki;
-			m_timer = 0;
-		}
-
-		CVector3 eneFoward = CVector3::AxisZ();
-		//エネミーからプレイヤーに伸びるベクトルを求める。
-		CVector3 toEnemyDir = m_saru->GetPos() - m_position;
-		float toEnemyLen = toEnemyDir.Length();
-		toEnemyDir.Normalize();
-
-		float d = eneFoward.Dot(toEnemyDir);
-		float angle = acos(d);
-
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 80.0f)
-		{
-			m_saru->GetSaru();
-		}
-
+		GetSaru();
 		break;
 	}
 
@@ -118,4 +98,28 @@ void Player::Draw()
 		g_camera3D.GetViewMatrix(), 
 		g_camera3D.GetProjectionMatrix()
 	);
+}
+
+void Player::GetSaru()
+{
+	m_animation.Play(enAnim_saruGet);
+	m_timer++;
+	if (m_timer == 60) {
+		m_enAnimClip = enAnim_taiki;
+		m_timer = 0;
+	}
+
+	CVector3 eneFoward = CVector3::AxisZ();
+	//エネミーからプレイヤーに伸びるベクトルを求める。
+	CVector3 toEnemyDir = m_saru->GetPos() - m_position;
+	float toEnemyLen = toEnemyDir.Length();
+	toEnemyDir.Normalize();
+
+	float d = eneFoward.Dot(toEnemyDir);
+	float angle = acos(d);
+
+	if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 80.0f)
+	{
+		m_saru->GetSaru();
+	}
 }

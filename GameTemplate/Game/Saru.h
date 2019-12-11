@@ -43,10 +43,11 @@ private:
 	CVector3 m_scale = CVector3::One();					//拡大率
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
 	Animation m_animation;								//アニメーション
-	AnimationClip m_animClip[2];						//アニメーションクリップ
+	AnimationClip m_animClip[3];						//アニメーションクリップ
 	enum EnAnimationClip {
 		enAnim_taiki,			//待機アニメーション
 		enAnim_run,				//走りアニメーション
+		enAnim_attack,			//攻撃アニメーション
 		enAnim_num				//アニメーションクリップの数
 	};
 	EnAnimationClip m_enAnimClip;

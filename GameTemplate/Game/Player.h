@@ -41,6 +41,8 @@ public:
 		return m_position;
 	}
 
+	void GetSaru();
+
 	void SetSaru(Saru* saru)
 	{
 		m_saru = saru;
