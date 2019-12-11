@@ -77,6 +77,12 @@ void Player::Update()
 		}
 		break;
 	case enAnim_saruGet:
+		m_animation.Play(enAnim_saruGet);
+		m_timer++;
+		if (m_timer == 60) {
+			m_enAnimClip = enAnim_taiki;
+			m_timer = 0;
+		}
 		GetSaru();
 		break;
 	}
@@ -102,13 +108,6 @@ void Player::Draw()
 
 void Player::GetSaru()
 {
-	m_animation.Play(enAnim_saruGet);
-	m_timer++;
-	if (m_timer == 60) {
-		m_enAnimClip = enAnim_taiki;
-		m_timer = 0;
-	}
-
 	CVector3 eneFoward = CVector3::AxisZ();
 	//エネミーからプレイヤーに伸びるベクトルを求める。
 	CVector3 toEnemyDir = m_saru->GetPos() - m_position;

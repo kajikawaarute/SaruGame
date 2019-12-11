@@ -40,7 +40,9 @@ public:
 	{
 		return m_position;
 	}
-
+	/// <summary>
+	/// ƒTƒ‹‚ğ•ß‚Ü‚¦‚½‚Ìˆ—
+	/// </summary>
 	void GetSaru();
 
 	void SetSaru(Saru* saru)
