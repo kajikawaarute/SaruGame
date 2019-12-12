@@ -13,17 +13,20 @@ Game::Game()
 	m_stage = g_goMgr.NewGO<Stage>();
 	m_ene = g_goMgr.NewGO<Enemy>();
 	m_gCamera = g_goMgr.NewGO<GameCamera>();
-	m_saru = g_goMgr.NewGO<Saru>();
+
+	m_saru[0] = g_goMgr.NewGO<Saru>();
+	m_saru[1] = g_goMgr.NewGO<Saru>();
+
+	m_saru[0]->SetPos({ 100.0f, 0.0f, 500.0f });
+	m_saru[1]->SetPos({-100.0f, 0.0f, 500.0f});
+
 	m_gCamera->SetPlayer(m_pl);
 	m_ene->SetPlayer(m_pl);
-	m_saru->SetPlayer(m_pl);
-	m_pl->SetSaru(m_saru);
 
-	//メインとなるレンダリングターゲットを作成する。
-	m_mainRenderTarget.Create(FRAME_BUFFER_W, FRAME_BUFFER_H, DXGI_FORMAT_R8G8B8A8_UNORM);
-
-	//
-	m_copyMainRtToFrameBufferSprite.Init(m_mainRenderTarget.GetRenderTargetSRV(), FRAME_BUFFER_W, FRAME_BUFFER_H);
+	m_saru[0]->SetPlayer(m_pl);
+	m_pl->SetSaru(m_saru[0]);
+	m_saru[1]->SetPlayer(m_pl);
+	m_pl->SetSaru(m_saru[1]);
 }
 
 

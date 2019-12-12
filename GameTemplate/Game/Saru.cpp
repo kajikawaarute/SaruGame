@@ -10,12 +10,11 @@ Saru::Saru()
 	m_animClip[enAnim_taiki].Load(L"Assets/animData/Saru-taiki.tka");
 	m_animClip[enAnim_run].Load(L"Assets/animData/Saru-run.tka");
 	m_animClip[enAnim_attack].Load(L"Assets/animData/Saru-Attack.tka");
+
 	m_animClip[enAnim_taiki].SetLoopFlag(true);
 	m_animClip[enAnim_run].SetLoopFlag(true);
 
 	m_animation.Init(m_model, m_animClip, enAnim_num);
-	m_position.z = 500.0f;
-	m_position.x = -100.0f;
 }
 
 Saru::~Saru()
@@ -25,9 +24,20 @@ Saru::~Saru()
 void Saru::Update()
 {
 	Move();
+	Angle();
 
 	if (g_pad[0].IsTrigger(enButtonA)) {
-		m_animation.Play(enAnim_attack);
+		m_enAnimClip = enAnim_attack;
+	}
+
+	switch (m_enAnimClip)
+	{
+	case Saru::enAnim_taiki:
+		break;
+	case Saru::enAnim_run:
+		break;
+	case Saru::enAnim_attack:
+		break;
 	}
 
 	m_animation.Update(1.0f / 30.0f);
@@ -36,6 +46,29 @@ void Saru::Update()
 }
 
 void Saru::Move()
+{
+	m_moveSpeed.Normalize();
+	m_moveSpeed.x *= 5.0f;
+	m_moveSpeed.z *= 5.0f;
+	m_moveSpeed.y = 0.0f;
+	m_position -= m_moveSpeed;
+
+}
+
+void Saru::Draw()
+{
+	m_model.Draw(
+		g_camera3D.GetViewMatrix(),
+		g_camera3D.GetProjectionMatrix()
+	);
+}
+
+void Saru::GetSaru()
+{
+	g_goMgr.DeleteGO(this);
+}
+
+void Saru::Angle()
 {
 	CVector3 eneFoward = CVector3::AxisZ();
 
@@ -57,23 +90,4 @@ void Saru::Move()
 		m_moveSpeed = CVector3::Zero();
 		m_animation.Play(enAnim_taiki);
 	}
-	m_moveSpeed.Normalize();
-	m_moveSpeed.x *= 5.0f;
-	m_moveSpeed.z *= 5.0f;
-	m_moveSpeed.y = 0.0f;
-	m_position -= m_moveSpeed;
-
-}
-
-void Saru::Draw()
-{
-	m_model.Draw(
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
-}
-
-void Saru::GetSaru()
-{
-	g_goMgr.DeleteGO(this);
 }

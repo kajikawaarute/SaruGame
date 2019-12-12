@@ -28,9 +28,23 @@ public:
 		return m_position;
 	}
 	/// <summary>
+	/// サルの座標を設定
+	/// </summary>
+	/// <param name="pos">座標</param>
+	/// <returns></returns>
+	CVector3& SetPos(CVector3 pos)
+	{
+		return m_position = pos;
+	}
+	/// <summary>
 	/// サルが捕まえられた時の処理
 	/// </summary>
 	void GetSaru();
+	/// <summary>
+	/// サルの視野
+	/// </summary>
+	void Angle();
+
 
 	void SetPlayer(Player* player)
 	{

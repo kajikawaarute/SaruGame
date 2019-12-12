@@ -110,15 +110,17 @@ void Player::GetSaru()
 {
 	CVector3 eneFoward = CVector3::AxisZ();
 	//エネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toEnemyDir = m_saru->GetPos() - m_position;
-	float toEnemyLen = toEnemyDir.Length();
-	toEnemyDir.Normalize();
+	for (int i = 0; i < m_sarus.size(); i++) {
+		CVector3 toEnemyDir = m_sarus[i]->GetPos() - m_position;
+		float toEnemyLen = toEnemyDir.Length();
+		toEnemyDir.Normalize();
 
-	float d = eneFoward.Dot(toEnemyDir);
-	float angle = acos(d);
+		float d = eneFoward.Dot(toEnemyDir);
+		float angle = acos(d);
 
-	if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 80.0f)
-	{
-		m_saru->GetSaru();
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 80.0f)
+		{
+			m_sarus[i]->GetSaru();
+		}
 	}
 }

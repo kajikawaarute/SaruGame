@@ -47,7 +47,7 @@ public:
 
 	void SetSaru(Saru* saru)
 	{
-		m_saru = saru;
+		m_sarus.push_back(saru);
 	}
 private:
 	SkinModel m_model;									//スキンモデル。
@@ -69,6 +69,6 @@ private:
 	EnAnimationClip m_enAnimClip;
 	int m_timer = 0;
 
-	Saru* m_saru = nullptr;
+	std::vector<Saru*> m_sarus ;
 };
 
