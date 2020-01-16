@@ -34,9 +34,15 @@ Player::~Player()
 
 void Player::Update()
 {
-	Move();
 
+	if (m_flag == true) {
+		Move();
+	}
+	else {
+		m_flag = true;
+	}
 	m_moveSpeed.y -= 100.0f;
+	Turn();
 
 	g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject) == true) {
@@ -53,6 +59,8 @@ void Player::Update()
 	{
 		m_enAnimClip = enAnim_saruGet;
 	}
+
+	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotetion, m_scale);
@@ -86,16 +94,12 @@ void Player::Update()
 		GetSaru();
 		break;
 	}
-
-	
 }
 
 void Player::Move()
 {
 	m_moveSpeed.x = g_pad[0].GetLStickXF() * 1000.0f;
 	m_moveSpeed.z = g_pad[0].GetLStickYF() * 1000.0f;
-
-	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 }
 
 void Player::Draw()
@@ -123,4 +127,21 @@ void Player::GetSaru()
 			m_sarus[i]->GetSaru();
 		}
 	}
+}
+
+void Player::Fukitobi()
+{
+	m_moveSpeed.x = 250.0f;
+	m_flag = false;
+}
+
+void Player::Turn()
+{
+	if (fabsf(m_moveSpeed.x) < 0.001f && fabsf(m_moveSpeed.z) < 0.001f)
+	{
+		return;
+	}
+	float angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
+
+	m_rotetion.SetRotation(CVector3::AxisY(), angle);
 }

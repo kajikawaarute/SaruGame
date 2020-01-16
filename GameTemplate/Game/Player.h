@@ -45,6 +45,10 @@ public:
 	/// </summary>
 	void GetSaru();
 
+	void Fukitobi();
+
+	void Turn();
+
 	void SetSaru(Saru* saru)
 	{
 		m_sarus.push_back(saru);
@@ -68,6 +72,7 @@ private:
 	};
 	EnAnimationClip m_enAnimClip;
 	int m_timer = 0;
+	bool m_flag = true;
 
 	std::vector<Saru*> m_sarus ;
 };

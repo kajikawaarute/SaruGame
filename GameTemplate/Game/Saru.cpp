@@ -14,6 +14,8 @@ Saru::Saru()
 	m_animClip[enAnim_taiki].SetLoopFlag(true);
 	m_animClip[enAnim_run].SetLoopFlag(true);
 
+	m_enAnimClip = enAnim_taiki;
+
 	m_animation.Init(m_model, m_animClip, enAnim_num);
 }
 
@@ -24,19 +26,50 @@ Saru::~Saru()
 void Saru::Update()
 {
 	Move();
-	Angle();
+	//Angle();
+	Turn();
+	CVector3 eneFoward = CVector3::AxisZ();
 
-	if (g_pad[0].IsTrigger(enButtonA)) {
+	//エネミーからプレイヤーに伸びるベクトルを求める。
+	CVector3 toPlayerDir = m_pl->GetPos() - m_position;
+	float toPlayerLen = toPlayerDir.Length();
+	toPlayerDir.Normalize();
+
+	float d = eneFoward.Dot(toPlayerDir);
+
+	float angle = acos(d);
+
+	if (toPlayerLen < 100.0f) {
 		m_enAnimClip = enAnim_attack;
 	}
 
 	switch (m_enAnimClip)
 	{
 	case Saru::enAnim_taiki:
+		m_animation.Play(enAnim_taiki);
+		m_moveSpeed = CVector3::Zero();
+		if (fabsf(angle) < CMath::DegToRad(360.0f) && toPlayerLen < 500.0f)
+		{
+			m_enAnimClip = enAnim_run;
+		}
 		break;
 	case Saru::enAnim_run:
+		m_animation.Play(enAnim_run);
+		m_moveSpeed = toPlayerDir;
+		if (toPlayerLen > 500.0f)
+		{
+			m_enAnimClip = enAnim_taiki;
+		}
 		break;
 	case Saru::enAnim_attack:
+		m_animation.Play(enAnim_attack);
+		m_moveSpeed = CVector3::Zero();
+		m_timer++;
+		m_pl->Fukitobi();
+		if (m_timer == 60) {
+			m_enAnimClip = enAnim_taiki;
+			m_timer = 0;
+		}
 		break;
 	}
 
@@ -90,4 +123,13 @@ void Saru::Angle()
 		m_moveSpeed = CVector3::Zero();
 		m_animation.Play(enAnim_taiki);
 	}
+}
+
+void Saru::Turn()
+{
+	if (fabsf(m_moveSpeed.x) < 0.001f && fabsf(m_moveSpeed.z) < 0.001f) {
+		return;
+	}
+	float angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
+	m_rotation.SetRotation(CVector3::AxisY(), -angle);
 }

@@ -45,6 +45,7 @@ public:
 	/// </summary>
 	void Angle();
 
+	void Turn();
 
 	void SetPlayer(Player* player)
 	{
@@ -66,5 +67,7 @@ private:
 	};
 	EnAnimationClip m_enAnimClip;
 	Player* m_pl = nullptr;		//プレイヤーのインスタンス
+	int m_timer = 0;
+	int m_timer2 = 0;
 };
 
