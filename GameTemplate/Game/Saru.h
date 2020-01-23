@@ -40,11 +40,10 @@ public:
 	/// サルが捕まえられた時の処理
 	/// </summary>
 	void GetSaru();
-	/// <summary>
-	/// サルの視野
-	/// </summary>
-	void Angle();
 
+	/// <summary>
+	/// サルの回転処理
+	/// </summary>
 	void Turn();
 
 	void SetPlayer(Player* player)
@@ -68,6 +67,5 @@ private:
 	EnAnimationClip m_enAnimClip;
 	Player* m_pl = nullptr;		//プレイヤーのインスタンス
 	int m_timer = 0;
-	int m_timer2 = 0;
 };
 

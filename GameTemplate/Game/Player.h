@@ -47,6 +47,9 @@ public:
 
 	void Fukitobi();
 
+	/// <summary>
+	/// ƒvƒŒƒCƒ„[‚Ì‰ñ“]ˆ—
+	/// </summary>
 	void Turn();
 
 	void SetSaru(Saru* saru)

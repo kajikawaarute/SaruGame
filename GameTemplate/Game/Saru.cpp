@@ -26,20 +26,21 @@ Saru::~Saru()
 void Saru::Update()
 {
 	Move();
-	//Angle();
 	Turn();
-	CVector3 eneFoward = CVector3::AxisZ();
 
-	//エネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toPlayerDir = m_pl->GetPos() - m_position;
-	float toPlayerLen = toPlayerDir.Length();
-	toPlayerDir.Normalize();
+	CVector3 saruFoward = CVector3::AxisZ();
+	m_rotation.Multiply(saruFoward);
+	//サルからプレイヤーに伸びるベクトルを求める。
+	CVector3 toSaruDir = m_pl->GetPos() - m_position;
+	float toSaruLen = toSaruDir.Length();
+	toSaruDir.Normalize();
 
-	float d = eneFoward.Dot(toPlayerDir);
+	float d = saruFoward.Dot(toSaruDir);
 
 	float angle = acos(d);
 
-	if (toPlayerLen < 100.0f) {
+	if (toSaruLen < 100.0f) {
+		m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
 		m_enAnimClip = enAnim_attack;
 	}
 
@@ -48,15 +49,15 @@ void Saru::Update()
 	case Saru::enAnim_taiki:
 		m_animation.Play(enAnim_taiki);
 		m_moveSpeed = CVector3::Zero();
-		if (fabsf(angle) < CMath::DegToRad(360.0f) && toPlayerLen < 500.0f)
+		if (fabsf(angle) < CMath::DegToRad(90.0f) && toSaruLen < 500.0f)
 		{
 			m_enAnimClip = enAnim_run;
 		}
 		break;
 	case Saru::enAnim_run:
 		m_animation.Play(enAnim_run);
-		m_moveSpeed = toPlayerDir;
-		if (toPlayerLen > 500.0f)
+		m_moveSpeed = toSaruDir;
+		if (toSaruLen > 700.0f)
 		{
 			m_enAnimClip = enAnim_taiki;
 		}
@@ -101,35 +102,13 @@ void Saru::GetSaru()
 	g_goMgr.DeleteGO(this);
 }
 
-void Saru::Angle()
-{
-	CVector3 eneFoward = CVector3::AxisZ();
-
-	//エネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toPlayerDir = m_pl->GetPos() - m_position;
-	float toPlayerLen = toPlayerDir.Length();
-	toPlayerDir.Normalize();
-
-	float d = eneFoward.Dot(toPlayerDir);
-
-	float angle = acos(d);
-
-	if (fabsf(angle) < CMath::DegToRad(360.0f) && toPlayerLen < 500.0f)
-	{
-		m_moveSpeed = toPlayerDir;
-		m_animation.Play(enAnim_run);
-	}
-	else {
-		m_moveSpeed = CVector3::Zero();
-		m_animation.Play(enAnim_taiki);
-	}
-}
-
 void Saru::Turn()
 {
+	CVector3 toSaruDir = m_pl->GetPos() - m_position;
+
 	if (fabsf(m_moveSpeed.x) < 0.001f && fabsf(m_moveSpeed.z) < 0.001f) {
 		return;
 	}
-	float angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
-	m_rotation.SetRotation(CVector3::AxisY(), -angle);
+
+	m_rotation.SetRotation(CVector3::AxisY(), atan2f(-toSaruDir.x, -toSaruDir.z));
 }

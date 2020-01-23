@@ -41,7 +41,7 @@ void Player::Update()
 	else {
 		m_flag = true;
 	}
-	m_moveSpeed.y -= 100.0f;
+	m_moveSpeed.y -= 500.0f;
 	Turn();
 
 	g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
@@ -98,8 +98,21 @@ void Player::Update()
 
 void Player::Move()
 {
-	m_moveSpeed.x = g_pad[0].GetLStickXF() * 1000.0f;
-	m_moveSpeed.z = g_pad[0].GetLStickYF() * 1000.0f;
+	//m_moveSpeed.x = g_pad[0].GetLStickXF() * 1000.0f;
+	//m_moveSpeed.z = g_pad[0].GetLStickYF() * 1000.0f;
+
+	float StickZ = g_pad[0].GetLStickYF() * 1000.0f;
+	float StickX = g_pad[0].GetLStickXF() * 1000.0f;
+
+	CVector3 cameraForward = g_camera3D.GetTarget() - g_camera3D.GetPosition();
+	cameraForward.y = 0.0f;
+	cameraForward.Normalize();
+	m_moveSpeed = cameraForward * StickZ;
+
+	CVector3 cameraRight;
+	cameraRight.Cross({ 0.0f, 1.0f, 0.0f }, cameraForward);
+	cameraRight.Normalize();
+	m_moveSpeed += cameraRight * StickX;
 }
 
 void Player::Draw()
@@ -112,17 +125,18 @@ void Player::Draw()
 
 void Player::GetSaru()
 {
-	CVector3 eneFoward = CVector3::AxisZ();
-	//エネミーからプレイヤーに伸びるベクトルを求める。
+	CVector3 plFoward = CVector3::AxisZ();
+	m_rotetion.Multiply(plFoward);
+	//サルからプレイヤーに伸びるベクトルを求める。
 	for (int i = 0; i < m_sarus.size(); i++) {
-		CVector3 toEnemyDir = m_sarus[i]->GetPos() - m_position;
-		float toEnemyLen = toEnemyDir.Length();
-		toEnemyDir.Normalize();
+		CVector3 toPlayerDir = m_sarus[i]->GetPos() - m_position;
+		float toEnemyLen = toPlayerDir.Length();
+		toPlayerDir.Normalize();
 
-		float d = eneFoward.Dot(toEnemyDir);
+		float d = plFoward.Dot(toPlayerDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 80.0f)
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 100.0f)
 		{
 			m_sarus[i]->GetSaru();
 		}
@@ -131,7 +145,13 @@ void Player::GetSaru()
 
 void Player::Fukitobi()
 {
-	m_moveSpeed.x = 250.0f;
+	for (int i = 0; i < m_sarus.size(); i++)
+	{
+		CVector3 toPlayerDir = m_sarus[i]->GetPos() - m_position;
+		m_moveSpeed = toPlayerDir * -1.0f;
+
+	}
+	
 	m_flag = false;
 }
 
