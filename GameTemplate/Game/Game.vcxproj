@@ -184,6 +184,7 @@
     <ClInclude Include="system\system.h" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\BananaPeel.fbx" />
     <MeshContentTask Include="Assets\modelData\Enemy-kari.fbx" />
     <MeshContentTask Include="Assets\modelData\GetAmi.fbx" />
     <MeshContentTask Include="Assets\modelData\Player-kari.fbx" />
