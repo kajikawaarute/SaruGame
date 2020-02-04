@@ -119,6 +119,8 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Saru.cpp" />
+    <ClCompile Include="BananaPeel.cpp" />
+    <ClCompile Include="BananaPeelManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -215,6 +217,8 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Saru.h" />
+    <ClInclude Include="BananaPeel.h" />
+    <ClInclude Include="BananaPeelManager.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

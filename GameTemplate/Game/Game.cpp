@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Saru.h"
 #include "GameCamera.h"
+#include "BananaPeel.h"
 
 Game::Game()
 {
@@ -13,6 +14,7 @@ Game::Game()
 	m_stage = g_goMgr.NewGO<Stage>();
 	m_ene = g_goMgr.NewGO<Enemy>();
 	m_gCamera = g_goMgr.NewGO<GameCamera>();
+	m_banana = g_goMgr.NewGO<BananaPeel>();
 
 	m_saru[0] = g_goMgr.NewGO<Saru>();
 	m_saru[1] = g_goMgr.NewGO<Saru>();

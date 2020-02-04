@@ -8,6 +8,7 @@ class Stage;
 class Enemy;
 class GameCamera;
 class Saru;
+class BananaPeel;
 class Game : public IGameObject
 {
 public:
@@ -21,5 +22,6 @@ private:
 	Enemy* m_ene = nullptr;						//エネミーのインスタンス
 	GameCamera* m_gCamera = nullptr;			//ゲームカメラのインスタンス
 	Saru* m_saru[2] = {nullptr, nullptr};		//サルクラスのインスタンス
+	BananaPeel* m_banana = nullptr;				//バナナの皮のインスタンス
 };
 
