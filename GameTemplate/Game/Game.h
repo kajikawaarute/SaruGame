@@ -2,6 +2,8 @@
 #include "IGameObject.h"
 #include "Sprite.h"
 #include "RenderTarget.h"
+#include "sound/SoundEngine.h"
+#include "sound/SoundSource.h"
 
 class Player;
 class Stage;
@@ -17,6 +19,9 @@ public:
 	void Update();
 	void Draw();
 private:
+	CSoundEngine m_soundEnigne;					//サウンドエンジン
+	CSoundSource m_gameBGM;						//ゲームのBGM
+
 	Player* m_pl = nullptr;						//プレイヤーのインスタンス
 	Stage* m_stage = nullptr;					//ステージのインスタンス
 	Enemy* m_ene = nullptr;						//エネミーのインスタンス

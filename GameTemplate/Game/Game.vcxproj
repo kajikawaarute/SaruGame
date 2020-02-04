@@ -99,6 +99,10 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundEngine.cpp" />
+    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundSource.cpp" />
+    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFile.cpp" />
+    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFileBank.cpp" />
     <ClCompile Include="BananaPeel.cpp" />
     <ClCompile Include="BananaPeelManager.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
@@ -144,6 +148,10 @@
     <ClCompile Include="system\system.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundEngine.h" />
+    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundSource.h" />
+    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFile.h" />
+    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFileBank.h" />
     <ClInclude Include="BananaPeel.h" />
     <ClInclude Include="BananaPeelManager.h" />
     <ClInclude Include="BoxCollider.h" />

@@ -10,6 +10,10 @@
 
 Game::Game()
 {
+	m_soundEnigne.Init();
+	m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
+	m_gameBGM.Play(true);
+
 	m_pl = g_goMgr.NewGO<Player>();
 	m_stage = g_goMgr.NewGO<Stage>();
 	m_ene = g_goMgr.NewGO<Enemy>();
@@ -38,7 +42,7 @@ Game::~Game()
 
 void Game::Update()
 {
-	
+	m_soundEnigne.Update();
 }
 
 void Game::Draw()
