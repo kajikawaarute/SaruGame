@@ -33,7 +33,7 @@ public:
 private:
 	//IGameObject*の可変長配列を
 	//メンバ変数に追加する。
-	std::vector<IGameObject*> m_goList;		//ゲームオブジェクトのリスト
+	std::list<IGameObject*> m_goList;		//ゲームオブジェクトのリスト
 };
 
 //外部からアクセスするので、extern宣言も必要。

@@ -6,9 +6,11 @@ IGameObjectManager g_goMgr;
 
 void IGameObjectManager::Update()
 {
+	int i = 0;
 	//登録されているゲームオブジェクトの更新処理を呼ぶ。
 	for (auto go : m_goList) {
 		go->Update();
+		i++;
 	}
 	for (auto go : m_goList) {
 		go->Draw();
@@ -20,6 +22,7 @@ void IGameObjectManager::Update()
 			//削除リクエストを受けているので削除。
 			delete* it;
 			it = m_goList.erase(it);
+			//it++;
 		}
 		else {
 			//リクエストを受けていない。

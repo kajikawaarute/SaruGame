@@ -19,13 +19,13 @@ Game::Game()
 	//エフェクトをロード
 	m_effekt = Effekseer::Effect::Create(m_effekseerManager, (const EFK_CHAR*)L"Assets/effect/test.efk");
 	//エフェクトを再生
-	m_playEffectHandle = m_effekseerManager->Play(m_effekt, 0.0f, 0.0f, 0.0f);
+	//m_playEffectHandle = m_effekseerManager->Play(m_effekt, 0.0f, 0.0f, 0.0f);
 
 	m_pl = g_goMgr.NewGO<Player>();
 	m_stage = g_goMgr.NewGO<Stage>();
 	m_ene = g_goMgr.NewGO<Enemy>();
 	m_gCamera = g_goMgr.NewGO<GameCamera>();
-	m_banana = g_goMgr.NewGO<BananaPeel>();
+	//m_banana = g_goMgr.NewGO<BananaPeel>();
 
 	m_saru[0] = g_goMgr.NewGO<Saru>();
 	m_saru[1] = g_goMgr.NewGO<Saru>();
@@ -55,12 +55,12 @@ void Game::Update()
 	//Effekseerを更新
 	m_effekseerManager->Update();
 
-	if (g_pad[0].IsTrigger(enButtonA)) {
-		//再生中のエフェクトを止める。
-		m_effekseerManager->StopEffect(m_playEffectHandle);
-		//再生。
-		m_playEffectHandle = m_effekseerManager->Play(m_effekt, 0.0f, 0.0f, 0.0f);
-	}
+	//if (g_pad[0].IsTrigger(enButtonA)) {
+	//	//再生中のエフェクトを止める。
+	//	m_effekseerManager->StopEffect(m_playEffectHandle);
+	//	//再生。
+	//	m_playEffectHandle = m_effekseerManager->Play(m_effekt, 0.0f, 0.0f, 0.0f);
+	//}
 }
 
 void Game::Draw()

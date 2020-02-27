@@ -2,6 +2,7 @@
 #include "Saru.h"
 #include "Player.h"
 #include "IGameObjectManager.h"
+#include "BananaPeel.h"
 
 Saru::Saru()
 {
@@ -27,6 +28,11 @@ void Saru::Update()
 {
 	Move();
 	Turn();
+
+	if (g_pad[0].IsTrigger(enButtonA)) {
+		BananaPeel* banaPeel = g_goMgr.NewGO<BananaPeel>();
+		banaPeel->SetPosition(m_position);
+	}
 
 	CVector3 saruFoward = CVector3::AxisZ();
 	m_rotation.Multiply(saruFoward);
@@ -74,6 +80,14 @@ void Saru::Update()
 		break;
 	}
 
+	CVector3 moveSpeedXZ = m_moveSpeed;
+	moveSpeedXZ.y = 0.0f;
+	if (toSaruLen > 100.0f && moveSpeedXZ.LengthSq() >= 1.0f * 1.0f && m_bananaCount == 0) {
+		//BananaPeel* banaPeel = g_goMgr.NewGO<BananaPeel>();
+		//banaPeel->SetPosition(m_position);
+		m_bananaCount++;
+	}
+
 	m_animation.Update(1.0f / 30.0f);
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
@@ -100,6 +114,7 @@ void Saru::Draw()
 void Saru::GetSaru()
 {
 	g_goMgr.DeleteGO(this);
+	m_pl->DeleteSaru(this);
 }
 
 void Saru::Turn()

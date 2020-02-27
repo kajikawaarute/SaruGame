@@ -149,7 +149,6 @@ void Player::Fukitobi()
 	{
 		CVector3 toPlayerDir = m_sarus[i]->GetPos() - m_position;
 		m_moveSpeed = toPlayerDir * -1.0f;
-
 	}
 	
 	m_flag = false;
@@ -164,4 +163,18 @@ void Player::Turn()
 	float angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
 
 	m_rotetion.SetRotation(CVector3::AxisY(), angle);
+}
+
+void Player::DeleteSaru(Saru* saru)
+{
+	for (auto it = m_sarus.begin(); it != m_sarus.end();) {
+		if (*it == saru) {
+			it = m_sarus.erase(it);
+			//it++;
+		}
+		else {
+			//リクエストを受けていない。
+			it++;
+		}
+	}
 }

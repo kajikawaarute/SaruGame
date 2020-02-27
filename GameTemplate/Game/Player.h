@@ -56,6 +56,7 @@ public:
 	{
 		m_sarus.push_back(saru);
 	}
+	void DeleteSaru(Saru* saru);
 private:
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -77,6 +78,6 @@ private:
 	int m_timer = 0;
 	bool m_flag = true;
 
-	std::vector<Saru*> m_sarus ;
+	std::vector<Saru*> m_sarus;
 };
 

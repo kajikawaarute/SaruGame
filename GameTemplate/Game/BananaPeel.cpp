@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "BananaPeel.h"
-
+#include "IGameObjectManager.h"
 
 BananaPeel::BananaPeel()
 {
@@ -14,6 +14,15 @@ BananaPeel::~BananaPeel()
 
 void BananaPeel::Update()
 {
+	if (g_pad[0].IsTrigger(enButtonX)){
+		g_goMgr.DeleteGO(this);
+	}
+	m_timer++;
+	if (m_timer == 180)
+	{
+		g_goMgr.DeleteGO(this);
+	}
+
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 

@@ -2,6 +2,7 @@
 #include "IGameObject.h"
 
 class Player;
+class BananaPeel;
 class Saru : public IGameObject
 {
 public:
@@ -67,5 +68,6 @@ private:
 	EnAnimationClip m_enAnimClip;
 	Player* m_pl = nullptr;		//プレイヤーのインスタンス
 	int m_timer = 0;
+	int m_bananaCount = 0;
 };
 
