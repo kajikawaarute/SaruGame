@@ -99,10 +99,6 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundEngine.cpp" />
-    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundSource.cpp" />
-    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFile.cpp" />
-    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFileBank.cpp" />
     <ClCompile Include="BananaPeel.cpp" />
     <ClCompile Include="BananaPeelManager.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
@@ -139,6 +135,10 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Saru.cpp" />
+    <ClCompile Include="sound\SoundEngine.cpp" />
+    <ClCompile Include="sound\SoundSource.cpp" />
+    <ClCompile Include="sound\WaveFile.cpp" />
+    <ClCompile Include="sound\WaveFileBank.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -148,10 +148,6 @@
     <ClCompile Include="system\system.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundEngine.h" />
-    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundSource.h" />
-    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFile.h" />
-    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFileBank.h" />
     <ClInclude Include="BananaPeel.h" />
     <ClInclude Include="BananaPeelManager.h" />
     <ClInclude Include="BoxCollider.h" />
@@ -190,6 +186,10 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Saru.h" />
+    <ClInclude Include="sound\SoundEngine.h" />
+    <ClInclude Include="sound\SoundSource.h" />
+    <ClInclude Include="sound\WaveFile.h" />
+    <ClInclude Include="sound\WaveFileBank.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
@@ -206,6 +206,11 @@
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
     </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Resource\sprite\title-kari.png">
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Resource\sprite\%(Filename).dds</ContentOutput>
+    </ImageContentTask>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

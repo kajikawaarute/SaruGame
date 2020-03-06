@@ -7,12 +7,25 @@
 #include "Saru.h"
 #include "GameCamera.h"
 #include "BananaPeel.h"
+#include "DirectXTK/Inc/SpriteBatch.h"
 
 Game::Game()
 {
 	m_soundEnigne.Init();
 	m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
 	m_gameBGM.Play(true);
+
+	//spriteBatchの初期化
+	//m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(m_deviceContext);
+
+	//画像の読み込み
+	//DirectX::CreateDDSTextureFromFile(
+	//	m_device,							//デバイス
+	//	L"Resource/sprite/title-kari.dds",
+	//	nullptr,
+	//	&m_shaderResourceView				//読み込んだファイルの情報を格納
+	//);
+
 
 	//Effekseerを初期化。
 	InitEffekseer();
@@ -25,10 +38,12 @@ Game::Game()
 	m_stage = g_goMgr.NewGO<Stage>();
 	m_ene = g_goMgr.NewGO<Enemy>();
 	m_gCamera = g_goMgr.NewGO<GameCamera>();
-	//m_banana = g_goMgr.NewGO<BananaPeel>();
 
 	m_saru[0] = g_goMgr.NewGO<Saru>();
 	m_saru[1] = g_goMgr.NewGO<Saru>();
+
+	m_banaPeel = g_goMgr.NewGO<BananaPeel>();
+	m_banaPeel->SetPlayer(m_pl);
 
 	m_saru[0]->SetPos({ 0.0f, 0.0f, 500.0f });
 	m_saru[1]->SetPos({-100.0f, 0.0f, 500.0f});
@@ -61,6 +76,7 @@ void Game::Update()
 	//	//再生。
 	//	m_playEffectHandle = m_effekseerManager->Play(m_effekt, 0.0f, 0.0f, 0.0f);
 	//}
+	
 }
 
 void Game::Draw()
@@ -68,6 +84,13 @@ void Game::Draw()
 	m_effekseerRenderer->BeginRendering();
 	m_effekseerManager->Draw();
 	m_effekseerRenderer->EndRendering();
+
+	//m_spriteBatch.get()->Begin();
+	//m_spriteBatch.get()->Draw(
+	//	m_shaderResourceView,			//読み込んだ画像ファイル
+	//	DirectX::XMFLOAT2(0.0f, 0.0f)	//画像の座標
+	//);
+	//m_spriteBatch.get()->End();
 }
 
 void Game::InitEffekseer()

@@ -57,6 +57,16 @@ public:
 		m_sarus.push_back(saru);
 	}
 	void DeleteSaru(Saru* saru);
+
+	CharacterController GetcharaCon()
+	{
+		return m_charaCon;
+	}
+
+	CQuaternion GetRot()
+	{
+		return m_rotetion;
+	}
 private:
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//座標

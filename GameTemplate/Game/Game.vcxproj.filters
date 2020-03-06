@@ -34,6 +34,9 @@
     <Filter Include="sound">
       <UniqueIdentifier>{dbedddd1-f884-4b3f-9c40-048c39c41f1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\sprite">
+      <UniqueIdentifier>{57f16081-d443-4a92-9112-7a525b9f4f7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -124,16 +127,16 @@
     <ClCompile Include="Saru.cpp" />
     <ClCompile Include="BananaPeel.cpp" />
     <ClCompile Include="BananaPeelManager.cpp" />
-    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFileBank.cpp">
+    <ClCompile Include="sound\SoundEngine.cpp">
       <Filter>sound</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFile.cpp">
+    <ClCompile Include="sound\SoundSource.cpp">
       <Filter>sound</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundSource.cpp">
+    <ClCompile Include="sound\WaveFile.cpp">
       <Filter>sound</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundEngine.cpp">
+    <ClCompile Include="sound\WaveFileBank.cpp">
       <Filter>sound</Filter>
     </ClCompile>
   </ItemGroup>
@@ -234,16 +237,16 @@
     <ClInclude Include="Saru.h" />
     <ClInclude Include="BananaPeel.h" />
     <ClInclude Include="BananaPeelManager.h" />
-    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFileBank.h">
+    <ClInclude Include="sound\SoundEngine.h">
       <Filter>sound</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\WaveFile.h">
+    <ClInclude Include="sound\SoundSource.h">
       <Filter>sound</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundSource.h">
+    <ClInclude Include="sound\WaveFile.h">
       <Filter>sound</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Documents\DirectX\DirectX_3_2018\DirectX_3_2018\Chapter_15_00\Game\sound\SoundEngine.h">
+    <ClInclude Include="sound\WaveFileBank.h">
       <Filter>sound</Filter>
     </ClInclude>
   </ItemGroup>
@@ -269,5 +272,10 @@
     <MeshContentTask Include="Assets\modelData\BananaPeel.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Resource\sprite\title-kari.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>
