@@ -83,8 +83,8 @@ void Saru::Update()
 	CVector3 moveSpeedXZ = m_moveSpeed;
 	moveSpeedXZ.y = 0.0f;
 	if (toSaruLen > 100.0f && moveSpeedXZ.LengthSq() >= 1.0f * 1.0f && m_bananaCount == 0) {
-		//BananaPeel* banaPeel = g_goMgr.NewGO<BananaPeel>();
-		//banaPeel->SetPosition(m_position);
+		BananaPeel* banaPeel = g_goMgr.NewGO<BananaPeel>();
+		banaPeel->SetPosition(m_position);
 		m_bananaCount++;
 	}
 

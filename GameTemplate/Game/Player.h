@@ -79,14 +79,21 @@ private:
 	Animation m_animation;								//アニメーション
 	AnimationClip m_animationClip[3];					//アニメーションクリップ
 	enum EnAnimationClip {
-		enAnim_walk,		//歩きアニメーション
 		enAnim_taiki,		//待機アニメーション
+		enAnim_walk,		//歩きアニメーション
 		enAnim_saruGet,		//サルの捕獲アニメーション
 		enAnim_num			//アニメーションクリップの数
 	};
+	enum EnPlayerState {
+		enPlayer_taiki,		//待機状態
+		enPlayer_walk,		//歩き状態
+		enPlayer_saruGet,	//サルを捕獲
+		enPlayer_num		//状態の数
+	};
 	EnAnimationClip m_enAnimClip;
+
+	EnPlayerState m_enPlayerState;
 	int m_timer = 0;
-	bool m_flag = true;
 
 	std::vector<Saru*> m_sarus;
 };

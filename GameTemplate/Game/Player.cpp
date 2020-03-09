@@ -24,6 +24,8 @@ Player::Player()
 
 	m_enAnimClip = enAnim_taiki;
 
+	m_enPlayerState = enPlayer_taiki;
+
 	m_ghost.CreateBox({1700.0f, 0.0f, -100.0f}, CQuaternion::Identity(), { 300.0f, 30.0f, 200.0f });
 }
 
@@ -35,20 +37,13 @@ Player::~Player()
 void Player::Update()
 {
 
-	if (m_flag == true) {
-		Move();
-	}
-	else {
-		m_flag = true;
-	}
-	m_moveSpeed.y -= 500.0f;
-	Turn();
+	m_moveSpeed.y = -500.0f;
 
-	g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
+	/*g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject) == true) {
 			m_moveSpeed.y = 3000.0f;
 		}
-		});
+		});*/
 
 	if (g_pad[0].IsTrigger(enButtonA))
 	{
@@ -58,6 +53,7 @@ void Player::Update()
 	if (g_pad[0].IsTrigger(enButtonB))
 	{
 		m_enAnimClip = enAnim_saruGet;
+		m_enPlayerState = enPlayer_saruGet;
 	}
 
 	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
@@ -65,35 +61,55 @@ void Player::Update()
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotetion, m_scale);
 
-	m_animation.Update(1.0f / 30.0f);
-
 	CVector3 moveSpeedXZ = m_moveSpeed;
 	moveSpeedXZ.y = 0.0f;
-	
-	switch (m_enAnimClip)
+
+	//プレイヤーの状態
+	switch (m_enPlayerState)
 	{
-	case enAnim_taiki:
-		m_animation.Play(enAnim_taiki);
+	case enPlayer_taiki:	//待機状態
+		Move();
+		m_enAnimClip = enAnim_taiki;
 		if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f) {
-			m_enAnimClip = enAnim_walk;
+			m_enPlayerState = enPlayer_walk;
 		}
 		break;
-	case enAnim_walk:
-		m_animation.Play(enAnim_walk);
+	case enPlayer_walk:		//歩き状態
+		Move();
+		m_enAnimClip = enAnim_walk;
 		if (moveSpeedXZ.LengthSq() <= 1.0f * 1.0f) {
-			m_enAnimClip = enAnim_taiki;
+			m_enPlayerState = enPlayer_taiki;
 		}
 		break;
-	case enAnim_saruGet:
-		m_animation.Play(enAnim_saruGet);
+	case enPlayer_saruGet:	//サルを捕獲
+		GetSaru();
 		m_timer++;
 		if (m_timer == 60) {
-			m_enAnimClip = enAnim_taiki;
+			m_enPlayerState = enPlayer_taiki;
 			m_timer = 0;
 		}
-		GetSaru();
+		m_moveSpeed.x = 0.0f;
+		m_moveSpeed.z = 0.0f;
 		break;
 	}
+
+	//プレイヤーのアニメーション
+	switch (m_enAnimClip)
+	{
+	case enAnim_taiki:		//待機アニメーション
+		m_animation.Play(enAnim_taiki);
+		break;
+	case enAnim_walk:		//歩きアニメーション
+		m_animation.Play(enAnim_walk);
+		break;
+	case enAnim_saruGet:	//サルの捕獲アニメーション
+		m_animation.Play(enAnim_saruGet);
+		break;
+	}
+
+	m_animation.Update(1.0f / 30.0f);
+
+	
 }
 
 void Player::Move()
@@ -113,6 +129,8 @@ void Player::Move()
 	cameraRight.Cross({ 0.0f, 1.0f, 0.0f }, cameraForward);
 	cameraRight.Normalize();
 	m_moveSpeed += cameraRight * StickX;
+
+	Turn();
 }
 
 void Player::Draw()
@@ -150,8 +168,6 @@ void Player::Fukitobi()
 		CVector3 toPlayerDir = m_sarus[i]->GetPos() - m_position;
 		m_moveSpeed = toPlayerDir * -1.0f;
 	}
-	
-	m_flag = false;
 }
 
 void Player::Turn()
