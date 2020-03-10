@@ -57,6 +57,8 @@ public:
 	void InitEffekseer();
 
 	void EffekseerCamera();
+
+	void Angle();
 private:
 	SkinModel m_model;									//スキンモデル
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -64,16 +66,28 @@ private:
 	CVector3 m_scale = CVector3::One();					//拡大率
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
 	Animation m_animation;								//アニメーション
-	AnimationClip m_animClip[3];						//アニメーションクリップ
+	AnimationClip m_animClip[4];						//アニメーションクリップ
 	enum EnAnimationClip {
 		enAnim_taiki,			//待機アニメーション
 		enAnim_run,				//走りアニメーション
 		enAnim_attack,			//攻撃アニメーション
+		enAnim_Get,				//捕獲アニメーション
 		enAnim_num				//アニメーションクリップの数
 	};
+	enum EnSaruSaruState {
+		enSaru_taiki,			//待機状態
+		enSaru_run,				//走り状態
+		enSaru_attack,			//攻撃状態
+		enSaru_Get,				//捕獲状態
+		enSaru_num				//状態の数
+	};
+
 	EnAnimationClip m_enAnimClip;
+	EnSaruSaruState m_enSaruState;
+
 	Player* m_pl = nullptr;		//プレイヤーのインスタンス
 	int m_timer = 0;
+	int m_deathTimer = 0;
 	int m_bananaCount = 0;
 
 	//Effekseerマネージャー管理

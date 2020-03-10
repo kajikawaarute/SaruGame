@@ -8,14 +8,20 @@ Saru::Saru()
 {
 	m_model.Init(L"Assets/modelData/Saru.cmo");
 
+	//アニメーションをロード
 	m_animClip[enAnim_taiki].Load(L"Assets/animData/Saru-taiki.tka");
 	m_animClip[enAnim_run].Load(L"Assets/animData/Saru-run.tka");
 	m_animClip[enAnim_attack].Load(L"Assets/animData/Saru-Attack.tka");
+	m_animClip[enAnim_Get].Load(L"Assets/animData/Saru-Get.tka");
 
 	m_animClip[enAnim_taiki].SetLoopFlag(true);
 	m_animClip[enAnim_run].SetLoopFlag(true);
 
+	//サルの初期アニメーション
 	m_enAnimClip = enAnim_taiki;
+
+	//サルの初期状態
+	m_enSaruState = enSaru_taiki;
 
 	m_animation.Init(m_model, m_animClip, enAnim_num);
 
@@ -31,7 +37,6 @@ Saru::~Saru()
 
 void Saru::Update()
 {
-	Move();
 	Turn();
 
 	if (g_pad[0].IsTrigger(enButtonA)) {
@@ -50,38 +55,62 @@ void Saru::Update()
 
 	float angle = acos(d);
 
-	if (toSaruLen < 100.0f) {
-		m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
-		m_enAnimClip = enAnim_attack;
-	}
-
-	switch (m_enAnimClip)
+	//サルの状態
+	switch (m_enSaruState)
 	{
-	case Saru::enAnim_taiki:
-		m_animation.Play(enAnim_taiki);
+	case Saru::enSaru_taiki:	//待機状態
+		Move();
+		m_enAnimClip = enAnim_taiki;
 		m_moveSpeed = CVector3::Zero();
 		if (fabsf(angle) < CMath::DegToRad(90.0f) && toSaruLen < 500.0f)
 		{
-			m_enAnimClip = enAnim_run;
+			m_enSaruState = enSaru_run;
 		}
+		Angle();
 		break;
-	case Saru::enAnim_run:
-		m_animation.Play(enAnim_run);
+	case Saru::enSaru_run:		//走り状態
+		Move();
+		m_enAnimClip = enAnim_run;
 		m_moveSpeed = toSaruDir;
 		if (toSaruLen > 700.0f)
 		{
-			m_enAnimClip = enAnim_taiki;
+			m_enSaruState = enSaru_taiki;
 		}
+		Angle();
 		break;
-	case Saru::enAnim_attack:
-		m_animation.Play(enAnim_attack);
+	case Saru::enSaru_attack:	//攻撃状態
+		m_enAnimClip = enAnim_attack;
+
+		m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
+
 		m_moveSpeed = CVector3::Zero();
 		m_timer++;
 		m_pl->Fukitobi();
 		if (m_timer == 60) {
+			m_enSaruState = enSaru_taiki;
 			m_enAnimClip = enAnim_taiki;
 			m_timer = 0;
 		}
+		break;
+	case Saru::enSaru_Get:		//捕獲状態
+		m_enAnimClip = enAnim_Get;
+		break;
+	}
+
+	//サルのアニメーション
+	switch (m_enAnimClip)
+	{
+	case Saru::enAnim_taiki:		//待機アニメーション
+		m_animation.Play(enAnim_taiki);
+		break;
+	case Saru::enAnim_run:			//走りアニメーション
+		m_animation.Play(enAnim_run);
+		break;
+	case Saru::enAnim_attack:		//攻撃アニメーション
+		m_animation.Play(enAnim_attack);
+		break;
+	case Saru::enAnim_Get:			//捕獲アニメーション
+		m_animation.Play(enAnim_Get);
 		break;
 	}
 
@@ -101,13 +130,6 @@ void Saru::Update()
 
 	//Effekseerを更新
 	m_effekseerManager->Update();
-
-	if (g_pad[0].IsTrigger(enButtonA)) {
-		//再生中のエフェクトを止める。
-		m_effekseerManager->StopEffect(m_playEffectHandle);
-		//再生。
-		m_playEffectHandle = m_effekseerManager->Play(m_effekt, m_position.x, m_position.y, m_position.z);
-	}
 }
 
 void Saru::Move()
@@ -134,8 +156,16 @@ void Saru::Draw()
 
 void Saru::GetSaru()
 {
-	g_goMgr.DeleteGO(this);
-	m_pl->DeleteSaru(this);
+	m_enSaruState = enSaru_Get;
+	m_deathTimer++;
+	if (m_deathTimer == 1) {
+		//エフェクトを再生。
+		m_playEffectHandle = m_effekseerManager->Play(m_effekt, m_position.x, m_position.y, m_position.z);
+	}
+	if (m_deathTimer == 60) {
+		g_goMgr.DeleteGO(this);
+		m_pl->DeleteSaru(this);
+	}
 }
 
 void Saru::Turn()
@@ -184,4 +214,15 @@ void Saru::EffekseerCamera()
 	//カメラ行列とプロジェクション行列を設定。
 	m_effekseerRenderer->SetCameraMatrix(efCameraMat);
 	m_effekseerRenderer->SetProjectionMatrix(efProjMat);
+}
+
+void Saru::Angle()
+{
+	//サルからプレイヤーに伸びるベクトルを求める。
+	CVector3 toSaruDir = m_pl->GetPos() - m_position;
+	float toSaruLen = toSaruDir.Length();
+
+	if (toSaruLen < 90.0f) {
+		m_enSaruState = enSaru_attack;
+	}
 }
