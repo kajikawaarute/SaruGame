@@ -51,6 +51,12 @@ public:
 	{
 		m_pl = player;
 	}
+	/// <summary>
+	/// Effekserの初期化
+	/// </summary>
+	void InitEffekseer();
+
+	void EffekseerCamera();
 private:
 	SkinModel m_model;									//スキンモデル
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -69,5 +75,12 @@ private:
 	Player* m_pl = nullptr;		//プレイヤーのインスタンス
 	int m_timer = 0;
 	int m_bananaCount = 0;
+
+	//Effekseerマネージャー管理
+	Effekseer::Manager* m_effekseerManager = nullptr;
+	EffekseerRenderer::Renderer* m_effekseerRenderer = nullptr;
+
+	Effekseer::Effect* m_effekt = nullptr;		//エフェクト
+	Effekseer::Handle m_playEffectHandle = -1;
 };
 
