@@ -198,8 +198,7 @@
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\BananaPeel.fbx" />
     <MeshContentTask Include="Assets\modelData\Enemy-kari.fbx" />
-    <MeshContentTask Include="Assets\modelData\GetAmi.fbx" />
-    <MeshContentTask Include="Assets\modelData\Player-kari.fbx" />
+    <MeshContentTask Include="Assets\modelData\Player.fbx" />
     <MeshContentTask Include="Assets\modelData\Saru.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_01.fbx" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

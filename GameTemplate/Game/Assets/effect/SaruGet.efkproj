@@ -8,7 +8,19 @@
           <MaxGeneration>
             <Value>100</Value>
           </MaxGeneration>
-          <LocationEffectType>3</LocationEffectType>
+          <LocationEffectType>1</LocationEffectType>
+          <RotationEffectType>1</RotationEffectType>
+          <ScaleEffectType>1</ScaleEffectType>
+          <Life>
+            <Center>55</Center>
+            <Max>55</Max>
+            <Min>55</Min>
+          </Life>
+          <GenerationTime>
+            <Center>0.1</Center>
+            <Max>0.1</Max>
+            <Min>0.1</Min>
+          </GenerationTime>
         </CommonValues>
         <LocationValues>
           <Type>1</Type>
@@ -55,6 +67,11 @@
             <Max>20</Max>
             <Min>20</Min>
           </Life>
+          <GenerationTime>
+            <Center>0.4</Center>
+            <Max>0.4</Max>
+            <Min>0.4</Min>
+          </GenerationTime>
           <GenerationTimeOffset>
             <Center>10</Center>
             <Max>10</Max>
@@ -178,6 +195,6 @@
   <ToolVersion>1.32</ToolVersion>
   <Version>3</Version>
   <StartFrame>0</StartFrame>
-  <EndFrame>120</EndFrame>
+  <EndFrame>60</EndFrame>
   <IsLoop>True</IsLoop>
 </EffekseerProject>

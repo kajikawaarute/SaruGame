@@ -6,15 +6,15 @@
 Player::Player()
 {
 	//cmoファイルの読み込み。
-	m_model.Init(L"Assets/modelData/Player-kari.cmo");
+	m_model.Init(L"Assets/modelData/Player.cmo");
 
 	//キャラクターコントローラーの初期化
 	m_charaCon.Init(50.0f, 100.0f, m_position);
 	
 	//ぷれいやーのアニメーションをロード
-	m_animationClip[enAnim_walk].Load(L"Assets/animData/Player-kari-walk.tka");
-	m_animationClip[enAnim_taiki].Load(L"Assets/animData/Player-kari-taiki.tka");
-	m_animationClip[enAnim_saruGet].Load(L"Assets/animData/Player-kari-saruGet.tka");
+	m_animationClip[enAnim_walk].Load(L"Assets/animData/Player-walk.tka");
+	m_animationClip[enAnim_taiki].Load(L"Assets/animData/Player-taiki.tka");
+	m_animationClip[enAnim_saruGet].Load(L"Assets/animData/Player-SaruGet.tka");
 	
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 	m_animationClip[enAnim_taiki].SetLoopFlag(true);
