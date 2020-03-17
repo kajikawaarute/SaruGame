@@ -81,7 +81,7 @@ void Saru::Update()
 	case Saru::enState_attack:	//UŒ‚ó‘Ô
 		Attack();
 		m_taikiTimer++;
-		if (m_taikiTimer == 30) {
+		if (m_taikiTimer == 60) {
 			m_enSaruState = enState_taiki;
 			m_enAnimClip = enAnim_taiki;
 			m_taikiTimer = 0;
@@ -230,7 +230,7 @@ void Saru::Attack()
 
 	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
 
-	m_pl->GetMoveSpd() = toSaruDir * 3.0f;
+	m_pl->GetMoveSpd() = toSaruDir * 2.0f;
 
 	m_pl->Attacked();
 }
