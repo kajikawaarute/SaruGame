@@ -15,6 +15,7 @@ Player::Player()
 	m_animationClip[enAnim_walk].Load(L"Assets/animData/Player-walk.tka");
 	m_animationClip[enAnim_taiki].Load(L"Assets/animData/Player-taiki.tka");
 	m_animationClip[enAnim_saruGet].Load(L"Assets/animData/Player-SaruGet.tka");
+	m_animationClip[enAnim_attacked].Load(L"Assets/animData/Player-attacked.tka");
 	
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 	m_animationClip[enAnim_taiki].SetLoopFlag(true);
@@ -92,6 +93,7 @@ void Player::Update()
 		m_moveSpeed.z = 0.0f;
 		break;
 	case enState_attacked:	//攻撃された状態
+		m_enAnimClip = enAnim_attacked;
 		break;
 	}
 
@@ -106,6 +108,9 @@ void Player::Update()
 		break;
 	case enAnim_saruGet:	//サルの捕獲アニメーション
 		m_animation.Play(enAnim_saruGet);
+		break;
+	case enAnim_attacked:	//攻撃されたときのアニメーション
+		m_animation.Play(enAnim_attacked);
 		break;
 	}
 
@@ -193,7 +198,7 @@ void Player::Attacked()
 	m_enPlayerState = enState_attacked;
 
 	m_attacked_taikiTimer++;
-	if (m_attacked_taikiTimer == 30) {
+	if (m_attacked_taikiTimer == 60) {
 		m_enPlayerState = enState_taiki;
 		m_attacked_taikiTimer = 0;
 	}

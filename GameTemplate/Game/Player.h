@@ -95,11 +95,12 @@ private:
 
 	PhysicsGhostObject m_ghost;							//ゴーストオブジェクト
 	Animation m_animation;								//アニメーション
-	AnimationClip m_animationClip[3];					//アニメーションクリップ
+	AnimationClip m_animationClip[4];					//アニメーションクリップ
 	enum EnAnimationClip {
 		enAnim_taiki,		//待機アニメーション
 		enAnim_walk,		//歩きアニメーション
 		enAnim_saruGet,		//サルの捕獲アニメーション
+		enAnim_attacked,	//攻撃されたときのアニメーション
 		enAnim_num			//アニメーションクリップの数
 	};
 	enum EnPlayerState {
