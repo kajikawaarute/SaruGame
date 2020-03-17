@@ -20,6 +20,22 @@ public:
 	/// サルの描画関数
 	/// </summary>
 	void Draw();
+	
+	/// <summary>
+	/// サルが捕まえられた時の処理
+	/// </summary>
+	void GetSaru();
+
+	/// <summary>
+	/// サルの攻撃処理
+	/// </summary>
+	void Attack();
+
+	/// <summary>
+	/// サルの回転処理
+	/// </summary>
+	void Turn();
+
 	/// <summary>
 	/// サルの座標を取得
 	/// </summary>
@@ -37,15 +53,6 @@ public:
 	{
 		return m_position = pos;
 	}
-	/// <summary>
-	/// サルが捕まえられた時の処理
-	/// </summary>
-	void GetSaru();
-
-	/// <summary>
-	/// サルの回転処理
-	/// </summary>
-	void Turn();
 
 	void SetPlayer(Player* player)
 	{
@@ -55,10 +62,15 @@ public:
 	/// Effekserの初期化
 	/// </summary>
 	void InitEffekseer();
-
+	/// <summary>
+	/// Effekseerカメラ
+	/// </summary>
 	void EffekseerCamera();
 
-	void Angle();
+	/// <summary>
+	/// サルからプレイヤーまでの距離
+	/// </summary>
+	void Distance();
 private:
 	SkinModel m_model;									//スキンモデル
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -75,20 +87,20 @@ private:
 		enAnim_num				//アニメーションクリップの数
 	};
 	enum EnSaruSaruState {
-		enSaru_taiki,			//待機状態
-		enSaru_run,				//走り状態
-		enSaru_attack,			//攻撃状態
-		enSaru_Get,				//捕獲状態
-		enSaru_num				//状態の数
+		enState_taiki,			//待機状態
+		enState_run,			//走り状態
+		enState_attack,			//攻撃状態
+		enState_Get,			//捕獲状態
+		enState_num				//状態の数
 	};
 
 	EnAnimationClip m_enAnimClip;
 	EnSaruSaruState m_enSaruState;
 
 	Player* m_pl = nullptr;		//プレイヤーのインスタンス
-	int m_timer = 0;
-	int m_deathTimer = 0;
-	int m_bananaCount = 0;
+	int m_taikiTimer = 0;		//待機状態になるまでのタイマー
+	int m_deathTimer = 0;		//捕獲されるまでのタイマー
+	int m_bananaCount = 0;		
 
 	//Effekseerマネージャー管理
 	Effekseer::Manager* m_effekseerManager = nullptr;

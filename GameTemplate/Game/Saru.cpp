@@ -21,7 +21,7 @@ Saru::Saru()
 	m_enAnimClip = enAnim_taiki;
 
 	//サルの初期状態
-	m_enSaruState = enSaru_taiki;
+	m_enSaruState = enState_taiki;
 
 	m_animation.Init(m_model, m_animClip, enAnim_num);
 
@@ -58,41 +58,36 @@ void Saru::Update()
 	//サルの状態
 	switch (m_enSaruState)
 	{
-	case Saru::enSaru_taiki:	//待機状態
+	case Saru::enState_taiki:	//待機状態
 		Move();
 		m_enAnimClip = enAnim_taiki;
 		m_moveSpeed = CVector3::Zero();
 		if (fabsf(angle) < CMath::DegToRad(90.0f) && toSaruLen < 500.0f)
 		{
-			m_enSaruState = enSaru_run;
+			m_enSaruState = enState_run;
 		}
-		Angle();
+		Distance();
 		break;
-	case Saru::enSaru_run:		//走り状態
+	case Saru::enState_run:		//走り状態
 		Move();
 		m_enAnimClip = enAnim_run;
 		m_moveSpeed = toSaruDir;
 		if (toSaruLen > 700.0f)
 		{
-			m_enSaruState = enSaru_taiki;
+			m_enSaruState = enState_taiki;
 		}
-		Angle();
+		Distance();
 		break;
-	case Saru::enSaru_attack:	//攻撃状態
-		m_enAnimClip = enAnim_attack;
-
-		m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
-
-		m_moveSpeed = CVector3::Zero();
-		m_timer++;
-		m_pl->Fukitobi();
-		if (m_timer == 60) {
-			m_enSaruState = enSaru_taiki;
+	case Saru::enState_attack:	//攻撃状態
+		Attack();
+		m_taikiTimer++;
+		if (m_taikiTimer == 30) {
+			m_enSaruState = enState_taiki;
 			m_enAnimClip = enAnim_taiki;
-			m_timer = 0;
+			m_taikiTimer = 0;
 		}
 		break;
-	case Saru::enSaru_Get:		//捕獲状態
+	case Saru::enState_Get:		//捕獲状態
 		m_enAnimClip = enAnim_Get;
 		break;
 	}
@@ -156,13 +151,13 @@ void Saru::Draw()
 
 void Saru::GetSaru()
 {
-	m_enSaruState = enSaru_Get;
+	m_enSaruState = enState_Get;
 	m_deathTimer++;
 	if (m_deathTimer == 1) {
 		//エフェクトを再生。
 		m_playEffectHandle = m_effekseerManager->Play(m_effekt, m_position.x, m_position.y, m_position.z);
 	}
-	if (m_deathTimer == 60) {
+	if (m_deathTimer == 30) {
 		g_goMgr.DeleteGO(this);
 		m_pl->DeleteSaru(this);
 	}
@@ -216,13 +211,26 @@ void Saru::EffekseerCamera()
 	m_effekseerRenderer->SetProjectionMatrix(efProjMat);
 }
 
-void Saru::Angle()
+void Saru::Distance()
 {
 	//サルからプレイヤーに伸びるベクトルを求める。
 	CVector3 toSaruDir = m_pl->GetPos() - m_position;
 	float toSaruLen = toSaruDir.Length();
 
 	if (toSaruLen < 90.0f) {
-		m_enSaruState = enSaru_attack;
+		m_enSaruState = enState_attack;
 	}
+}
+
+void Saru::Attack()
+{
+	m_enAnimClip = enAnim_attack;
+	//サルからプレイヤーに伸びるベクトルを求める。
+	CVector3 toSaruDir = m_pl->GetPos() - m_position;
+
+	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
+
+	m_pl->GetMoveSpd() = toSaruDir * 3.0f;
+
+	m_pl->Attacked();
 }
