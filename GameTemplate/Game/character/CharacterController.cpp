@@ -176,7 +176,7 @@ const CVector3& CharacterController::Execute(float deltaTime, CVector3& moveSpee
 			if (callback.isHit) {
 				//当たった。
 				//壁。
-#if 1
+#if 0
 				//こちらを有効にすると衝突解決が衝突点に戻すになる。
 				nextPosition.x = callback.hitPos.x;
 				nextPosition.z = callback.hitPos.z;
@@ -259,7 +259,7 @@ const CVector3& CharacterController::Execute(float deltaTime, CVector3& moveSpee
 		}
 		else {
 			//地面上にいない場合は1m下を見る。
-			endPos.y -= 1.0f;
+			endPos.y -= 100.0f;
 		}
 		end.setOrigin(btVector3(endPos.x, endPos.y, endPos.z));
 		SweepResultGround callback;
