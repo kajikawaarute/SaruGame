@@ -38,7 +38,7 @@ Player::~Player()
 void Player::Update()
 {
 
-	m_moveSpeed.y = -500.0f;
+	m_moveSpeed.y -= 50.0f;
 
 	g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject) == true) {
@@ -101,16 +101,16 @@ void Player::Update()
 	switch (m_enAnimClip)
 	{
 	case enAnim_taiki:		//待機アニメーション
-		m_animation.Play(enAnim_taiki);
+		m_animation.Play(enAnim_taiki, animTime);
 		break;
 	case enAnim_walk:		//歩きアニメーション
-		m_animation.Play(enAnim_walk);
+		m_animation.Play(enAnim_walk, animTime);
 		break;
 	case enAnim_saruGet:	//サルの捕獲アニメーション
-		m_animation.Play(enAnim_saruGet);
+		m_animation.Play(enAnim_saruGet, animTime);
 		break;
 	case enAnim_attacked:	//攻撃されたときのアニメーション
-		m_animation.Play(enAnim_attacked);
+		m_animation.Play(enAnim_attacked, animTime);
 		break;
 	}
 
@@ -130,7 +130,8 @@ void Player::Move()
 	CVector3 cameraForward = g_camera3D.GetTarget() - g_camera3D.GetPosition();
 	cameraForward.y = 0.0f;
 	cameraForward.Normalize();
-	m_moveSpeed = cameraForward * StickZ;
+	m_moveSpeed.x = cameraForward.x * StickZ;
+	m_moveSpeed.z = cameraForward.z * StickZ;
 
 	CVector3 cameraRight;
 	cameraRight.Cross({ 0.0f, 1.0f, 0.0f }, cameraForward);

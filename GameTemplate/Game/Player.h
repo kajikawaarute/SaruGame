@@ -76,7 +76,7 @@ public:
 	/// </summary>
 	void Attacked();
 
-	CharacterController GetcharaCon()
+	CharacterController& GetcharaCon()
 	{
 		return m_charaCon;
 	}
@@ -115,6 +115,8 @@ private:
 	EnPlayerState m_enPlayerState;
 	int m_saruGet_taikiTimer = 0;			//捕獲状態から待機状態になるまでのタイマー
 	int m_attacked_taikiTimer = 0;			//攻撃された状態から待機状態になるまでのタイマー
+
+	const float animTime = 0.2f;
 
 	std::vector<Saru*> m_sarus;
 };
