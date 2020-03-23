@@ -1,5 +1,7 @@
 #pragma once
 #include "IGameObject.h"
+#include "sound/SoundEngine.h"
+#include "sound/SoundSource.h"
 
 class Player;
 class BananaPeel;
@@ -108,5 +110,8 @@ private:
 
 	Effekseer::Effect* m_effekt = nullptr;		//エフェクト
 	Effekseer::Handle m_playEffectHandle = -1;
+
+	CSoundSource m_saru_getAmiSE;			//捕獲されたときのSE
+	CSoundSource m_saru_attackSE;			//攻撃したときのSE
 };
 

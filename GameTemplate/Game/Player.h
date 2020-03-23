@@ -2,6 +2,8 @@
 #include "character/CharacterController.h"
 #include "IGameObject.h"
 #include "PhysicsGhostObject.h"
+#include "sound/SoundEngine.h"
+#include "sound/SoundSource.h"
 
 class Saru;
 class Player : public IGameObject
@@ -116,7 +118,10 @@ private:
 	int m_saruGet_taikiTimer = 0;			//捕獲状態から待機状態になるまでのタイマー
 	int m_attacked_taikiTimer = 0;			//攻撃された状態から待機状態になるまでのタイマー
 
-	const float animTime = 0.2f;
+	const float animTime = 0.2f;			//アニメーションの補間時間
+
+	CSoundSource m_player_walkSE;			//歩いている時のSE
+	CSoundSource m_player_AmiSE;			//アミを振った時のSE
 
 	std::vector<Saru*> m_sarus;
 };

@@ -23,8 +23,14 @@ Player::Player()
 	//アニメーションを初期化
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
 
+	//サウンドエンジンを初期化
+	m_player_walkSE.Init(L"Assets/Sound/PlayerSE_walk.wav");
+	m_player_AmiSE.Init(L"Assets/Sound/PlayerSE_Ami.wav");
+
+	//プレイヤーの初期アニメーション
 	m_enAnimClip = enAnim_taiki;
 
+	//プレイヤーの初期状態
 	m_enPlayerState = enState_taiki;
 
 	m_ghost.CreateBox({1700.0f, 0.0f, -100.0f}, CQuaternion::Identity(), { 300.0f, 30.0f, 200.0f });
@@ -104,9 +110,11 @@ void Player::Update()
 		m_animation.Play(enAnim_taiki, animTime);
 		break;
 	case enAnim_walk:		//歩きアニメーション
+		m_player_walkSE.Play(false);
 		m_animation.Play(enAnim_walk, animTime);
 		break;
 	case enAnim_saruGet:	//サルの捕獲アニメーション
+		m_player_AmiSE.Play(false);
 		m_animation.Play(enAnim_saruGet, animTime);
 		break;
 	case enAnim_attacked:	//攻撃されたときのアニメーション
@@ -115,8 +123,6 @@ void Player::Update()
 	}
 
 	m_animation.Update(1.0f / 30.0f);
-
-	
 }
 
 void Player::Move()
