@@ -271,7 +271,7 @@
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Resource\sprite\title-kari.png">
+    <ImageContentTask Include="Assets\sprite\title-kari.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

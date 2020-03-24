@@ -30,6 +30,22 @@ public:
 	{
 		return m_pd3dDeviceContext;
 	}
+	/// <summary>
+	/// スプライトバッチを取得
+	/// </summary>
+	/// <returns></returns>
+	DirectX::SpriteBatch* GetSpriteBatch()
+	{
+		return m_spriteBatch.get();
+	}
+	/// <summary>
+	/// D3D11デバイスを取得
+	/// </summary>
+	/// <returns></returns>
+	ID3D11Device* GetDevice()
+	{
+		return m_pd3dDevice;
+	}
 	/*!
 	 *@brief	描画開始。
 	 */
@@ -47,6 +63,8 @@ private:
 	ID3D11RasterizerState*	m_rasterizerState = NULL;	//ラスタライザステート。
 	ID3D11Texture2D*		m_depthStencil = NULL;		//デプスステンシル。
 	ID3D11DepthStencilView* m_depthStencilView = NULL;	//デプスステンシルビュー。
+
+	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;	//スプライトバッチ
 
 };
 
