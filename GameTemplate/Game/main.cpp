@@ -2,8 +2,7 @@
 #include "system/system.h"
 #include "level/Level.h"
 #include "IGameObjectManager.h"
-#include "Game.h"
-#include "Stage.h"
+#include "Title.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -13,8 +12,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームの初期化。
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
 
-	//Gameクラスのインスタンス
-	Game* game = g_goMgr.NewGO<Game>();
+	//Titleクラスのインスタンス
+	Title* title = g_goMgr.NewGO<Title>();
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)

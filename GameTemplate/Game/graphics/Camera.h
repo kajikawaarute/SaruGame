@@ -105,7 +105,7 @@ private:
 	CMatrix	m_viewMatrix = CMatrix::Identity();		//ビュー行列。
 	CMatrix m_projMatrix = CMatrix::Identity();		//プロジェクション行列。
 	CVector3 m_target = CVector3::Zero();			//注視点。
-	CVector3 m_position = CVector3::Zero();			//視点。
+	CVector3 m_position = {0.0f, 1.0f, 1.0f};		//視点。
 	CVector3 m_up = CVector3::Up();					//上方向。
 	CVector3 m_forward = CVector3::Front();			//前方向。
 	CVector3 m_right = CVector3::Right();			//右方向

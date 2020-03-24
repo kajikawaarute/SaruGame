@@ -9,6 +9,7 @@ class Stage;
 class Enemy;
 class GameCamera;
 class Saru;
+class Title;
 class Game : public IGameObject
 {
 public:
@@ -23,11 +24,6 @@ public:
 private:
 	CSoundEngine m_soundEnigne;					//サウンドエンジン
 	CSoundSource m_gameBGM;						//ゲームのBGM
-
-	ID3D11Device* m_device;									//構築済み
-	ID3D11DeviceContext* m_deviceContext;					//構築済み
-	DirectX::SpriteBatch* m_spriteBatch;					//スプライトバッチ
-	ID3D11ShaderResourceView* m_shaderResourceView;			//読み込んだ画像ファイルの保存先
 
 	Player* m_pl = nullptr;						//プレイヤーのインスタンス
 	Stage* m_stage = nullptr;					//ステージのインスタンス
