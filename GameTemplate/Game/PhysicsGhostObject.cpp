@@ -42,3 +42,11 @@ void PhysicsGhostObject::CreateCommon(CVector3 pos, CQuaternion rot)
 	g_physics.AddCollisionObject(m_ghostObject);
 	m_isRegistPhysicsWorld = true;
 }
+
+void PhysicsGhostObject::SetPosition(const CVector3& pos)
+{
+		auto& btTrans = m_ghostObject.getWorldTransform();
+		btVector3 btPos;
+		pos.CopyTo(btPos);
+		btTrans.setOrigin(btPos);
+}

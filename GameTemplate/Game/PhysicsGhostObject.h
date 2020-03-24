@@ -27,6 +27,11 @@ public:
 	{
 		return &ghost == &m_ghostObject;
 	}
+	/// <summary>
+	/// 座標を設定
+	/// </summary>
+	/// <param name="pos"></param>
+	void SetPosition(const CVector3& pos);
 private:
 
 	bool m_isRegistPhysicsWorld = false;	//物理ワールドに登録しているかのどうかのフラグ
