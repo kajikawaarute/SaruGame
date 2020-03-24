@@ -121,6 +121,7 @@ void Saru::Update()
 	moveSpeedXZ.y = 0.0f;
 	if (toSaruLen > 100.0f && moveSpeedXZ.LengthSq() >= 1.0f * 1.0f && m_bananaCount == 0) {
 		BananaPeel* banaPeel = g_goMgr.NewGO<BananaPeel>();
+		banaPeel->SetPlayer(m_pl);
 		banaPeel->SetPosition(m_position);
 		m_bananaCount++;
 	}

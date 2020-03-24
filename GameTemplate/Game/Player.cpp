@@ -210,3 +210,10 @@ void Player::Attacked()
 		m_attacked_taikiTimer = 0;
 	}
 }
+
+void Player::Slip()
+{
+	CQuaternion addRot;
+	addRot.SetRotationDeg(CVector3::AxisY(), 5.0f);
+	m_rotation.Multiply(addRot);
+}

@@ -3,6 +3,14 @@ class IGameObject
 {
 public:
 	/// <summary>
+	/// 
+	/// </summary>
+	virtual bool Start()
+	{
+		return true;
+	};
+
+	/// <summary>
 	/// XVŠÖ”
 	/// </summary>
 	virtual void Update() = 0;

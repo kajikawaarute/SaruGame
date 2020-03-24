@@ -6,6 +6,9 @@ IGameObjectManager g_goMgr;
 
 void IGameObjectManager::Update()
 {
+	for (auto go : m_goList) {
+		go->Start();
+	}
 	int i = 0;
 	//登録されているゲームオブジェクトの更新処理を呼ぶ。
 	for (auto go : m_goList) {

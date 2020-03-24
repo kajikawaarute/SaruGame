@@ -52,6 +52,16 @@ public:
 	{
 		return m_moveSpeed;
 	}
+
+	/// <summary>
+	/// キャラクターコントローラーを取得
+	/// </summary>
+	/// <returns></returns>
+	CharacterController& GetcharaCon()
+	{
+		return m_charaCon;
+	}
+
 	/// <summary>
 	/// サルを捕まえた時の処理
 	/// </summary>
@@ -78,15 +88,10 @@ public:
 	/// </summary>
 	void Attacked();
 
-	CharacterController& GetcharaCon()
-	{
-		return m_charaCon;
-	}
-
-	CQuaternion GetRot()
-	{
-		return m_rotation;
-	}
+	/// <summary>
+	/// バナナの皮で滑った時の処理
+	/// </summary>
+	void Slip();
 private:
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//座標

@@ -20,18 +20,18 @@ void BananaPeel::Update()
 		g_goMgr.DeleteGO(this);
 		m_ghost.Release();
 	}
-	m_timer++;
-	if (m_timer == 180)
+	m_deathTimer++;
+	if (m_deathTimer == 180)
 	{
 		g_goMgr.DeleteGO(this);
 		m_ghost.Release();
 	}
 
-	/*g_physics.ContactTest(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
-		if (m_ghost.IsSelf(contactObject) == true) {
-			Slip(m_pl->GetRot());
+	g_physics.ContactTest(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
+		if (m_ghost.IsSelf(contactObject)) {
+			m_pl->Slip();
 		}
-		});*/
+		});
 
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
