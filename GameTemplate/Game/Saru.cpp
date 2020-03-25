@@ -44,10 +44,11 @@ void Saru::Update()
 {
 	Turn();
 
-	if (g_pad[0].IsTrigger(enButtonA)) {
+	if (g_pad[0].IsTrigger(enButtonY)) {
 		BananaPeel* banaPeel = g_goMgr.NewGO<BananaPeel>();
 		banaPeel->SetPlayer(m_pl);
 		banaPeel->SetPosition(m_position);
+		banaPeel->GetGhost().SetPosition(m_position);
 	}
 
 	CVector3 saruFoward = CVector3::AxisZ();
@@ -123,6 +124,7 @@ void Saru::Update()
 		BananaPeel* banaPeel = g_goMgr.NewGO<BananaPeel>();
 		banaPeel->SetPlayer(m_pl);
 		banaPeel->SetPosition(m_position);
+		banaPeel->GetGhost().SetPosition(m_position);
 		m_bananaCount++;
 	}
 

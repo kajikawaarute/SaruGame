@@ -6,7 +6,7 @@
 BananaPeel::BananaPeel()
 {
 	m_model.Init(L"Assets/modelData/BananaPeel.cmo");
-	m_ghost.CreateBox(m_position, m_rotation, m_scale);
+	m_ghost.CreateBox(m_position, m_rotation, {10.0f, 50.0f, 10.0f});
 }
 
 

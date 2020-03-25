@@ -32,6 +32,11 @@ public:
 	{
 		m_pl = player;
 	}
+
+	PhysicsGhostObject& GetGhost()
+	{
+		return m_ghost;
+	}
 private:
 	SkinModel m_model;
 	CVector3 m_position = CVector3::Zero();				//ç¿ïW
