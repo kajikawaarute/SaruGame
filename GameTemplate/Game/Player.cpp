@@ -16,6 +16,7 @@ Player::Player()
 	m_animationClip[enAnim_taiki].Load(L"Assets/animData/Player-taiki.tka");
 	m_animationClip[enAnim_saruGet].Load(L"Assets/animData/Player-SaruGet.tka");
 	m_animationClip[enAnim_attacked].Load(L"Assets/animData/Player-attacked.tka");
+	m_animationClip[enAnim_jump].Load(L"Assets/animData/Player-jump.tka");
 	
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 	m_animationClip[enAnim_taiki].SetLoopFlag(true);
@@ -23,9 +24,11 @@ Player::Player()
 	//アニメーションを初期化
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
 
-	//サウンドエンジンを初期化
+	//サウンドソースを初期化
 	m_player_walkSE.Init(L"Assets/Sound/PlayerSE_walk.wav");
 	m_player_AmiSE.Init(L"Assets/Sound/PlayerSE_Ami.wav");
+	m_player_walkSE.Init(L"Assets/Sound/PlayerSE_walk.wav");
+	m_player_JumpSE.Init(L"Assets/Sound/PlayerSE_Jump.wav");
 
 	//プレイヤーの初期アニメーション
 	m_enAnimClip = enAnim_taiki;
@@ -54,12 +57,12 @@ void Player::Update()
 
 	if (g_pad[0].IsTrigger(enButtonA))
 	{
-		m_moveSpeed.y = 1000.0f;
+		m_player_JumpSE.Play(false);
+		Jump();
 	}
 
 	if (g_pad[0].IsTrigger(enButtonB))
 	{
-		m_enAnimClip = enAnim_saruGet;
 		m_enPlayerState = enState_saruGet;
 	}
 
@@ -74,7 +77,7 @@ void Player::Update()
 	//プレイヤーの状態
 	switch (m_enPlayerState)
 	{
-	case enState_taiki:	//待機状態
+	case enState_taiki:		//待機状態
 		Move();
 		m_enAnimClip = enAnim_taiki;
 		if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f) {
@@ -90,6 +93,7 @@ void Player::Update()
 		break;
 	case enState_saruGet:	//サルを捕獲
 		GetSaru();
+		m_enAnimClip = enAnim_saruGet;
 		m_saruGet_taikiTimer++;
 		if (m_saruGet_taikiTimer == 30) {
 			m_enPlayerState = enState_taiki;
@@ -100,6 +104,15 @@ void Player::Update()
 		break;
 	case enState_attacked:	//攻撃された状態
 		m_enAnimClip = enAnim_attacked;
+		break;
+	case enState_slip:		//滑っている状態
+		break;
+	case enState_Jump:		//ジャンプ状態
+		m_enAnimClip = enAnim_jump;
+		Move();
+		if (m_charaCon.IsOnGround()) {
+			m_enPlayerState = enState_taiki;
+		}
 		break;
 	}
 
@@ -119,6 +132,9 @@ void Player::Update()
 		break;
 	case enAnim_attacked:	//攻撃されたときのアニメーション
 		m_animation.Play(enAnim_attacked, animTime);
+		break;
+	case enAnim_jump:		//ジャンプアニメーション
+		m_animation.Play(enAnim_jump, animTime);
 		break;
 	}
 
@@ -213,7 +229,17 @@ void Player::Attacked()
 
 void Player::Slip()
 {
+	m_enPlayerState = enState_slip;
+	m_moveSpeed.x = 0.0f;
+	m_moveSpeed.z = 0.0f;
+
 	CQuaternion addRot;
 	addRot.SetRotationDeg(CVector3::AxisY(), 5.0f);
 	m_rotation.Multiply(addRot);
+}
+
+void Player::Jump()
+{
+	m_moveSpeed.y = 1000.0f;
+	m_enPlayerState = enState_Jump;
 }

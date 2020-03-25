@@ -23,7 +23,7 @@ Title::~Title()
 
 void Title::Update()
 {
-	if (g_pad[0].IsTrigger(enButtonA))
+	if (g_pad[0].IsTrigger(enButtonStart))
 	{
 		m_game = g_goMgr.NewGO<Game>();
 		g_goMgr.DeleteGO(this);

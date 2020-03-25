@@ -92,6 +92,11 @@ public:
 	/// バナナの皮で滑った時の処理
 	/// </summary>
 	void Slip();
+
+	/// <summary>
+	/// ジャンプしている時の処理
+	/// </summary>
+	void Jump();
 private:
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -102,12 +107,13 @@ private:
 
 	PhysicsGhostObject m_ghost;							//ゴーストオブジェクト
 	Animation m_animation;								//アニメーション
-	AnimationClip m_animationClip[4];					//アニメーションクリップ
+	AnimationClip m_animationClip[5];					//アニメーションクリップ
 	enum EnAnimationClip {
 		enAnim_taiki,		//待機アニメーション
 		enAnim_walk,		//歩きアニメーション
 		enAnim_saruGet,		//サルの捕獲アニメーション
 		enAnim_attacked,	//攻撃されたときのアニメーション
+		enAnim_jump,		//ジャンプしている時のアニメーション
 		enAnim_num			//アニメーションクリップの数
 	};
 	enum EnPlayerState {
@@ -115,6 +121,8 @@ private:
 		enState_walk,		//歩き状態
 		enState_saruGet,	//サルを捕獲
 		enState_attacked,	//攻撃された状態
+		enState_slip,		//滑っている状態
+		enState_Jump,		//ジャンプ状態
 		enState_num			//状態の数
 	};
 	EnAnimationClip m_enAnimClip;
@@ -127,6 +135,7 @@ private:
 
 	CSoundSource m_player_walkSE;			//歩いている時のSE
 	CSoundSource m_player_AmiSE;			//アミを振った時のSE
+	CSoundSource m_player_JumpSE;			//ジャンプした時のSE
 
 	std::vector<Saru*> m_sarus;
 };
