@@ -97,6 +97,19 @@ public:
 	/// ジャンプしている時の処理
 	/// </summary>
 	void Jump();
+
+	/// <summary>
+	/// サルを捕獲しようとしている処理
+	/// </summary>
+	void SaruGet();
+
+	/// <summary>
+	/// 状態を待機状態にする
+	/// </summary>
+	void SetStateTaiki()
+	{
+		m_enPlayerState = enState_taiki;
+	}
 private:
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -107,13 +120,14 @@ private:
 
 	PhysicsGhostObject m_ghost;							//ゴーストオブジェクト
 	Animation m_animation;								//アニメーション
-	AnimationClip m_animationClip[5];					//アニメーションクリップ
+	AnimationClip m_animationClip[6];					//アニメーションクリップ
 	enum EnAnimationClip {
 		enAnim_taiki,		//待機アニメーション
 		enAnim_walk,		//歩きアニメーション
 		enAnim_saruGet,		//サルの捕獲アニメーション
 		enAnim_attacked,	//攻撃されたときのアニメーション
 		enAnim_jump,		//ジャンプしている時のアニメーション
+		enAnim_slip,		//滑っている時のアニメーション
 		enAnim_num			//アニメーションクリップの数
 	};
 	enum EnPlayerState {
@@ -121,8 +135,8 @@ private:
 		enState_walk,		//歩き状態
 		enState_saruGet,	//サルを捕獲
 		enState_attacked,	//攻撃された状態
-		enState_slip,		//滑っている状態
 		enState_Jump,		//ジャンプ状態
+		enState_slip,		//滑っている状態
 		enState_num			//状態の数
 	};
 	EnAnimationClip m_enAnimClip;

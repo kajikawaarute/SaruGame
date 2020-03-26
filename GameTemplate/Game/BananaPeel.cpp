@@ -17,14 +17,12 @@ BananaPeel::~BananaPeel()
 void BananaPeel::Update()
 {
 	if (g_pad[0].IsTrigger(enButtonX)){
-		g_goMgr.DeleteGO(this);
-		m_ghost.Release();
+		Delete();
 	}
 	m_deathTimer++;
-	if (m_deathTimer == 180)
+	if (m_deathTimer == 60)
 	{
-		g_goMgr.DeleteGO(this);
-		m_ghost.Release();
+		Delete();
 	}
 
 	g_physics.ContactTest(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
@@ -42,4 +40,11 @@ void BananaPeel::Draw()
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix()
 	);
+}
+
+void BananaPeel::Delete()
+{
+	g_goMgr.DeleteGO(this);
+	m_ghost.Release();
+	m_pl->SetStateTaiki();
 }

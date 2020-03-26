@@ -20,6 +20,11 @@ public:
 	void Draw();
 
 	/// <summary>
+	/// バナナの皮を消す時の処理
+	/// </summary>
+	void Delete();
+
+	/// <summary>
 	///	座標を設定
 	/// </summary>
 	/// <param name="pos"></param>
@@ -28,14 +33,18 @@ public:
 		m_position = pos;
 	}
 
-	void SetPlayer(Player* player)
-	{
-		m_pl = player;
-	}
-
+	/// <summary>
+	/// ゴーストオブジェクトを取得
+	/// </summary>
+	/// <returns></returns>
 	PhysicsGhostObject& GetGhost()
 	{
 		return m_ghost;
+	}
+
+	void SetPlayer(Player* player)
+	{
+		m_pl = player;
 	}
 private:
 	SkinModel m_model;

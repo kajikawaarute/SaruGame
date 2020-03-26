@@ -17,7 +17,8 @@ Player::Player()
 	m_animationClip[enAnim_saruGet].Load(L"Assets/animData/Player-SaruGet.tka");
 	m_animationClip[enAnim_attacked].Load(L"Assets/animData/Player-attacked.tka");
 	m_animationClip[enAnim_jump].Load(L"Assets/animData/Player-jump.tka");
-	
+	m_animationClip[enAnim_slip].Load(L"Assets/animData/Player-Slip.tka");
+
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 	m_animationClip[enAnim_taiki].SetLoopFlag(true);
 
@@ -55,17 +56,6 @@ void Player::Update()
 		}
 		});
 
-	if (g_pad[0].IsTrigger(enButtonA))
-	{
-		m_player_JumpSE.Play(false);
-		Jump();
-	}
-
-	if (g_pad[0].IsTrigger(enButtonB))
-	{
-		m_enPlayerState = enState_saruGet;
-	}
-
 	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 
 	//ワールド行列の更新。
@@ -79,6 +69,8 @@ void Player::Update()
 	{
 	case enState_taiki:		//待機状態
 		Move();
+		Jump();
+		SaruGet();
 		m_enAnimClip = enAnim_taiki;
 		if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f) {
 			m_enPlayerState = enState_walk;
@@ -86,6 +78,8 @@ void Player::Update()
 		break;
 	case enState_walk:		//歩き状態
 		Move();
+		Jump();
+		SaruGet();
 		m_enAnimClip = enAnim_walk;
 		if (moveSpeedXZ.LengthSq() <= 1.0f * 1.0f) {
 			m_enPlayerState = enState_taiki;
@@ -105,14 +99,16 @@ void Player::Update()
 	case enState_attacked:	//攻撃された状態
 		m_enAnimClip = enAnim_attacked;
 		break;
-	case enState_slip:		//滑っている状態
-		break;
 	case enState_Jump:		//ジャンプ状態
 		m_enAnimClip = enAnim_jump;
 		Move();
+		SaruGet();
 		if (m_charaCon.IsOnGround()) {
 			m_enPlayerState = enState_taiki;
 		}
+		break;
+	case enState_slip:		//滑っている状態
+		m_enAnimClip = enAnim_slip;
 		break;
 	}
 
@@ -136,6 +132,8 @@ void Player::Update()
 	case enAnim_jump:		//ジャンプアニメーション
 		m_animation.Play(enAnim_jump, animTime);
 		break;
+	case enAnim_slip:		//滑っている時のアニメーション
+		m_animation.Play(enAnim_slip, animTime);
 	}
 
 	m_animation.Update(1.0f / 30.0f);
@@ -240,6 +238,18 @@ void Player::Slip()
 
 void Player::Jump()
 {
-	m_moveSpeed.y = 1000.0f;
-	m_enPlayerState = enState_Jump;
+	if (g_pad[0].IsTrigger(enButtonA))
+	{
+		m_player_JumpSE.Play(false);
+		m_moveSpeed.y = 1000.0f;
+		m_enPlayerState = enState_Jump;
+	}
+}
+
+void Player::SaruGet()
+{
+	if (g_pad[0].IsTrigger(enButtonB))
+	{
+		m_enPlayerState = enState_saruGet;
+	}
 }
