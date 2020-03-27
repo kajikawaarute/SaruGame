@@ -44,6 +44,11 @@ public:
 		return m_position;
 	}
 
+	CQuaternion& GetRot()
+	{
+		return m_rotation;
+	}
+
 	/// <summary>
 	/// プレイヤーの移動速度を取得
 	/// </summary>
@@ -91,7 +96,7 @@ public:
 	/// <summary>
 	/// バナナの皮で滑った時の処理
 	/// </summary>
-	void Slip();
+	void Sliped();
 
 	/// <summary>
 	/// ジャンプしている時の処理
@@ -104,11 +109,11 @@ public:
 	void SaruGet();
 
 	/// <summary>
-	/// 状態を待機状態にする
+	/// 状態を滑っている状態にする。
 	/// </summary>
-	void SetStateTaiki()
+	void SetStateSliped()
 	{
-		m_enPlayerState = enState_taiki;
+		m_enPlayerState = enState_sliped;
 	}
 private:
 	SkinModel m_model;									//スキンモデル。
@@ -127,7 +132,7 @@ private:
 		enAnim_saruGet,		//サルの捕獲アニメーション
 		enAnim_attacked,	//攻撃されたときのアニメーション
 		enAnim_jump,		//ジャンプしている時のアニメーション
-		enAnim_slip,		//滑っている時のアニメーション
+		enAnim_sliped,		//滑っている時のアニメーション
 		enAnim_num			//アニメーションクリップの数
 	};
 	enum EnPlayerState {
@@ -136,7 +141,7 @@ private:
 		enState_saruGet,	//サルを捕獲
 		enState_attacked,	//攻撃された状態
 		enState_Jump,		//ジャンプ状態
-		enState_slip,		//滑っている状態
+		enState_sliped,		//滑っている状態
 		enState_num			//状態の数
 	};
 	EnAnimationClip m_enAnimClip;
@@ -144,6 +149,7 @@ private:
 	EnPlayerState m_enPlayerState;
 	int m_saruGet_taikiTimer = 0;			//捕獲状態から待機状態になるまでのタイマー
 	int m_attacked_taikiTimer = 0;			//攻撃された状態から待機状態になるまでのタイマー
+	int m_slipTime = 0;						//滑っている時間
 
 	const float animTime = 0.2f;			//アニメーションの補間時間
 

@@ -17,7 +17,7 @@ Player::Player()
 	m_animationClip[enAnim_saruGet].Load(L"Assets/animData/Player-SaruGet.tka");
 	m_animationClip[enAnim_attacked].Load(L"Assets/animData/Player-attacked.tka");
 	m_animationClip[enAnim_jump].Load(L"Assets/animData/Player-jump.tka");
-	m_animationClip[enAnim_slip].Load(L"Assets/animData/Player-Slip.tka");
+	m_animationClip[enAnim_sliped].Load(L"Assets/animData/Player-Slip.tka");
 
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 	m_animationClip[enAnim_taiki].SetLoopFlag(true);
@@ -107,8 +107,14 @@ void Player::Update()
 			m_enPlayerState = enState_taiki;
 		}
 		break;
-	case enState_slip:		//滑っている状態
-		m_enAnimClip = enAnim_slip;
+	case enState_sliped:		//滑っている状態
+		m_enAnimClip = enAnim_sliped;
+		Sliped();
+		m_slipTime++;
+		if (m_slipTime == 90) {
+			m_enPlayerState = enState_taiki;
+			m_slipTime = 0;
+		}
 		break;
 	}
 
@@ -132,8 +138,8 @@ void Player::Update()
 	case enAnim_jump:		//ジャンプアニメーション
 		m_animation.Play(enAnim_jump, animTime);
 		break;
-	case enAnim_slip:		//滑っている時のアニメーション
-		m_animation.Play(enAnim_slip, animTime);
+	case enAnim_sliped:		//滑っている時のアニメーション
+		m_animation.Play(enAnim_sliped, animTime);
 	}
 
 	m_animation.Update(1.0f / 30.0f);
@@ -225,9 +231,8 @@ void Player::Attacked()
 	}
 }
 
-void Player::Slip()
+void Player::Sliped()
 {
-	m_enPlayerState = enState_slip;
 	m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;
 

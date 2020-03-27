@@ -27,7 +27,8 @@ void BananaPeel::Update()
 
 	g_physics.ContactTest(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject)) {
-			m_pl->Slip();
+			Delete();
+			m_pl->SetStateSliped();
 		}
 		});
 
@@ -46,5 +47,4 @@ void BananaPeel::Delete()
 {
 	g_goMgr.DeleteGO(this);
 	m_ghost.Release();
-	m_pl->SetStateTaiki();
 }
