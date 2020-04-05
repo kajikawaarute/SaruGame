@@ -14,6 +14,7 @@ Saru::Saru()
 	m_animClip[enAnim_attack].Load(L"Assets/animData/Saru-Attack.tka");
 	m_animClip[enAnim_Get].Load(L"Assets/animData/Saru-Get.tka");
 
+	//アニメーションのループを設定
 	m_animClip[enAnim_taiki].SetLoopFlag(true);
 	m_animClip[enAnim_run].SetLoopFlag(true);
 
@@ -42,14 +43,6 @@ Saru::~Saru()
 
 void Saru::Update()
 {
-	Turn();
-
-	if (g_pad[0].IsTrigger(enButtonY)) {
-		BananaPeel* banaPeel = g_goMgr.NewGO<BananaPeel>();
-		banaPeel->SetPlayer(m_pl);
-		banaPeel->SetPosition(m_position);
-		banaPeel->GetGhost().SetPosition(m_position);
-	}
 
 	CVector3 saruFoward = CVector3::AxisZ();
 	m_rotation.Multiply(saruFoward);
@@ -77,6 +70,7 @@ void Saru::Update()
 		break;
 	case Saru::enState_run:		//走り状態
 		Move();
+		BanaPeelThrow();
 		m_enAnimClip = enAnim_run;
 		m_moveSpeed = toSaruDir;
 		if (toSaruLen > 700.0f)
@@ -103,37 +97,26 @@ void Saru::Update()
 	switch (m_enAnimClip)
 	{
 	case Saru::enAnim_taiki:		//待機アニメーション
-		m_animation.Play(enAnim_taiki);
+		m_animation.Play(enAnim_taiki, m_animTime);
 		break;
 	case Saru::enAnim_run:			//走りアニメーション
-		m_animation.Play(enAnim_run);
+		m_animation.Play(enAnim_run, m_animTime);
 		break;
 	case Saru::enAnim_attack:		//攻撃アニメーション
 		m_saru_attackSE.Play(false);
-		m_animation.Play(enAnim_attack);
+		m_animation.Play(enAnim_attack, m_animTime);
 		break;
 	case Saru::enAnim_Get:			//捕獲アニメーション
 		m_saru_getAmiSE.Play(false);
-		m_animation.Play(enAnim_Get);
+		m_animation.Play(enAnim_Get, m_animTime);
 		break;
 	}
-
-	CVector3 moveSpeedXZ = m_moveSpeed;
-	moveSpeedXZ.y = 0.0f;
-	if (toSaruLen > 100.0f && moveSpeedXZ.LengthSq() >= 1.0f * 1.0f && m_bananaCount == 0) {
-		BananaPeel* banaPeel = g_goMgr.NewGO<BananaPeel>();
-		banaPeel->SetPlayer(m_pl);
-		banaPeel->SetPosition(m_position);
-		banaPeel->GetGhost().SetPosition(m_position);
-		m_bananaCount++;
-	}
-
-	EffekseerCamera();
 
 	m_animation.Update(1.0f / 30.0f);
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
+	EffekseerCamera();
 	//Effekseerを更新
 	m_effekseerManager->Update();
 }
@@ -146,6 +129,7 @@ void Saru::Move()
 	m_moveSpeed.y = 0.0f;
 	m_position -= m_moveSpeed;
 
+	Turn();
 }
 
 void Saru::Draw()
@@ -183,6 +167,25 @@ void Saru::Turn()
 	}
 
 	m_rotation.SetRotation(CVector3::AxisY(), atan2f(-toSaruDir.x, -toSaruDir.z));
+}
+
+void Saru::BanaPeelThrow()
+{
+	CVector3 saruFoward = CVector3::Back();
+	m_rotation.Multiply(saruFoward);
+
+	CVector3 moveSpeedXZ = m_moveSpeed;
+	moveSpeedXZ.y = 0.0f;
+
+	//バナナの皮を投げる
+	m_banaPeelTimer++;
+	if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f && m_banaPeelTimer > 90) {
+		m_banaPeel = g_goMgr.NewGO<BananaPeel>();
+		m_banaPeel->SetPlayer(m_pl);
+		m_banaPeel->SetMoveSpd(saruFoward);
+		m_banaPeel->SetPosition(m_position);
+		m_banaPeelTimer = 0;
+	}
 }
 
 void Saru::InitEffekseer()

@@ -126,7 +126,6 @@
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Saru.cpp" />
     <ClCompile Include="BananaPeel.cpp" />
-    <ClCompile Include="BananaPeelManager.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp">
       <Filter>sound</Filter>
     </ClCompile>
@@ -237,7 +236,6 @@
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Saru.h" />
     <ClInclude Include="BananaPeel.h" />
-    <ClInclude Include="BananaPeelManager.h" />
     <ClInclude Include="sound\SoundEngine.h">
       <Filter>sound</Filter>
     </ClInclude>

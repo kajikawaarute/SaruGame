@@ -22,7 +22,7 @@ public:
 	/// サルの描画関数
 	/// </summary>
 	void Draw();
-	
+
 	/// <summary>
 	/// サルが捕まえられた時の処理
 	/// </summary>
@@ -37,6 +37,11 @@ public:
 	/// サルの回転処理
 	/// </summary>
 	void Turn();
+
+	/// <summary>
+	/// バナナの皮を投げる時の処理
+	/// </summary>
+	void BanaPeelThrow();
 
 	/// <summary>
 	/// サルの座標を取得
@@ -89,20 +94,24 @@ private:
 		enAnim_num				//アニメーションクリップの数
 	};
 	enum EnSaruSaruState {
-		enState_taiki,			//待機状態
-		enState_run,			//走り状態
-		enState_attack,			//攻撃状態
-		enState_Get,			//捕獲状態
-		enState_num				//状態の数
+		enState_taiki,				//待機状態
+		enState_run,				//走り状態
+		enState_attack,				//攻撃状態
+		enState_Get,				//捕獲状態
+		enState_num					//状態の数
 	};
 
 	EnAnimationClip m_enAnimClip;
 	EnSaruSaruState m_enSaruState;
 
-	Player* m_pl = nullptr;		//プレイヤーのインスタンス
+	Player* m_pl = nullptr;					//プレイヤーのインスタンス
+	BananaPeel* m_banaPeel = nullptr;		//バナナの皮のインスタンス
+
 	int m_taikiTimer = 0;		//待機状態になるまでのタイマー
 	int m_deathTimer = 0;		//捕獲されるまでのタイマー
-	int m_bananaCount = 0;		
+	int m_banaPeelTimer = 0;		//バナナの皮を投げるまでのタイマー
+
+	const float m_animTime = 0.2f;			//アニメーションの補間時間
 
 	//Effekseerマネージャー管理
 	Effekseer::Manager* m_effekseerManager = nullptr;

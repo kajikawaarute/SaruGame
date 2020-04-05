@@ -32,6 +32,13 @@ void BananaPeel::Update()
 		}
 		});
 
+	m_stopTimer++;
+	if (m_stopTimer < 30)
+	{
+		m_position += m_moveSpeed * 10.0f;
+	}
+	m_ghost.SetPosition(m_position);
+
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
