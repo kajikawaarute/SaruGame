@@ -23,7 +23,7 @@ public:
 	/// <summary>
 	/// 描画関数
 	/// </summary>
-	virtual void Draw() = 0;
+	virtual void Draw() {}
 
 	/// <summary>
 	/// 削除リクエストを行う
