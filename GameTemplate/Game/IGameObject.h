@@ -3,12 +3,17 @@ class IGameObject
 {
 public:
 	/// <summary>
+	/// 仮想デストラクタ。
+	/// </summary>
+	virtual ~IGameObject() {}
+
+	/// <summary>
 	/// 
 	/// </summary>
 	virtual bool Start()
 	{
 		return true;
-	};
+	}
 
 	/// <summary>
 	/// 更新関数
