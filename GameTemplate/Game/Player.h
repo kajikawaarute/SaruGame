@@ -115,6 +115,13 @@ public:
 	{
 		m_enPlayerState = enState_sliped;
 	}
+
+	void SetPlayerWalkSE();
+
+	int GetSaruCount()
+	{
+		return m_saruCount;
+	}
 private:
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -150,12 +157,10 @@ private:
 	int m_saruGet_taikiTimer = 0;			//捕獲状態から待機状態になるまでのタイマー
 	int m_attacked_taikiTimer = 0;			//攻撃された状態から待機状態になるまでのタイマー
 	int m_slipTime = 0;						//滑っている時間
+	int m_saruCount = 0;
+
 
 	const float animTime = 0.2f;			//アニメーションの補間時間
-
-	CSoundSource m_player_walkSE;			//歩いている時のSE
-	CSoundSource m_player_AmiSE;			//アミを振った時のSE
-	CSoundSource m_player_JumpSE;			//ジャンプした時のSE
 
 	std::vector<Saru*> m_sarus;
 };

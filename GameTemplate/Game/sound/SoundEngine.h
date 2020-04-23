@@ -6,8 +6,9 @@
 #define INPUTCHANNELS 2  // number of source channels
 #define OUTPUTCHANNELS 8	//最大出力チャンネル数。
 class CWaveFile;
-class CSoundSource;
-
+namespace prefab {
+	class CSoundSource;
+}
 /// <summary>
 /// サウンドエンジン。
 /// </summary>
@@ -42,7 +43,7 @@ public:
 	/// サウンドソースの追加。
 	/// </summary>
 	/// <param name="s">サウンドソース</param>
-	void AddSoundSource(CSoundSource* s) 
+	void AddSoundSource(prefab::CSoundSource* s) 
 	{
 		auto it = std::find(m_soundSources.begin(), m_soundSources.end(), s);
 		if (it == m_soundSources.end()) {
@@ -55,7 +56,7 @@ public:
 	/// </summary>
 	/// <param name="s"></param>
 	/// <returns>削除した要素の次を指すイテレーター</returns>
-	auto RemoveSoundSource(CSoundSource* s)
+	auto RemoveSoundSource(prefab::CSoundSource* s)
 	{
 		auto it = std::find(m_soundSources.begin(), m_soundSources.end(), s);
 		if (it != m_soundSources.end()) {
@@ -105,7 +106,7 @@ private:
 	DWORD m_channelMask = 0;						//!<オーディオチャンネルマスク。
 	DWORD m_nChannels = 0;							//!<チャンネル数。
 	bool m_isInited = false;
-	std::list<CSoundSource*>	m_soundSources;		//!<サウンドソースのリスト。
+	std::list<prefab::CSoundSource*>	m_soundSources;		//!<サウンドソースのリスト。
 	CWaveFileBank m_waveFileBank;					//!<波形データのバンク。
 };
 

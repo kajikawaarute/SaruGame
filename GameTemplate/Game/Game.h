@@ -22,8 +22,8 @@ public:
 		return m_pl;
 	}
 private:
-	CSoundEngine m_soundEnigne;					//サウンドエンジン
-	CSoundSource m_gameBGM;						//ゲームのBGM
+	CSoundEngine m_soundEnigne;							//サウンドエンジン
+	prefab::CSoundSource m_gameBGM;			//ゲームのBGM
 
 	Player* m_pl = nullptr;						//プレイヤーのインスタンス
 	Stage* m_stage = nullptr;					//ステージのインスタンス

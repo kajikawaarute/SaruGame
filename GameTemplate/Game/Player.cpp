@@ -26,10 +26,11 @@ Player::Player()
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
 
 	//サウンドソースを初期化
-	m_player_walkSE.Init(L"Assets/Sound/PlayerSE_walk.wav");
-	m_player_AmiSE.Init(L"Assets/Sound/PlayerSE_Ami.wav");
-	m_player_walkSE.Init(L"Assets/Sound/PlayerSE_walk.wav");
-	m_player_JumpSE.Init(L"Assets/Sound/PlayerSE_Jump.wav");
+	//m_player_walkSE = g_goMgr.NewGO<prefab::CSoundSource>();
+	
+	//m_player_AmiSE.Init(L"Assets/Sound/PlayerSE_Ami.wav");
+	//m_player_walkSE.Init(L"Assets/Sound/PlayerSE_walk.wav");
+	//m_player_JumpSE.Init(L"Assets/Sound/PlayerSE_Jump.wav");
 
 	//プレイヤーの初期アニメーション
 	m_enAnimClip = enAnim_taiki;
@@ -43,6 +44,7 @@ Player::Player()
 
 Player::~Player()
 {
+	m_ghost.Release();
 }
 
 void Player::Update()
@@ -89,7 +91,7 @@ void Player::Update()
 		GetSaru();
 		m_enAnimClip = enAnim_saruGet;
 		m_saruGet_taikiTimer++;
-		if (m_saruGet_taikiTimer == 30) {
+		if (m_saruGet_taikiTimer == 40) {
 			m_enPlayerState = enState_taiki;
 			m_saruGet_taikiTimer = 0;
 		}
@@ -125,11 +127,10 @@ void Player::Update()
 		m_animation.Play(enAnim_taiki, animTime);
 		break;
 	case enAnim_walk:		//歩きアニメーション
-		m_player_walkSE.Play(false);
+		//m_player_walkSE.Play(false);
 		m_animation.Play(enAnim_walk, animTime);
 		break;
 	case enAnim_saruGet:	//サルの捕獲アニメーション
-		m_player_AmiSE.Play(false);
 		m_animation.Play(enAnim_saruGet, animTime);
 		break;
 	case enAnim_attacked:	//攻撃されたときのアニメーション
@@ -211,6 +212,7 @@ void Player::DeleteSaru(Saru* saru)
 	for (auto it = m_sarus.begin(); it != m_sarus.end();) {
 		if (*it == saru) {
 			it = m_sarus.erase(it);
+			m_saruCount++;
 			//it++;
 		}
 		else {
@@ -245,7 +247,10 @@ void Player::Jump()
 {
 	if (g_pad[0].IsTrigger(enButtonA))
 	{
-		m_player_JumpSE.Play(false);
+		/*prefab::CSoundSource* player_JumpSE = g_goMgr.NewGO<prefab::CSoundSource>();
+		player_JumpSE->Init(L"Assets/Sound/PlayerSE_Jump.wav");
+		player_JumpSE->Play(false);*/
+
 		m_moveSpeed.y = 1000.0f;
 		m_enPlayerState = enState_Jump;
 	}
@@ -255,6 +260,16 @@ void Player::SaruGet()
 {
 	if (g_pad[0].IsTrigger(enButtonB))
 	{
+		/*prefab::CSoundSource* player_AmiSE = g_goMgr.NewGO<prefab::CSoundSource>();
+		player_AmiSE->Init(L"Assets/Sound/PlayerSE_Ami.wav");
+		player_AmiSE->Play(false);*/
 		m_enPlayerState = enState_saruGet;
 	}
+}
+
+void Player::SetPlayerWalkSE()
+{
+	/*prefab::CSoundSource* m_player_walkSE = g_goMgr.NewGO<prefab::CSoundSource>();
+	m_player_walkSE->Init(L"Assets/Sound/PlayerSE_walk.wav");
+	m_player_walkSE->Play(false);*/
 }

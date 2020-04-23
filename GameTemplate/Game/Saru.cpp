@@ -28,8 +28,8 @@ Saru::Saru()
 	m_animation.Init(m_model, m_animClip, enAnim_num);
 
 	//サウンドソースの初期化
-	m_saru_getAmiSE.Init(L"Assets/Sound/SaruSE_Get.wav");
-	m_saru_attackSE.Init(L"Assets/Sound/SaruSE_Attack.wav");
+	/*m_saru_getAmiSE.Init(L"Assets/Sound/SaruSE_Get.wav");
+	m_saru_attackSE.Init(L"Assets/Sound/SaruSE_Attack.wav");*/
 
 	//Effekseerを初期化。
 	InitEffekseer();
@@ -103,11 +103,11 @@ void Saru::Update()
 		m_animation.Play(enAnim_run, m_animTime);
 		break;
 	case Saru::enAnim_attack:		//攻撃アニメーション
-		m_saru_attackSE.Play(false);
+		//m_saru_attackSE.Play(false);
 		m_animation.Play(enAnim_attack, m_animTime);
 		break;
 	case Saru::enAnim_Get:			//捕獲アニメーション
-		m_saru_getAmiSE.Play(false);
+		//m_saru_getAmiSE.Play(false);
 		m_animation.Play(enAnim_Get, m_animTime);
 		break;
 	}
@@ -152,7 +152,7 @@ void Saru::GetSaru()
 		//エフェクトを再生。
 		m_playEffectHandle = m_effekseerManager->Play(m_effekt, m_position.x, m_position.y, m_position.z);
 	}
-	if (m_deathTimer == 30) {
+	if (m_deathTimer == 40) {
 		g_goMgr.DeleteGO(this);
 		m_pl->DeleteSaru(this);
 	}

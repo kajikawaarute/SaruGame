@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Saru.h"
 #include "GameCamera.h"
+#include "Title.h"
 
 Game::Game()
 {
@@ -37,10 +38,26 @@ Game::Game()
 
 Game::~Game()
 {
+	g_goMgr.DeleteGO(m_pl);
+	g_goMgr.DeleteGO(m_stage);
+	g_goMgr.DeleteGO(m_ene);
+	g_goMgr.DeleteGO(m_gCamera);
+	g_goMgr.DeleteGO(m_saru[0]);
+	g_goMgr.DeleteGO(m_saru[1]);
+
+	g_goMgr.NewGO<Title>();
 }
 
 void Game::Update()
 {
+	if (g_pad[0].IsTrigger(enButtonSelect)) {
+		g_goMgr.DeleteGO(this);
+	}
+	if (m_pl->GetSaruCount() == 2)
+	{
+		g_goMgr.DeleteGO(this);
+	}
+
 	//サウンドエンジンを更新
 	m_soundEnigne.Update();
 }

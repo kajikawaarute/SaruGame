@@ -120,7 +120,7 @@ private:
 	Effekseer::Effect* m_effekt = nullptr;		//ƒGƒtƒFƒNƒg
 	Effekseer::Handle m_playEffectHandle = -1;
 
-	CSoundSource m_saru_getAmiSE;			//•ßŠl‚³‚ê‚½‚Æ‚«‚ÌSE
-	CSoundSource m_saru_attackSE;			//UŒ‚‚µ‚½‚Æ‚«‚ÌSE
+	//CSoundSource m_saru_getAmiSE;			//•ßŠl‚³‚ê‚½‚Æ‚«‚ÌSE
+	//CSoundSource m_saru_attackSE;			//UŒ‚‚µ‚½‚Æ‚«‚ÌSE
 };
 
