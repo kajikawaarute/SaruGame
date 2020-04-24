@@ -7,10 +7,17 @@ Enemy::Enemy()
 {
 	m_model.Init(L"Assets/modelData/Enemy-kari.cmo");
 
+	//アニメーションのロード
 	m_animationClip[enAnim_walk].Load(L"Assets/animData/Enemy-kari-walk.tka");
+
+	//アニメーションのループを設定
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 
+	//アニメーションを初期化
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
+
+	//エネミーの初期状態
+	m_enEnemyState = enState_taiki;
 }
 
 
@@ -20,40 +27,56 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
-	Move();
-
-	m_animation.Update(1.0f / 30.0f);
-	m_animation.Play(enAnim_walk);
-
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-}
-
-void Enemy::Move()
-{
-	CVector3 eneFoward = CVector3::AxisZ();
-
+	CVector3 enemyFoward = CVector3::AxisZ();
+	m_rotation.Multiply(enemyFoward);
 	//エネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toPlayerDir = m_pl->GetPos() - m_position;
-	float toPlayerLen = toPlayerDir.Length();
-	toPlayerDir.Normalize();
+	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
+	float toEnemyLen = toEnemyDir.Length();
+	toEnemyDir.Normalize();
 
-	float d = eneFoward.Dot(toPlayerDir);
-
+	float d = enemyFoward.Dot(toEnemyDir);
 	float angle = acos(d);
 
-	if (fabsf(angle) < CMath::DegToRad(90.0f) && toPlayerLen < 500.0f)
+	//エネミーの状態
+	switch (m_enEnemyState)
 	{
-		m_moveSpeed = toPlayerDir;
-	}
-	else {
+	case Enemy::enState_taiki:		//待機状態
+		AttackDistance();
 		m_moveSpeed = CVector3::Zero();
+		if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 500.0f) {
+			m_enEnemyState = enState_move;
+		}
+		break;
+	case Enemy::enState_move:		//移動状態
+		Move();
+		AttackDistance();
+		m_moveSpeed = toEnemyDir;
+		if (toEnemyLen > 500.0f) {
+			m_enEnemyState = enState_taiki;
+		}
+		m_enAnimClip = enAnim_walk;
+		break;
+	case Enemy::enState_attack:		//攻撃状態
+		Attack();
+		m_taikiTimer++;
+		if (m_taikiTimer == 60) {
+			m_enEnemyState = enState_taiki;
+			m_taikiTimer = 0;
+		}
+		break;
 	}
-	m_moveSpeed.Normalize();
-	m_moveSpeed.x *= 5.0f;
-	m_moveSpeed.z *= 5.0f;
-	m_moveSpeed.y = 0.0f;
-	m_position -= m_moveSpeed;
 
+	//エネミーのアニメーション
+	switch (m_enAnimClip)
+	{
+	case Enemy::enAnim_walk:
+		m_animation.Play(enAnim_walk);
+		break;
+	}
+
+	m_animation.Update(1.0f / 30.0f);
+
+	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
 void Enemy::Draw()
@@ -62,4 +85,54 @@ void Enemy::Draw()
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix()
 	);
+}
+
+void Enemy::Move()
+{
+	m_moveSpeed.Normalize();
+	m_moveSpeed.x *= 5.0f;
+	m_moveSpeed.z *= 5.0f;
+	m_moveSpeed.y = 0.0f;
+	m_position += m_moveSpeed;
+
+	Turn();
+}
+
+
+void Enemy::Turn()
+{
+	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
+	if (fabsf(m_moveSpeed.x) < 0.001f && fabsf(m_moveSpeed.z) < 0.001f)
+	{
+		return;
+	}
+	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toEnemyDir.x, toEnemyDir.z));
+
+}
+
+void Enemy::Attack()
+{
+	//エネミーからプレイヤーに伸びるベクトルを求める。
+	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
+
+	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toEnemyDir.x, toEnemyDir.z));
+	m_pl->GetMoveSpd() = toEnemyDir * 2.0f;
+	m_pl->Attacked();
+}
+
+void Enemy::AttackDistance()
+{
+	CVector3 enemyFoward = CVector3::AxisZ();
+	m_rotation.Multiply(enemyFoward);
+	//エネミーからプレイヤーに伸びるベクトルを求める。
+	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
+	float toEnemyLen = toEnemyDir.Length();
+	toEnemyDir.Normalize();
+
+	float d = enemyFoward.Dot(toEnemyDir);
+	float angle = acos(d);
+
+	if (toEnemyLen < 90.0f) {
+		m_enEnemyState = enState_attack;
+	}
 }
