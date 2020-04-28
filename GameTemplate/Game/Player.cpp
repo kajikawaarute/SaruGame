@@ -18,6 +18,7 @@ Player::Player()
 	m_animationClip[enAnim_attacked].Load(L"Assets/animData/Player-attacked.tka");
 	m_animationClip[enAnim_jump].Load(L"Assets/animData/Player-jump.tka");
 	m_animationClip[enAnim_sliped].Load(L"Assets/animData/Player-Slip.tka");
+	m_animationClip[enAnim_attack].Load(L"Assets/animData/Player-attack.tka");
 
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 	m_animationClip[enAnim_taiki].SetLoopFlag(true);
@@ -49,7 +50,6 @@ Player::~Player()
 
 void Player::Update()
 {
-
 	m_moveSpeed.y -= 50.0f;
 
 	g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
@@ -73,6 +73,7 @@ void Player::Update()
 		Move();
 		Jump();
 		SaruGet();
+		Attack();
 		m_enAnimClip = enAnim_taiki;
 		if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f) {
 			m_enPlayerState = enState_walk;
@@ -82,6 +83,7 @@ void Player::Update()
 		Move();
 		Jump();
 		SaruGet();
+		Attack();
 		m_enAnimClip = enAnim_walk;
 		if (moveSpeedXZ.LengthSq() <= 1.0f * 1.0f) {
 			m_enPlayerState = enState_taiki;
@@ -118,6 +120,16 @@ void Player::Update()
 			m_slipTime = 0;
 		}
 		break;
+	case enState_attack:		//攻撃状態
+		m_enAnimClip = enAnim_attack;
+		m_attack_taikiTimer++;
+		if (m_attack_taikiTimer == 25) {
+			m_enPlayerState = enState_taiki;
+			m_attack_taikiTimer = 0;
+		}
+		m_moveSpeed.x = 0.0f;
+		m_moveSpeed.z = 0.0f;
+		break;
 	}
 
 	//プレイヤーのアニメーション
@@ -141,6 +153,10 @@ void Player::Update()
 		break;
 	case enAnim_sliped:		//滑っている時のアニメーション
 		m_animation.Play(enAnim_sliped, animTime);
+		break;
+	case enAnim_attack:		//攻撃アニメーション
+		m_animation.Play(enAnim_attack, animTime);
+		break;
 	}
 
 	m_animation.Update(1.0f / 30.0f);
@@ -264,6 +280,14 @@ void Player::SaruGet()
 		player_AmiSE->Init(L"Assets/Sound/PlayerSE_Ami.wav");
 		player_AmiSE->Play(false);*/
 		m_enPlayerState = enState_saruGet;
+	}
+}
+
+void Player::Attack()
+{
+	if (g_pad[0].IsTrigger(enButtonX))
+	{
+		m_enPlayerState = enState_attack;
 	}
 }
 

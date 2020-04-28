@@ -109,6 +109,11 @@ public:
 	void SaruGet();
 
 	/// <summary>
+	/// 攻撃している時の処理
+	/// </summary>
+	void Attack();
+
+	/// <summary>
 	/// 状態を滑っている状態にする。
 	/// </summary>
 	void SetStateSliped()
@@ -131,8 +136,6 @@ private:
 	CharacterController m_charaCon;						//キャラクターコントローラー
 
 	PhysicsGhostObject m_ghost;							//ゴーストオブジェクト
-	Animation m_animation;								//アニメーション
-	AnimationClip m_animationClip[6];					//アニメーションクリップ
 	enum EnAnimationClip {
 		enAnim_taiki,		//待機アニメーション
 		enAnim_walk,		//歩きアニメーション
@@ -140,8 +143,12 @@ private:
 		enAnim_attacked,	//攻撃されたときのアニメーション
 		enAnim_jump,		//ジャンプしている時のアニメーション
 		enAnim_sliped,		//滑っている時のアニメーション
+		enAnim_attack,		//攻撃アニメーション
 		enAnim_num			//アニメーションクリップの数
 	};
+	Animation m_animation;								//アニメーション
+	AnimationClip m_animationClip[enAnim_num];			//アニメーションクリップ
+
 	enum EnPlayerState {
 		enState_taiki,		//待機状態
 		enState_walk,		//歩き状態
@@ -149,7 +156,7 @@ private:
 		enState_attacked,	//攻撃された状態
 		enState_Jump,		//ジャンプ状態
 		enState_sliped,		//滑っている状態
-		enState_num			//状態の数
+		enState_attack,		//攻撃状態
 	};
 	EnAnimationClip m_enAnimClip;
 
@@ -158,7 +165,7 @@ private:
 	int m_attacked_taikiTimer = 0;			//攻撃された状態から待機状態になるまでのタイマー
 	int m_slipTime = 0;						//滑っている時間
 	int m_saruCount = 0;
-
+	int m_attack_taikiTimer = 0;			//攻撃状態から待機状態になるまでのタイマー
 
 	const float animTime = 0.2f;			//アニメーションの補間時間
 
