@@ -78,13 +78,17 @@ private:
 	};
 	EnEnemyState m_enEnemyState;
 
-	Animation m_animation;					//アニメーション
-	AnimationClip m_animationClip[1];		//アニメーションクリップ
 	enum EnAnimationClip {
+		enAnim_taiki,						//待機アニメーション
 		enAnim_walk,						//歩きアニメーション
 		enAnim_num							//アニメーションの数
 	};
 	EnAnimationClip m_enAnimClip;
+
+	Animation m_animation;							//アニメーション
+	AnimationClip m_animationClip[enAnim_num];		//アニメーションクリップ
+	const float m_animTime = 0.2f;					//アニメーションの補間時間
+
 
 	Player* m_pl = nullptr;					//プレイヤーのインスタンス
 	

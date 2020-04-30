@@ -5,19 +5,24 @@
 
 Enemy::Enemy()
 {
-	m_model.Init(L"Assets/modelData/Enemy-kari.cmo");
+	m_model.Init(L"Assets/modelData/Enemy.cmo");
 
 	//アニメーションのロード
-	m_animationClip[enAnim_walk].Load(L"Assets/animData/Enemy-kari-walk.tka");
+	m_animationClip[enAnim_walk].Load(L"Assets/animData/Enemy-walk.tka");
+	m_animationClip[enAnim_taiki].Load(L"Assets/animData/Enemy-taiki.tka");
 
 	//アニメーションのループを設定
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
+	m_animationClip[enAnim_taiki].SetLoopFlag(true);
 
 	//アニメーションを初期化
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
 
 	//エネミーの初期状態
 	m_enEnemyState = enState_taiki;
+
+	//エネミーの初期アニメーション
+	m_enAnimClip = enAnim_taiki;
 }
 
 
@@ -41,6 +46,7 @@ void Enemy::Update()
 	switch (m_enEnemyState)
 	{
 	case Enemy::enState_taiki:		//待機状態
+		m_enAnimClip = enAnim_taiki;
 		AttackDistance();
 		m_moveSpeed = CVector3::Zero();
 		if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 700.0f) {
@@ -48,13 +54,13 @@ void Enemy::Update()
 		}
 		break;
 	case Enemy::enState_move:		//移動状態
+		m_enAnimClip = enAnim_walk;
 		Move();
 		AttackDistance();
 		m_moveSpeed = toEnemyDir;
 		if (toEnemyLen > 700.0f) {
 			m_enEnemyState = enState_taiki;
 		}
-		m_enAnimClip = enAnim_walk;
 		break;
 	case Enemy::enState_attack:		//攻撃状態
 		Attack();
@@ -69,8 +75,11 @@ void Enemy::Update()
 	//エネミーのアニメーション
 	switch (m_enAnimClip)
 	{
-	case Enemy::enAnim_walk:
-		m_animation.Play(enAnim_walk);
+	case enAnim_taiki:
+		m_animation.Play(enAnim_taiki, m_animTime);
+		break;
+	case enAnim_walk:
+		m_animation.Play(enAnim_walk, m_animTime);
 		break;
 	}
 
