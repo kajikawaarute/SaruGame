@@ -17,17 +17,13 @@ public:
 	~Game();
 	void Update();
 	void Draw();
-	Player* GetPlayer()
-	{
-		return m_pl;
-	}
 private:
-	CSoundEngine m_soundEnigne;							//サウンドエンジン
-	prefab::CSoundSource m_gameBGM;			//ゲームのBGM
+	CSoundEngine m_soundEnigne;					//サウンドエンジン
+	prefab::CSoundSource m_gameBGM;				//ゲームのBGM
 
 	Player* m_pl = nullptr;						//プレイヤーのインスタンス
 	Stage* m_stage = nullptr;					//ステージのインスタンス
-	Enemy* m_ene = nullptr;						//エネミーのインスタンス
+	Enemy* m_ene[2] = { nullptr, nullptr};						//エネミーのインスタンス
 	GameCamera* m_gCamera = nullptr;			//ゲームカメラのインスタンス
 	Saru* m_saru[2] = {nullptr, nullptr};		//サルクラスのインスタンス
 };

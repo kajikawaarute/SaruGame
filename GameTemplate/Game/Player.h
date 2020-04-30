@@ -6,6 +6,7 @@
 #include "sound/SoundSource.h"
 
 class Saru;
+class Enemy;
 class Player : public IGameObject
 {
 public:
@@ -81,12 +82,22 @@ public:
 	{
 		m_sarus.push_back(saru);
 	}
+	void SetEnemy(Enemy* enemy)
+	{
+		m_enemys.push_back(enemy);
+	}
 
 	/// <summary>
 	/// サルを消すときの処理
 	/// </summary>
 	/// <param name="saru"></param>
 	void DeleteSaru(Saru* saru);
+
+	/// <summary>
+	/// エネミーを消す時の処理
+	/// </summary>
+	/// <param name="enemy"></param>
+	void DeleteEnemy(Enemy* enemy);
 
 	/// <summary>
 	/// 攻撃されたときの処理
@@ -107,6 +118,11 @@ public:
 	/// サルを捕獲しようとしている処理
 	/// </summary>
 	void SaruGet();
+
+	/// <summary>
+	/// 攻撃しようとしている時の処理
+	/// </summary>
+	void AttackTry();
 
 	/// <summary>
 	/// 攻撃している時の処理
@@ -164,11 +180,12 @@ private:
 	int m_saruGet_taikiTimer = 0;			//捕獲状態から待機状態になるまでのタイマー
 	int m_attacked_taikiTimer = 0;			//攻撃された状態から待機状態になるまでのタイマー
 	int m_slipTime = 0;						//滑っている時間
-	int m_saruCount = 0;
+	int m_saruCount = 0;					//サルを捕まえた数
 	int m_attack_taikiTimer = 0;			//攻撃状態から待機状態になるまでのタイマー
 
 	const float animTime = 0.2f;			//アニメーションの補間時間
 
 	std::vector<Saru*> m_sarus;
+	std::vector<Enemy*> m_enemys;
 };
 

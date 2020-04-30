@@ -43,7 +43,7 @@ void Enemy::Update()
 	case Enemy::enState_taiki:		//ë“ã@èÛë‘
 		AttackDistance();
 		m_moveSpeed = CVector3::Zero();
-		if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 500.0f) {
+		if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 700.0f) {
 			m_enEnemyState = enState_move;
 		}
 		break;
@@ -51,7 +51,7 @@ void Enemy::Update()
 		Move();
 		AttackDistance();
 		m_moveSpeed = toEnemyDir;
-		if (toEnemyLen > 500.0f) {
+		if (toEnemyLen > 700.0f) {
 			m_enEnemyState = enState_taiki;
 		}
 		m_enAnimClip = enAnim_walk;
@@ -135,4 +135,10 @@ void Enemy::AttackDistance()
 	if (toEnemyLen < 90.0f) {
 		m_enEnemyState = enState_attack;
 	}
+}
+
+void Enemy::Delete()
+{
+	g_goMgr.DeleteGO(this);
+	m_pl->DeleteEnemy(this);
 }

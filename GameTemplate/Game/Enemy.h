@@ -28,6 +28,16 @@ public:
 	}
 
 	/// <summary>
+	/// エネミーの座標を設定
+	/// </summary>
+	/// <param name="pos"></param>
+	/// <returns></returns>
+	CVector3& SetPos(CVector3 pos)
+	{
+		return m_position = pos;
+	}
+
+	/// <summary>
 	/// エネミーの移動処理
 	/// </summary>
 	void Move();
@@ -44,6 +54,11 @@ public:
 	/// 攻撃するまでの距離
 	/// </summary>
 	void AttackDistance();
+
+	/// <summary>
+	/// 倒されたときの処理
+	/// </summary>
+	void Delete();
 
 	void SetPlayer(Player* player)
 	{

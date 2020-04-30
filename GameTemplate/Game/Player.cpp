@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "IGameObjectManager.h"
 #include "Saru.h"
+#include "Enemy.h"
 
 Player::Player()
 {
@@ -73,7 +74,7 @@ void Player::Update()
 		Move();
 		Jump();
 		SaruGet();
-		Attack();
+		AttackTry();
 		m_enAnimClip = enAnim_taiki;
 		if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f) {
 			m_enPlayerState = enState_walk;
@@ -83,7 +84,7 @@ void Player::Update()
 		Move();
 		Jump();
 		SaruGet();
-		Attack();
+		AttackTry();
 		m_enAnimClip = enAnim_walk;
 		if (moveSpeedXZ.LengthSq() <= 1.0f * 1.0f) {
 			m_enPlayerState = enState_taiki;
@@ -121,6 +122,7 @@ void Player::Update()
 		}
 		break;
 	case enState_attack:		//攻撃状態
+		Attack();
 		m_enAnimClip = enAnim_attack;
 		m_attack_taikiTimer++;
 		if (m_attack_taikiTimer == 25) {
@@ -238,6 +240,20 @@ void Player::DeleteSaru(Saru* saru)
 	}
 }
 
+void Player::DeleteEnemy(Enemy * enemy)
+{
+	for (auto it = m_enemys.begin(); it != m_enemys.end();) {
+		if (*it == enemy) {
+			it = m_enemys.erase(it);
+			//it++;
+		}
+		else {
+			//リクエストを受けていない。
+			it++;
+		}
+	}
+}
+
 void Player::Attacked()
 {
 	m_enPlayerState = enState_attacked;
@@ -283,11 +299,31 @@ void Player::SaruGet()
 	}
 }
 
-void Player::Attack()
+void Player::AttackTry()
 {
 	if (g_pad[0].IsTrigger(enButtonX))
 	{
 		m_enPlayerState = enState_attack;
+	}
+}
+
+void Player::Attack()
+{
+	CVector3 plFoward = CVector3::AxisZ();
+	m_rotation.Multiply(plFoward);
+	//サルからプレイヤーに伸びるベクトルを求める。
+	for (int i = 0; i < m_enemys.size(); i++) {
+		CVector3 toPlayerDir = m_enemys[i]->GetPos() - m_position;
+		float toEnemyLen = toPlayerDir.Length();
+		toPlayerDir.Normalize();
+
+		float d = plFoward.Dot(toPlayerDir);
+		float angle = acos(d);
+
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 100.0f)
+		{
+			m_enemys[i]->Delete();
+		}
 	}
 }
 

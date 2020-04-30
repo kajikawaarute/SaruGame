@@ -16,7 +16,8 @@ Game::Game()
 
 	m_pl = g_goMgr.NewGO<Player>();
 	m_stage = g_goMgr.NewGO<Stage>();
-	m_ene = g_goMgr.NewGO<Enemy>();
+	m_ene[0] = g_goMgr.NewGO<Enemy>();
+	m_ene[1] = g_goMgr.NewGO<Enemy>();
 	m_gCamera = g_goMgr.NewGO<GameCamera>();
 
 	m_saru[0] = g_goMgr.NewGO<Saru>();
@@ -25,11 +26,20 @@ Game::Game()
 	m_saru[0]->SetPos({ 0.0f, 0.0f, 500.0f });
 	m_saru[1]->SetPos({-100.0f, 0.0f, 500.0f});
 
+	m_ene[0]->SetPos({ -500.0f, 0.0f, 500.0f });
+	m_ene[1]->SetPos({ -600.0f, 0.0f, 500.0f });
+
 	m_gCamera->SetPlayer(m_pl);
-	m_ene->SetPlayer(m_pl);
+
+	m_ene[0]->SetPlayer(m_pl);
+	m_pl->SetEnemy(m_ene[0]);
+
+	m_ene[1]->SetPlayer(m_pl);
+	m_pl->SetEnemy(m_ene[1]);
 
 	m_saru[0]->SetPlayer(m_pl);
 	m_pl->SetSaru(m_saru[0]);
+
 	m_saru[1]->SetPlayer(m_pl);
 	m_pl->SetSaru(m_saru[1]);
 
@@ -40,7 +50,8 @@ Game::~Game()
 {
 	g_goMgr.DeleteGO(m_pl);
 	g_goMgr.DeleteGO(m_stage);
-	g_goMgr.DeleteGO(m_ene);
+	g_goMgr.DeleteGO(m_ene[0]);
+	g_goMgr.DeleteGO(m_ene[1]);
 	g_goMgr.DeleteGO(m_gCamera);
 	g_goMgr.DeleteGO(m_saru[0]);
 	g_goMgr.DeleteGO(m_saru[1]);
