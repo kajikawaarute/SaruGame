@@ -177,11 +177,8 @@ private:
 	EnAnimationClip m_enAnimClip;
 
 	EnPlayerState m_enPlayerState;
-	int m_saruGet_taikiTimer = 0;			//捕獲状態から待機状態になるまでのタイマー
-	int m_attacked_taikiTimer = 0;			//攻撃された状態から待機状態になるまでのタイマー
-	int m_slipTime = 0;						//滑っている時間
+	
 	int m_saruCount = 0;					//サルを捕まえた数
-	int m_attack_taikiTimer = 0;			//攻撃状態から待機状態になるまでのタイマー
 
 	const float animTime = 0.2f;			//アニメーションの補間時間
 

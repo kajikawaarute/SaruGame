@@ -93,16 +93,20 @@ void Player::Update()
 	case enState_saruGet:	//サルを捕獲
 		GetSaru();
 		m_enAnimClip = enAnim_saruGet;
-		m_saruGet_taikiTimer++;
-		if (m_saruGet_taikiTimer == 40) {
+		if (m_animation.IsPlaying() != true)
+		{
 			m_enPlayerState = enState_taiki;
-			m_saruGet_taikiTimer = 0;
 		}
+
 		m_moveSpeed.x = 0.0f;
 		m_moveSpeed.z = 0.0f;
 		break;
 	case enState_attacked:	//攻撃された状態
 		m_enAnimClip = enAnim_attacked;
+		if (m_animation.IsPlaying() != true)
+		{
+			m_enPlayerState = enState_taiki;
+		}
 		break;
 	case enState_Jump:		//ジャンプ状態
 		m_enAnimClip = enAnim_jump;
@@ -115,19 +119,17 @@ void Player::Update()
 	case enState_sliped:		//滑っている状態
 		m_enAnimClip = enAnim_sliped;
 		Sliped();
-		m_slipTime++;
-		if (m_slipTime == 90) {
+		if (m_animation.IsPlaying() != true)
+		{
 			m_enPlayerState = enState_taiki;
-			m_slipTime = 0;
 		}
 		break;
 	case enState_attack:		//攻撃状態
 		Attack();
 		m_enAnimClip = enAnim_attack;
-		m_attack_taikiTimer++;
-		if (m_attack_taikiTimer == 25) {
+		if (m_animation.IsPlaying() != true)
+		{
 			m_enPlayerState = enState_taiki;
-			m_attack_taikiTimer = 0;
 		}
 		m_moveSpeed.x = 0.0f;
 		m_moveSpeed.z = 0.0f;
@@ -257,12 +259,6 @@ void Player::DeleteEnemy(Enemy * enemy)
 void Player::Attacked()
 {
 	m_enPlayerState = enState_attacked;
-
-	m_attacked_taikiTimer++;
-	if (m_attacked_taikiTimer == 60) {
-		m_enPlayerState = enState_taiki;
-		m_attacked_taikiTimer = 0;
-	}
 }
 
 void Player::Sliped()
@@ -311,18 +307,33 @@ void Player::Attack()
 {
 	CVector3 plFoward = CVector3::AxisZ();
 	m_rotation.Multiply(plFoward);
-	//サルからプレイヤーに伸びるベクトルを求める。
+	//エネミーを倒す
 	for (int i = 0; i < m_enemys.size(); i++) {
-		CVector3 toPlayerDir = m_enemys[i]->GetPos() - m_position;
-		float toEnemyLen = toPlayerDir.Length();
-		toPlayerDir.Normalize();
+		CVector3 toPlayer_EnemyDir = m_enemys[i]->GetPos() - m_position;
+		float toEnemyLen = toPlayer_EnemyDir.Length();
+		toPlayer_EnemyDir.Normalize();
 
-		float d = plFoward.Dot(toPlayerDir);
+		float d = plFoward.Dot(toPlayer_EnemyDir);
 		float angle = acos(d);
 
 		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 100.0f)
 		{
 			m_enemys[i]->Delete();
+		}
+	}
+
+	//サルをひるませる
+	for (int i = 0; i < m_sarus.size(); i++) {
+		CVector3 toPlayer_SaruDir = m_sarus[i]->GetPos() - m_position;
+		float toSaruLen = toPlayer_SaruDir.Length();
+		toPlayer_SaruDir.Normalize();
+
+		float d = plFoward.Dot(toPlayer_SaruDir);
+		float angle = acos(d);
+
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toSaruLen < 100.0f)
+		{
+			m_sarus[i]->Stun();
 		}
 	}
 }

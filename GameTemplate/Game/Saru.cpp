@@ -81,15 +81,26 @@ void Saru::Update()
 		break;
 	case Saru::enState_attack:	//攻撃状態
 		Attack();
+		m_enAnimClip = enAnim_attack;
 		m_taikiTimer++;
 		if (m_taikiTimer == 60) {
 			m_enSaruState = enState_taiki;
-			m_enAnimClip = enAnim_taiki;
 			m_taikiTimer = 0;
 		}
 		break;
 	case Saru::enState_Get:		//捕獲状態
 		m_enAnimClip = enAnim_Get;
+		break;
+	case enState_stun:			//ひるんでいる状態
+		m_enAnimClip = enAnim_stun;
+		/*if (m_animation.IsPlaying() != true) {
+			m_enSaruState = enState_taiki;
+		}*/
+		m_stunTimer++;
+		if (m_stunTimer == 30) {
+			m_enSaruState = enState_taiki;
+			m_stunTimer = 0;
+		}
 		break;
 	}
 
@@ -108,6 +119,9 @@ void Saru::Update()
 		break;
 	case Saru::enAnim_Get:			//捕獲アニメーション
 		//m_saru_getAmiSE.Play(false);
+		m_animation.Play(enAnim_Get, m_animTime);
+		break;
+	case enState_stun:
 		m_animation.Play(enAnim_Get, m_animTime);
 		break;
 	}
@@ -188,6 +202,13 @@ void Saru::BanaPeelThrow()
 	}
 }
 
+void Saru::Stun()
+{
+	m_enSaruState = enState_stun;
+	m_moveSpeed.x = 0.0f;
+	m_moveSpeed.z = 0.0f;
+}
+
 void Saru::InitEffekseer()
 {
 	//レンダラーを初期化。
@@ -238,7 +259,6 @@ void Saru::Distance()
 
 void Saru::Attack()
 {
-	m_enAnimClip = enAnim_attack;
 	//サルからプレイヤーに伸びるベクトルを求める。
 	CVector3 toSaruDir = m_pl->GetPos() - m_position;
 

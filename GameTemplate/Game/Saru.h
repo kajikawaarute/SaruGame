@@ -44,6 +44,11 @@ public:
 	void BanaPeelThrow();
 
 	/// <summary>
+	/// ひるんだ時の処理
+	/// </summary>
+	void Stun();
+
+	/// <summary>
 	/// サルの座標を取得
 	/// </summary>
 	/// <returns></returns>
@@ -84,21 +89,24 @@ private:
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転
 	CVector3 m_scale = CVector3::One();					//拡大率
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
-	Animation m_animation;								//アニメーション
-	AnimationClip m_animClip[4];						//アニメーションクリップ
+	
 	enum EnAnimationClip {
 		enAnim_taiki,			//待機アニメーション
 		enAnim_run,				//走りアニメーション
 		enAnim_attack,			//攻撃アニメーション
 		enAnim_Get,				//捕獲アニメーション
+		enAnim_stun,
 		enAnim_num				//アニメーションクリップの数
 	};
+	Animation m_animation;								//アニメーション
+	AnimationClip m_animClip[enAnim_num];						//アニメーションクリップ
+
 	enum EnSaruSaruState {
 		enState_taiki,				//待機状態
 		enState_run,				//走り状態
 		enState_attack,				//攻撃状態
 		enState_Get,				//捕獲状態
-		enState_num					//状態の数
+		enState_stun				//ひるんだ状態
 	};
 
 	EnAnimationClip m_enAnimClip;
@@ -109,7 +117,8 @@ private:
 
 	int m_taikiTimer = 0;		//待機状態になるまでのタイマー
 	int m_deathTimer = 0;		//捕獲されるまでのタイマー
-	int m_banaPeelTimer = 0;		//バナナの皮を投げるまでのタイマー
+	int m_banaPeelTimer = 0;	//バナナの皮を投げるまでのタイマー
+	int m_stunTimer = 0;
 
 	const float m_animTime = 0.2f;			//アニメーションの補間時間
 
