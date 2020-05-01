@@ -93,13 +93,8 @@ void Saru::Update()
 		break;
 	case enState_stun:			//‚Ğ‚é‚ñ‚Å‚¢‚éó‘Ô
 		m_enAnimClip = enAnim_stun;
-		/*if (m_animation.IsPlaying() != true) {
+		if (m_animation.IsPlaying() != true) {
 			m_enSaruState = enState_taiki;
-		}*/
-		m_stunTimer++;
-		if (m_stunTimer == 30) {
-			m_enSaruState = enState_taiki;
-			m_stunTimer = 0;
 		}
 		break;
 	}

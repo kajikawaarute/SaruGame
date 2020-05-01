@@ -95,11 +95,11 @@ private:
 		enAnim_run,				//走りアニメーション
 		enAnim_attack,			//攻撃アニメーション
 		enAnim_Get,				//捕獲アニメーション
-		enAnim_stun,
+		enAnim_stun,			//ひるんでいるアニメーション
 		enAnim_num				//アニメーションクリップの数
 	};
 	Animation m_animation;								//アニメーション
-	AnimationClip m_animClip[enAnim_num];						//アニメーションクリップ
+	AnimationClip m_animClip[enAnim_num];				//アニメーションクリップ
 
 	enum EnSaruSaruState {
 		enState_taiki,				//待機状態

@@ -10,7 +10,6 @@
 
 Game::Game()
 {
-	m_soundEnigne.Init();
 	m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
 	m_gameBGM.Play(true);
 
@@ -68,9 +67,6 @@ void Game::Update()
 	{
 		g_goMgr.DeleteGO(this);
 	}
-
-	//サウンドエンジンを更新
-	m_soundEnigne.Update();
 }
 
 void Game::Draw()

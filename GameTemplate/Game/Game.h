@@ -18,7 +18,6 @@ public:
 	void Update();
 	void Draw();
 private:
-	CSoundEngine m_soundEnigne;					//サウンドエンジン
 	prefab::CSoundSource m_gameBGM;				//ゲームのBGM
 
 	Player* m_pl = nullptr;						//プレイヤーのインスタンス

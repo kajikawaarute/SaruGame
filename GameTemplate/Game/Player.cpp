@@ -27,13 +27,6 @@ Player::Player()
 	//アニメーションを初期化
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
 
-	//サウンドソースを初期化
-	//m_player_walkSE = g_goMgr.NewGO<prefab::CSoundSource>();
-	
-	//m_player_AmiSE.Init(L"Assets/Sound/PlayerSE_Ami.wav");
-	//m_player_walkSE.Init(L"Assets/Sound/PlayerSE_walk.wav");
-	//m_player_JumpSE.Init(L"Assets/Sound/PlayerSE_Jump.wav");
-
 	//プレイヤーの初期アニメーション
 	m_enAnimClip = enAnim_taiki;
 
@@ -168,9 +161,6 @@ void Player::Update()
 
 void Player::Move()
 {
-	//m_moveSpeed.x = g_pad[0].GetLStickXF() * 1000.0f;
-	//m_moveSpeed.z = g_pad[0].GetLStickYF() * 1000.0f;
-
 	float StickZ = g_pad[0].GetLStickYF() * 1000.0f;
 	float StickX = g_pad[0].GetLStickXF() * 1000.0f;
 
@@ -275,9 +265,9 @@ void Player::Jump()
 {
 	if (g_pad[0].IsTrigger(enButtonA))
 	{
-		/*prefab::CSoundSource* player_JumpSE = g_goMgr.NewGO<prefab::CSoundSource>();
+		prefab::CSoundSource* player_JumpSE = g_goMgr.NewGO<prefab::CSoundSource>();
 		player_JumpSE->Init(L"Assets/Sound/PlayerSE_Jump.wav");
-		player_JumpSE->Play(false);*/
+		player_JumpSE->Play(false);
 
 		m_moveSpeed.y = 1000.0f;
 		m_enPlayerState = enState_Jump;
@@ -288,9 +278,9 @@ void Player::SaruGet()
 {
 	if (g_pad[0].IsTrigger(enButtonB))
 	{
-		/*prefab::CSoundSource* player_AmiSE = g_goMgr.NewGO<prefab::CSoundSource>();
+		prefab::CSoundSource* player_AmiSE = g_goMgr.NewGO<prefab::CSoundSource>();
 		player_AmiSE->Init(L"Assets/Sound/PlayerSE_Ami.wav");
-		player_AmiSE->Play(false);*/
+		player_AmiSE->Play(false);
 		m_enPlayerState = enState_saruGet;
 	}
 }
