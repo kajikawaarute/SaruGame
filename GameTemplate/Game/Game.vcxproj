@@ -103,6 +103,9 @@
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyStateAttack.cpp" />
+    <ClCompile Include="EnemyStateMove.cpp" />
+    <ClCompile Include="EnemyStateWait.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="graphics\animation\Animation.cpp" />
@@ -117,6 +120,7 @@
     <ClCompile Include="graphics\SkinModelDataManager.cpp" />
     <ClCompile Include="graphics\SkinModelEffect.cpp" />
     <ClCompile Include="HID\Pad.cpp" />
+    <ClCompile Include="IEnenyState.cpp" />
     <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="IGameObjectManager.cpp" />
     <ClCompile Include="level\Level.cpp" />
@@ -152,6 +156,9 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyStateAttack.h" />
+    <ClInclude Include="EnemyStateMove.h" />
+    <ClInclude Include="EnemyStateWait.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="graphics\animation\Animation.h" />
@@ -167,6 +174,7 @@
     <ClInclude Include="graphics\SkinModelEffect.h" />
     <ClInclude Include="graphics\SkinModelShaderConst.h" />
     <ClInclude Include="HID\Pad.h" />
+    <ClInclude Include="IEnenyState.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="IGameObjectManager.h" />
     <ClInclude Include="level\Level.h" />

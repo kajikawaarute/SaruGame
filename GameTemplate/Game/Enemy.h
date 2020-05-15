@@ -1,6 +1,9 @@
 #pragma once
 #include "IGameObject.h"
 #include "character/CharacterController.h"
+#include "EnemyStateAttack.h"
+#include "EnemyStateWait.h"
+#include "EnemyStateMove.h"
 
 class Player;
 class Enemy : public IGameObject
@@ -60,6 +63,49 @@ public:
 	/// </summary>
 	void Delete();
 
+	/// <summary>
+	/// 待機タイマーを加算
+	/// </summary>
+	/// <returns></returns>
+	int AddWaitTimer()
+	{
+		return m_waitTimer++;
+	}
+	/// <summary>
+	/// 待機タイマーを取得
+	/// </summary>
+	/// <returns></returns>
+	int GetWaitTimer()
+	{
+		return m_waitTimer;
+	}
+	/// <summary>
+	/// 待機タイマーをリセット
+	/// </summary>
+	/// <returns></returns>
+	int ReSetWaitTimer()
+	{
+		return m_waitTimer = 0;
+	}
+
+	/// <summary>
+	/// 待機状態に切り替える
+	/// </summary>
+	void ChangeStateWait()
+	{
+		m_enEnemyState = enState_wait;
+	}
+
+	/// <summary>
+	/// 待機状態に設定。
+	/// </summary>
+	void SetChangeStateWait();
+
+	/// <summary>
+	/// 移動状態に設定。
+	/// </summary>
+	void SetChangeStateMove();
+
 	void SetPlayer(Player* player)
 	{
 		m_pl = player;
@@ -72,14 +118,14 @@ private:
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
 
 	enum EnEnemyState {
-		enState_taiki,			//待機状態
+		enState_wait,			//待機状態
 		enState_move,			//移動状態
 		enState_attack,			//攻撃状態
 	};
 	EnEnemyState m_enEnemyState;
 
 	enum EnAnimationClip {
-		enAnim_taiki,						//待機アニメーション
+		enAnim_wait,						//待機アニメーション
 		enAnim_walk,						//歩きアニメーション
 		enAnim_num							//アニメーションの数
 	};
@@ -92,6 +138,14 @@ private:
 
 	Player* m_pl = nullptr;					//プレイヤーのインスタンス
 	
-	int m_taikiTimer = 0;					//待機状態になるまでのタイマー
+	int m_waitTimer = 0;					//待機状態になるまでのタイマー
+
+	IEnenyState* m_currentState = nullptr;	//現在のエネミーの状態
+	EnemyStateAttack m_enemyStateAttack;	//攻撃状態
+	EnemyStateWait m_enemyStateWait;		//待機状態
+	EnemyStateMove m_enemyStateMove;		//移動状態
+
+public:
+	void ChangeState(EnEnemyState nextState);
 };
 

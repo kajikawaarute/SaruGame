@@ -37,6 +37,12 @@
     <Filter Include="Assets\sprite">
       <UniqueIdentifier>{57f16081-d443-4a92-9112-7a525b9f4f7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{fcc55128-31e0-48ae-bd2c-d41b8df3c9d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\State">
+      <UniqueIdentifier>{cf4ad084-ca1e-49b6-8219-038105b1e31f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -118,7 +124,6 @@
     <ClCompile Include="IGameObjectManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="PhysicsGhostObject.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
@@ -139,6 +144,21 @@
       <Filter>sound</Filter>
     </ClCompile>
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="IEnenyState.cpp">
+      <Filter>Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyStateAttack.cpp">
+      <Filter>Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyStateWait.cpp">
+      <Filter>Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyStateMove.cpp">
+      <Filter>Enemy\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -228,7 +248,6 @@
     <ClInclude Include="IGameObjectManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="PhysicsGhostObject.h" />
     <ClInclude Include="BoxCollider.h" />
@@ -249,6 +268,21 @@
       <Filter>sound</Filter>
     </ClInclude>
     <ClInclude Include="Title.h" />
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="IEnenyState.h">
+      <Filter>Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStateAttack.h">
+      <Filter>Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStateWait.h">
+      <Filter>Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStateMove.h">
+      <Filter>Enemy\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

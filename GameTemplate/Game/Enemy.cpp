@@ -9,20 +9,20 @@ Enemy::Enemy()
 
 	//アニメーションのロード
 	m_animationClip[enAnim_walk].Load(L"Assets/animData/Enemy-walk.tka");
-	m_animationClip[enAnim_taiki].Load(L"Assets/animData/Enemy-taiki.tka");
+	m_animationClip[enAnim_wait].Load(L"Assets/animData/Enemy-taiki.tka");
 
 	//アニメーションのループを設定
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
-	m_animationClip[enAnim_taiki].SetLoopFlag(true);
+	m_animationClip[enAnim_wait].SetLoopFlag(true);
 
 	//アニメーションを初期化
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
 
 	//エネミーの初期状態
-	m_enEnemyState = enState_taiki;
+	m_currentState = &m_enemyStateWait;
 
 	//エネミーの初期アニメーション
-	m_enAnimClip = enAnim_taiki;
+	m_enAnimClip = enAnim_wait;
 }
 
 
@@ -32,51 +32,16 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
-	CVector3 enemyFoward = CVector3::AxisZ();
-	m_rotation.Multiply(enemyFoward);
-	//エネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
-	float toEnemyLen = toEnemyDir.Length();
-	toEnemyDir.Normalize();
-
-	float d = enemyFoward.Dot(toEnemyDir);
-	float angle = acos(d);
-
 	//エネミーの状態
-	switch (m_enEnemyState)
-	{
-	case Enemy::enState_taiki:		//待機状態
-		m_enAnimClip = enAnim_taiki;
-		AttackDistance();
-		m_moveSpeed = CVector3::Zero();
-		if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 700.0f) {
-			m_enEnemyState = enState_move;
-		}
-		break;
-	case Enemy::enState_move:		//移動状態
-		m_enAnimClip = enAnim_walk;
-		Move();
-		AttackDistance();
-		m_moveSpeed = toEnemyDir;
-		if (toEnemyLen > 700.0f) {
-			m_enEnemyState = enState_taiki;
-		}
-		break;
-	case Enemy::enState_attack:		//攻撃状態
-		Attack();
-		m_taikiTimer++;
-		if (m_taikiTimer == 60) {
-			m_enEnemyState = enState_taiki;
-			m_taikiTimer = 0;
-		}
-		break;
-	}
+	m_currentState->Init(this);
+	m_currentState->Update();
+	ChangeState(m_enEnemyState);
 
 	//エネミーのアニメーション
 	switch (m_enAnimClip)
 	{
-	case enAnim_taiki:
-		m_animation.Play(enAnim_taiki, m_animTime);
+	case enAnim_wait:
+		m_animation.Play(enAnim_wait, m_animTime);
 		break;
 	case enAnim_walk:
 		m_animation.Play(enAnim_walk, m_animTime);
@@ -150,4 +115,66 @@ void Enemy::Delete()
 {
 	g_goMgr.DeleteGO(this);
 	m_pl->DeleteEnemy(this);
+}
+
+void Enemy::SetChangeStateWait()
+{
+	CVector3 enemyFoward = CVector3::AxisZ();
+	m_rotation.Multiply(enemyFoward);
+	//エネミーからプレイヤーに伸びるベクトルを求める。
+	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
+	float toEnemyLen = toEnemyDir.Length();
+	toEnemyDir.Normalize();
+	float d = enemyFoward.Dot(toEnemyDir);
+	float angle = acos(d);
+
+	m_enAnimClip = enAnim_wait;
+	AttackDistance();
+	m_moveSpeed = CVector3::Zero();
+	if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 700.0f) {
+		m_enEnemyState = enState_move;
+	}
+}
+
+void Enemy::SetChangeStateMove()
+{
+	CVector3 enemyFoward = CVector3::AxisZ();
+	m_rotation.Multiply(enemyFoward);
+	//エネミーからプレイヤーに伸びるベクトルを求める。
+	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
+	float toEnemyLen = toEnemyDir.Length();
+	toEnemyDir.Normalize();
+
+	m_enAnimClip = enAnim_walk;
+	Move();
+	AttackDistance();
+	m_moveSpeed = toEnemyDir;
+	if (toEnemyLen > 700.0f) {
+		m_enEnemyState = enState_wait;
+	}
+}
+
+void Enemy::ChangeState(EnEnemyState nextState)
+{
+	if (m_currentState != nullptr) {
+		//終了処理
+		m_currentState->OnLeave();
+	}
+	switch (nextState)
+	{
+	case enState_wait:
+		//現在の状態を待機状態にする。
+		m_currentState = &m_enemyStateWait;
+		break;
+	case enState_move:
+		//現在の状態を移動状態にする。
+		m_currentState = &m_enemyStateMove;
+		break;
+	case enState_attack:
+		//現在の状態を攻撃状態にする。
+		m_currentState = &m_enemyStateAttack;
+		break;
+	}
+	//開始処理
+	m_currentState->OnEnter();
 }
