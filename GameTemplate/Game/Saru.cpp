@@ -9,20 +9,21 @@ Saru::Saru()
 	m_model.Init(L"Assets/modelData/Saru.cmo");
 
 	//アニメーションをロード
-	m_animClip[enAnim_taiki].Load(L"Assets/animData/Saru-taiki.tka");
+	m_animClip[enAnim_wait].Load(L"Assets/animData/Saru-taiki.tka");
 	m_animClip[enAnim_run].Load(L"Assets/animData/Saru-run.tka");
 	m_animClip[enAnim_attack].Load(L"Assets/animData/Saru-Attack.tka");
 	m_animClip[enAnim_Get].Load(L"Assets/animData/Saru-Get.tka");
 
 	//アニメーションのループを設定
-	m_animClip[enAnim_taiki].SetLoopFlag(true);
+	m_animClip[enAnim_wait].SetLoopFlag(true);
 	m_animClip[enAnim_run].SetLoopFlag(true);
 
 	//サルの初期アニメーション
-	m_enAnimClip = enAnim_taiki;
+	m_enAnimClip = enAnim_wait;
 
 	//サルの初期状態
-	m_enSaruState = enState_taiki;
+	//m_enSaruState = enState_taiki;
+	m_currentState = &m_saruStateWait;
 
 	//アニメーションの初期化
 	m_animation.Init(m_model, m_animClip, enAnim_num);
@@ -43,67 +44,16 @@ Saru::~Saru()
 
 void Saru::Update()
 {
-
-	CVector3 saruFoward = CVector3::AxisZ();
-	m_rotation.Multiply(saruFoward);
-	//サルからプレイヤーに伸びるベクトルを求める。
-	CVector3 toSaruDir = m_pl->GetPos() - m_position;
-	float toSaruLen = toSaruDir.Length();
-	toSaruDir.Normalize();
-
-	float d = saruFoward.Dot(toSaruDir);
-
-	float angle = acos(d);
-
-	//サルの状態
-	switch (m_enSaruState)
-	{
-	case Saru::enState_taiki:	//待機状態
-		Move();
-		m_enAnimClip = enAnim_taiki;
-		m_moveSpeed = CVector3::Zero();
-		if (fabsf(angle) < CMath::DegToRad(90.0f) && toSaruLen < 500.0f)
-		{
-			m_enSaruState = enState_run;
-		}
-		Distance();
-		break;
-	case Saru::enState_run:		//走り状態
-		Move();
-		BanaPeelThrow();
-		m_enAnimClip = enAnim_run;
-		m_moveSpeed = toSaruDir;
-		if (toSaruLen > 700.0f)
-		{
-			m_enSaruState = enState_taiki;
-		}
-		Distance();
-		break;
-	case Saru::enState_attack:	//攻撃状態
-		Attack();
-		m_enAnimClip = enAnim_attack;
-		m_taikiTimer++;
-		if (m_taikiTimer == 60) {
-			m_enSaruState = enState_taiki;
-			m_taikiTimer = 0;
-		}
-		break;
-	case Saru::enState_Get:		//捕獲状態
-		m_enAnimClip = enAnim_Get;
-		break;
-	case enState_stun:			//ひるんでいる状態
-		m_enAnimClip = enAnim_stun;
-		if (m_animation.IsPlaying() != true) {
-			m_enSaruState = enState_taiki;
-		}
-		break;
-	}
+	//エネミ－の状態
+	m_currentState->Init(this);
+	m_currentState->Update();
+	ChangeState(m_enSaruState);
 
 	//サルのアニメーション
 	switch (m_enAnimClip)
 	{
-	case Saru::enAnim_taiki:		//待機アニメーション
-		m_animation.Play(enAnim_taiki, m_animTime);
+	case Saru::enAnim_wait:		//待機アニメーション
+		m_animation.Play(enAnim_wait, m_animTime);
 		break;
 	case Saru::enAnim_run:			//走りアニメーション
 		m_animation.Play(enAnim_run, m_animTime);
@@ -202,6 +152,9 @@ void Saru::Stun()
 	m_enSaruState = enState_stun;
 	m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;
+	if (m_animation.IsPlaying() != true) {
+		m_enSaruState = enState_wait;
+	}
 }
 
 void Saru::InitEffekseer()
@@ -241,7 +194,7 @@ void Saru::EffekseerCamera()
 	m_effekseerRenderer->SetProjectionMatrix(efProjMat);
 }
 
-void Saru::Distance()
+void Saru::AttackDistance()
 {
 	//サルからプレイヤーに伸びるベクトルを求める。
 	CVector3 toSaruDir = m_pl->GetPos() - m_position;
@@ -262,4 +215,80 @@ void Saru::Attack()
 	m_pl->GetMoveSpd() = toSaruDir * 2.0f;
 
 	m_pl->Attacked();
+}
+
+void Saru::StateWait()
+{
+	CVector3 saruFoward = CVector3::AxisZ();
+	m_rotation.Multiply(saruFoward);
+	//サルからプレイヤーに伸びるベクトルを求める。
+	CVector3 toSaruDir = m_pl->GetPos() - m_position;
+	float toSaruLen = toSaruDir.Length();
+	toSaruDir.Normalize();
+
+	float d = saruFoward.Dot(toSaruDir);
+
+	float angle = acos(d);
+
+	Move();
+	m_moveSpeed = CVector3::Zero();
+	if (fabsf(angle) < CMath::DegToRad(90.0f) && toSaruLen < 500.0f)
+	{
+		m_enSaruState = enState_run;
+	}
+	AttackDistance();
+}
+
+void Saru::StateRun()
+{
+	CVector3 saruFoward = CVector3::AxisZ();
+	m_rotation.Multiply(saruFoward);
+	//サルからプレイヤーに伸びるベクトルを求める。
+	CVector3 toSaruDir = m_pl->GetPos() - m_position;
+	float toSaruLen = toSaruDir.Length();
+
+	Move();
+	BanaPeelThrow();
+	m_moveSpeed = toSaruDir;
+	if (toSaruLen > 700.0f)
+	{
+		m_enSaruState = enState_wait;
+	}
+	AttackDistance();
+}
+
+void Saru::ChangeState(EnSaruState nextState)
+{
+	if (m_currentState != nullptr) {
+		//終了処理
+		m_currentState->OnLeave();
+	}
+	switch (nextState)
+	{
+	case Saru::enState_wait:
+		//現在の状態を待機状態にする。
+		m_currentState = &m_saruStateWait;
+		m_enAnimClip = enAnim_wait;
+		break;
+	case Saru::enState_run:
+		//現在の状態を走り状態にする。
+		m_currentState = &m_saruStateRun;
+		m_enAnimClip = enAnim_run;
+		break;
+	case Saru::enState_attack:
+		//現在の状態を攻撃状態にする。
+		m_currentState = &m_saruStateAttack;
+		m_enAnimClip = enAnim_attack;
+		break;
+	case Saru::enState_Get:
+		//現在の状態を捕獲状態にする。
+		m_currentState = &m_saruStateGet;
+		m_enAnimClip = enAnim_Get;
+		break;
+	case Saru::enState_stun:
+		//現在の状態を怯み状態にする。
+		m_currentState = &m_saruStateStun;
+		m_enAnimClip = enAnim_Get;
+		break;
+	}
 }

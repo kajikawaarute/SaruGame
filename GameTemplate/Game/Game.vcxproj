@@ -123,6 +123,7 @@
     <ClCompile Include="IEnenyState.cpp" />
     <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="IGameObjectManager.cpp" />
+    <ClCompile Include="ISaruState.cpp" />
     <ClCompile Include="level\Level.cpp" />
     <ClCompile Include="level\MapChip.cpp" />
     <ClCompile Include="main.cpp" />
@@ -138,6 +139,11 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Saru.cpp" />
+    <ClCompile Include="SaruStateAttack.cpp" />
+    <ClCompile Include="SaruStateGet.cpp" />
+    <ClCompile Include="SaruStateRun.cpp" />
+    <ClCompile Include="SaruStateStun.cpp" />
+    <ClCompile Include="SaruStateWait.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp" />
     <ClCompile Include="sound\SoundSource.cpp" />
     <ClCompile Include="sound\WaveFile.cpp" />
@@ -177,6 +183,7 @@
     <ClInclude Include="IEnenyState.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="IGameObjectManager.h" />
+    <ClInclude Include="ISaruState.h" />
     <ClInclude Include="level\Level.h" />
     <ClInclude Include="level\MapChip.h" />
     <ClInclude Include="math\kMath.h" />
@@ -193,6 +200,11 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Saru.h" />
+    <ClInclude Include="SaruStateAttack.h" />
+    <ClInclude Include="SaruStateGet.h" />
+    <ClInclude Include="SaruStateRun.h" />
+    <ClInclude Include="SaruStateStun.h" />
+    <ClInclude Include="SaruStateWait.h" />
     <ClInclude Include="sound\SoundEngine.h" />
     <ClInclude Include="sound\SoundSource.h" />
     <ClInclude Include="sound\WaveFile.h" />

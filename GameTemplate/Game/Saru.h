@@ -2,6 +2,11 @@
 #include "IGameObject.h"
 #include "sound/SoundEngine.h"
 #include "sound/SoundSource.h"
+#include "SaruStateWait.h"
+#include "SaruStateRun.h"
+#include "SaruStateAttack.h"
+#include "SaruStateGet.h"
+#include "SaruStateStun.h"
 
 class Player;
 class BananaPeel;
@@ -56,6 +61,7 @@ public:
 	{
 		return m_position;
 	}
+
 	/// <summary>
 	/// サルの座標を設定
 	/// </summary>
@@ -64,6 +70,32 @@ public:
 	CVector3& SetPos(CVector3 pos)
 	{
 		return m_position = pos;
+	}
+
+	/// <summary>
+	/// 待機タイマーを取得
+	/// </summary>
+	/// <returns></returns>
+	int GetWaitTimer()
+	{
+		return m_waitTimer;
+	}
+	/// <summary>
+	/// 待機タイマーを加算
+	/// </summary>
+	/// <returns></returns>
+	int AddWaitTimer()
+	{
+		return m_waitTimer++;
+	}
+
+	/// <summary>
+	/// 待機タイマーをリセット
+	/// </summary>
+	/// <returns></returns>
+	int ReSetWaitTimer()
+	{
+		return m_waitTimer = 0;
 	}
 
 	void SetPlayer(Player* player)
@@ -80,9 +112,27 @@ public:
 	void EffekseerCamera();
 
 	/// <summary>
-	/// サルからプレイヤーまでの距離
+	/// 攻撃するまでの距離
 	/// </summary>
-	void Distance();
+	void AttackDistance();
+
+	/// <summary>
+	/// 待機状態に設定
+	/// </summary>
+	void SetChangeStateWait()
+	{
+		m_enSaruState = enState_wait;
+	}
+
+	/// <summary>
+	/// 待機状態中の処理
+	/// </summary>
+	void StateWait();
+
+	/// <summary>
+	/// 走り状態中の処理
+	/// </summary>
+	void StateRun();
 private:
 	SkinModel m_model;									//スキンモデル
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -91,7 +141,7 @@ private:
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
 	
 	enum EnAnimationClip {
-		enAnim_taiki,			//待機アニメーション
+		enAnim_wait,			//待機アニメーション
 		enAnim_run,				//走りアニメーション
 		enAnim_attack,			//攻撃アニメーション
 		enAnim_Get,				//捕獲アニメーション
@@ -100,22 +150,28 @@ private:
 	};
 	Animation m_animation;								//アニメーション
 	AnimationClip m_animClip[enAnim_num];				//アニメーションクリップ
+	EnAnimationClip m_enAnimClip;
 
-	enum EnSaruSaruState {
-		enState_taiki,				//待機状態
+	enum EnSaruState {
+		enState_wait,				//待機状態
 		enState_run,				//走り状態
 		enState_attack,				//攻撃状態
 		enState_Get,				//捕獲状態
 		enState_stun				//ひるんだ状態
 	};
+	EnSaruState m_enSaruState;
 
-	EnAnimationClip m_enAnimClip;
-	EnSaruSaruState m_enSaruState;
+	ISaruState* m_currentState = nullptr;	//現在のサルの状態
+	SaruStateWait m_saruStateWait;			//待機状態
+	SaruStateRun m_saruStateRun;			//走り状態
+	SaruStateAttack m_saruStateAttack;		//攻撃状態
+	SaruStateGet m_saruStateGet;			//捕獲状態
+	SaruStateStun m_saruStateStun;			//怯み状態
 
 	Player* m_pl = nullptr;					//プレイヤーのインスタンス
 	BananaPeel* m_banaPeel = nullptr;		//バナナの皮のインスタンス
 
-	int m_taikiTimer = 0;		//待機状態になるまでのタイマー
+	int m_waitTimer = 0;		//待機状態になるまでのタイマー
 	int m_deathTimer = 0;		//捕獲されるまでのタイマー
 	int m_banaPeelTimer = 0;	//バナナの皮を投げるまでのタイマー
 	int m_stunTimer = 0;
@@ -131,5 +187,7 @@ private:
 
 	//CSoundSource m_saru_getAmiSE;			//捕獲されたときのSE
 	//CSoundSource m_saru_attackSE;			//攻撃したときのSE
+public:
+	void ChangeState(EnSaruState nextState);
 };
 

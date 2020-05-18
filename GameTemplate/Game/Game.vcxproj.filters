@@ -43,6 +43,12 @@
     <Filter Include="Enemy\State">
       <UniqueIdentifier>{cf4ad084-ca1e-49b6-8219-038105b1e31f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Saru">
+      <UniqueIdentifier>{533c9827-f1de-4552-9feb-305955ccccf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Saru\State">
+      <UniqueIdentifier>{71148af4-938e-49fd-87a7-8eec4c67ac3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -129,7 +135,6 @@
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
-    <ClCompile Include="Saru.cpp" />
     <ClCompile Include="BananaPeel.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp">
       <Filter>sound</Filter>
@@ -150,14 +155,35 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyStateAttack.cpp">
-      <Filter>Enemy\State</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyStateWait.cpp">
       <Filter>Enemy\State</Filter>
     </ClCompile>
     <ClCompile Include="EnemyStateMove.cpp">
       <Filter>Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Saru.cpp">
+      <Filter>Saru</Filter>
+    </ClCompile>
+    <ClCompile Include="ISaruState.cpp">
+      <Filter>Saru\State</Filter>
+    </ClCompile>
+    <ClCompile Include="SaruStateWait.cpp">
+      <Filter>Saru\State</Filter>
+    </ClCompile>
+    <ClCompile Include="SaruStateRun.cpp">
+      <Filter>Saru\State</Filter>
+    </ClCompile>
+    <ClCompile Include="SaruStateAttack.cpp">
+      <Filter>Saru\State</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyStateAttack.cpp">
+      <Filter>Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="SaruStateGet.cpp">
+      <Filter>Saru\State</Filter>
+    </ClCompile>
+    <ClCompile Include="SaruStateStun.cpp">
+      <Filter>Saru\State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,7 +279,6 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="RenderTarget.h" />
-    <ClInclude Include="Saru.h" />
     <ClInclude Include="BananaPeel.h" />
     <ClInclude Include="sound\SoundEngine.h">
       <Filter>sound</Filter>
@@ -282,6 +307,27 @@
     </ClInclude>
     <ClInclude Include="EnemyStateMove.h">
       <Filter>Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Saru.h">
+      <Filter>Saru</Filter>
+    </ClInclude>
+    <ClInclude Include="ISaruState.h">
+      <Filter>Saru\State</Filter>
+    </ClInclude>
+    <ClInclude Include="SaruStateWait.h">
+      <Filter>Saru\State</Filter>
+    </ClInclude>
+    <ClInclude Include="SaruStateRun.h">
+      <Filter>Saru\State</Filter>
+    </ClInclude>
+    <ClInclude Include="SaruStateAttack.h">
+      <Filter>Saru\State</Filter>
+    </ClInclude>
+    <ClInclude Include="SaruStateGet.h">
+      <Filter>Saru\State</Filter>
+    </ClInclude>
+    <ClInclude Include="SaruStateStun.h">
+      <Filter>Saru\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
