@@ -22,7 +22,6 @@ Saru::Saru()
 	m_enAnimClip = enAnim_wait;
 
 	//サルの初期状態
-	//m_enSaruState = enState_taiki;
 	m_currentState = &m_saruStateWait;
 
 	//アニメーションの初期化
@@ -217,44 +216,17 @@ void Saru::Attack()
 	m_pl->Attacked();
 }
 
-void Saru::StateWait()
+void Saru::Death()
 {
-	CVector3 saruFoward = CVector3::AxisZ();
-	m_rotation.Multiply(saruFoward);
-	//サルからプレイヤーに伸びるベクトルを求める。
-	CVector3 toSaruDir = m_pl->GetPos() - m_position;
-	float toSaruLen = toSaruDir.Length();
-	toSaruDir.Normalize();
-
-	float d = saruFoward.Dot(toSaruDir);
-
-	float angle = acos(d);
-
-	Move();
-	m_moveSpeed = CVector3::Zero();
-	if (fabsf(angle) < CMath::DegToRad(90.0f) && toSaruLen < 500.0f)
-	{
-		m_enSaruState = enState_run;
-	}
-	AttackDistance();
+	g_goMgr.DeleteGO(this);
+	m_pl->DeleteSaru(this);
 }
 
-void Saru::StateRun()
+void Saru::ChangeStateWaitAnim()
 {
-	CVector3 saruFoward = CVector3::AxisZ();
-	m_rotation.Multiply(saruFoward);
-	//サルからプレイヤーに伸びるベクトルを求める。
-	CVector3 toSaruDir = m_pl->GetPos() - m_position;
-	float toSaruLen = toSaruDir.Length();
-
-	Move();
-	BanaPeelThrow();
-	m_moveSpeed = toSaruDir;
-	if (toSaruLen > 700.0f)
-	{
+	if (m_animation.IsPlaying() != true) {
 		m_enSaruState = enState_wait;
 	}
-	AttackDistance();
 }
 
 void Saru::ChangeState(EnSaruState nextState)
@@ -291,4 +263,6 @@ void Saru::ChangeState(EnSaruState nextState)
 		m_enAnimClip = enAnim_Get;
 		break;
 	}
+	//開始処理
+	m_currentState->OnEnter();
 }

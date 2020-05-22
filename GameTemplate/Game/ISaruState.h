@@ -1,7 +1,6 @@
 #pragma once
 
 class Saru;
-
 class ISaruState
 {
 public:

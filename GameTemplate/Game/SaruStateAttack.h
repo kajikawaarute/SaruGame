@@ -18,5 +18,6 @@ public:
 	/// UŒ‚ó‘Ô‚ğ”²‚¯‚é‚ÉŒÄ‚Î‚ê‚éŠÖ”
 	/// </summary>
 	void OnLeave();
+
 };
 

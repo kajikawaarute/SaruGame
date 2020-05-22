@@ -119,21 +119,34 @@ public:
 	/// <summary>
 	/// 待機状態に設定
 	/// </summary>
-	void SetChangeStateWait()
+	void ChangeStateWait()
 	{
 		m_enSaruState = enState_wait;
 	}
 
 	/// <summary>
-	/// 待機状態中の処理
+	/// 走り状態に設定
 	/// </summary>
-	void StateWait();
+	void ChangeStateRun()
+	{
+		m_enSaruState = enState_run;
+	}
 
 	/// <summary>
-	/// 走り状態中の処理
+	/// 捕まえられた時に呼ばれる関数
 	/// </summary>
-	void StateRun();
+	void Death();
+
+	/// <summary>
+	/// アニメーションの再生が終わったら待機状態に切り替える
+	/// </summary>
+	void ChangeStateWaitAnim();
 private:
+	friend class SaruStateWait;
+	friend class SaruStateRun;
+	friend class SaruStateGet;
+	friend class SaruStateStun;
+
 	SkinModel m_model;									//スキンモデル
 	CVector3 m_position = CVector3::Zero();				//座標
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転

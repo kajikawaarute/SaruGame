@@ -9,9 +9,10 @@ void SaruStateAttack::OnEnter()
 void SaruStateAttack::Update()
 {
 	m_saru->Attack();
+
 	m_saru->AddWaitTimer();
 	if (m_saru->GetWaitTimer() > 60) {
-		m_saru->SetChangeStateWait();
+		m_saru->ChangeStateWait();
 		m_saru->ReSetWaitTimer();
 	}
 }
