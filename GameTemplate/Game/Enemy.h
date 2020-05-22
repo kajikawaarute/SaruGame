@@ -97,20 +97,21 @@ public:
 	}
 
 	/// <summary>
-	/// 待機状態に設定。
+	/// 移動状態に切り替える
 	/// </summary>
-	void SetChangeStateWait();
-
-	/// <summary>
-	/// 移動状態に設定。
-	/// </summary>
-	void SetChangeStateMove();
+	void ChangeStateMove()
+	{
+		m_enEnemyState = enState_move;
+	}
 
 	void SetPlayer(Player* player)
 	{
 		m_pl = player;
 	}
 private:
+	friend class EnemyStateWait;
+	friend class EnemyStateMove;
+
 	SkinModel m_model;									//スキンモデル
 	CVector3 m_position = {0.0f, 0.0f, 300.0f};			//座標
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転

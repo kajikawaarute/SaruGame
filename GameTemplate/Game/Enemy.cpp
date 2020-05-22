@@ -117,43 +117,6 @@ void Enemy::Delete()
 	m_pl->DeleteEnemy(this);
 }
 
-void Enemy::SetChangeStateWait()
-{
-	CVector3 enemyFoward = CVector3::AxisZ();
-	m_rotation.Multiply(enemyFoward);
-	//エネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
-	float toEnemyLen = toEnemyDir.Length();
-	toEnemyDir.Normalize();
-	float d = enemyFoward.Dot(toEnemyDir);
-	float angle = acos(d);
-
-	m_enAnimClip = enAnim_wait;
-	AttackDistance();
-	m_moveSpeed = CVector3::Zero();
-	if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 700.0f) {
-		m_enEnemyState = enState_move;
-	}
-}
-
-void Enemy::SetChangeStateMove()
-{
-	CVector3 enemyFoward = CVector3::AxisZ();
-	m_rotation.Multiply(enemyFoward);
-	//エネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
-	float toEnemyLen = toEnemyDir.Length();
-	toEnemyDir.Normalize();
-
-	m_enAnimClip = enAnim_walk;
-	Move();
-	AttackDistance();
-	m_moveSpeed = toEnemyDir;
-	if (toEnemyLen > 700.0f) {
-		m_enEnemyState = enState_wait;
-	}
-}
-
 void Enemy::ChangeState(EnEnemyState nextState)
 {
 	if (m_currentState != nullptr) {
@@ -165,10 +128,12 @@ void Enemy::ChangeState(EnEnemyState nextState)
 	case enState_wait:
 		//現在の状態を待機状態にする。
 		m_currentState = &m_enemyStateWait;
+		m_enAnimClip = enAnim_wait;
 		break;
 	case enState_move:
 		//現在の状態を移動状態にする。
 		m_currentState = &m_enemyStateMove;
+		m_enAnimClip = enAnim_walk;
 		break;
 	case enState_attack:
 		//現在の状態を攻撃状態にする。

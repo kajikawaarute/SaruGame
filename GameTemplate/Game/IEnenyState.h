@@ -1,7 +1,6 @@
 #pragma once
 
 class Enemy;
-
 //エネミーの状態のインターフェースクラス。
 class IEnenyState
 {
