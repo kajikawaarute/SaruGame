@@ -123,6 +123,7 @@
     <ClCompile Include="IEnenyState.cpp" />
     <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="IGameObjectManager.cpp" />
+    <ClCompile Include="IPlayerState.cpp" />
     <ClCompile Include="ISaruState.cpp" />
     <ClCompile Include="level\Level.cpp" />
     <ClCompile Include="level\MapChip.cpp" />
@@ -137,6 +138,13 @@
     <ClCompile Include="physics\CapsuleCollider.cpp" />
     <ClCompile Include="physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerStateAttack.cpp" />
+    <ClCompile Include="PlayerStateAttacked.cpp" />
+    <ClCompile Include="PlayerStateJump.cpp" />
+    <ClCompile Include="PlayerStateMove.cpp" />
+    <ClCompile Include="PlayerStateSaruGet.cpp" />
+    <ClCompile Include="PlayerStateSliped.cpp" />
+    <ClCompile Include="PlayerStateWait.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Saru.cpp" />
     <ClCompile Include="SaruStateAttack.cpp" />
@@ -183,6 +191,7 @@
     <ClInclude Include="IEnenyState.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="IGameObjectManager.h" />
+    <ClInclude Include="IPlayerState.h" />
     <ClInclude Include="ISaruState.h" />
     <ClInclude Include="level\Level.h" />
     <ClInclude Include="level\MapChip.h" />
@@ -198,6 +207,13 @@
     <ClInclude Include="physics\CollisionAttr.h" />
     <ClInclude Include="physics\PhysicsStaticObject.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerStateAttack.h" />
+    <ClInclude Include="PlayerStateAttacked.h" />
+    <ClInclude Include="PlayerStateJump.h" />
+    <ClInclude Include="PlayerStateMove.h" />
+    <ClInclude Include="PlayerStateSaruGet.h" />
+    <ClInclude Include="PlayerStateSliped.h" />
+    <ClInclude Include="PlayerStateWait.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Saru.h" />
     <ClInclude Include="SaruStateAttack.h" />

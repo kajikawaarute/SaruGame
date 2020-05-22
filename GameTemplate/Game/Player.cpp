@@ -14,7 +14,7 @@ Player::Player()
 	
 	//ぷれいやーのアニメーションをロード
 	m_animationClip[enAnim_walk].Load(L"Assets/animData/Player-walk.tka");
-	m_animationClip[enAnim_taiki].Load(L"Assets/animData/Player-taiki.tka");
+	m_animationClip[enAnim_wait].Load(L"Assets/animData/Player-taiki.tka");
 	m_animationClip[enAnim_saruGet].Load(L"Assets/animData/Player-SaruGet.tka");
 	m_animationClip[enAnim_attacked].Load(L"Assets/animData/Player-attacked.tka");
 	m_animationClip[enAnim_jump].Load(L"Assets/animData/Player-jump.tka");
@@ -22,16 +22,17 @@ Player::Player()
 	m_animationClip[enAnim_attack].Load(L"Assets/animData/Player-attack.tka");
 
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
-	m_animationClip[enAnim_taiki].SetLoopFlag(true);
+	m_animationClip[enAnim_wait].SetLoopFlag(true);
 
 	//アニメーションを初期化
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
 
 	//プレイヤーの初期アニメーション
-	m_enAnimClip = enAnim_taiki;
+	m_enAnimClip = enAnim_wait;
 
 	//プレイヤーの初期状態
-	m_enPlayerState = enState_taiki;
+	//m_enPlayerState = enState_taiki;
+	m_currentState = &m_playerStateWait;
 
 	m_ghost.CreateBox({1700.0f, 0.0f, -100.0f}, CQuaternion::Identity(), { 300.0f, 30.0f, 200.0f });
 }
@@ -57,11 +58,15 @@ void Player::Update()
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
-	CVector3 moveSpeedXZ = m_moveSpeed;
-	moveSpeedXZ.y = 0.0f;
+	/*CVector3 moveSpeedXZ = m_moveSpeed;
+	moveSpeedXZ.y = 0.0f;*/
 
 	//プレイヤーの状態
-	switch (m_enPlayerState)
+	m_currentState->Init(this);
+	m_currentState->Update();
+	ChangeState(m_enPlayerState);
+
+	/*switch (m_enPlayerState)
 	{
 	case enState_taiki:		//待機状態
 		Move();
@@ -127,13 +132,13 @@ void Player::Update()
 		m_moveSpeed.x = 0.0f;
 		m_moveSpeed.z = 0.0f;
 		break;
-	}
+	}*/
 
 	//プレイヤーのアニメーション
 	switch (m_enAnimClip)
 	{
-	case enAnim_taiki:		//待機アニメーション
-		m_animation.Play(enAnim_taiki, animTime);
+	case enAnim_wait:		//待機アニメーション
+		m_animation.Play(enAnim_wait, animTime);
 		break;
 	case enAnim_walk:		//歩きアニメーション
 		//m_player_walkSE.Play(false);
@@ -199,7 +204,7 @@ void Player::GetSaru()
 		float d = plFoward.Dot(toPlayerDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 100.0f)
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 300.0f)
 		{
 			m_sarus[i]->GetSaru();
 		}
@@ -278,11 +283,15 @@ void Player::SaruGet()
 {
 	if (g_pad[0].IsTrigger(enButtonB))
 	{
+		m_moveSpeed.x = 0.0f;
+		m_moveSpeed.z = 0.0f;
+
 		prefab::CSoundSource* player_AmiSE = g_goMgr.NewGO<prefab::CSoundSource>();
 		player_AmiSE->Init(L"Assets/Sound/PlayerSE_Ami.wav");
 		player_AmiSE->Play(false);
 		m_enPlayerState = enState_saruGet;
 	}
+	
 }
 
 void Player::AttackTry()
@@ -295,6 +304,9 @@ void Player::AttackTry()
 
 void Player::Attack()
 {
+	m_moveSpeed.x = 0.0f;
+	m_moveSpeed.z = 0.0f;
+
 	CVector3 plFoward = CVector3::AxisZ();
 	m_rotation.Multiply(plFoward);
 	//エネミーを倒す
@@ -306,7 +318,7 @@ void Player::Attack()
 		float d = plFoward.Dot(toPlayer_EnemyDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 100.0f)
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 300.0f)
 		{
 			m_enemys[i]->Delete();
 		}
@@ -321,7 +333,7 @@ void Player::Attack()
 		float d = plFoward.Dot(toPlayer_SaruDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toSaruLen < 100.0f)
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toSaruLen < 300.0f)
 		{
 			m_sarus[i]->Stun();
 		}
@@ -330,7 +342,103 @@ void Player::Attack()
 
 void Player::SetPlayerWalkSE()
 {
-	/*prefab::CSoundSource* m_player_walkSE = g_goMgr.NewGO<prefab::CSoundSource>();
+	prefab::CSoundSource* m_player_walkSE = g_goMgr.NewGO<prefab::CSoundSource>();
 	m_player_walkSE->Init(L"Assets/Sound/PlayerSE_walk.wav");
-	m_player_walkSE->Play(false);*/
+	m_player_walkSE->Play(false);
+}
+
+void Player::StateWait()
+{
+	Move();
+	CVector3 moveSpeedXZ = m_moveSpeed;
+	moveSpeedXZ.y = 0.0f;
+	if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f) {
+		m_enPlayerState = enState_walk;
+	}
+	SaruGet();
+	Jump();
+	AttackTry();
+}
+
+void Player::StateMove()
+{
+	Move();
+	CVector3 moveSpeedXZ = m_moveSpeed;
+	moveSpeedXZ.y = 0.0f;
+	if (moveSpeedXZ.LengthSq() <= 1.0f * 1.0f) {
+		m_enPlayerState = enState_wait;
+	}
+	SaruGet();
+	Jump();
+	AttackTry();
+}
+
+void Player::StateJump()
+{
+
+	Move();
+	SaruGet();
+	AttackTry();
+}
+
+void Player::ChangeStateWaitAnim()
+{
+	if (m_animation.IsPlaying() != true) {
+		m_enPlayerState = enState_wait;
+	}
+}
+
+void Player::ChangeStateWaitIsOnGound()
+{
+	if (m_charaCon.IsOnGround()) {
+		m_enPlayerState = enState_wait;
+	}
+}
+
+void Player::ChangeState(EnPlayerState nextState)
+{
+	if (m_currentState != nullptr) {
+		//終了処理
+		m_currentState->OnLeave();
+	}
+	switch (m_enPlayerState)
+	{
+	case Player::enState_wait:
+		//現在の状態を待機状態にする。
+		m_currentState = &m_playerStateWait;
+		m_enAnimClip = enAnim_wait;
+		break;
+	case Player::enState_walk:
+		//現在の状態を移動状態にする。
+		m_currentState = &m_playerStateMove;
+		m_enAnimClip = enAnim_walk;
+		break;
+	case Player::enState_saruGet:
+		//現在の状態をサルを捕獲状態にする。
+		m_currentState = &m_playerStateSaruGet;
+		m_enAnimClip = enAnim_saruGet;
+		break;
+	case Player::enState_attacked:
+		//現在の状態を攻撃された状態にする。
+		m_currentState = &m_playerStateAttacked;
+		m_enAnimClip = enAnim_attacked;
+		break;
+	case Player::enState_Jump:
+		//現在の状態をジャンプ状態にする。
+		m_currentState = &m_playerStateJump;
+		m_enAnimClip = enAnim_jump;
+		break;
+	case Player::enState_sliped:
+		//現在の状態を滑っている状態にする。
+		m_currentState = &m_playerStateSliped;
+		m_enAnimClip = enAnim_sliped;
+		break;
+	case Player::enState_attack:
+		//現在の状態を攻撃状態にする。
+		m_currentState = &m_playerStateAttack;
+		m_enAnimClip = enAnim_attack;
+		break;
+	}
+	//開始処理
+	m_currentState->OnEnter();
 }
