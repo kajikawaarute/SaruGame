@@ -12,6 +12,7 @@
 
 class Saru;
 class Enemy;
+class PlayerHP;
 class Player : public IGameObject
 {
 public:
@@ -91,6 +92,10 @@ public:
 	{
 		m_enemys.push_back(enemy);
 	}
+	void SetPlayerHP(PlayerHP* playerHp)
+	{
+		m_playerHp = playerHp;
+	}
 
 	/// <summary>
 	/// サルを消すときの処理
@@ -144,6 +149,10 @@ public:
 
 	void SetPlayerWalkSE();
 
+	/// <summary>
+	/// 捕まえたサルカウントを取得
+	/// </summary>
+	/// <returns></returns>
 	int GetSaruCount()
 	{
 		return m_saruCount;
@@ -230,6 +239,7 @@ private:
 
 	std::vector<Saru*> m_sarus;
 	std::vector<Enemy*> m_enemys;
+	PlayerHP* m_playerHp = nullptr;
 public:
 	void ChangeState(EnPlayerState nextState);
 };

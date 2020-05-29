@@ -10,6 +10,7 @@ class Enemy;
 class GameCamera;
 class Saru;
 class Title;
+class PlayerHP;
 class Game : public IGameObject
 {
 public:
@@ -25,5 +26,6 @@ private:
 	Enemy* m_ene[2] = { nullptr, nullptr};						//エネミーのインスタンス
 	GameCamera* m_gCamera = nullptr;			//ゲームカメラのインスタンス
 	Saru* m_saru[2] = {nullptr, nullptr};		//サルクラスのインスタンス
+	PlayerHP* m_playerHP = nullptr;
 };
 

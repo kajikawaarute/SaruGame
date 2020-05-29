@@ -217,6 +217,9 @@
     <ClCompile Include="PlayerStateAttack.cpp">
       <Filter>Player\State</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerHP.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -387,6 +390,9 @@
     <ClInclude Include="PlayerStateAttack.h">
       <Filter>Player\State</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerHP.h">
+      <Filter>Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -422,6 +428,9 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\Catch_the_monkey.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\PlayerHP.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

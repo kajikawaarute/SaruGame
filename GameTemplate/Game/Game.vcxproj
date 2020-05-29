@@ -138,6 +138,7 @@
     <ClCompile Include="physics\CapsuleCollider.cpp" />
     <ClCompile Include="physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerHP.cpp" />
     <ClCompile Include="PlayerStateAttack.cpp" />
     <ClCompile Include="PlayerStateAttacked.cpp" />
     <ClCompile Include="PlayerStateJump.cpp" />
@@ -207,6 +208,7 @@
     <ClInclude Include="physics\CollisionAttr.h" />
     <ClInclude Include="physics\PhysicsStaticObject.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerHP.h" />
     <ClInclude Include="PlayerStateAttack.h" />
     <ClInclude Include="PlayerStateAttacked.h" />
     <ClInclude Include="PlayerStateJump.h" />
@@ -260,6 +262,11 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\Catch_the_monkey.png">
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\sprite\%(Filename).dds</ContentOutput>
+    </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\PlayerHP.png">
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\sprite\%(Filename).dds</ContentOutput>
     </ImageContentTask>
   </ItemGroup>

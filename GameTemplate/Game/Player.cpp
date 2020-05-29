@@ -3,6 +3,7 @@
 #include "IGameObjectManager.h"
 #include "Saru.h"
 #include "Enemy.h"
+#include "PlayerHP.h"
 
 Player::Player()
 {
@@ -253,6 +254,7 @@ void Player::DeleteEnemy(Enemy * enemy)
 
 void Player::Attacked()
 {
+	m_playerHp->SetDamageFlag(true);
 	m_enPlayerState = enState_attacked;
 }
 

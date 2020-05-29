@@ -7,6 +7,7 @@
 #include "Saru.h"
 #include "GameCamera.h"
 #include "Title.h"
+#include "PlayerHP.h"
 
 Game::Game()
 {
@@ -21,6 +22,9 @@ Game::Game()
 
 	m_saru[0] = g_goMgr.NewGO<Saru>();
 	m_saru[1] = g_goMgr.NewGO<Saru>();
+
+	m_playerHP = g_goMgr.NewGO<PlayerHP>();
+	m_pl->SetPlayerHP(m_playerHP);
 
 	m_saru[0]->SetPos({ 0.0f, 0.0f, 500.0f });
 	m_saru[1]->SetPos({-100.0f, 0.0f, 500.0f});
@@ -54,6 +58,7 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_gCamera);
 	g_goMgr.DeleteGO(m_saru[0]);
 	g_goMgr.DeleteGO(m_saru[1]);
+	g_goMgr.DeleteGO(m_playerHP);
 
 	g_goMgr.NewGO<Title>();
 }
@@ -65,6 +70,9 @@ void Game::Update()
 	}
 	if (m_pl->GetSaruCount() == 2)
 	{
+		g_goMgr.DeleteGO(this);
+	}
+	if (m_playerHP->GetGameOver() == true) {
 		g_goMgr.DeleteGO(this);
 	}
 }
