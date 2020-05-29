@@ -8,6 +8,7 @@
 #include "GameCamera.h"
 #include "Title.h"
 #include "PlayerHP.h"
+#include "GameClear.h"
 
 Game::Game()
 {
@@ -61,6 +62,7 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_playerHP);
 
 	g_goMgr.NewGO<Title>();
+	
 }
 
 void Game::Update()

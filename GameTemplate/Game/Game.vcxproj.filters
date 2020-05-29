@@ -220,6 +220,7 @@
     <ClCompile Include="PlayerHP.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="GameClear.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -393,6 +394,7 @@
     <ClInclude Include="PlayerHP.h">
       <Filter>Player</Filter>
     </ClInclude>
+    <ClInclude Include="GameClear.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

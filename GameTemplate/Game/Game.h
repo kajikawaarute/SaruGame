@@ -11,6 +11,7 @@ class GameCamera;
 class Saru;
 class Title;
 class PlayerHP;
+class GameClear;
 class Game : public IGameObject
 {
 public:
@@ -23,9 +24,10 @@ private:
 
 	Player* m_pl = nullptr;						//プレイヤーのインスタンス
 	Stage* m_stage = nullptr;					//ステージのインスタンス
-	Enemy* m_ene[2] = { nullptr, nullptr};						//エネミーのインスタンス
+	Enemy* m_ene[2] = { nullptr, nullptr};		//エネミーのインスタンス
 	GameCamera* m_gCamera = nullptr;			//ゲームカメラのインスタンス
 	Saru* m_saru[2] = {nullptr, nullptr};		//サルクラスのインスタンス
-	PlayerHP* m_playerHP = nullptr;
+	PlayerHP* m_playerHP = nullptr;				//プレイヤーHPのインスタンス
+	GameClear* m_gameClear = nullptr;			//ゲームクリアのインスタンス
 };
 
