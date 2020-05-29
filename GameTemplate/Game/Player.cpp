@@ -342,47 +342,6 @@ void Player::Attack()
 	}
 }
 
-void Player::SetPlayerWalkSE()
-{
-	prefab::CSoundSource* m_player_walkSE = g_goMgr.NewGO<prefab::CSoundSource>();
-	m_player_walkSE->Init(L"Assets/Sound/PlayerSE_walk.wav");
-	m_player_walkSE->Play(false);
-}
-
-void Player::StateWait()
-{
-	Move();
-	CVector3 moveSpeedXZ = m_moveSpeed;
-	moveSpeedXZ.y = 0.0f;
-	if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f) {
-		m_enPlayerState = enState_walk;
-	}
-	SaruGet();
-	Jump();
-	AttackTry();
-}
-
-void Player::StateMove()
-{
-	Move();
-	CVector3 moveSpeedXZ = m_moveSpeed;
-	moveSpeedXZ.y = 0.0f;
-	if (moveSpeedXZ.LengthSq() <= 1.0f * 1.0f) {
-		m_enPlayerState = enState_wait;
-	}
-	SaruGet();
-	Jump();
-	AttackTry();
-}
-
-void Player::StateJump()
-{
-
-	Move();
-	SaruGet();
-	AttackTry();
-}
-
 void Player::ChangeStateWaitAnim()
 {
 	if (m_animation.IsPlaying() != true) {

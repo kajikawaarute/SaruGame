@@ -147,8 +147,6 @@ public:
 		m_enPlayerState = enState_sliped;
 	}
 
-	void SetPlayerWalkSE();
-
 	/// <summary>
 	/// 捕まえたサルカウントを取得
 	/// </summary>
@@ -157,21 +155,6 @@ public:
 	{
 		return m_saruCount;
 	}
-
-	/// <summary>
-	/// 待機状態中の処理
-	/// </summary>
-	void StateWait();
-
-	/// <summary>
-	/// 移動状態中の処理
-	/// </summary>
-	void StateMove();
-
-	/// <summary>
-	/// ジャンプ状態中の処理
-	/// </summary>
-	void StateJump();
 
 	/// <summary>
 	/// アニメーションの再生が終わったら待機状態に切り替える
