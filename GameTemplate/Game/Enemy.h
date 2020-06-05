@@ -29,15 +29,23 @@ public:
 	{
 		return m_position;
 	}
-
 	/// <summary>
 	/// エネミーの座標を設定
 	/// </summary>
 	/// <param name="pos"></param>
 	/// <returns></returns>
-	CVector3& SetPos(CVector3 pos)
+	void SetPosition(const CVector3& pos)
 	{
-		return m_position = pos;
+		m_position = pos;
+	}
+
+	/// <summary>
+	/// エネミーの回転を設定
+	/// </summary>
+	/// <param name="rot"></param>
+	void SetRotation(const CQuaternion rot)
+	{
+		m_rotation = rot;
 	}
 
 	/// <summary>

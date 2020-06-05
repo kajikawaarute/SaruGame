@@ -61,15 +61,23 @@ public:
 	{
 		return m_position;
 	}
-
 	/// <summary>
 	/// サルの座標を設定
 	/// </summary>
 	/// <param name="pos">座標</param>
 	/// <returns></returns>
-	CVector3& SetPos(CVector3 pos)
+	void SetPos(const CVector3& pos)
 	{
-		return m_position = pos;
+		m_position = pos;
+	}
+
+	/// <summary>
+	/// サルの回転を設定
+	/// </summary>
+	/// <param name="rot">回転</param>
+	void SetRotation(const CQuaternion rot)
+	{
+		m_rotation = rot;
 	}
 
 	/// <summary>

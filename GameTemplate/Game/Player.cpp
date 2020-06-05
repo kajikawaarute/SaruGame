@@ -34,106 +34,26 @@ Player::Player()
 	//プレイヤーの初期状態
 	//m_enPlayerState = enState_taiki;
 	m_currentState = &m_playerStateWait;
-
-	m_ghost.CreateBox({1700.0f, 0.0f, -100.0f}, CQuaternion::Identity(), { 300.0f, 30.0f, 200.0f });
 }
 
 
 Player::~Player()
 {
-	m_ghost.Release();
 }
 
 void Player::Update()
 {
 	m_moveSpeed.y -= 50.0f;
 
-	g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
-		if (m_ghost.IsSelf(contactObject) == true) {
-			m_moveSpeed.y = 3000.0f;
-		}
-		});
-
 	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
 
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
-	/*CVector3 moveSpeedXZ = m_moveSpeed;
-	moveSpeedXZ.y = 0.0f;*/
-
 	//プレイヤーの状態
 	m_currentState->Init(this);
 	m_currentState->Update();
 	ChangeState(m_enPlayerState);
-
-	/*switch (m_enPlayerState)
-	{
-	case enState_taiki:		//待機状態
-		Move();
-		Jump();
-		SaruGet();
-		AttackTry();
-		m_enAnimClip = enAnim_taiki;
-		if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f) {
-			m_enPlayerState = enState_walk;
-		}
-		break;
-	case enState_walk:		//歩き状態
-		Move();
-		Jump();
-		SaruGet();
-		AttackTry();
-		m_enAnimClip = enAnim_walk;
-		if (moveSpeedXZ.LengthSq() <= 1.0f * 1.0f) {
-			m_enPlayerState = enState_taiki;
-		}
-		break;
-	case enState_saruGet:	//サルを捕獲
-		GetSaru();
-		m_enAnimClip = enAnim_saruGet;
-		if (m_animation.IsPlaying() != true)
-		{
-			m_enPlayerState = enState_taiki;
-		}
-
-		m_moveSpeed.x = 0.0f;
-		m_moveSpeed.z = 0.0f;
-		break;
-	case enState_attacked:	//攻撃された状態
-		m_enAnimClip = enAnim_attacked;
-		if (m_animation.IsPlaying() != true)
-		{
-			m_enPlayerState = enState_taiki;
-		}
-		break;
-	case enState_Jump:		//ジャンプ状態
-		m_enAnimClip = enAnim_jump;
-		Move();
-		SaruGet();
-		if (m_charaCon.IsOnGround()) {
-			m_enPlayerState = enState_taiki;
-		}
-		break;
-	case enState_sliped:		//滑っている状態
-		m_enAnimClip = enAnim_sliped;
-		Sliped();
-		if (m_animation.IsPlaying() != true)
-		{
-			m_enPlayerState = enState_taiki;
-		}
-		break;
-	case enState_attack:		//攻撃状態
-		Attack();
-		m_enAnimClip = enAnim_attack;
-		if (m_animation.IsPlaying() != true)
-		{
-			m_enPlayerState = enState_taiki;
-		}
-		m_moveSpeed.x = 0.0f;
-		m_moveSpeed.z = 0.0f;
-		break;
-	}*/
 
 	//プレイヤーのアニメーション
 	switch (m_enAnimClip)

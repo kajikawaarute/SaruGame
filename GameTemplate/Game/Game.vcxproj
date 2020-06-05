@@ -126,6 +126,7 @@
     <ClCompile Include="IGameObjectManager.cpp" />
     <ClCompile Include="IPlayerState.cpp" />
     <ClCompile Include="ISaruState.cpp" />
+    <ClCompile Include="JumpFloor.cpp" />
     <ClCompile Include="level\Level.cpp" />
     <ClCompile Include="level\MapChip.cpp" />
     <ClCompile Include="main.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="IGameObjectManager.h" />
     <ClInclude Include="IPlayerState.h" />
     <ClInclude Include="ISaruState.h" />
+    <ClInclude Include="JumpFloor.h" />
     <ClInclude Include="level\Level.h" />
     <ClInclude Include="level\MapChip.h" />
     <ClInclude Include="math\kMath.h" />
@@ -239,6 +241,7 @@
     <MeshContentTask Include="Assets\modelData\BananaPeel.fbx" />
     <MeshContentTask Include="Assets\modelData\Enemy-kari.fbx" />
     <MeshContentTask Include="Assets\modelData\Enemy.fbx" />
+    <MeshContentTask Include="Assets\modelData\JumpFloor.fbx" />
     <MeshContentTask Include="Assets\modelData\Player.fbx" />
     <MeshContentTask Include="Assets\modelData\Saru.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_01.fbx" />

@@ -1,7 +1,7 @@
 #pragma once
 #include "character/CharacterController.h"
 #include "IGameObject.h"
-#include "PhysicsGhostObject.h"
+
 #include "PlayerStateWait.h"
 #include "PlayerStateMove.h"
 #include "PlayerStateSaruGet.h"
@@ -40,6 +40,7 @@ public:
 	void Setposition(const CVector3& pos)
 	{
 		m_position = pos;
+		m_charaCon.SetPosition(m_position);
 	}
 
 	/// <summary>
@@ -51,6 +52,19 @@ public:
 		return m_position;
 	}
 
+	/// <summary>
+	/// プレイヤーの回転を設定
+	/// </summary>
+	/// <param name="rot">回転</param>
+	void SetRotation(const CQuaternion rot)
+	{
+		m_rotation = rot;
+	}
+
+	/// <summary>
+	/// プレイヤーの回転を取得
+	/// </summary>
+	/// <returns></returns>
 	CQuaternion& GetRot()
 	{
 		return m_rotation;
@@ -181,7 +195,6 @@ private:
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転
 	CharacterController m_charaCon;						//キャラクターコントローラー
 
-	PhysicsGhostObject m_ghost;							//ゴーストオブジェクト
 	enum EnAnimationClip {
 		enAnim_wait,		//待機アニメーション
 		enAnim_walk,		//歩きアニメーション
@@ -220,9 +233,9 @@ private:
 
 	const float animTime = 0.2f;			//アニメーションの補間時間
 
-	std::vector<Saru*> m_sarus;
-	std::vector<Enemy*> m_enemys;
-	PlayerHP* m_playerHp = nullptr;
+	std::vector<Saru*> m_sarus;				//サルのリスト
+	std::vector<Enemy*> m_enemys;			//エネミーのリスト
+	PlayerHP* m_playerHp = nullptr;			//プレイヤーHPのインスタンス
 public:
 	void ChangeState(EnPlayerState nextState);
 };

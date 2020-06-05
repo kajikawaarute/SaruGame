@@ -221,6 +221,7 @@
       <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="GameClear.cpp" />
+    <ClCompile Include="JumpFloor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -395,6 +396,7 @@
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="GameClear.h" />
+    <ClInclude Include="JumpFloor.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -416,6 +418,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Enemy.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\JumpFloor.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
