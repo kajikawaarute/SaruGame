@@ -20,6 +20,7 @@ Game::Game()
 
 	m_playerHP = g_goMgr.NewGO<PlayerHP>();
 	m_pl->SetPlayerHP(m_playerHP);
+
 }
 
 
@@ -28,6 +29,7 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_playerHP);
 	g_goMgr.DeleteGO(m_gCamera);
 	g_goMgr.DeleteGO(m_stage);
+	g_goMgr.DeleteGO(m_gameClear);
 
 	g_goMgr.NewGO<Title>();
 }
@@ -39,7 +41,13 @@ void Game::Update()
 	}
 	if (m_pl->GetSaruCount() == 3)
 	{
-		g_goMgr.DeleteGO(this);
+		m_gameClearTimer++;
+		if (m_gameClearTimer == 30) {
+			m_gameClear = g_goMgr.NewGO<GameClear>();
+		}
+		if (m_gameClearTimer == 120) {
+			g_goMgr.DeleteGO(this);
+		}
 	}
 	if (m_playerHP->GetGameOver() == true) {
 		g_goMgr.DeleteGO(this);

@@ -8,7 +8,7 @@ GameClear::GameClear()
 	m_device = g_graphicsEngine->GetDevice();
 	DirectX::CreateDDSTextureFromFile(
 		m_device,
-		L"Assets/sprite/PlayerHP.dds",
+		L"Assets/sprite/GAMECLEAR.dds",
 		nullptr,
 		&m_shaderResourceView
 	);
@@ -20,6 +20,10 @@ GameClear::~GameClear()
 
 void GameClear::Update()
 {
+	if (m_positionY < 100.0f)
+	{
+		m_positionY += 10.0f;
+	}
 }
 
 void GameClear::Draw()

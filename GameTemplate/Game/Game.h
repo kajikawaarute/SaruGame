@@ -24,5 +24,7 @@ private:
 	GameCamera* m_gCamera = nullptr;								//ゲームカメラのインスタンス
 	PlayerHP* m_playerHP = nullptr;									//プレイヤーHPのインスタンス
 	GameClear* m_gameClear = nullptr;								//ゲームクリアのインスタンス
+
+	int m_gameClearTimer = 0;										//ゲームクリアまでのタイマー
 };
 
