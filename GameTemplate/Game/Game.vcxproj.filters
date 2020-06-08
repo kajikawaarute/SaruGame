@@ -222,6 +222,7 @@
     </ClCompile>
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="JumpFloor.cpp" />
+    <ClCompile Include="GameOver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -397,6 +398,7 @@
     </ClInclude>
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="JumpFloor.h" />
+    <ClInclude Include="GameOver.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -441,6 +443,9 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\GAMECLEAR.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\GAMEOVER.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>
