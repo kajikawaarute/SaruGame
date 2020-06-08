@@ -144,6 +144,7 @@
     <ClCompile Include="PlayerHP.cpp" />
     <ClCompile Include="PlayerStateAttack.cpp" />
     <ClCompile Include="PlayerStateAttacked.cpp" />
+    <ClCompile Include="PlayerStateDeath.cpp" />
     <ClCompile Include="PlayerStateJump.cpp" />
     <ClCompile Include="PlayerStateMove.cpp" />
     <ClCompile Include="PlayerStateSaruGet.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="PlayerHP.h" />
     <ClInclude Include="PlayerStateAttack.h" />
     <ClInclude Include="PlayerStateAttacked.h" />
+    <ClInclude Include="PlayerStateDeath.h" />
     <ClInclude Include="PlayerStateJump.h" />
     <ClInclude Include="PlayerStateMove.h" />
     <ClInclude Include="PlayerStateSaruGet.h" />

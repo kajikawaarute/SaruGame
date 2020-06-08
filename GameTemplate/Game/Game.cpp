@@ -52,10 +52,11 @@ void Game::Update()
 	}
 	if (m_playerHP->GetGameOver() == true) {
 		m_gameClearTimer++;
-		if (m_gameClearTimer == 30) {
+		if (m_gameClearTimer == 50) {
 			m_gameOver = g_goMgr.NewGO<GameOver>();
+			m_pl->StateDeath();
 		}
-		if (m_gameClearTimer == 120) {
+		if (m_gameClearTimer == 150) {
 			g_goMgr.DeleteGO(this);
 		}
 	}

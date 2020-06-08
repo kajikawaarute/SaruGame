@@ -21,6 +21,7 @@ Player::Player()
 	m_animationClip[enAnim_jump].Load(L"Assets/animData/Player-jump.tka");
 	m_animationClip[enAnim_sliped].Load(L"Assets/animData/Player-Slip.tka");
 	m_animationClip[enAnim_attack].Load(L"Assets/animData/Player-attack.tka");
+	m_animationClip[enAnim_death].Load(L"Assets/animData/Player-death.tka");
 
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 	m_animationClip[enAnim_wait].SetLoopFlag(true);
@@ -80,6 +81,8 @@ void Player::Update()
 	case enAnim_attack:		//攻撃アニメーション
 		m_animation.Play(enAnim_attack, animTime);
 		break;
+	case enAnim_death:		//死亡アニメーション
+		m_animation.Play(enAnim_death, animTime);
 	}
 
 	m_animation.Update(1.0f / 30.0f);
@@ -262,6 +265,11 @@ void Player::Attack()
 	}
 }
 
+void Player::StateDeath()
+{
+	m_enPlayerState = enState_death;
+}
+
 void Player::ChangeStateWaitAnim()
 {
 	if (m_animation.IsPlaying() != true) {
@@ -318,6 +326,11 @@ void Player::ChangeState(EnPlayerState nextState)
 		//現在の状態を攻撃状態にする。
 		m_currentState = &m_playerStateAttack;
 		m_enAnimClip = enAnim_attack;
+		break;
+	case Player::enAnim_death:
+		//現在の状態を死亡状態にする。
+		m_currentState = &m_playerStateDeath;
+		m_enAnimClip = enAnim_death;
 		break;
 	}
 	//開始処理

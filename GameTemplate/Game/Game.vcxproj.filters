@@ -223,6 +223,9 @@
     <ClCompile Include="GameClear.cpp" />
     <ClCompile Include="JumpFloor.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="PlayerStateDeath.cpp">
+      <Filter>Player\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -399,6 +402,9 @@
     <ClInclude Include="GameClear.h" />
     <ClInclude Include="JumpFloor.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="PlayerStateDeath.h">
+      <Filter>Player\State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

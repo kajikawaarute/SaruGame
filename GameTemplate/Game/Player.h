@@ -9,6 +9,7 @@
 #include "PlayerStateJump.h"
 #include "PlayerStateSliped.h"
 #include "PlayerStateAttack.h"
+#include "PlayerStateDeath.h"
 
 class Saru;
 class Enemy;
@@ -154,6 +155,11 @@ public:
 	void Attack();
 
 	/// <summary>
+	/// 死亡しているときの状態にする。
+	/// </summary>
+	void StateDeath();
+
+	/// <summary>
 	/// 状態を滑っている状態にする。
 	/// </summary>
 	void SetStateSliped()
@@ -187,6 +193,7 @@ private:
 	friend class PlayerStateJump;
 	friend class PlayerStateSliped;
 	friend class PlayerStateAttack;
+	friend class PlayerStateDeath;
 
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -203,6 +210,7 @@ private:
 		enAnim_jump,		//ジャンプしている時のアニメーション
 		enAnim_sliped,		//滑っている時のアニメーション
 		enAnim_attack,		//攻撃アニメーション
+		enAnim_death,		//死亡アニメーション
 		enAnim_num			//アニメーションクリップの数
 	};
 	Animation m_animation;								//アニメーション
@@ -217,6 +225,7 @@ private:
 		enState_Jump,		//ジャンプ状態
 		enState_sliped,		//滑っている状態
 		enState_attack,		//攻撃状態
+		enState_death		//死亡状態
 	};
 	EnPlayerState m_enPlayerState;
 
@@ -228,6 +237,7 @@ private:
 	PlayerStateJump m_playerStateJump;			//ジャンプ状態
 	PlayerStateSliped m_playerStateSliped;		//滑っている状態
 	PlayerStateAttack m_playerStateAttack;		//攻撃状態
+	PlayerStateDeath m_playerStateDeath;		//死亡状態
 	
 	int m_saruCount = 0;					//サルを捕まえた数
 
