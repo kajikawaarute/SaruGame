@@ -19,7 +19,7 @@ void EnemyStateMove::Update()
 	m_enemy->Move();
 	m_enemy->AttackDistance();
 	m_enemy->m_moveSpeed = toEnemyDir;
-	if (toEnemyLen > 700.0f) {
+	if (toEnemyLen > 400.0f) {
 		m_enemy->ChangeStateWait();
 	}
 }

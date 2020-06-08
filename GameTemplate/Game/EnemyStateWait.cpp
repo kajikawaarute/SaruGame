@@ -20,7 +20,7 @@ void EnemyStateWait::Update()
 
 	m_enemy->AttackDistance();
 	m_enemy->m_moveSpeed = CVector3::Zero();
-	if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 700.0f) {
+	if (fabsf(angle) < CMath::DegToRad(180.0f) && toEnemyLen < 400.0f) {
 		m_enemy->ChangeStateMove();
 	}
 }
