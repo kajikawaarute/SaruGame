@@ -3,6 +3,9 @@
 #include "Player.h"
 #include "IGameObjectManager.h"
 
+const float ENEMY_MOVE_SPPED = 5.0f;		//エネミーの移動速度。
+const float ENEMY_FUTTOBI_POWER = 1000.0f;	//プレイヤーを吹っ飛ばす力。
+
 Enemy::Enemy()
 {
 	m_model.Init(L"Assets/modelData/Enemy.cmo");
@@ -17,6 +20,11 @@ Enemy::Enemy()
 
 	//アニメーションを初期化
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
+
+	//状態を初期化する。
+	m_enemyStateAttack.Init(this);
+	m_enemyStateWait.Init(this);
+	m_enemyStateMove.Init(this);
 
 	//エネミーの初期状態
 	m_currentState = &m_enemyStateWait;
@@ -33,7 +41,6 @@ Enemy::~Enemy()
 void Enemy::Update()
 {
 	//エネミーの状態
-	m_currentState->Init(this);
 	m_currentState->Update();
 	ChangeState(m_enEnemyState);
 
@@ -64,8 +71,8 @@ void Enemy::Draw()
 void Enemy::Move()
 {
 	m_moveSpeed.Normalize();
-	m_moveSpeed.x *= 5.0f;
-	m_moveSpeed.z *= 5.0f;
+	m_moveSpeed.x *= ENEMY_MOVE_SPPED;
+	m_moveSpeed.z *= ENEMY_MOVE_SPPED;
 	m_moveSpeed.y = 0.0f;
 	m_position += m_moveSpeed;
 
@@ -90,7 +97,9 @@ void Enemy::Attack()
 	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
 
 	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toEnemyDir.x, toEnemyDir.z));
-	m_pl->GetMoveSpd() = toEnemyDir * 2.0f;
+	toEnemyDir.Normalize();
+
+	m_pl->SetAttackedPower( toEnemyDir * ENEMY_FUTTOBI_POWER );
 	m_pl->Attacked();
 }
 
@@ -119,27 +128,35 @@ void Enemy::Delete()
 
 void Enemy::ChangeState(EnEnemyState nextState)
 {
-	if (m_currentState != nullptr) {
-		//終了処理
-		m_currentState->OnLeave();
-	}
+	IEnenyState* pNextState = nullptr;
+	EnAnimationClip nextAnimClip = enAnim_wait;
 	switch (nextState)
 	{
 	case enState_wait:
 		//現在の状態を待機状態にする。
-		m_currentState = &m_enemyStateWait;
-		m_enAnimClip = enAnim_wait;
+		pNextState = &m_enemyStateWait;
+		nextAnimClip = enAnim_wait;
 		break;
 	case enState_move:
 		//現在の状態を移動状態にする。
-		m_currentState = &m_enemyStateMove;
-		m_enAnimClip = enAnim_walk;
+		pNextState = &m_enemyStateMove;
+		nextAnimClip = enAnim_walk;
 		break;
 	case enState_attack:
 		//現在の状態を攻撃状態にする。
-		m_currentState = &m_enemyStateAttack;
+		pNextState = &m_enemyStateAttack;
 		break;
 	}
-	//開始処理
-	m_currentState->OnEnter();
+	if (pNextState != nullptr && pNextState != m_currentState) {
+		//現在の状態と違う。
+		if (m_currentState != nullptr) {
+			//終了処理
+			m_currentState->OnLeave();
+		}
+		m_currentState = pNextState;
+		m_enAnimClip = nextAnimClip;
+		//開始処理
+		m_currentState->OnEnter();
+	}
+	
 }

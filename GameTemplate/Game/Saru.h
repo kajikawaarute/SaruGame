@@ -110,14 +110,6 @@ public:
 	{
 		m_pl = player;
 	}
-	/// <summary>
-	/// Effekserの初期化
-	/// </summary>
-	void InitEffekseer();
-	/// <summary>
-	/// Effekseerカメラ
-	/// </summary>
-	void EffekseerCamera();
 
 	/// <summary>
 	/// 攻撃するまでの距離
@@ -198,10 +190,6 @@ private:
 	int m_stunTimer = 0;
 
 	const float m_animTime = 0.2f;			//アニメーションの補間時間
-
-	//Effekseerマネージャー管理
-	Effekseer::Manager* m_effekseerManager = nullptr;
-	EffekseerRenderer::Renderer* m_effekseerRenderer = nullptr;
 
 	Effekseer::Effect* m_effekt = nullptr;		//エフェクト
 	Effekseer::Handle m_playEffectHandle = -1;

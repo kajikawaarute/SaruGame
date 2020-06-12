@@ -14,9 +14,10 @@ void PlayerStateSliped::Update()
 	CQuaternion addRot;
 	addRot.SetRotationDeg(CVector3::AxisY(), 5.0f);
 	m_player->m_rotation.Multiply(addRot);
+
+	m_player->ChangeStateWaitAnim();
 }
 
 void PlayerStateSliped::OnLeave()
 {
-	m_player->ChangeStateWaitAnim();
 }

@@ -4,6 +4,9 @@
 #include "IGameObjectManager.h"
 #include "BananaPeel.h"
 
+const float SARU_MOVE_SPPED = 1200.0f;	//サルの移動速度。
+const float SARU_FUTTOBI_POWER = 1000.0f;
+
 Saru::Saru()
 {
 	m_model.Init(L"Assets/modelData/Saru.cmo");
@@ -13,6 +16,9 @@ Saru::Saru()
 	m_animClip[enAnim_run].Load(L"Assets/animData/Saru-run.tka");
 	m_animClip[enAnim_attack].Load(L"Assets/animData/Saru-Attack.tka");
 	m_animClip[enAnim_Get].Load(L"Assets/animData/Saru-Get.tka");
+
+	//エフェクトをロード
+	m_effekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/SaruGet.efk");
 
 	//アニメーションのループを設定
 	m_animClip[enAnim_wait].SetLoopFlag(true);
@@ -27,14 +33,16 @@ Saru::Saru()
 	//アニメーションの初期化
 	m_animation.Init(m_model, m_animClip, enAnim_num);
 
+	//状態を初期化する。
+	m_saruStateWait.Init(this);
+	m_saruStateRun.Init(this);
+	m_saruStateAttack.Init(this);
+	m_saruStateGet.Init(this);
+	m_saruStateStun.Init(this);
+
 	//サウンドソースの初期化
 	/*m_saru_getAmiSE.Init(L"Assets/Sound/SaruSE_Get.wav");
 	m_saru_attackSE.Init(L"Assets/Sound/SaruSE_Attack.wav");*/
-
-	//Effekseerを初期化。
-	InitEffekseer();
-	//エフェクトをロード
-	m_effekt = Effekseer::Effect::Create(m_effekseerManager, (const EFK_CHAR*)L"Assets/effect/SaruGet.efk");
 }
 
 Saru::~Saru()
@@ -44,7 +52,6 @@ Saru::~Saru()
 void Saru::Update()
 {
 	//エネミ－の状態
-	m_currentState->Init(this);
 	m_currentState->Update();
 	ChangeState(m_enSaruState);
 
@@ -70,32 +77,24 @@ void Saru::Update()
 		break;
 	}
 
-	m_animation.Update(1.0f / 30.0f);
+	m_animation.Update(GameTime().GetFrameDeltaTime());
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-
-	EffekseerCamera();
-	//Effekseerを更新
-	m_effekseerManager->Update();
 }
 
 void Saru::Move()
 {
 	m_moveSpeed.Normalize();
-	m_moveSpeed.x *= 5.0f;
-	m_moveSpeed.z *= 5.0f;
+	m_moveSpeed.x *= SARU_MOVE_SPPED;
+	m_moveSpeed.z *= SARU_MOVE_SPPED;
 	m_moveSpeed.y = 0.0f;
-	m_position -= m_moveSpeed;
+	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();
 
 	Turn();
 }
 
 void Saru::Draw()
 {
-	m_effekseerRenderer->BeginRendering();
-	m_effekseerManager->Draw();
-	m_effekseerRenderer->EndRendering();
-
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix()
@@ -108,7 +107,7 @@ void Saru::GetSaru()
 	m_deathTimer++;
 	if (m_deathTimer == 1) {
 		//エフェクトを再生。
-		m_playEffectHandle = m_effekseerManager->Play(m_effekt, m_position.x, m_position.y, m_position.z);
+		m_playEffectHandle = g_effekseerManager->Play(m_effekt, m_position.x, m_position.y, m_position.z);
 	}
 	if (m_deathTimer == 40) {
 		g_goMgr.DeleteGO(this);
@@ -156,43 +155,6 @@ void Saru::Stun()
 	}
 }
 
-void Saru::InitEffekseer()
-{
-	//レンダラーを初期化。
-	m_effekseerRenderer = EffekseerRendererDX11::Renderer::Create(
-		g_graphicsEngine->GetD3DDevice(),			//D3Dデバイス。
-		g_graphicsEngine->GetD3DDeviceContext(),	//D3Dデバイスコンテキスト。
-		20000										//板ポリの最大数。
-	);
-	//エフェクトマネージャを初期化。
-	m_effekseerManager = Effekseer::Manager::Create(10000);
-
-	// 描画用インスタンスから描画機能を設定
-	m_effekseerManager->SetSpriteRenderer(m_effekseerRenderer->CreateSpriteRenderer());
-	m_effekseerManager->SetRibbonRenderer(m_effekseerRenderer->CreateRibbonRenderer());
-	m_effekseerManager->SetRingRenderer(m_effekseerRenderer->CreateRingRenderer());
-	m_effekseerManager->SetTrackRenderer(m_effekseerRenderer->CreateTrackRenderer());
-	m_effekseerManager->SetModelRenderer(m_effekseerRenderer->CreateModelRenderer());
-
-	// 描画用インスタンスからテクスチャの読込機能を設定
-	// 独自拡張可能、現在はファイルから読み込んでいる。
-	m_effekseerManager->SetTextureLoader(m_effekseerRenderer->CreateTextureLoader());
-	m_effekseerManager->SetModelLoader(m_effekseerRenderer->CreateModelLoader());
-}
-
-void Saru::EffekseerCamera()
-{
-	//Effekseerカメラ行列を設定。
-	//まずはEffeseerの行列型の変数に、カメラ行列とプロジェクション行列をコピー。
-	Effekseer::Matrix44 efCameraMat;
-	g_camera3D.GetViewMatrix().CopyTo(efCameraMat);
-	Effekseer::Matrix44 efProjMat;
-	g_camera3D.GetProjectionMatrix().CopyTo(efProjMat);
-	//カメラ行列とプロジェクション行列を設定。
-	m_effekseerRenderer->SetCameraMatrix(efCameraMat);
-	m_effekseerRenderer->SetProjectionMatrix(efProjMat);
-}
-
 void Saru::AttackDistance()
 {
 	//サルからプレイヤーに伸びるベクトルを求める。
@@ -210,9 +172,9 @@ void Saru::Attack()
 	CVector3 toSaruDir = m_pl->GetPos() - m_position;
 
 	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
+	toSaruDir.Normalize();
 
-	m_pl->GetMoveSpd() = toSaruDir * 2.0f;
-
+	m_pl->SetAttackedPower(toSaruDir * SARU_FUTTOBI_POWER);
 	m_pl->Attacked();
 }
 
@@ -231,37 +193,44 @@ void Saru::ChangeStateWaitAnim()
 
 void Saru::ChangeState(EnSaruState nextState)
 {
-	if (m_currentState != nullptr) {
-		//終了処理
-		m_currentState->OnLeave();
-	}
+	ISaruState* pNextState = nullptr;
+	EnAnimationClip nextAnimClip = enAnim_wait;
 	switch (nextState)
 	{
 	case Saru::enState_wait:
 		//現在の状態を待機状態にする。
-		m_currentState = &m_saruStateWait;
-		m_enAnimClip = enAnim_wait;
+		pNextState = &m_saruStateWait;
+		nextAnimClip = enAnim_wait;
 		break;
 	case Saru::enState_run:
 		//現在の状態を走り状態にする。
-		m_currentState = &m_saruStateRun;
-		m_enAnimClip = enAnim_run;
+		pNextState = &m_saruStateRun;
+		nextAnimClip = enAnim_run;
 		break;
 	case Saru::enState_attack:
 		//現在の状態を攻撃状態にする。
-		m_currentState = &m_saruStateAttack;
-		m_enAnimClip = enAnim_attack;
+		pNextState = &m_saruStateAttack;
+		nextAnimClip = enAnim_attack;
 		break;
 	case Saru::enState_Get:
 		//現在の状態を捕獲状態にする。
-		m_currentState = &m_saruStateGet;
-		m_enAnimClip = enAnim_Get;
+		pNextState = &m_saruStateGet;
+		nextAnimClip = enAnim_Get;
 		break;
 	case Saru::enState_stun:
 		//現在の状態を怯み状態にする。
-		m_currentState = &m_saruStateStun;
-		m_enAnimClip = enAnim_Get;
+		pNextState = &m_saruStateStun;
+		nextAnimClip = enAnim_Get;
 		break;
+	}
+	if (pNextState != nullptr && pNextState != m_currentState) {
+		//現在の状態と違う。
+		if (m_currentState != nullptr) {
+			//終了処理
+			m_currentState->OnLeave();
+		}
+		m_currentState = pNextState;
+		m_enAnimClip = nextAnimClip;
 	}
 	//開始処理
 	m_currentState->OnEnter();

@@ -18,5 +18,7 @@ public:
 	/// 攻撃された状態を抜ける時に呼ばれる関数
 	/// </summary>
 	void OnLeave();
+private:
+	float m_timer = 0.0f;	//タイマー(単位:秒)
 };
 

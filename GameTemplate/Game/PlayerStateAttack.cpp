@@ -44,9 +44,10 @@ void PlayerStateAttack::Update()
 			m_player->m_sarus[i]->Stun();
 		}
 	}
+	m_player->ChangeStateWaitAnim();
 }
 
 void PlayerStateAttack::OnLeave()
 {
-	m_player->ChangeStateWaitAnim();
+	
 }

@@ -25,9 +25,9 @@ void PlayerStateSaruGet::Update()
 			m_player->m_sarus[i]->GetSaru();
 		}
 	}
+	m_player->ChangeStateWaitAnim();
 }
 
 void PlayerStateSaruGet::OnLeave()
 {
-	m_player->ChangeStateWaitAnim();
 }

@@ -30,6 +30,7 @@
 #include "DirectXTK/Inc/SpriteFont.h"
 #include "DirectXTK/Inc/DDSTextureLoader.h"
 
+#include "system/GameTime.h"
 #include "physics/Physics.h"
 #include "HID/Pad.h"
 
@@ -48,3 +49,6 @@ const float FRAME_BUFFER_W = 1280.0f;				//フレームバッファの幅。
 const float FRAME_BUFFER_H = 720.0f;				//フレームバッファの高さ。
 
 static const int MAX_BONE = 512;	//!<ボーンの最大数。
+
+extern Effekseer::Manager* g_effekseerManager;
+extern EffekseerRenderer::Renderer* g_effekseerRenderer;

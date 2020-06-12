@@ -5,6 +5,10 @@
 #include "Enemy.h"
 #include "PlayerHP.h"
 
+const float PLAYER_GRAVITY = 5000.0f;		//プレイヤーにかかる重力(単位cm/秒)。
+const float PLAYER_JUMP_POWER = 2000.0f;	//プレイヤーがジャンプしたときに加算される速度。
+const float PLAYER_MOVE_SPEED = 1000.0f;	//プレイヤーの移動速度。
+
 Player::Player()
 {
 	//cmoファイルの読み込み。
@@ -17,7 +21,7 @@ Player::Player()
 	m_animationClip[enAnim_walk].Load(L"Assets/animData/Player-walk.tka");
 	m_animationClip[enAnim_wait].Load(L"Assets/animData/Player-taiki.tka");
 	m_animationClip[enAnim_saruGet].Load(L"Assets/animData/Player-SaruGet.tka");
-	m_animationClip[enAnim_attacked].Load(L"Assets/animData/Player-attacked.tka");
+	m_animationClip[enAnim_attacked].Load(L"Assets/animData/Player-attacked2.tka");
 	m_animationClip[enAnim_jump].Load(L"Assets/animData/Player-jump.tka");
 	m_animationClip[enAnim_sliped].Load(L"Assets/animData/Player-Slip.tka");
 	m_animationClip[enAnim_attack].Load(L"Assets/animData/Player-attack.tka");
@@ -44,9 +48,9 @@ Player::~Player()
 
 void Player::Update()
 {
-	m_moveSpeed.y -= 50.0f;
+	m_moveSpeed.y -= PLAYER_GRAVITY *  GameTime().GetFrameDeltaTime();
 
-	m_position = m_charaCon.Execute(1.0f / 60.0f, m_moveSpeed);
+	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
 
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
@@ -90,8 +94,8 @@ void Player::Update()
 
 void Player::Move()
 {
-	float StickZ = g_pad[0].GetLStickYF() * 1000.0f;
-	float StickX = g_pad[0].GetLStickXF() * 1000.0f;
+	float StickZ = g_pad[0].GetLStickYF() * PLAYER_MOVE_SPEED;
+	float StickX = g_pad[0].GetLStickXF() * PLAYER_MOVE_SPEED;
 
 	CVector3 cameraForward = g_camera3D.GetTarget() - g_camera3D.GetPosition();
 	cameraForward.y = 0.0f;
@@ -103,6 +107,7 @@ void Player::Move()
 	cameraRight.Cross({ 0.0f, 1.0f, 0.0f }, cameraForward);
 	cameraRight.Normalize();
 	m_moveSpeed += cameraRight * StickX;
+
 
 	Turn();
 }
@@ -199,7 +204,7 @@ void Player::Jump()
 		player_JumpSE->Init(L"Assets/Sound/PlayerSE_Jump.wav");
 		player_JumpSE->Play(false);
 
-		m_moveSpeed.y = 1000.0f;
+		m_moveSpeed.y = PLAYER_JUMP_POWER;
 		m_enPlayerState = enState_Jump;
 	}
 }
@@ -286,53 +291,59 @@ void Player::ChangeStateWaitIsOnGound()
 
 void Player::ChangeState(EnPlayerState nextState)
 {
-	if (m_currentState != nullptr) {
-		//終了処理
-		m_currentState->OnLeave();
-	}
+	IPlayerState* pNextState = nullptr;
+	EnAnimationClip nextAnimClip = enAnim_wait;
 	switch (m_enPlayerState)
 	{
 	case Player::enState_wait:
 		//現在の状態を待機状態にする。
-		m_currentState = &m_playerStateWait;
-		m_enAnimClip = enAnim_wait;
+		pNextState = &m_playerStateWait;
+		nextAnimClip = enAnim_wait;
 		break;
 	case Player::enState_walk:
 		//現在の状態を移動状態にする。
-		m_currentState = &m_playerStateMove;
-		m_enAnimClip = enAnim_walk;
+		pNextState = &m_playerStateMove;
+		nextAnimClip = enAnim_walk;
 		break;
 	case Player::enState_saruGet:
 		//現在の状態をサルを捕獲状態にする。
-		m_currentState = &m_playerStateSaruGet;
-		m_enAnimClip = enAnim_saruGet;
+		pNextState = &m_playerStateSaruGet;
+		nextAnimClip = enAnim_saruGet;
 		break;
 	case Player::enState_attacked:
 		//現在の状態を攻撃された状態にする。
-		m_currentState = &m_playerStateAttacked;
-		m_enAnimClip = enAnim_attacked;
+		pNextState = &m_playerStateAttacked;
+		nextAnimClip = enAnim_attacked;
 		break;
 	case Player::enState_Jump:
 		//現在の状態をジャンプ状態にする。
-		m_currentState = &m_playerStateJump;
-		m_enAnimClip = enAnim_jump;
+		pNextState = &m_playerStateJump;
+		nextAnimClip = enAnim_jump;
 		break;
 	case Player::enState_sliped:
 		//現在の状態を滑っている状態にする。
-		m_currentState = &m_playerStateSliped;
-		m_enAnimClip = enAnim_sliped;
+		pNextState = &m_playerStateSliped;
+		nextAnimClip = enAnim_sliped;
 		break;
 	case Player::enState_attack:
 		//現在の状態を攻撃状態にする。
-		m_currentState = &m_playerStateAttack;
-		m_enAnimClip = enAnim_attack;
+		pNextState = &m_playerStateAttack;
+		nextAnimClip = enAnim_attack;
 		break;
 	case Player::enAnim_death:
 		//現在の状態を死亡状態にする。
-		m_currentState = &m_playerStateDeath;
-		m_enAnimClip = enAnim_death;
+		pNextState = &m_playerStateDeath;
+		nextAnimClip = enAnim_death;
 		break;
 	}
-	//開始処理
-	m_currentState->OnEnter();
+	if (pNextState != nullptr && pNextState != m_currentState) {
+		if (m_currentState != nullptr) {
+			//終了処理
+			m_currentState->OnLeave();
+		}
+		m_currentState = pNextState;
+		m_enAnimClip = nextAnimClip;
+		//開始処理
+		m_currentState->OnEnter();
+	}
 }

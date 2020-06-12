@@ -2,6 +2,7 @@
 #include "JumpFloor.h"
 #include "Player.h"
 
+const float FLOOR_JUMP_POWER = 4000.0f;		//ジャンプ台ジャンプパワー。
 JumpFloor::JumpFloor()
 {
 	m_model.Init(L"Assets/modelData/JumpFloor.cmo");
@@ -19,7 +20,7 @@ void JumpFloor::Update()
 {
 	g_physics.ContactTest(m_player->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject)) {
-			m_player->GetMoveSpd().y = 2500.0f;
+			m_player->GetMoveSpd().y = FLOOR_JUMP_POWER;
 		}
 		});
 

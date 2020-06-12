@@ -185,7 +185,14 @@ public:
 	/// 地面についたときに待機状態に切り替える。
 	/// </summary>
 	void ChangeStateWaitIsOnGound();
-	
+	/// <summary>
+	/// 吹き飛ばしの力を設定する。
+	/// </summary>
+	/// <param name="attackedPower"></param>
+	void SetAttackedPower(const CVector3& attackedPower)
+	{
+		m_attackedPower = attackedPower;
+	}
 private:
 	friend class PlayerStateWait;
 	friend class PlayerStateMove;
@@ -194,10 +201,12 @@ private:
 	friend class PlayerStateSliped;
 	friend class PlayerStateAttack;
 	friend class PlayerStateDeath;
+	friend class PlayerStateAttacked;
 
 	SkinModel m_model;									//スキンモデル。
 	CVector3 m_position = CVector3::Zero();				//座標
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
+	CVector3 m_attackedPower = CVector3::Zero();		//攻撃を食らったときの吹き飛ばし力。
 	CVector3 m_scale = CVector3::One();					//拡大率
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転
 	CharacterController m_charaCon;						//キャラクターコントローラー
