@@ -22,9 +22,9 @@ void SaruStateWait::Update()
 
 	m_saru->Move();
 	m_saru->m_moveSpeed = CVector3::Zero();
-	if (fabsf(angle) < CMath::DegToRad(90.0f) && toSaruLen < 500.0f)
+	if (fabsf(angle) < CMath::DegToRad(150.0f) && toSaruLen < 700.0f)
 	{
-		m_saru->ChangeStateRun();
+		m_saru->ChangeStateFound();
 	}
 	m_saru->AttackDistance();
 }

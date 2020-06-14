@@ -16,6 +16,7 @@ Saru::Saru()
 	m_animClip[enAnim_run].Load(L"Assets/animData/Saru-run.tka");
 	m_animClip[enAnim_attack].Load(L"Assets/animData/Saru-Attack.tka");
 	m_animClip[enAnim_Get].Load(L"Assets/animData/Saru-Get.tka");
+	m_animClip[enAnim_found].Load(L"Assets/animData/Saru-found.tka");
 
 	//エフェクトをロード
 	m_effekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/SaruGet.efk");
@@ -39,6 +40,7 @@ Saru::Saru()
 	m_saruStateAttack.Init(this);
 	m_saruStateGet.Init(this);
 	m_saruStateStun.Init(this);
+	m_saruStateFound.Init(this);
 
 	//サウンドソースの初期化
 	/*m_saru_getAmiSE.Init(L"Assets/Sound/SaruSE_Get.wav");
@@ -74,6 +76,9 @@ void Saru::Update()
 		break;
 	case enState_stun:
 		m_animation.Play(enAnim_Get, m_animTime);
+		break;
+	case enState_found:				//見つかったアニメーション
+		m_animation.Play(enAnim_found, m_animTime);
 		break;
 	}
 
@@ -155,6 +160,18 @@ void Saru::Stun()
 	}
 }
 
+void Saru::Found()
+{
+	//サルからプレイヤーに伸びるベクトルを求める。
+	CVector3 toSaruDir = m_pl->GetPos() - m_position;
+	//プレイヤーの方を見る
+	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
+
+	if (m_animation.IsPlaying() != true) {
+		m_enSaruState = enState_run;
+	}
+}
+
 void Saru::AttackDistance()
 {
 	//サルからプレイヤーに伸びるベクトルを求める。
@@ -170,10 +187,10 @@ void Saru::Attack()
 {
 	//サルからプレイヤーに伸びるベクトルを求める。
 	CVector3 toSaruDir = m_pl->GetPos() - m_position;
-
+	//プレイヤーの方を見る
 	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
+	
 	toSaruDir.Normalize();
-
 	m_pl->SetAttackedPower(toSaruDir * SARU_FUTTOBI_POWER);
 	m_pl->Attacked();
 }
@@ -221,6 +238,11 @@ void Saru::ChangeState(EnSaruState nextState)
 		//現在の状態を怯み状態にする。
 		pNextState = &m_saruStateStun;
 		nextAnimClip = enAnim_Get;
+		break;
+	case Saru::enState_found:
+		//現在の状態を見つかった状態にする。
+		pNextState = &m_saruStateFound;
+		nextAnimClip = enAnim_found;
 		break;
 	}
 	if (pNextState != nullptr && pNextState != m_currentState) {

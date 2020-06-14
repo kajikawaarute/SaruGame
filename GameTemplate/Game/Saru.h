@@ -7,6 +7,7 @@
 #include "SaruStateAttack.h"
 #include "SaruStateGet.h"
 #include "SaruStateStun.h"
+#include "SaruStateFound.h"
 
 class Player;
 class BananaPeel;
@@ -52,6 +53,11 @@ public:
 	/// ひるんだ時の処理
 	/// </summary>
 	void Stun();
+
+	/// <summary>
+	/// 見つかった時の処理
+	/// </summary>
+	void Found();
 
 	/// <summary>
 	/// サルの座標を取得
@@ -133,6 +139,14 @@ public:
 	}
 
 	/// <summary>
+	/// 見つかった状態に設定
+	/// </summary>
+	void ChangeStateFound()
+	{
+		m_enSaruState = enState_found;
+	}
+
+	/// <summary>
 	/// 捕まえられた時に呼ばれる関数
 	/// </summary>
 	void Death();
@@ -146,6 +160,7 @@ private:
 	friend class SaruStateRun;
 	friend class SaruStateGet;
 	friend class SaruStateStun;
+	friend class SaruStateFound;
 
 	SkinModel m_model;									//スキンモデル
 	CVector3 m_position = CVector3::Zero();				//座標
@@ -159,6 +174,7 @@ private:
 		enAnim_attack,			//攻撃アニメーション
 		enAnim_Get,				//捕獲アニメーション
 		enAnim_stun,			//ひるんでいるアニメーション
+		enAnim_found,			//見つかった時のアニメーション
 		enAnim_num				//アニメーションクリップの数
 	};
 	Animation m_animation;								//アニメーション
@@ -170,7 +186,8 @@ private:
 		enState_run,				//走り状態
 		enState_attack,				//攻撃状態
 		enState_Get,				//捕獲状態
-		enState_stun				//ひるんだ状態
+		enState_stun,				//ひるんだ状態
+		enState_found				//見つかった状態
 	};
 	EnSaruState m_enSaruState;
 
@@ -180,6 +197,7 @@ private:
 	SaruStateAttack m_saruStateAttack;		//攻撃状態
 	SaruStateGet m_saruStateGet;			//捕獲状態
 	SaruStateStun m_saruStateStun;			//怯み状態
+	SaruStateFound m_saruStateFound;		//見つかった状態
 
 	Player* m_pl = nullptr;					//プレイヤーのインスタンス
 	BananaPeel* m_banaPeel = nullptr;		//バナナの皮のインスタンス

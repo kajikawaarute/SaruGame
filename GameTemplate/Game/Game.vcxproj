@@ -153,6 +153,7 @@
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Saru.cpp" />
     <ClCompile Include="SaruStateAttack.cpp" />
+    <ClCompile Include="SaruStateFound.cpp" />
     <ClCompile Include="SaruStateGet.cpp" />
     <ClCompile Include="SaruStateRun.cpp" />
     <ClCompile Include="SaruStateStun.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Saru.h" />
     <ClInclude Include="SaruStateAttack.h" />
+    <ClInclude Include="SaruStateFound.h" />
     <ClInclude Include="SaruStateGet.h" />
     <ClInclude Include="SaruStateRun.h" />
     <ClInclude Include="SaruStateStun.h" />
