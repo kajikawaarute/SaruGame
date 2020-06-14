@@ -248,6 +248,7 @@
     <MeshContentTask Include="Assets\modelData\Enemy-kari.fbx" />
     <MeshContentTask Include="Assets\modelData\Enemy.fbx" />
     <MeshContentTask Include="Assets\modelData\JumpFloor.fbx" />
+    <MeshContentTask Include="Assets\modelData\JumpFloor2.fbx" />
     <MeshContentTask Include="Assets\modelData\Player.fbx" />
     <MeshContentTask Include="Assets\modelData\Saru.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_01.fbx" />

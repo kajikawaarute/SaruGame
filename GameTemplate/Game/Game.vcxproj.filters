@@ -437,6 +437,9 @@
     <MeshContentTask Include="Assets\modelData\JumpFloor.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\JumpFloor2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\title-kari.png">

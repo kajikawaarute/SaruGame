@@ -56,6 +56,16 @@ private:
 	PhysicsGhostObject m_ghost;							//ゴーストオブジェクト
 	PhysicsStaticObject m_static;						//静的オブジェクト
 
+	enum EnAnimationClip {
+		enAnim_wait,		//ジャンプ台の待機アニメーション
+		enAnim_jump,		//ジャンプ台アニメーション
+		enAnim_num			//アニメーションクリップの数
+	};
+
+	Animation m_animation;								//アニメーション
+	AnimationClip m_animationClip[enAnim_num];			//アニメーションクリップ
+	EnAnimationClip m_enAnimClip;
+
 	Player* m_player = nullptr;							//プレイヤーのインスタンス
 };
 
