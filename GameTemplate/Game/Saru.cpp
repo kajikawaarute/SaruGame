@@ -3,8 +3,9 @@
 #include "Player.h"
 #include "IGameObjectManager.h"
 #include "BananaPeel.h"
+#include "BikkuriMark.h"
 
-const float SARU_MOVE_SPPED = 1200.0f;	//サルの移動速度。
+const float SARU_MOVE_SPPED = 300.0f;	//サルの移動速度。
 const float SARU_FUTTOBI_POWER = 1000.0f;
 
 Saru::Saru()
@@ -30,7 +31,7 @@ Saru::Saru()
 
 	//サルの初期状態
 	m_currentState = &m_saruStateWait;
-
+	m_enSaruState = enState_wait;
 	//アニメーションの初期化
 	m_animation.Init(m_model, m_animClip, enAnim_num);
 
@@ -57,6 +58,26 @@ void Saru::Update()
 	m_currentState->Update();
 	ChangeState(m_enSaruState);
 
+	//パス移動
+	if (m_pathList.size() > 0)
+	{
+		if (m_enSaruState == enState_wait) {
+			auto diff = m_position - m_pathList[pathNum];
+			if (diff.Length() < 50.0f)
+			{
+				if (pathNum < m_pathList.size() - 1)
+				{
+					pathNum++;
+				}
+				else pathNum = 0;
+			}
+			auto addSpeed = diff;
+			addSpeed.Normalize();
+			angle = atan2f(-addSpeed.x, -addSpeed.z);
+			m_rotation.SetRotation(CVector3::AxisY(), angle);
+			m_moveSpeed += addSpeed;
+		}
+	}
 	//サルのアニメーション
 	switch (m_enAnimClip)
 	{
@@ -93,6 +114,19 @@ void Saru::Move()
 	m_moveSpeed.x *= SARU_MOVE_SPPED;
 	m_moveSpeed.z *= SARU_MOVE_SPPED;
 	m_moveSpeed.y = 0.0f;
+
+	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();
+
+	Turn();
+}
+
+void Saru::Run()
+{
+	m_moveSpeed.Normalize();
+	m_moveSpeed.x *= SARU_MOVE_SPPED * 5.0f;
+	m_moveSpeed.z *= SARU_MOVE_SPPED * 5.0f;
+	m_moveSpeed.y = 0.0f;
+
 	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();
 
 	Turn();
@@ -127,8 +161,8 @@ void Saru::Turn()
 	if (fabsf(m_moveSpeed.x) < 0.001f && fabsf(m_moveSpeed.z) < 0.001f) {
 		return;
 	}
-
-	m_rotation.SetRotation(CVector3::AxisY(), atan2f(-toSaruDir.x, -toSaruDir.z));
+	angle = atan2f(-toSaruDir.x, -toSaruDir.z);
+	m_rotation.SetRotation(CVector3::AxisY(),angle );
 }
 
 void Saru::BanaPeelThrow()
@@ -162,10 +196,19 @@ void Saru::Stun()
 
 void Saru::Found()
 {
+	CVector3 positionY = m_position;
+	positionY.y = m_position.y + 160.0f;
+
+	m_bikkuriMark = g_goMgr.NewGO<BikkuriMark>();
+	m_bikkuriMark->SetPosition(positionY);
+
 	//サルからプレイヤーに伸びるベクトルを求める。
 	CVector3 toSaruDir = m_pl->GetPos() - m_position;
 	//プレイヤーの方を見る
-	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
+	angle = atan2f(toSaruDir.x, toSaruDir.z);
+	m_rotation.SetRotation(CVector3::AxisY(),angle);
+
+	g_goMgr.DeleteGO(m_bikkuriMark);
 
 	if (m_animation.IsPlaying() != true) {
 		m_enSaruState = enState_run;
@@ -188,7 +231,8 @@ void Saru::Attack()
 	//サルからプレイヤーに伸びるベクトルを求める。
 	CVector3 toSaruDir = m_pl->GetPos() - m_position;
 	//プレイヤーの方を見る
-	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toSaruDir.x, toSaruDir.z));
+	angle = atan2f(toSaruDir.x, toSaruDir.z);
+	m_rotation.SetRotation(CVector3::AxisY(),angle );
 	
 	toSaruDir.Normalize();
 	m_pl->SetAttackedPower(toSaruDir * SARU_FUTTOBI_POWER);

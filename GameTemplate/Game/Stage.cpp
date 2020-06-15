@@ -117,6 +117,14 @@ Stage::Stage()
 				m_jumpFloor->SetPlayer(m_pl);
 				return true;
 			}
+			else if ((wcscmp(objData.name, L"Path_1") == 0)) {
+			m_saru[0]->PushPathPosition(objData.position);
+			return true;
+			}
+			else if ((wcscmp(objData.name, L"Path_2") == 0)) {
+			m_saru[0]->PushPathPosition(objData.position);
+			return true;
+			}
 			return false;
 		});
 }

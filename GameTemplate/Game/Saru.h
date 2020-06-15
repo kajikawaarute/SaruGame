@@ -11,6 +11,7 @@
 
 class Player;
 class BananaPeel;
+class BikkuriMark;
 class Saru : public IGameObject
 {
 public:
@@ -24,6 +25,9 @@ public:
 	/// サルの移動処理
 	/// </summary>
 	void Move();
+
+	void Run();
+
 	/// <summary>
 	/// サルの描画関数
 	/// </summary>
@@ -155,6 +159,15 @@ public:
 	/// アニメーションの再生が終わったら待機状態に切り替える
 	/// </summary>
 	void ChangeStateWaitAnim();
+
+	/// <summary>
+	/// 設定された座標をパスリストに登録
+	/// </summary>
+	/// <param name="m_pos"></param>
+	void PushPathPosition(CVector3 m_pos)
+	{
+		m_pathList.push_back(m_pos);
+	}
 private:
 	friend class SaruStateWait;
 	friend class SaruStateRun;
@@ -201,11 +214,15 @@ private:
 
 	Player* m_pl = nullptr;					//プレイヤーのインスタンス
 	BananaPeel* m_banaPeel = nullptr;		//バナナの皮のインスタンス
+	BikkuriMark* m_bikkuriMark = nullptr;
 
 	int m_waitTimer = 0;		//待機状態になるまでのタイマー
 	int m_deathTimer = 0;		//捕獲されるまでのタイマー
 	int m_banaPeelTimer = 0;	//バナナの皮を投げるまでのタイマー
-	int m_stunTimer = 0;
+	int pathNum = 0;			//パスの番号
+	float angle = 0.0f;
+
+	std::vector<CVector3> m_pathList;		//パスのリスト
 
 	const float m_animTime = 0.2f;			//アニメーションの補間時間
 

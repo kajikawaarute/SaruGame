@@ -15,7 +15,7 @@ void SaruStateRun::Update()
 	CVector3 toSaruDir = m_saru->m_pl->GetPos() - m_saru->m_position;
 	float toSaruLen = toSaruDir.Length();
 
-	m_saru->Move();
+	m_saru->Run();
 	m_saru->BanaPeelThrow();
 	m_saru->m_moveSpeed = toSaruDir;
 	if (toSaruLen > 700.0f)

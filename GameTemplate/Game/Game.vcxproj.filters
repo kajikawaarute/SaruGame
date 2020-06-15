@@ -229,6 +229,7 @@
     <ClCompile Include="SaruStateFound.cpp">
       <Filter>Saru\State</Filter>
     </ClCompile>
+    <ClCompile Include="BikkuriMark.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -417,6 +418,7 @@
     <ClInclude Include="SaruStateFound.h">
       <Filter>Saru\State</Filter>
     </ClInclude>
+    <ClInclude Include="BikkuriMark.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -444,6 +446,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\JumpFloor2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Bikkuri_Mark.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

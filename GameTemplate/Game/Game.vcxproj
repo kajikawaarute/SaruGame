@@ -100,6 +100,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BananaPeel.cpp" />
+    <ClCompile Include="BikkuriMark.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -173,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BananaPeel.h" />
+    <ClInclude Include="BikkuriMark.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="Enemy.h" />
@@ -247,6 +249,7 @@
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\BananaPeel.fbx" />
+    <MeshContentTask Include="Assets\modelData\Bikkuri_Mark.fbx" />
     <MeshContentTask Include="Assets\modelData\Enemy-kari.fbx" />
     <MeshContentTask Include="Assets\modelData\Enemy.fbx" />
     <MeshContentTask Include="Assets\modelData\JumpFloor.fbx" />
