@@ -5,8 +5,8 @@
 #include "BananaPeel.h"
 #include "BikkuriMark.h"
 
-const float SARU_MOVE_SPPED = 300.0f;	//サルの移動速度。
-const float SARU_FUTTOBI_POWER = 1000.0f;
+const float SARU_MOVE_SPPED = 300.0f;			//サルの移動速度。
+const float SARU_FUTTOBI_POWER = 2500.0f;		//サルのプレイヤーを吹っ飛ばす力。
 
 Saru::Saru()
 {
@@ -32,6 +32,7 @@ Saru::Saru()
 	//サルの初期状態
 	m_currentState = &m_saruStateWait;
 	m_enSaruState = enState_wait;
+
 	//アニメーションの初期化
 	m_animation.Init(m_model, m_animClip, enAnim_num);
 
@@ -297,7 +298,7 @@ void Saru::ChangeState(EnSaruState nextState)
 		}
 		m_currentState = pNextState;
 		m_enAnimClip = nextAnimClip;
+		//開始処理
+		m_currentState->OnEnter();
 	}
-	//開始処理
-	m_currentState->OnEnter();
 }

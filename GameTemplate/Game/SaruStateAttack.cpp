@@ -10,7 +10,7 @@ void SaruStateAttack::OnEnter()
 void SaruStateAttack::Update()
 {
 	m_saru->AddWaitTimer();
-	if (m_saru->GetWaitTimer() > 60) {
+	if (m_saru->GetWaitTimer() > 30) {
 		m_saru->ChangeStateWait();
 		m_saru->ReSetWaitTimer();
 	}
