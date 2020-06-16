@@ -125,6 +125,38 @@ Stage::Stage()
 			m_saru[0]->PushPathPosition(objData.position);
 			return true;
 			}
+			else if ((wcscmp(objData.name, L"Path_3") == 0)) {
+			m_saru[0]->PushPathPosition(objData.position);
+			return true;
+			}
+			else if ((wcscmp(objData.name, L"Path_4") == 0)) {
+			m_saru[0]->PushPathPosition(objData.position);
+			return true;
+			}
+			else if ((wcscmp(objData.name, L"Path_5") == 0)) {
+			m_saru[1]->PushPathPosition(objData.position);
+			return true;
+			}
+			else if ((wcscmp(objData.name, L"Path_6") == 0)) {
+			m_saru[1]->PushPathPosition(objData.position);
+			return true;
+			}
+			else if ((wcscmp(objData.name, L"Path_7") == 0)) {
+			m_saru[1]->PushPathPosition(objData.position);
+			return true;
+			}
+			else if ((wcscmp(objData.name, L"Path_8") == 0)) {
+			m_saru[2]->PushPathPosition(objData.position);
+			return true;
+			}
+			else if ((wcscmp(objData.name, L"Path_9") == 0)) {
+			m_saru[2]->PushPathPosition(objData.position);
+			return true;
+			}
+			else if ((wcscmp(objData.name, L"Path_10") == 0)) {
+			m_saru[2]->PushPathPosition(objData.position);
+			return true;
+			}
 			return false;
 		});
 }
