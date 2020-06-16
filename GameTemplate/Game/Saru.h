@@ -226,7 +226,8 @@ private:
 
 	const float m_animTime = 0.2f;			//アニメーションの補間時間
 
-	Effekseer::Effect* m_effekt = nullptr;		//エフェクト
+	Effekseer::Effect* m_saruGetEffekt = nullptr;		//捕まえられた時のエフェクト
+	Effekseer::Effect* m_saruRunEffect = nullptr;		//走っている時のエフェクト
 	Effekseer::Handle m_playEffectHandle = -1;
 
 	//CSoundSource m_saru_getAmiSE;			//捕獲されたときのSE

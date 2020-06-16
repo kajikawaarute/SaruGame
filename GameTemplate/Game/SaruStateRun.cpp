@@ -23,6 +23,9 @@ void SaruStateRun::Update()
 		m_saru->ChangeStateWait();
 	}
 	m_saru->AttackDistance();
+
+	m_saru->m_playEffectHandle = g_effekseerManager->Play(m_saru->m_saruRunEffect, m_saru->m_position.x,
+															m_saru->m_position.y, m_saru->m_position.z);
 }
 
 void SaruStateRun::OnLeave()

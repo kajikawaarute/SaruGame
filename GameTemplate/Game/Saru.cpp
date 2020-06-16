@@ -20,7 +20,8 @@ Saru::Saru()
 	m_animClip[enAnim_found].Load(L"Assets/animData/Saru-found.tka");
 
 	//エフェクトをロード
-	m_effekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/SaruGet.efk");
+	m_saruGetEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/SaruGet.efk");
+	m_saruRunEffect = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/SaruRun.efk");
 
 	//アニメーションのループを設定
 	m_animClip[enAnim_wait].SetLoopFlag(true);
@@ -144,15 +145,6 @@ void Saru::Draw()
 void Saru::GetSaru()
 {
 	m_enSaruState = enState_Get;
-	m_deathTimer++;
-	if (m_deathTimer == 1) {
-		//エフェクトを再生。
-		m_playEffectHandle = g_effekseerManager->Play(m_effekt, m_position.x, m_position.y, m_position.z);
-	}
-	if (m_deathTimer == 40) {
-		g_goMgr.DeleteGO(this);
-		m_pl->DeleteSaru(this);
-	}
 }
 
 void Saru::Turn()
