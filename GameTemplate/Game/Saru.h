@@ -161,6 +161,11 @@ public:
 	void ChangeStateWaitAnim();
 
 	/// <summary>
+	/// サルが捕まえられた時のサウンドを再生する
+	/// </summary>
+	void SaruGetSound();
+
+	/// <summary>
 	/// 設定された座標をパスリストに登録
 	/// </summary>
 	/// <param name="m_pos"></param>
@@ -230,8 +235,6 @@ private:
 	Effekseer::Effect* m_saruRunEffect = nullptr;		//走っている時のエフェクト
 	Effekseer::Handle m_playEffectHandle = -1;
 
-	//CSoundSource m_saru_getAmiSE;			//捕獲されたときのSE
-	//CSoundSource m_saru_attackSE;			//攻撃したときのSE
 public:
 	void ChangeState(EnSaruState nextState);
 };

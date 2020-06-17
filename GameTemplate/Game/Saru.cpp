@@ -44,10 +44,6 @@ Saru::Saru()
 	m_saruStateGet.Init(this);
 	m_saruStateStun.Init(this);
 	m_saruStateFound.Init(this);
-
-	//サウンドソースの初期化
-	/*m_saru_getAmiSE.Init(L"Assets/Sound/SaruSE_Get.wav");
-	m_saru_attackSE.Init(L"Assets/Sound/SaruSE_Attack.wav");*/
 }
 
 Saru::~Saru()
@@ -83,18 +79,16 @@ void Saru::Update()
 	//サルのアニメーション
 	switch (m_enAnimClip)
 	{
-	case Saru::enAnim_wait:		//待機アニメーション
+	case Saru::enAnim_wait:			//待機アニメーション
 		m_animation.Play(enAnim_wait, m_animTime);
 		break;
 	case Saru::enAnim_run:			//走りアニメーション
 		m_animation.Play(enAnim_run, m_animTime);
 		break;
 	case Saru::enAnim_attack:		//攻撃アニメーション
-		//m_saru_attackSE.Play(false);
 		m_animation.Play(enAnim_attack, m_animTime);
 		break;
 	case Saru::enAnim_Get:			//捕獲アニメーション
-		//m_saru_getAmiSE.Play(false);
 		m_animation.Play(enAnim_Get, m_animTime);
 		break;
 	case enState_stun:
@@ -230,6 +224,11 @@ void Saru::Attack()
 	toSaruDir.Normalize();
 	m_pl->SetAttackedPower(toSaruDir * SARU_FUTTOBI_POWER);
 	m_pl->Attacked();
+
+	//サウンドを再生
+	prefab::CSoundSource* saruAttackSE = g_goMgr.NewGO<prefab::CSoundSource>();
+	saruAttackSE->Init(L"Assets/Sound/SaruSE_Attack.wav");
+	saruAttackSE->Play(false);
 }
 
 void Saru::Death()
@@ -243,6 +242,13 @@ void Saru::ChangeStateWaitAnim()
 	if (m_animation.IsPlaying() != true) {
 		m_enSaruState = enState_wait;
 	}
+}
+
+void Saru::SaruGetSound()
+{
+	prefab::CSoundSource* saruGetSE = g_goMgr.NewGO<prefab::CSoundSource>();
+	saruGetSE->Init(L"Assets/Sound/SaruSE_Get.wav");
+	saruGetSE->Play(false);
 }
 
 void Saru::ChangeState(EnSaruState nextState)
