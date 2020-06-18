@@ -24,9 +24,9 @@
           <PVA>
             <Location>
               <Y>
-                <Center>1</Center>
-                <Max>1</Max>
-                <Min>1</Min>
+                <Center>2</Center>
+                <Max>2</Max>
+                <Min>2</Min>
               </Y>
             </Location>
             <Velocity>
@@ -39,8 +39,8 @@
                 <Max>0.2</Max>
               </Y>
               <Z>
-                <Max>0.01</Max>
-                <Min>-0.01</Min>
+                <Max>0.1</Max>
+                <Min>-0.1</Min>
               </Z>
             </Velocity>
           </PVA>
