@@ -4,6 +4,8 @@
 
 void SaruStateStun::OnEnter()
 {
+	m_saru->m_playEffectHandle = g_effekseerManager->Play(m_saru->m_saruDamegeEffect, 
+		m_saru->m_position.x, m_saru->m_position.y, m_saru->m_position.z);
 }
 
 void SaruStateStun::Update()

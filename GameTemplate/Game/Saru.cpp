@@ -174,7 +174,6 @@ void Saru::BanaPeelThrow()
 
 void Saru::Stun()
 {
-	m_playEffectHandle = g_effekseerManager->Play(m_saruDamegeEffect, m_position.x, m_position.y, m_position.z);
 	m_enSaruState = enState_stun;
 	m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;

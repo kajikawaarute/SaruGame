@@ -6,13 +6,18 @@
       <Node>
         <CommonValues>
           <MaxGeneration>
-            <Value>10</Value>
+            <Value>25</Value>
           </MaxGeneration>
           <Life>
-            <Center>30</Center>
-            <Max>30</Max>
-            <Min>30</Min>
+            <Center>40</Center>
+            <Max>40</Max>
+            <Min>40</Min>
           </Life>
+          <GenerationTime>
+            <Center>0.1</Center>
+            <Max>0.1</Max>
+            <Min>0.1</Min>
+          </GenerationTime>
         </CommonValues>
         <LocationValues>
           <Type>1</Type>
@@ -58,6 +63,6 @@
   <ToolVersion>1.32</ToolVersion>
   <Version>3</Version>
   <StartFrame>0</StartFrame>
-  <EndFrame>45</EndFrame>
+  <EndFrame>55</EndFrame>
   <IsLoop>True</IsLoop>
 </EffekseerProject>
