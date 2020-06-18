@@ -22,6 +22,7 @@ Saru::Saru()
 	//エフェクトをロード
 	m_saruGetEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/SaruGet.efk");
 	m_saruRunEffect = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/SaruRun.efk");
+	m_saruDamegeEffect = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/SaruDamege.efk");
 
 	//アニメーションのループを設定
 	m_animClip[enAnim_wait].SetLoopFlag(true);
@@ -173,6 +174,7 @@ void Saru::BanaPeelThrow()
 
 void Saru::Stun()
 {
+	m_playEffectHandle = g_effekseerManager->Play(m_saruDamegeEffect, m_position.x, m_position.y, m_position.z);
 	m_enSaruState = enState_stun;
 	m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;

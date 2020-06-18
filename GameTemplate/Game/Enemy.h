@@ -154,6 +154,9 @@ private:
 	EnemyStateWait m_enemyStateWait;		//‘Ò‹@ó‘Ô
 	EnemyStateMove m_enemyStateMove;		//ˆÚ“®ó‘Ô
 
+	Effekseer::Effect* m_enemyDeathEffekt = nullptr;
+	Effekseer::Handle m_playEffectHandle = -1;
+
 public:
 	void ChangeState(EnEnemyState nextState);
 };

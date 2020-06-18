@@ -26,6 +26,9 @@ public:
 	/// </summary>
 	void Move();
 
+	/// <summary>
+	/// サルの走った時の処理
+	/// </summary>
 	void Run();
 
 	/// <summary>
@@ -233,6 +236,7 @@ private:
 
 	Effekseer::Effect* m_saruGetEffekt = nullptr;		//捕まえられた時のエフェクト
 	Effekseer::Effect* m_saruRunEffect = nullptr;		//走っている時のエフェクト
+	Effekseer::Effect* m_saruDamegeEffect = nullptr;
 	Effekseer::Handle m_playEffectHandle = -1;
 
 public:

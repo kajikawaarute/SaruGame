@@ -14,6 +14,8 @@ Enemy::Enemy()
 	m_animationClip[enAnim_walk].Load(L"Assets/animData/Enemy-walk.tka");
 	m_animationClip[enAnim_wait].Load(L"Assets/animData/Enemy-taiki.tka");
 
+	m_enemyDeathEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/EnemyDeath.efk");
+
 	//アニメーションのループを設定
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 	m_animationClip[enAnim_wait].SetLoopFlag(true);
@@ -122,6 +124,8 @@ void Enemy::AttackDistance()
 
 void Enemy::Delete()
 {
+	m_playEffectHandle = g_effekseerManager->Play(m_enemyDeathEffekt, m_position.x, m_position.y, m_position.z);
+
 	g_goMgr.DeleteGO(this);
 	m_pl->DeleteEnemy(this);
 }
