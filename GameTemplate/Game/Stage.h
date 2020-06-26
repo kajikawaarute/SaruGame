@@ -3,10 +3,6 @@
 #include "physics/PhysicsStaticObject.h"
 #include "level/Level.h"
 
-class Saru;
-class Player;
-class Enemy;
-class JumpFloor;
 class Stage : public IGameObject
 {
 public:
@@ -14,20 +10,20 @@ public:
 	~Stage();
 	void Update();
 	void Draw();
-
-	Player* GetPlayer()
+	void Setposition(const CVector3& pos)
 	{
-		return m_pl;
+		m_position = pos;
+	}
+	void SetRotation(const CQuaternion rot)
+	{
+		m_rotation = rot;
 	}
 private:
-	Level m_level;
+	SkinModel m_model;
+	CVector3 m_position = CVector3::Zero();
+	CQuaternion m_rotation = CQuaternion::Identity();
+	CVector3 m_scale = CVector3::One();
 
-	Player* m_pl = nullptr;																//プレイヤーのインスタンス
-	Enemy* m_enemy[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };		//エネミーのインスタンス
-	Saru* m_saru[3] = { nullptr, nullptr , nullptr };									//サルクラスのインスタンス
-	JumpFloor* m_jumpFloor = nullptr;													//ジャンプ床のインスタンス
-
-	std::vector<Saru*> m_sarus;								//サルのリスト
-	std::vector<Enemy*> m_enemys;							//エネミーのリスト
+	PhysicsStaticObject m_static;						//静的オブジェクト
 };
 

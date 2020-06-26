@@ -230,6 +230,7 @@
       <Filter>Saru\State</Filter>
     </ClCompile>
     <ClCompile Include="BikkuriMark.cpp" />
+    <ClCompile Include="ShadowMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -419,6 +420,7 @@
       <Filter>Saru\State</Filter>
     </ClInclude>
     <ClInclude Include="BikkuriMark.h" />
+    <ClInclude Include="ShadowMap.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

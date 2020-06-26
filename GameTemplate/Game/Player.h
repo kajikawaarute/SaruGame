@@ -89,6 +89,11 @@ public:
 		return m_charaCon;
 	}
 
+	SkinModel* GetSkinModel()
+	{
+		return &m_model;
+	}
+
 	/// <summary>
 	/// サルを捕まえた時の処理
 	/// </summary>
@@ -255,6 +260,7 @@ private:
 	std::vector<Saru*> m_sarus;				//サルのリスト
 	std::vector<Enemy*> m_enemys;			//エネミーのリスト
 	PlayerHP* m_playerHp = nullptr;			//プレイヤーHPのインスタンス
+
 public:
 	void ChangeState(EnPlayerState nextState);
 };

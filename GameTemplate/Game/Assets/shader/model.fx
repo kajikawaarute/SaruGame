@@ -10,6 +10,8 @@
 Texture2D<float4> albedoTexture : register(t0);	
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t1);
+//シャドウマップ
+Texture2D<float4> shadowMap : register(t2);
 
 /////////////////////////////////////////////////////////////
 // SamplerState
@@ -40,6 +42,13 @@ cbuffer LightCb : register(b0) {
 	SDirectionLight directionLight;
 	float3 eyePos;
 
+}
+
+/// <summary>
+/// シャドウマップ
+/// </summary>
+cbuffer ShadowMapCb : register(b1) {
+	float4x4 lightViewProjMatrix;
 }
 
 /////////////////////////////////////////////////////////////
@@ -73,6 +82,17 @@ struct VSInputNmTxWeights
  */
 struct PSInput{
 	float4 Position 	: SV_POSITION;
+	float3 Normal		: NORMAL;
+	float3 Tangent		: TANGENT;
+	float2 TexCoord 	: TEXCOORD0;
+	float3 worldPos		: TEXCOORD1;	//ワールド座標。
+};
+
+/// <summary>
+/// シャドウマップの入力構造体
+/// </summary>
+struct PSInput_ShadowMap {
+	float4 Position		: SV_POSITION; //座標
 	float3 Normal		: NORMAL;
 	float3 Tangent		: TANGENT;
 	float2 TexCoord 	: TEXCOORD0;
@@ -195,4 +215,66 @@ float4 PSMain( PSInput In ) : SV_Target0
 	float3 final;
 	final.xyz = albedo.xyz * lig;
 	return float4(final.xyz, 1.0f);
+}
+
+/// <summary>
+/// スキンモデルなしのシャドウマップ用の頂点シェーダー
+/// </summary>
+PSInput_ShadowMap VSMain_ShadowMap(VSInputNmTxVcTangent In)
+{
+	PSInput_ShadowMap psInput = (PSInput_ShadowMap)0;
+	float4 pos = mul(mWorld, In.Position);
+	pos = mul(mView, pos);
+	pos = mul(mProj, pos);
+	psInput.Position = pos;
+	return psInput;
+}
+
+/// <summary>
+/// スキンモデルありのシャドウマップ用の頂点シェーダー
+/// </summary>
+PSInput_ShadowMap VSMainSkin_ShadowMap(VSInputNmTxWeights In)
+{
+	PSInput_ShadowMap psInput = (PSInput)0;
+	///////////////////////////////////////////////////
+	//ここからスキニングを行っている箇所。
+	//スキン行列を計算。
+	///////////////////////////////////////////////////
+	float4x4 skinning = 0;
+	float4 pos = 0;
+	{
+
+		float w = 0.0f;
+		for (int i = 0; i < 3; i++)
+		{
+			//boneMatrixにボーン行列が設定されていて、
+			//In.indicesは頂点に埋め込まれた、関連しているボーンの番号。
+			//In.weightsは頂点に埋め込まれた、関連しているボーンのウェイト。
+			skinning += boneMatrix[In.Indices[i]] * In.Weights[i];
+			w += In.Weights[i];
+		}
+		//最後のボーンを計算する。
+		skinning += boneMatrix[In.Indices[3]] * (1.0f - w);
+		//頂点座標にスキン行列を乗算して、頂点をワールド空間に変換。
+		//mulは乗算命令。
+		pos = mul(skinning, In.Position);
+	}
+	psInput.Normal = normalize(mul(skinning, In.Normal));
+	psInput.Tangent = normalize(mul(skinning, In.Tangent));
+
+	pos = mul(mView, pos);
+	pos = mul(mProj, pos);
+	psInput.Position = pos;
+	psInput.TexCoord = In.TexCoord;
+	psInput.Normal = In.Normal;
+	return psInput;
+}
+
+/// <summary>
+/// シャドウマップ用のピクセルシェーダー
+/// </summary>
+float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
+{
+	//射影空間でのZ値を返す。
+	return In.Position.z / In.Position.w;
 }

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "IGameObjectManager.h"
+#include "ShadowMap.h"
 
 //IGameObjectManagerクラスのインスタンス。
 IGameObjectManager g_goMgr;
@@ -15,6 +16,13 @@ void IGameObjectManager::Update()
 		go->Update();
 		i++;
 	}
+	//シャドウマップの作成
+	ShadowMap::GetInstance().UpdateShadowMap(
+		{ 0.0f, 1000.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f }
+	);
+	ShadowMap::GetInstance().Draw();
+
 	for (auto go : m_goList) {
 		go->Draw();
 	}

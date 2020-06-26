@@ -4,6 +4,7 @@
 #include "Saru.h"
 #include "Enemy.h"
 #include "PlayerHP.h"
+#include "ShadowMap.h"
 
 const float PLAYER_GRAVITY = 5000.0f;		//プレイヤーにかかる重力(単位cm/秒)。
 const float PLAYER_JUMP_POWER = 2000.0f;	//プレイヤーがジャンプしたときに加算される速度。
@@ -39,6 +40,7 @@ Player::Player()
 	//プレイヤーの初期状態
 	//m_enPlayerState = enState_taiki;
 	m_currentState = &m_playerStateWait;
+	//ShadowMap::GetInstance().RegistShadowCaster(&m_model);
 }
 
 
@@ -90,6 +92,8 @@ void Player::Update()
 	}
 
 	m_animation.Update(1.0f / 30.0f);
+
+	
 }
 
 void Player::Move()
@@ -115,6 +119,7 @@ void Player::Move()
 void Player::Draw()
 {
 	m_model.Draw(
+		enRenderMode_Normal,
 		g_camera3D.GetViewMatrix(), 
 		g_camera3D.GetProjectionMatrix()
 	);
