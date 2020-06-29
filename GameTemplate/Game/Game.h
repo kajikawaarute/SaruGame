@@ -3,7 +3,6 @@
 #include "sound/SoundEngine.h"
 #include "sound/SoundSource.h"
 #include "level/Level.h"
-#include "ShadowMap.h"
 
 class Player;
 class Saru;
@@ -34,16 +33,14 @@ private:
 	GameClear* m_gameClear = nullptr;			//ゲームクリアのインスタンス
 	GameOver* m_gameOver = nullptr;				//ゲームオーバーのインスタンス
 
-	Enemy* m_enemy[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };		//エネミーのインスタンス
-	Saru* m_saru[3] = { nullptr, nullptr , nullptr };									//サルクラスのインスタンス
-	JumpFloor* m_jumpFloor = nullptr;													//ジャンプ床のインスタンス
+	Enemy* m_enemy[6] = { nullptr };		//エネミーのインスタンス
+	Saru* m_saru[3] = { nullptr };			//サルクラスのインスタンス
+	JumpFloor* m_jumpFloor = nullptr;		//ジャンプ床のインスタンス
 
-	std::vector<Saru*> m_sarus;								//サルのリスト
-	std::vector<Enemy*> m_enemys;							//エネミーのリスト
+	std::vector<Saru*> m_sarus;				//サルのリスト
+	std::vector<Enemy*> m_enemys;			//エネミーのリスト
 
 	Level m_level;
-
-	//ShadowMap m_shadowMap;
 
 	int m_gameClearTimer = 0;					//ゲームクリアまでのタイマー
 };

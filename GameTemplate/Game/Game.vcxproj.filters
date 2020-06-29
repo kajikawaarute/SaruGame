@@ -139,7 +139,6 @@
     <ClCompile Include="PhysicsGhostObject.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="BananaPeel.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp">
       <Filter>sound</Filter>
@@ -230,7 +229,10 @@
       <Filter>Saru\State</Filter>
     </ClCompile>
     <ClCompile Include="BikkuriMark.cpp" />
-    <ClCompile Include="ShadowMap.cpp" />
+    <ClCompile Include="RenderTarget.cpp" />
+    <ClCompile Include="graphics\ShadowMap.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -314,7 +316,6 @@
     <ClInclude Include="level\MapChip.h">
       <Filter>level</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="IGameObjectManager.h" />
     <ClInclude Include="Game.h" />
@@ -323,7 +324,6 @@
     <ClInclude Include="PhysicsGhostObject.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="BananaPeel.h" />
     <ClInclude Include="sound\SoundEngine.h">
       <Filter>sound</Filter>
@@ -420,7 +420,11 @@
       <Filter>Saru\State</Filter>
     </ClInclude>
     <ClInclude Include="BikkuriMark.h" />
-    <ClInclude Include="ShadowMap.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="graphics\ShadowMap.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

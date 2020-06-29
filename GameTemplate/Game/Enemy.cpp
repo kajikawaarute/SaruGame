@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "IGameObjectManager.h"
+#include "graphics/ShadowMap.h"
 
 const float ENEMY_MOVE_SPPED = 5.0f;		//エネミーの移動速度。
 const float ENEMY_FUTTOBI_POWER = 1000.0f;	//プレイヤーを吹っ飛ばす力。
@@ -33,6 +34,9 @@ Enemy::Enemy()
 
 	//エネミーの初期アニメーション
 	m_enAnimClip = enAnim_wait;
+
+	//シャドウレシーバーを設定
+	m_model.SetShadowReciever(true);
 }
 
 
@@ -60,6 +64,9 @@ void Enemy::Update()
 	m_animation.Update(1.0f / 30.0f);
 
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+
+	//シャドウキャスターを設定。
+	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
 }
 
 void Enemy::Draw()

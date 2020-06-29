@@ -4,6 +4,7 @@
 #include "IGameObjectManager.h"
 #include "BananaPeel.h"
 #include "BikkuriMark.h"
+#include "graphics/ShadowMap.h"
 
 const float SARU_MOVE_SPPED = 300.0f;			//サルの移動速度。
 const float SARU_FUTTOBI_POWER = 2500.0f;		//サルのプレイヤーを吹っ飛ばす力。
@@ -45,6 +46,9 @@ Saru::Saru()
 	m_saruStateGet.Init(this);
 	m_saruStateStun.Init(this);
 	m_saruStateFound.Init(this);
+
+	//シャドウレシーバーを設定
+	m_model.SetShadowReciever(true);
 }
 
 Saru::~Saru()
@@ -103,6 +107,9 @@ void Saru::Update()
 	m_animation.Update(GameTime().GetFrameDeltaTime());
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+
+	//シャドウキャスターを設定
+	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
 }
 
 void Saru::Move()

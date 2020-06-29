@@ -28,6 +28,10 @@ cbuffer VSPSCb : register(b0){
 	float4x4 mWorld;
 	float4x4 mView;
 	float4x4 mProj;
+	//ライトビュー行列
+	float4x4 mLightView;	//ライトビュー行列
+	float4x4 mLightProj;	//ライトプロジェクション行列
+	int isShadowReciever;	//シャドウレシーバーフラグ
 };
 
 struct SDirectionLight {
@@ -38,17 +42,17 @@ struct SDirectionLight {
 /*!
 * @brief	ライト用の定数バッファ。
 */
-cbuffer LightCb : register(b0) {
+cbuffer LightCb : register(b1) {
 	SDirectionLight directionLight;
 	float3 eyePos;
 
 }
 
 /// <summary>
-/// シャドウマップ
+/// シャドウマップ用の定数バッファ
 /// </summary>
 cbuffer ShadowMapCb : register(b1) {
-	float4x4 lightViewProjMatrix;
+	float4x4 lightViewProjMatrix;	//ライトビュープロジェクション行列
 }
 
 /////////////////////////////////////////////////////////////
@@ -86,10 +90,11 @@ struct PSInput{
 	float3 Tangent		: TANGENT;
 	float2 TexCoord 	: TEXCOORD0;
 	float3 worldPos		: TEXCOORD1;	//ワールド座標。
+	float4 posInLVP		: TEXCOORD2;	//ライトビュープロジェクション行列
 };
 
 /// <summary>
-/// シャドウマップの入力構造体
+/// シャドウマップ用のピクセルシェーダーへの入力構造体
 /// </summary>
 struct PSInput_ShadowMap {
 	float4 Position		: SV_POSITION; //座標
@@ -124,6 +129,11 @@ PSInput VSMain( VSInputNmTxVcTangent In )
 	PSInput psInput = (PSInput)0;
 	float4 pos = mul(mWorld, In.Position);
 	psInput.worldPos = pos;
+
+	if (isShadowReciever == 1) {
+		psInput.posInLVP = mul(mLightView, pos);
+		psInput.posInLVP = mul(mLightProj, psInput.posInLVP);
+	}
 
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
@@ -165,6 +175,12 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 		//mulは乗算命令。
 	    pos = mul(skinning, In.Position);
 	}
+
+	if (isShadowReciever == 1) {
+		psInput.posInLVP = mul(mLightView, pos);
+		psInput.posInLVP = mul(mLightProj, psInput.posInLVP);
+	}
+
 	psInput.Normal = normalize( mul(skinning, In.Normal) );
 	psInput.Tangent = normalize( mul(skinning, In.Tangent) );
 	
@@ -197,19 +213,38 @@ float4 PSMain( PSInput In ) : SV_Target0
 	}
 		//アルベドカラーを引っ張ってくる。
 		float4 albedo = albedoTexture.Sample(Sampler, In.TexCoord);
-	//	//①　反射ベクトルRを求める。
-	//	float3 R = directionLight.directionCb[i] + 2 * dot(In.Normal, -directionLight.directionCb[i]) * In.Normal;
+		//①　反射ベクトルRを求める。
+		//float3 R = directionLight.directionCb[i] + 2 * dot(In.Normal, -directionLight.directionCb[i]) * In.Normal;
 
-	//	//②　視点からライトをあてる物体に伸びるベクトルEを求める。
-	//	float3 E = normalize(In.worldPos - eyePos);
+		//②　視点からライトをあてる物体に伸びるベクトルEを求める。
+		//float3 E = normalize(In.worldPos - eyePos);
 
-	//	// ①と②で求まったベクトルの内積を計算して、スペキュラ反射の強さを求める。
-	//	float specPower = max(0, dot(R, -E));
+		// ①と②で求まったベクトルの内積を計算して、スペキュラ反射の強さを求める。
+		//float specPower = max(0, dot(R, -E));
 
-	//	//③スペキュラ反射をライトに加算する。
-	//	//lig += directionLight.color.xyz * pow(specPower * specPow);
-	//	lig += directionLight.colorCb[i].xyz * pow(specPower, specPow);
-	//}
+		//③スペキュラ反射をライトに加算する。
+		//lig += directionLight.color.xyz * pow(specPower * specPow);
+		//lig += directionLight.colorCb[i].xyz * pow(specPower, specPow);
+
+		if (isShadowReciever == 1) {
+			//LVP空間から見た時の最も手前の深度値をシャドウマップから取得。
+			float2 shadowMapUV = In.posInLVP.xy / In.posInLVP.w;
+			shadowMapUV *= float2(0.5f, -0.5f);
+			shadowMapUV += 0.5f;
+			//シャドウマップの範囲内か判定
+			if (shadowMapUV.x < 1.0f && shadowMapUV.x > 0.0f && shadowMapUV.y < 1.0f && shadowMapUV.y > 0.0f)
+			{
+				//LVP空間での深度値を計算。
+				float zInLVP = In.posInLVP.z / In.posInLVP.w;
+				//シャドウマップに書き込まれている深度値を取得。
+				float zInShadowMap = shadowMap.Sample(Sampler, shadowMapUV);
+
+				if (zInLVP > zInShadowMap + 0.01f) {
+					//影が落ちているので、光を弱くする。
+					lig *= 0.5f;
+				}
+			}
+		}
 
 	//ライトの光とアルベドカラーを乗算して最終カラーとする。
 	float3 final;
@@ -218,7 +253,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 }
 
 /// <summary>
-/// スキンモデルなしのシャドウマップ用の頂点シェーダー
+/// スキンなしモデルのシャドウマップ用の頂点シェーダー
 /// </summary>
 PSInput_ShadowMap VSMain_ShadowMap(VSInputNmTxVcTangent In)
 {
@@ -231,11 +266,11 @@ PSInput_ShadowMap VSMain_ShadowMap(VSInputNmTxVcTangent In)
 }
 
 /// <summary>
-/// スキンモデルありのシャドウマップ用の頂点シェーダー
+/// スキンありモデルのシャドウマップ用の頂点シェーダー
 /// </summary>
 PSInput_ShadowMap VSMainSkin_ShadowMap(VSInputNmTxWeights In)
 {
-	PSInput_ShadowMap psInput = (PSInput)0;
+	PSInput_ShadowMap psInput = (PSInput_ShadowMap)0;
 	///////////////////////////////////////////////////
 	//ここからスキニングを行っている箇所。
 	//スキン行列を計算。

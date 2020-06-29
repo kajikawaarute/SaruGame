@@ -35,6 +35,33 @@ public:
 	{
 		m_shadowCasters.push_back(shadowCaster);
 	}
+
+	/// <summary>
+	/// シャドウマップのSRVを取得。
+	/// </summary>
+	/// <returns></returns>
+	ID3D11ShaderResourceView* GetShadowMapSRV()
+	{
+		return m_shadowMapRT.GetRenderTargetSRV();
+	}
+
+	/// <summary>
+	/// ライトビュー行列を取得
+	/// </summary>
+	/// <returns></returns>
+	CMatrix GetLightViewMatrix() const
+	{
+		return m_lightViewMatrix;
+	}
+
+	/// <summary>
+	/// ライトプロジェクション行列を取得。
+	/// </summary>
+	/// <returns></returns>
+	CMatrix GetLightProjMatrix() const
+	{
+		return m_lightProjMatrix;
+	}
 private:
 	CVector3 m_lightCameraPosition = CVector3::Zero();		//ライトカメラの視点
 	CVector3 m_lightCameraTarget = CVector3::Zero();		//ライトカメラの注視点

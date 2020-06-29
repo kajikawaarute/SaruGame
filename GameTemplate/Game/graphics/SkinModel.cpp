@@ -2,6 +2,7 @@
 #include "SkinModel.h"
 #include "SkinModelDataManager.h"
 #include "SkinModelEffect.h"
+#include "ShadowMap.h"
 
 SkinModel::~SkinModel()
 {
@@ -149,13 +150,27 @@ void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMa
 	vsCb.mWorld = m_worldMatrix;
 	vsCb.mProj = projMatrix;
 	vsCb.mView = viewMatrix;
+
+	//ライトカメラのビュー、プロジェクション行列を送る。
+	vsCb.mLightProj = ShadowMap::GetInstance().GetLightProjMatrix();
+	vsCb.mLigjtView = ShadowMap::GetInstance().GetLightViewMatrix();
+
+	if (m_isShadowReciever == true) {
+		vsCb.isShadowReciever = 1;
+	}
+	else {
+		vsCb.isShadowReciever = 0;
+	}
+
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
+	//ライト用定数バッファを更新
+	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_light, 0, 0);
+
 	//定数バッファをGPUに転送。
 	d3dDeviceContext->VSSetConstantBuffers(0, 1, &m_cb);
 	d3dDeviceContext->PSSetConstantBuffers(0, 1, &m_cb);
-	//ライト用定数バッファを更新
-	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_light, 0, 0);
-	d3dDeviceContext->PSSetConstantBuffers(0, 1, &m_lightCb);
+	//ライト用定数バッファをGPUに転送
+	d3dDeviceContext->PSSetConstantBuffers(1, 1, &m_lightCb);
 	//サンプラステートを設定。
 	d3dDeviceContext->PSSetSamplers(0, 1, &m_samplerState);
 	//ボーン行列をGPUに転送。

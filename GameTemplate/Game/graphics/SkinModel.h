@@ -86,6 +86,16 @@ public:
 	{
 		return m_rotMatrix;
 	}
+
+	/// <summary>
+	/// シャドウレシーバーのフラグを設定する。
+	/// シャドウレシーバーは影を落とされる側。
+	/// </summary>
+	/// <param name="flag">trueを渡すとシャドウレシーバー</param>
+	void SetShadowReciever(bool flag)
+	{
+		m_isShadowReciever = flag;
+	}
 private:
 	/*!
 	*@brief	サンプラステートの初期化。
@@ -104,13 +114,16 @@ private:
 	*@param[in]	filePath		ロードするcmoファイルのファイルパス。
 	*/
 	void InitSkeleton(const wchar_t* filePath);
-	
+
 private:
 	//定数バッファ。
 	struct SVSConstantBuffer {
 		CMatrix mWorld;
 		CMatrix mView;
 		CMatrix mProj;
+		CMatrix mLigjtView;		//ライトビュー行列
+		CMatrix mLightProj;		//ライトプロジェクション行列
+		int isShadowReciever;	//シャドウレシーバーのフラグ
 	};
 	//ディレクションライト。
 	struct SDirectionLight {
@@ -133,5 +146,6 @@ private:
 	CMatrix				m_rotMatrix;					//!<回転行列。
 	DirectX::Model*		m_modelDx;						//!<DirectXTKが提供するモデルクラス。
 	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
+	bool				m_isShadowReciever = false;		//シャドウレシーバーのフラグ
 };
 

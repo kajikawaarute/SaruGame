@@ -6,12 +6,15 @@
 #include "Saru.h"
 #include "Enemy.h"
 #include "JumpFloor.h"
-#include "ShadowMap.h"
+#include "graphics/ShadowMap.h"
 
 Stage::Stage()
 {
 	m_model.Init(L"Assets/modelData/stage_01.cmo");
 	m_static.CreateMeshObject(m_model, m_position, m_rotation);
+
+	//シャドウレシーバーを設定
+	m_model.SetShadowReciever(true);
 }
 
 
@@ -23,6 +26,8 @@ void Stage::Update()
 {
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+
+	//シャドウキャスターを設定
 	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
 }
 

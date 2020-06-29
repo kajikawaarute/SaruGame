@@ -7,7 +7,6 @@
 #include "PlayerHP.h"
 #include "GameClear.h"
 #include "GameOver.h"
-#include "ShadowMap.h"
 #include "Saru.h"
 #include "Enemy.h"
 #include "JumpFloor.h"
@@ -17,9 +16,6 @@ Game::Game()
 {
 	m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
 	m_gameBGM.Play(true);
-
-	/*m_stage = g_goMgr.NewGO<Stage>();
-	m_pl = m_stage->GetPlayer();*/
 
 	//ƒŒƒxƒ‹‚ð‰Šú‰»
 	m_level.Init(L"Assets/level/Stage_01.tkl", [&](const LevelObjectData& objData)
@@ -207,7 +203,6 @@ Game::~Game()
 
 	g_goMgr.DeleteGO(m_playerHP);
 	g_goMgr.DeleteGO(m_gCamera);
-	//g_goMgr.DeleteGO(m_stage);
 	g_goMgr.DeleteGO(m_gameClear);
 	g_goMgr.DeleteGO(m_gameOver);
 
@@ -242,7 +237,6 @@ void Game::Update()
 			g_goMgr.DeleteGO(this);
 		}
 	}
-	ShadowMap::GetInstance().RegistShadowCaster(m_pl->GetSkinModel());
 }
 
 void Game::Draw()
