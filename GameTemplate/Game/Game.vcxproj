@@ -102,6 +102,7 @@
     <ClCompile Include="BananaPeel.cpp" />
     <ClCompile Include="BikkuriMark.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyStateAttack.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="BananaPeel.h" />
     <ClInclude Include="BikkuriMark.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyStateAttack.h" />
@@ -297,6 +299,11 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\GAMEOVER.png">
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\sprite\%(Filename).dds</ContentOutput>
+    </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Button_UI.png">
+      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\sprite\%(Filename).dds</ContentOutput>
     </ImageContentTask>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -217,7 +217,7 @@ void Player::Jump()
 
 void Player::SaruGet()
 {
-	if (g_pad[0].IsTrigger(enButtonB))
+	if (g_pad[0].IsTrigger(enButtonX))
 	{
 		m_moveSpeed.x = 0.0f;
 		m_moveSpeed.z = 0.0f;
@@ -232,7 +232,7 @@ void Player::SaruGet()
 
 void Player::AttackTry()
 {
-	if (g_pad[0].IsTrigger(enButtonX))
+	if (g_pad[0].IsTrigger(enButtonB))
 	{
 		m_enPlayerState = enState_attack;
 	}

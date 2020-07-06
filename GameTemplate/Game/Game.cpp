@@ -11,6 +11,7 @@
 #include "Enemy.h"
 #include "JumpFloor.h"
 #include "level/Level.h"
+#include "ButtonUI.h"
 
 int Game::stageNo = 0;
 Game::Game()
@@ -177,6 +178,7 @@ Game::Game()
 				return false;
 			});
 	}
+	//↓ステージ２を入れる
 	if (stageNo == 1)
 	{
 
@@ -186,6 +188,8 @@ Game::Game()
 
 	m_playerHP = g_goMgr.NewGO<PlayerHP>();
 	m_pl->SetPlayerHP(m_playerHP);
+
+	m_buttonUI = g_goMgr.NewGO<ButtonUI>();
 }
 
 
@@ -211,6 +215,7 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_gCamera);
 	g_goMgr.DeleteGO(m_gameClear);
 	g_goMgr.DeleteGO(m_gameOver);
+	g_goMgr.DeleteGO(m_buttonUI);
 
 	g_goMgr.NewGO<Title>();
 }

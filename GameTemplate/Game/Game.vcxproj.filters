@@ -233,6 +233,7 @@
     <ClCompile Include="graphics\ShadowMap.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -425,6 +426,7 @@
     <ClInclude Include="graphics\ShadowMap.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="ButtonUI.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -480,5 +482,10 @@
     <ImageContentTask Include="Assets\sprite\GAMEOVER.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\sprite\Button_UI.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
   </ItemGroup>
 </Project>

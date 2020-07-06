@@ -16,6 +16,7 @@ class Title;
 class PlayerHP;
 class GameClear;
 class GameOver;
+class ButtonUI;
 class Game : public IGameObject
 {
 public:
@@ -33,6 +34,7 @@ private:
 	PlayerHP* m_playerHP = nullptr;				//プレイヤーHPのインスタンス
 	GameClear* m_gameClear = nullptr;			//ゲームクリアのインスタンス
 	GameOver* m_gameOver = nullptr;				//ゲームオーバーのインスタンス
+	ButtonUI* m_buttonUI = nullptr;
 
 	Enemy* m_enemy[6] = { nullptr };		//エネミーのインスタンス
 	Saru* m_saru[3] = { nullptr };			//サルクラスのインスタンス
