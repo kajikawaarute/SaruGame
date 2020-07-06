@@ -18,8 +18,8 @@ void IGameObjectManager::Update()
 	}
 	//シャドウマップの作成
 	ShadowMap::GetInstance().UpdateShadowMap(
-		{ 0.0f, 500.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f }
+		{500.0f, 500.0f, 500.0f},
+		{0.0f, 0.0f, 0.0f}
 	);
 	ShadowMap::GetInstance().Draw();
 
@@ -27,7 +27,7 @@ void IGameObjectManager::Update()
 		go->Draw();
 	}
 
-	//すべてのゲームオブジェクトの
+	//すべてのゲームオブジェクトのリストの検索
 	for (auto it = m_goList.begin(); it != m_goList.end();) {
 		if ((*it)->IsRequestDelete()) {
 			//削除リクエストを受けているので削除。

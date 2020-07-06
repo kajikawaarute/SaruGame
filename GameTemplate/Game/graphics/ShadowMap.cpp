@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ShadowMap.h"
+#include "SkinModel.h"
 
 ShadowMap::ShadowMap()
 {
@@ -13,13 +14,14 @@ ShadowMap::~ShadowMap()
 
 void ShadowMap::UpdateShadowMap(CVector3 lightCameraPos, CVector3 lightCameraTarget)
 {
-	m_lightCameraPosition = lightCameraPos + g_camera3D.GetPosition();
+	m_lightCameraPosition = lightCameraPos + g_camera3D.GetTarget();
 	m_lightCameraTarget = lightCameraTarget + g_camera3D.GetTarget();
 
 	//ライトの方向を計算する。
 	auto lightDir = m_lightCameraTarget - m_lightCameraPosition;
 	if (lightDir.Length() < 0.0001f) {
 		//ライトカメラの注視点と視点が近い
+		//クラッシュさせる。
 		std::abort();
 	}
 	lightDir.Normalize();
@@ -39,8 +41,8 @@ void ShadowMap::UpdateShadowMap(CVector3 lightCameraPos, CVector3 lightCameraTar
 	);
 	//ライトプロジェクション行列を作成
 	m_lightProjMatrix.MakeOrthoProjectionMatrix(
-		3000,
-		3000,
+		8000,
+		8000,
 		0.1f,
 		5000.0f
 	);

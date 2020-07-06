@@ -19,6 +19,7 @@ class GameOver;
 class Game : public IGameObject
 {
 public:
+	static int stageNo;	//ステージ番号
 	Game();
 	~Game();
 	void Update();

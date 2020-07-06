@@ -29,6 +29,7 @@ public:
 
 	/// <summary>
 	/// シャドウキャスターを登録。
+	/// シャドウキャスターは影を落とす側。
 	/// </summary>
 	/// <param name="shadowCaster">シャドウキャスター</param>
 	void RegistShadowCaster(SkinModel* shadowCaster)
@@ -61,6 +62,42 @@ public:
 	CMatrix GetLightProjMatrix() const
 	{
 		return m_lightProjMatrix;
+	}
+
+	/// <summary>
+	/// ライトカメラの視点を取得。
+	/// </summary>
+	/// <returns></returns>
+	CVector3 GetLightCameraPosition()
+	{
+		return m_lightCameraPosition;
+	}
+
+	/// <summary>
+	/// ライトカメラの注視点を取得。
+	/// </summary>
+	/// <returns></returns>
+	CVector3 GetLightCameraTarget()
+	{
+		return m_lightCameraTarget;
+	}
+
+	/// <summary>
+	/// ライトカメラの視点を設定。
+	/// </summary>
+	/// <param name="ligCameraPos"></param>
+	void SetLightCameraPosition(CVector3 ligCameraPos)
+	{
+		m_lightCameraPosition = ligCameraPos;
+	}
+
+	/// <summary>
+	/// ライトカメラの注視点を設定。
+	/// </summary>
+	/// <param name="ligCameraTarget"></param>
+	void SetLightCameraTarget(CVector3 ligCameraTarget)
+	{
+		m_lightCameraTarget = ligCameraTarget;
 	}
 private:
 	CVector3 m_lightCameraPosition = CVector3::Zero();		//ライトカメラの視点

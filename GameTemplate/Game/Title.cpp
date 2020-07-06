@@ -48,6 +48,7 @@ void Title::Update()
 {
 	if (g_pad[0].IsTrigger(enButtonStart) && m_positionX[1] == 0.0f && m_positionY[2] == 0.0f)
 	{
+		Game::stageNo = 0;
 		m_game = g_goMgr.NewGO<Game>();
 		g_goMgr.DeleteGO(this);
 	}
