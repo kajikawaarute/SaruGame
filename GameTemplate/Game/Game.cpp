@@ -2,6 +2,7 @@
 #include "IGameObjectManager.h"
 #include "Game.h"
 #include "Stage.h"
+#include "Stage2.h"
 #include "GameCamera.h"
 #include "Title.h"
 #include "PlayerHP.h"
@@ -179,9 +180,25 @@ Game::Game()
 			});
 	}
 	//↓ステージ２を入れる
-	if (stageNo == 1)
+	else if (stageNo == 1)
 	{
+		m_level.Init(L"Assets/level/Stage_02.tkl", [&](const LevelObjectData& objData)
+			{
+				if (wcscmp(objData.name, L"stage_02") == 0) {
+					m_stage2 = g_goMgr.NewGO<Stage2>();
+					m_stage2->Setposition(objData.position);
+					m_stage2->SetRotation(objData.rotation);
+					return true;
+				}
 
+				else if (wcscmp(objData.name, L"Player") == 0) {
+					m_pl = g_goMgr.NewGO<Player>();
+					m_pl->Setposition(objData.position);
+					m_pl->SetRotation(objData.rotation);
+					return true;
+				}
+				return false;
+			});
 	}
 	m_gCamera = g_goMgr.NewGO<GameCamera>();
 	m_gCamera->SetPlayer(m_pl);
@@ -196,6 +213,7 @@ Game::Game()
 Game::~Game()
 {
 	g_goMgr.DeleteGO(m_stage);
+	g_goMgr.DeleteGO(m_stage2);
 	g_goMgr.DeleteGO(m_jumpFloor);
 
 	g_goMgr.DeleteGO(m_pl);
@@ -233,10 +251,10 @@ void Game::Update()
 		m_gameClearTimer++;
 		if (m_gameClearTimer == 30) {
 			m_gameClear = g_goMgr.NewGO<GameClear>();
+			Game::stageNo = 1;
 		}
 		if (m_gameClearTimer == 120) {
 			g_goMgr.DeleteGO(this);
-			Game::stageNo = 1;
 		}
 	}
 	if (m_playerHP->GetGameOver() == true) {

@@ -11,6 +11,7 @@ class Enemy;
 class JumpFloor;
 
 class Stage;
+class Stage2;
 class GameCamera;
 class Title;
 class PlayerHP;
@@ -30,6 +31,8 @@ private:
 
 	Player* m_pl = nullptr;						//プレイヤーのインスタンス
 	Stage* m_stage = nullptr;					//ステージのインスタンス
+	Stage2* m_stage2 = nullptr;
+
 	GameCamera* m_gCamera = nullptr;			//ゲームカメラのインスタンス
 	PlayerHP* m_playerHP = nullptr;				//プレイヤーHPのインスタンス
 	GameClear* m_gameClear = nullptr;			//ゲームクリアのインスタンス

@@ -234,6 +234,7 @@
       <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="ButtonUI.cpp" />
+    <ClCompile Include="Stage2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -427,6 +428,7 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="ButtonUI.h" />
+    <ClInclude Include="Stage2.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -459,6 +461,9 @@
     <MeshContentTask Include="Assets\modelData\Bikkuri_Mark.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage_02.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\title-kari.png">
@@ -482,10 +487,6 @@
     <ImageContentTask Include="Assets\sprite\GAMEOVER.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\Button_UI.png">
-      <Filter>Assets\sprite</Filter>
-    </Image>
+    <ImageContentTask Include="Assets\sprite\Button_UI.png" />
   </ItemGroup>
 </Project>
