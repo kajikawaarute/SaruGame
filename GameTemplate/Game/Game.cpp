@@ -20,6 +20,8 @@ Game::Game()
 	m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
 	m_gameBGM.Play(true);
 
+	//stageNo = 1;
+
 	if (stageNo == 0) {
 		//レベルを初期化
 		m_level.Init(L"Assets/level/Stage_01.tkl", [&](const LevelObjectData& objData)
@@ -180,7 +182,7 @@ Game::Game()
 			});
 	}
 	//↓ステージ２を入れる
-	else if (stageNo == 1)
+	if (stageNo == 1)
 	{
 		m_level.Init(L"Assets/level/Stage_02.tkl", [&](const LevelObjectData& objData)
 			{
@@ -235,35 +237,51 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_gameOver);
 	g_goMgr.DeleteGO(m_buttonUI);
 
-	g_goMgr.NewGO<Title>();
+	//プレイヤーのHPがなくなったらタイトルに遷移する。
+	if (m_playerHP->GetGameOver() == true) {
+		g_goMgr.NewGO<Title>();
+	}
+	//ステージ番号が0の時にステージ2に遷移する。
+	else if (stageNo == 0) {
+		stageNo = 1;
+		g_goMgr.NewGO<Game>();
+	}
+	//ステージ番号が1の時にタイトルに遷移する。
+	else if (stageNo == 1) {
+		g_goMgr.NewGO<Title>();
+		stageNo = 0;
+	}
 }
 
 
 
 void Game::Update()
 {
-
+	//セレクトボタンを押すとタイトル画面に遷移
 	if (g_pad[0].IsTrigger(enButtonSelect)) {
 		g_goMgr.DeleteGO(this);
 	}
-	if (m_pl->GetSaruCount() == 3)
+
+	//サルを全員捕まえたらゲームクリア
+	if (m_pl->GetSaruCount() == 1)
 	{
 		m_gameClearTimer++;
 		if (m_gameClearTimer == 30) {
 			m_gameClear = g_goMgr.NewGO<GameClear>();
-			Game::stageNo = 1;
 		}
 		if (m_gameClearTimer == 120) {
 			g_goMgr.DeleteGO(this);
 		}
 	}
+
+	//プレイヤーのHPがなくなったらゲームオーバー
 	if (m_playerHP->GetGameOver() == true) {
-		m_gameClearTimer++;
-		if (m_gameClearTimer == 50) {
+		m_gameOverTimer++;
+		if (m_gameOverTimer == 50) {
 			m_gameOver = g_goMgr.NewGO<GameOver>();
 			m_pl->StateDeath();
 		}
-		if (m_gameClearTimer == 150) {
+		if (m_gameOverTimer == 150) {
 			g_goMgr.DeleteGO(this);
 		}
 	}

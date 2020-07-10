@@ -487,6 +487,8 @@
     <ImageContentTask Include="Assets\sprite\GAMEOVER.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\Button_UI.png" />
+    <ImageContentTask Include="Assets\sprite\Button_UI.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

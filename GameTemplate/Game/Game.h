@@ -31,7 +31,7 @@ private:
 
 	Player* m_pl = nullptr;						//プレイヤーのインスタンス
 	Stage* m_stage = nullptr;					//ステージのインスタンス
-	Stage2* m_stage2 = nullptr;
+	Stage2* m_stage2 = nullptr;					//ステージ2のインスタンス
 
 	GameCamera* m_gCamera = nullptr;			//ゲームカメラのインスタンス
 	PlayerHP* m_playerHP = nullptr;				//プレイヤーHPのインスタンス
@@ -46,8 +46,9 @@ private:
 	std::vector<Saru*> m_sarus;				//サルのリスト
 	std::vector<Enemy*> m_enemys;			//エネミーのリスト
 
-	Level m_level;
+	Level m_level;		//レベルのインスタンス
 
-	int m_gameClearTimer = 0;					//ゲームクリアまでのタイマー
+	int m_gameClearTimer = 0;		//ゲームクリアまでのタイマー
+	int m_gameOverTimer = 0;		//ゲームオーバーまでのタイマー
 };
 
