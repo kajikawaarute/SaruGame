@@ -35,6 +35,13 @@ void GameCamera::Update()
 	qRot.SetRotationDeg(CVector3::AxisY(), 4.0f * x);
 	qRot.Multiply(m_toCameraPos);
 
+	//XŽ²Žü‚è
+	CVector3 axisX;
+	axisX.Cross(CVector3::AxisY(), m_toCameraPos);
+	axisX.Normalize();
+	qRot.SetRotationDeg(axisX, 4.0f * y);
+	qRot.Multiply(m_toCameraPos);
+
 	CVector3 toPosDir = m_toCameraPos;
 	toPosDir.Normalize();
 	if (toPosDir.y < -0.5f) {

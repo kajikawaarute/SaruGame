@@ -263,7 +263,7 @@ void Game::Update()
 	}
 
 	//サルを全員捕まえたらゲームクリア
-	if (m_pl->GetSaruCount() == 1)
+	if (m_pl->GetSaruCount() == 3)
 	{
 		m_gameClearTimer++;
 		if (m_gameClearTimer == 30) {
