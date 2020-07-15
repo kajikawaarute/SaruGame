@@ -11,6 +11,7 @@
 #include "Saru.h"
 #include "Enemy.h"
 #include "JumpFloor.h"
+#include "Wall.h"
 #include "level/Level.h"
 #include "ButtonUI.h"
 
@@ -22,6 +23,7 @@ Game::Game()
 
 	//stageNo = 1;
 
+	//ステージ1
 	if (stageNo == 0) {
 		//レベルを初期化
 		m_level.Init(L"Assets/level/Stage_01.tkl", [&](const LevelObjectData& objData)
@@ -30,6 +32,14 @@ Game::Game()
 					m_stage = g_goMgr.NewGO<Stage>();
 					m_stage->Setposition(objData.position);
 					m_stage->SetRotation(objData.rotation);
+					return true;
+				}
+
+				else if (wcscmp(objData.name, L"wall") == 0) {
+					m_wall = g_goMgr.NewGO<Wall>();
+					m_wall->SetPosition(objData.position);
+					m_wall->SetRotation(objData.rotation);
+					m_wall->CreateStaticObject();
 					return true;
 				}
 
@@ -181,9 +191,8 @@ Game::Game()
 				return false;
 			});
 	}
-	//↓ステージ２を入れる
-	if (stageNo == 1)
-	{
+	//ステージ2
+	if (stageNo == 1){
 		m_level.Init(L"Assets/level/Stage_02.tkl", [&](const LevelObjectData& objData)
 			{
 				if (wcscmp(objData.name, L"stage_02") == 0) {
@@ -217,6 +226,7 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_stage);
 	g_goMgr.DeleteGO(m_stage2);
 	g_goMgr.DeleteGO(m_jumpFloor);
+	g_goMgr.DeleteGO(m_wall);
 
 	g_goMgr.DeleteGO(m_pl);
 

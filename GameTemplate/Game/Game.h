@@ -6,9 +6,9 @@
 
 class Player;
 class Saru;
-class Player;
 class Enemy;
 class JumpFloor;
+class Wall;
 
 class Stage;
 class Stage2;
@@ -27,21 +27,23 @@ public:
 	void Update();
 	void Draw();
 private:
-	prefab::CSoundSource m_gameBGM;				//ゲームのBGM
+	prefab::CSoundSource m_gameBGM;			//ゲームのBGM
 
-	Player* m_pl = nullptr;						//プレイヤーのインスタンス
-	Stage* m_stage = nullptr;					//ステージのインスタンス
-	Stage2* m_stage2 = nullptr;					//ステージ2のインスタンス
-
-	GameCamera* m_gCamera = nullptr;			//ゲームカメラのインスタンス
-	PlayerHP* m_playerHP = nullptr;				//プレイヤーHPのインスタンス
-	GameClear* m_gameClear = nullptr;			//ゲームクリアのインスタンス
-	GameOver* m_gameOver = nullptr;				//ゲームオーバーのインスタンス
-	ButtonUI* m_buttonUI = nullptr;
-
+	Player* m_pl = nullptr;					//プレイヤーのインスタンス
 	Enemy* m_enemy[6] = { nullptr };		//エネミーのインスタンス
 	Saru* m_saru[3] = { nullptr };			//サルクラスのインスタンス
+
+	Stage* m_stage = nullptr;				//ステージのインスタンス
+	Stage2* m_stage2 = nullptr;				//ステージ2のインスタンス
 	JumpFloor* m_jumpFloor = nullptr;		//ジャンプ床のインスタンス
+	Wall* m_wall = nullptr;					//ステージ壁のインスタンス
+
+	GameCamera* m_gCamera = nullptr;		//ゲームカメラのインスタンス
+
+	PlayerHP* m_playerHP = nullptr;			//プレイヤーHPのインスタンス
+	GameClear* m_gameClear = nullptr;		//ゲームクリアのインスタンス
+	GameOver* m_gameOver = nullptr;			//ゲームオーバーのインスタンス
+	ButtonUI* m_buttonUI = nullptr;
 
 	std::vector<Saru*> m_sarus;				//サルのリスト
 	std::vector<Enemy*> m_enemys;			//エネミーのリスト
