@@ -16,11 +16,7 @@ void IGameObjectManager::Update()
 		go->Update();
 		i++;
 	}
-	//シャドウマップの作成
-	ShadowMap::GetInstance().UpdateShadowMap(
-		{500.0f, 500.0f, 500.0f},
-		{0.0f, 0.0f, 0.0f}
-	);
+
 	ShadowMap::GetInstance().Draw();
 
 	for (auto go : m_goList) {

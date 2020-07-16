@@ -14,8 +14,8 @@ ShadowMap::~ShadowMap()
 
 void ShadowMap::UpdateShadowMap(CVector3 lightCameraPos, CVector3 lightCameraTarget)
 {
-	m_lightCameraPosition = lightCameraPos + g_camera3D.GetTarget();
-	m_lightCameraTarget = lightCameraTarget + g_camera3D.GetTarget();
+	m_lightCameraPosition = lightCameraPos;
+	m_lightCameraTarget = lightCameraTarget;
 
 	//ライトの方向を計算する。
 	auto lightDir = m_lightCameraTarget - m_lightCameraPosition;
@@ -41,8 +41,8 @@ void ShadowMap::UpdateShadowMap(CVector3 lightCameraPos, CVector3 lightCameraTar
 	);
 	//ライトプロジェクション行列を作成
 	m_lightProjMatrix.MakeOrthoProjectionMatrix(
-		8000,
-		8000,
+		2000,
+		2000,
 		0.1f,
 		5000.0f
 	);

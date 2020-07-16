@@ -90,11 +90,18 @@ void Player::Update()
 		break;
 	case enAnim_death:		//死亡アニメーション
 		m_animation.Play(enAnim_death, animTime);
+		break;
 	}
 
 	m_animation.Update(1.0f / 30.0f);
 
 	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
+
+	//シャドウマップの作成
+	ShadowMap::GetInstance().UpdateShadowMap(
+		m_position + CVector3::One() * 2000.0f,
+		m_position
+	);
 }
 
 void Player::Move()
