@@ -135,6 +135,7 @@ private:
 		SDirectionLight directionLight;		//ディレクションライト
 		CVector3 eyePos;					//視点の座標
 		float specPow;						//鏡面反射の絞り
+		CVector3 ambientLight;				//アンビエントライト
 
 	};
 	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;	//!<FBXの上方向。

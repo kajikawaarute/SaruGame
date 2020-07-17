@@ -34,6 +34,9 @@ cbuffer VSPSCb : register(b0){
 	int isShadowReciever;	//シャドウレシーバーフラグ
 };
 
+/// <summary>
+/// ディレクションライト
+/// </summary>
 struct SDirectionLight {
 	float3 directionCb[4];
 	float4 colorCb[4];
@@ -45,6 +48,8 @@ struct SDirectionLight {
 cbuffer LightCb : register(b1) {
 	SDirectionLight directionLight;
 	float3 eyePos;
+	float specPow;
+	float3 ambientLight;
 
 }
 
@@ -184,6 +189,8 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 	psInput.Normal = normalize( mul(skinning, In.Normal) );
 	psInput.Tangent = normalize( mul(skinning, In.Tangent) );
 	
+	psInput.worldPos = pos;
+
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
@@ -229,6 +236,8 @@ float4 PSMain( PSInput In ) : SV_Target0
 		if (isShadowReciever == 1) {
 			//LVP空間から見た時の最も手前の深度値をシャドウマップから取得。
 			float2 shadowMapUV = In.posInLVP.xy / In.posInLVP.w;
+			float2 shadowOffset = abs(shadowMapUV);
+			shadowOffset = 1.0f - pow(shadowOffset, 5.0f);
 			shadowMapUV *= float2(0.5f, -0.5f);
 			shadowMapUV += 0.5f;
 			//シャドウマップの範囲内か判定
@@ -239,9 +248,11 @@ float4 PSMain( PSInput In ) : SV_Target0
 				//シャドウマップに書き込まれている深度値を取得。
 				float zInShadowMap = shadowMap.Sample(Sampler, shadowMapUV);
 
-				if (zInLVP > zInShadowMap + 0.01f) {
+				if (zInLVP > zInShadowMap + 0.001f) {
 					//影が落ちているので、光を弱くする。
-					lig *= 0.5f;
+					float t = lerp(1.0f, 0.5f, shadowOffset.x);
+					t = max(t, lerp(1.0f, 0.5f, shadowOffset.y));
+					lig *= t;
 				}
 			}
 		}

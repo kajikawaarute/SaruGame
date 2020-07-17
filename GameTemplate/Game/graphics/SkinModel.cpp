@@ -99,7 +99,7 @@ void SkinModel::InitLightCB()
 	m_light.directionLight.direction[3] = { -1.0f, -1.0f, 0.0f, 1.0f };
 	m_light.directionLight.color[3] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-	m_light.specPow += 10.0f;
+	m_light.specPow = 10.0f;
 }
 
 
@@ -163,6 +163,9 @@ void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMa
 	}
 
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
+
+	//視点を設定。
+	m_light.eyePos = g_camera3D.GetPosition();
 	//ライト用定数バッファを更新
 	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_light, 0, 0);
 

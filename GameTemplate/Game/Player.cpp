@@ -99,7 +99,7 @@ void Player::Update()
 
 	//シャドウマップの作成
 	ShadowMap::GetInstance().UpdateShadowMap(
-		m_position + CVector3::One() * 2000.0f,
+		m_position + CVector3::One() * 4000.0f,
 		m_position
 	);
 }

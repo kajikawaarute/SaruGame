@@ -41,10 +41,10 @@ void ShadowMap::UpdateShadowMap(CVector3 lightCameraPos, CVector3 lightCameraTar
 	);
 	//ライトプロジェクション行列を作成
 	m_lightProjMatrix.MakeOrthoProjectionMatrix(
-		2000,
-		2000,
-		0.1f,
-		5000.0f
+		4000,
+		4000,
+		100.0f,
+		15000.0f
 	);
 }
 
