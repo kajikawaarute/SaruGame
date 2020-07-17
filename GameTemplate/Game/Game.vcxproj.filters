@@ -236,6 +236,7 @@
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="Stage2.cpp" />
     <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="Sky.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -431,6 +432,7 @@
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="Wall.h" />
+    <ClInclude Include="Sky.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -467,6 +469,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\wall.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\SkyBox.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

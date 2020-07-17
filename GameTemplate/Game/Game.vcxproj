@@ -161,6 +161,7 @@
     <ClCompile Include="SaruStateRun.cpp" />
     <ClCompile Include="SaruStateStun.cpp" />
     <ClCompile Include="SaruStateWait.cpp" />
+    <ClCompile Include="Sky.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp" />
     <ClCompile Include="sound\SoundSource.cpp" />
     <ClCompile Include="sound\WaveFile.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="SaruStateRun.h" />
     <ClInclude Include="SaruStateStun.h" />
     <ClInclude Include="SaruStateWait.h" />
+    <ClInclude Include="Sky.h" />
     <ClInclude Include="sound\SoundEngine.h" />
     <ClInclude Include="sound\SoundSource.h" />
     <ClInclude Include="sound\WaveFile.h" />
@@ -264,6 +266,7 @@
     <MeshContentTask Include="Assets\modelData\JumpFloor2.fbx" />
     <MeshContentTask Include="Assets\modelData\Player.fbx" />
     <MeshContentTask Include="Assets\modelData\Saru.fbx" />
+    <MeshContentTask Include="Assets\modelData\SkyBox.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_01.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_02.fbx" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
