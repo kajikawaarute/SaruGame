@@ -28,6 +28,12 @@ void PlayerStateAttack::Update()
 		{
 			m_player->m_enemys[i]->Delete();
 		}
+
+		//エネミ－の方を見る
+		if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 250.0f) {
+			float foundAngle = atan2f(toPlayer_EnemyDir.x, toPlayer_EnemyDir.z);
+			m_player->m_rotation.SetRotation(CVector3::AxisY(), foundAngle);
+		}
 	}
 
 	//サルをひるませる
@@ -42,6 +48,12 @@ void PlayerStateAttack::Update()
 		if (fabsf(angle) < CMath::DegToRad(45.0f) && toSaruLen < 150.0f)
 		{
 			m_player->m_sarus[i]->Stun();
+		}
+
+		//サルの方を見る
+		if (fabsf(angle) < CMath::DegToRad(90.0f) && toSaruLen < 250.0f) {
+			float foundAngle = atan2f(toPlayer_SaruDir.x, toPlayer_SaruDir.z);
+			m_player->m_rotation.SetRotation(CVector3::AxisY(), foundAngle);
 		}
 	}
 	m_player->ChangeStateWaitAnim();

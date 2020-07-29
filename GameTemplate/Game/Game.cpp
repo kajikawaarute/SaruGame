@@ -14,6 +14,7 @@
 #include "Wall.h"
 #include "level/Level.h"
 #include "ButtonUI.h"
+#include "Sky.h"
 
 int Game::stageNo = 0;
 Game::Game()
@@ -34,6 +35,13 @@ Game::Game()
 					m_stage->SetRotation(objData.rotation);
 					return true;
 				}
+
+				/*else if (wcscmp(objData.name, L"SkyBox") == 0) {
+					m_sky = g_goMgr.NewGO<Sky>();
+					m_sky->Setposition(objData.position);
+					m_sky->SetRotation(objData.rotation);
+					return true;
+				}*/
 
 				else if (wcscmp(objData.name, L"wall") == 0) {
 					m_wall = g_goMgr.NewGO<Wall>();
@@ -218,6 +226,8 @@ Game::Game()
 	m_pl->SetPlayerHP(m_playerHP);
 
 	m_buttonUI = g_goMgr.NewGO<ButtonUI>();
+
+	//m_sky = g_goMgr.NewGO<Sky>();
 }
 
 
@@ -227,6 +237,7 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_stage2);
 	g_goMgr.DeleteGO(m_jumpFloor);
 	g_goMgr.DeleteGO(m_wall);
+	//g_goMgr.DeleteGO(m_sky);
 
 	g_goMgr.DeleteGO(m_pl);
 
@@ -251,16 +262,17 @@ Game::~Game()
 	if (m_playerHP->GetGameOver() == true) {
 		g_goMgr.NewGO<Title>();
 	}
-	//ステージ番号が0の時にステージ2に遷移する。
+	//ステージ番号が0の時にタイトルに遷移する。
 	else if (stageNo == 0) {
-		stageNo = 1;
-		g_goMgr.NewGO<Game>();
+		//stageNo = 1;
+		//g_goMgr.NewGO<Game>();
+		g_goMgr.NewGO<Title>();
 	}
 	//ステージ番号が1の時にタイトルに遷移する。
-	else if (stageNo == 1) {
+	/*else if (stageNo == 1) {
 		g_goMgr.NewGO<Title>();
 		stageNo = 0;
-	}
+	}*/
 }
 
 

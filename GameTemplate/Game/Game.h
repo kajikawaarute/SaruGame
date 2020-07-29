@@ -9,6 +9,7 @@ class Saru;
 class Enemy;
 class JumpFloor;
 class Wall;
+class Sky;
 
 class Stage;
 class Stage2;
@@ -37,6 +38,7 @@ private:
 	Stage2* m_stage2 = nullptr;				//ステージ2のインスタンス
 	JumpFloor* m_jumpFloor = nullptr;		//ジャンプ床のインスタンス
 	Wall* m_wall = nullptr;					//ステージ壁のインスタンス
+	Sky* m_sky = nullptr;
 
 	GameCamera* m_gCamera = nullptr;		//ゲームカメラのインスタンス
 
