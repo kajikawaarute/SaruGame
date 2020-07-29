@@ -242,6 +242,10 @@ void Player::AttackTry()
 	if (g_pad[0].IsTrigger(enButtonB))
 	{
 		m_enPlayerState = enState_attack;
+
+		prefab::CSoundSource* player_AmiSE = g_goMgr.NewGO<prefab::CSoundSource>();
+		player_AmiSE->Init(L"Assets/Sound/PlayerSE_sword.wav");
+		player_AmiSE->Play(false);
 	}
 }
 
