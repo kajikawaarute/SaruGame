@@ -12,11 +12,7 @@ Sky::~Sky()
 
 void Sky::Update()
 {
-	m_model.UpdateWorldMatrix(
-		m_position,
-		m_rotation,
-		m_scale
-	);
+	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
 void Sky::Draw()

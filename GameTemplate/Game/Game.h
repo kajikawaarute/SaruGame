@@ -38,14 +38,14 @@ private:
 	Stage2* m_stage2 = nullptr;				//ステージ2のインスタンス
 	JumpFloor* m_jumpFloor = nullptr;		//ジャンプ床のインスタンス
 	Wall* m_wall = nullptr;					//ステージ壁のインスタンス
-	Sky* m_sky = nullptr;
+	Sky* m_sky = nullptr;					//空のインスタンス
 
 	GameCamera* m_gCamera = nullptr;		//ゲームカメラのインスタンス
 
 	PlayerHP* m_playerHP = nullptr;			//プレイヤーHPのインスタンス
 	GameClear* m_gameClear = nullptr;		//ゲームクリアのインスタンス
 	GameOver* m_gameOver = nullptr;			//ゲームオーバーのインスタンス
-	ButtonUI* m_buttonUI = nullptr;
+	ButtonUI* m_buttonUI = nullptr;			//ボタンUIのインスタンス
 
 	std::vector<Saru*> m_sarus;				//サルのリスト
 	std::vector<Enemy*> m_enemys;			//エネミーのリスト

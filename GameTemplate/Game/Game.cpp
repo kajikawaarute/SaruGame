@@ -36,12 +36,12 @@ Game::Game()
 					return true;
 				}
 
-				/*else if (wcscmp(objData.name, L"SkyBox") == 0) {
+				else if (wcscmp(objData.name, L"SkyBox") == 0) {
 					m_sky = g_goMgr.NewGO<Sky>();
-					m_sky->Setposition(objData.position);
+					m_sky->SetPosition(objData.position);
 					m_sky->SetRotation(objData.rotation);
 					return true;
-				}*/
+				}
 
 				else if (wcscmp(objData.name, L"wall") == 0) {
 					m_wall = g_goMgr.NewGO<Wall>();
@@ -226,8 +226,6 @@ Game::Game()
 	m_pl->SetPlayerHP(m_playerHP);
 
 	m_buttonUI = g_goMgr.NewGO<ButtonUI>();
-
-	//m_sky = g_goMgr.NewGO<Sky>();
 }
 
 
@@ -237,7 +235,7 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_stage2);
 	g_goMgr.DeleteGO(m_jumpFloor);
 	g_goMgr.DeleteGO(m_wall);
-	//g_goMgr.DeleteGO(m_sky);
+	g_goMgr.DeleteGO(m_sky);
 
 	g_goMgr.DeleteGO(m_pl);
 
