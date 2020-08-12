@@ -25,7 +25,7 @@ void PlayerHP::Update()
 {
 	if (m_muteki) {
 		m_mutekiTimer++;
-		if (m_mutekiTimer > 90) {
+		if (m_mutekiTimer > 30) {
 			m_muteki = false;
 			m_damageFlag = false;
 			m_mutekiTimer = 0;

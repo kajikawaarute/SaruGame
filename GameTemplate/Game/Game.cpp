@@ -297,11 +297,11 @@ void Game::Update()
 	//プレイヤーのHPがなくなったらゲームオーバー
 	if (m_playerHP->GetGameOver() == true) {
 		m_gameOverTimer++;
-		if (m_gameOverTimer == 50) {
+		if (m_gameOverTimer == 10) {
 			m_gameOver = g_goMgr.NewGO<GameOver>();
 			m_pl->StateDeath();
 		}
-		if (m_gameOverTimer == 150) {
+		if (m_gameOverTimer == 60) {
 			g_goMgr.DeleteGO(this);
 		}
 	}
