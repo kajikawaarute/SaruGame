@@ -12,6 +12,8 @@ Texture2D<float4> albedoTexture : register(t0);
 StructuredBuffer<float4x4> boneMatrix : register(t1);
 //シャドウマップ
 Texture2D<float4> shadowMap : register(t2);
+//トゥーンレンダー
+Texture2D<float4> toonRender : register(t3);
 
 /////////////////////////////////////////////////////////////
 // SamplerState
@@ -96,12 +98,24 @@ struct PSInput{
 	float2 TexCoord 	: TEXCOORD0;
 	float3 worldPos		: TEXCOORD1;	//ワールド座標。
 	float4 posInLVP		: TEXCOORD2;	//ライトビュープロジェクション行列
+	float4 posInProj	: TEXCOORD3;	//射影空間での座標。
 };
 
 /// <summary>
 /// シャドウマップ用のピクセルシェーダーへの入力構造体
 /// </summary>
 struct PSInput_ShadowMap {
+	float4 Position		: SV_POSITION; //座標
+	float3 Normal		: NORMAL;
+	float3 Tangent		: TANGENT;
+	float2 TexCoord 	: TEXCOORD0;
+	float3 worldPos		: TEXCOORD1;	//ワールド座標。
+};
+
+/// <summary>
+/// トゥーンレンダ用のピクセルシェーダーへの入力構造体
+/// </summary>
+struct PSInput_ToonRender {
 	float4 Position		: SV_POSITION; //座標
 	float3 Normal		: NORMAL;
 	float3 Tangent		: TANGENT;
@@ -146,6 +160,8 @@ PSInput VSMain( VSInputNmTxVcTangent In )
 	psInput.TexCoord = In.TexCoord;
 	psInput.Normal = normalize(mul(mWorld, In.Normal));
 	psInput.Tangent = normalize(mul(mWorld, In.Tangent));
+
+	psInput.posInProj = pos;
 	return psInput;
 }
 
@@ -196,6 +212,8 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 	psInput.Position = pos;
 	psInput.TexCoord = In.TexCoord;
 	psInput.Normal = In.Normal;
+
+	psInput.posInProj = pos;
     return psInput;
 }
 //--------------------------------------------------------------------------------------
@@ -220,7 +238,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 	}
 		//アルベドカラーを引っ張ってくる。
 		float4 albedo = albedoTexture.Sample(Sampler, In.TexCoord);
-		//①　反射ベクトルRを求める。
+		/*//①　反射ベクトルRを求める。
 		//float3 R = directionLight.directionCb[i] + 2 * dot(In.Normal, -directionLight.directionCb[i]) * In.Normal;
 
 		//②　視点からライトをあてる物体に伸びるベクトルEを求める。
@@ -231,8 +249,9 @@ float4 PSMain( PSInput In ) : SV_Target0
 
 		//③スペキュラ反射をライトに加算する。
 		//lig += directionLight.color.xyz * pow(specPower * specPow);
-		//lig += directionLight.colorCb[i].xyz * pow(specPower, specPow);
+		//lig += directionLight.colorCb[i].xyz * pow(specPower, specPow);*/
 
+		//影の生成
 		if (isShadowReciever == 1) {
 			//LVP空間から見た時の最も手前の深度値をシャドウマップから取得。
 			float2 shadowMapUV = In.posInLVP.xy / In.posInLVP.w;
@@ -254,6 +273,33 @@ float4 PSMain( PSInput In ) : SV_Target0
 					t = max(t, lerp(1.0f, 0.5f, shadowOffset.y));
 					lig *= t;
 				}
+			}
+		}
+
+		//トゥーンシェーダー
+		//スクリーンの左上を(0,0)、右下を(1,1)とする座標系に変換する。
+		float2 screenPos = (In.posInProj.xy / In.posInProj.w) * float2(0.5f, -0.5f) + 0.5f;
+		float2 offset = float2(1.25f / 1280.0f, 1.25f / 720.0f);
+
+		float depth_0 = toonRender.Sample(Sampler, screenPos).x;
+
+		float2 offsetTbl[] = {
+			float2(-offset.x, -offset.y),		//左上
+			float2(0.0f, 	   -offset.y),		//上
+			float2(offset.x, -offset.y),		//右上
+			float2(offset.x,  0.0f),			//右
+			float2(-offset.x, 0.0f),			//左
+			float2(-offset.x, +offset.y),		//左下
+			float2(0.0f, 	   +offset.y),		//下
+			float2(offset.x,  +offset.y),		//右下
+		};
+		for (int i = 0; i < 8; i++) {
+			float2 screenPos2 = screenPos + offsetTbl[i];
+
+			float depth_1 = toonRender.Sample(Sampler, screenPos2).x;
+			if (abs(depth_1 - depth_0 > 0.0025f)) {
+				//エッジの色を返す。
+				return 0.0f;
 			}
 		}
 
@@ -323,4 +369,66 @@ float4 PSMain_ShadowMap(PSInput_ShadowMap In) : SV_Target0
 {
 	//射影空間でのZ値を返す。
 	return In.Position.z / In.Position.w;
+}
+
+/// <summary>
+/// スキンなしモデルのトゥーンレンダー用の頂点シェーダー
+/// </summary>
+PSInput_ToonRender VSMain_ToonRender(VSInputNmTxVcTangent In)
+{
+	PSInput_ToonRender psInput = (PSInput_ToonRender)0;
+	float4 pos = mul(mWorld, In.Position);
+	pos = mul(mView, pos);
+	pos = mul(mProj, pos);
+	psInput.Position = pos;
+	return psInput;
+}
+
+/// <summary>
+/// スキンありモデルのトゥーンレンダー用の頂点シェーダー
+/// </summary>
+PSInput_ToonRender VSMainSkin_ToonRender(VSInputNmTxWeights In)
+{
+	PSInput_ToonRender psInput = (PSInput_ToonRender)0;
+	///////////////////////////////////////////////////
+	//ここからスキニングを行っている箇所。
+	//スキン行列を計算。
+	///////////////////////////////////////////////////
+	float4x4 skinning = 0;
+	float4 pos = 0;
+	{
+
+		float w = 0.0f;
+		for (int i = 0; i < 3; i++)
+		{
+			//boneMatrixにボーン行列が設定されていて、
+			//In.indicesは頂点に埋め込まれた、関連しているボーンの番号。
+			//In.weightsは頂点に埋め込まれた、関連しているボーンのウェイト。
+			skinning += boneMatrix[In.Indices[i]] * In.Weights[i];
+			w += In.Weights[i];
+		}
+		//最後のボーンを計算する。
+		skinning += boneMatrix[In.Indices[3]] * (1.0f - w);
+		//頂点座標にスキン行列を乗算して、頂点をワールド空間に変換。
+		//mulは乗算命令。
+		pos = mul(skinning, In.Position);
+	}
+	psInput.Normal = normalize(mul(skinning, In.Normal));
+	psInput.Tangent = normalize(mul(skinning, In.Tangent));
+
+	pos = mul(mView, pos);
+	pos = mul(mProj, pos);
+	psInput.Position = pos;
+	psInput.TexCoord = In.TexCoord;
+	psInput.Normal = In.Normal;
+	return psInput;
+}
+
+/// <summary>
+/// トゥーンレンダー用のピクセルシェーダー
+/// </summary>
+float4 PSMain_ToonRender(PSInput_ToonRender In) : SV_Target0
+{
+	//射影空間でのZ値を返す。
+	return pow(In.Position.z, 5.0f);
 }

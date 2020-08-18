@@ -237,7 +237,9 @@
     <ClCompile Include="Stage2.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Sky.cpp" />
-    <ClCompile Include="ToonRender.cpp" />
+    <ClCompile Include="graphics\ToonRender.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -434,7 +436,9 @@
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Sky.h" />
-    <ClInclude Include="ToonRender.h" />
+    <ClInclude Include="graphics\ToonRender.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

@@ -2,6 +2,7 @@
 #include "JumpFloor.h"
 #include "Player.h"
 #include "IGameObjectManager.h"
+#include "graphics/ToonRender.h"
 
 const float FLOOR_JUMP_POWER = 4000.0f;		//ジャンプ台ジャンプパワー。
 JumpFloor::JumpFloor()
@@ -57,6 +58,9 @@ void JumpFloor::Update()
 
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+
+	//トゥーンレンダを設定。
+	ToonRender::GetInstance().RegistToonRender(&m_model);
 }
 
 void JumpFloor::Draw()

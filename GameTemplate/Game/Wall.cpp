@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Wall.h"
-
+#include "graphics/ToonRender.h"
 
 Wall::Wall()
 {
@@ -18,6 +18,9 @@ void Wall::Update()
 {
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+
+	//トゥーンレンダを設定。
+	ToonRender::GetInstance().RegistToonRender(&m_model);
 }
 
 void Wall::Draw()

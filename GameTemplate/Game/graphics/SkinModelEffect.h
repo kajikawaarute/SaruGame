@@ -14,6 +14,8 @@ protected:
 	Shader m_psShader;
 	Shader m_vsShadowMap;	//シャドウマップ生成用の頂点シェーダー
 	Shader m_psShadowMap;	//シャドウマップ生成用のピクセルシェーダー
+	Shader m_vsToonRender;	//トゥーンレンダー用の頂点シェーダー
+	Shader m_psToonRender;	//トゥーンレンダー用のピクセルシェーダー
 	bool isSkining;
 	ID3D11ShaderResourceView* m_albedoTex = nullptr;
 	EnRenderMode m_renderMode = enRenderMode_Invalid;	//レンダリングモード
@@ -23,6 +25,7 @@ public:
 	{
 		m_psShader.Load("Assets/shader/model.fx", "PSMain", Shader::EnType::PS);
 		m_psShadowMap.Load("Assets/shader/model.fx", "PSMain_ShadowMap", Shader::EnType::PS);
+		m_psToonRender.Load("Assets/shader/model.fx", "PSMain_ToonRender", Shader::EnType::PS);
 		
 		m_pPSShader = &m_psShader;
 	}
@@ -68,6 +71,7 @@ public:
 	{
 		m_vsShader.Load("Assets/shader/model.fx", "VSMain", Shader::EnType::VS);
 		m_vsShadowMap.Load("Assets/shader/model.fx", "VSMain_ShadowMap", Shader::EnType::VS);
+		m_vsToonRender.Load("Assets/shader/model.fx", "VSMain_ToonRender", Shader::EnType::VS);
 		m_pVSShader = &m_vsShader;
 		isSkining = false;
 	}
@@ -84,7 +88,7 @@ public:
 		GetCurrentDirectoryW(256, hoge);
 		m_vsShader.Load("Assets/shader/model.fx", "VSMainSkin", Shader::EnType::VS);
 		m_vsShadowMap.Load("Assets/shader/model.fx", "VSMainSkin_ShadowMap", Shader::EnType::VS);
-
+		m_vsToonRender.Load("Assets/shader/model.fx", "VSMainSkin_ToonRender", Shader::EnType::VS);
 		m_pVSShader = &m_vsShader;
 		isSkining = true;
 	}

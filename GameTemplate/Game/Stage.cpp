@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "JumpFloor.h"
 #include "graphics/ShadowMap.h"
+#include "graphics/ToonRender.h"
 
 Stage::Stage()
 {
@@ -29,6 +30,9 @@ void Stage::Update()
 
 	//シャドウキャスターを設定
 	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
+
+	//トゥーンレンダを設定。
+	ToonRender::GetInstance().RegistToonRender(&m_model);
 }
 
 void Stage::Draw()

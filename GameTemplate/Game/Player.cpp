@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "PlayerHP.h"
 #include "graphics/ShadowMap.h"
+#include "graphics/ToonRender.h"
 
 const float PLAYER_GRAVITY = 5000.0f;		//プレイヤーにかかる重力(単位cm/秒)。
 const float PLAYER_JUMP_POWER = 2000.0f;	//プレイヤーがジャンプしたときに加算される速度。
@@ -102,6 +103,8 @@ void Player::Update()
 		m_position + CVector3::One() * 4000.0f,
 		m_position
 	);
+
+	ToonRender::GetInstance().RegistToonRender(&m_model);
 }
 
 void Player::Move()

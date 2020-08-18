@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "IGameObjectManager.h"
 #include "graphics/ShadowMap.h"
+#include "graphics/ToonRender.h"
 
 const float ENEMY_MOVE_SPPED = 5.0f;		//エネミーの移動速度。
 const float ENEMY_FUTTOBI_POWER = 1000.0f;	//プレイヤーを吹っ飛ばす力。
@@ -67,6 +68,9 @@ void Enemy::Update()
 
 	//シャドウキャスターを設定。
 	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
+
+	//トゥーンレンダを設定。
+	ToonRender::GetInstance().RegistToonRender(&m_model);
 }
 
 void Enemy::Draw()

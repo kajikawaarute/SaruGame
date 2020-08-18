@@ -5,6 +5,7 @@
 #include "BananaPeel.h"
 #include "BikkuriMark.h"
 #include "graphics/ShadowMap.h"
+#include "graphics/ToonRender.h"
 
 const float SARU_MOVE_SPPED = 300.0f;			//サルの移動速度。
 const float SARU_FUTTOBI_POWER = 2500.0f;		//サルのプレイヤーを吹っ飛ばす力。
@@ -110,6 +111,9 @@ void Saru::Update()
 
 	//シャドウキャスターを設定
 	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
+
+	//トゥーンレンダを設定。
+	ToonRender::GetInstance().RegistToonRender(&m_model);
 }
 
 void Saru::Move()

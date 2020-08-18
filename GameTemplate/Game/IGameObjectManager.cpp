@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "IGameObjectManager.h"
 #include "graphics/ShadowMap.h"
+#include "graphics/ToonRender.h"
 
 //IGameObjectManagerクラスのインスタンス。
 IGameObjectManager g_goMgr;
@@ -17,7 +18,11 @@ void IGameObjectManager::Update()
 		i++;
 	}
 
+	//シャドウマップ
 	ShadowMap::GetInstance().Draw();
+
+	//トゥーンレンダー
+	ToonRender::GetInstance().Draw();
 
 	for (auto go : m_goList) {
 		go->Draw();
