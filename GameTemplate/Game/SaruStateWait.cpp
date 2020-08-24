@@ -22,7 +22,9 @@ void SaruStateWait::Update()
 
 	m_saru->Move();
 	m_saru->m_moveSpeed = CVector3::Zero();
-	if (fabsf(angle) < CMath::DegToRad(45.0f) && toSaruLen < 700.0f)
+
+	//サルがプレイヤーを発見する範囲
+	if (fabsf(angle) < CMath::DegToRad(50.0f) && toSaruLen < 600.0f)
 	{
 		m_saru->ChangeStateFound();
 	}
