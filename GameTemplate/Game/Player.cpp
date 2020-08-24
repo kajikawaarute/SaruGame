@@ -9,7 +9,7 @@
 
 const float PLAYER_GRAVITY = 5000.0f;		//プレイヤーにかかる重力(単位cm/秒)。
 const float PLAYER_JUMP_POWER = 2000.0f;	//プレイヤーがジャンプしたときに加算される速度。
-const float PLAYER_MOVE_SPEED = 1000.0f;	//プレイヤーの移動速度。
+const float PLAYER_MOVE_SPEED = 850.0f;	//プレイヤーの移動速度。
 
 Player::Player()
 {
