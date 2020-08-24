@@ -148,7 +148,7 @@ Game::~Game()
 
 	g_goMgr.DeleteGO(m_pl);
 
-	for( int i = 0; i < m_numSaru; i++){
+	for( int i = 0; i < MAX_SARU; i++){
 		g_goMgr.DeleteGO(m_sarus[i]);
 	}
 
