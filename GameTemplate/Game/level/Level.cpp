@@ -34,6 +34,7 @@ void Level::Init(const wchar_t* levelDataFilePath, Level::HookWhenBuildObjectFun
 			objData.rotation.y = objData.rotation.z;
 			objData.rotation.z = -t;
 			objData.name = bone->GetName();
+			objData.nameWStr = objData.name;
 			bool isHook = false;
 			if (hookFunc != nullptr) {
 				//hookŠÖ”‚ªw’è‚³‚ê‚Ä‚¢‚é‚Ì‚ÅhookŠÖ”‚ğŒÄ‚Ño‚·B

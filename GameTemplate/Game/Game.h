@@ -28,11 +28,10 @@ public:
 	void Update();
 	void Draw();
 private:
+	enum { MAX_SARU = 100 };				//1ステージのサルの最大数。
 	prefab::CSoundSource m_gameBGM;			//ゲームのBGM
 
 	Player* m_pl = nullptr;					//プレイヤーのインスタンス
-	Enemy* m_enemy[6] = { nullptr };		//エネミーのインスタンス
-	Saru* m_saru[3] = { nullptr };			//サルクラスのインスタンス
 
 	Stage* m_stage = nullptr;				//ステージのインスタンス
 	Stage2* m_stage2 = nullptr;				//ステージ2のインスタンス
@@ -47,7 +46,8 @@ private:
 	GameOver* m_gameOver = nullptr;			//ゲームオーバーのインスタンス
 	ButtonUI* m_buttonUI = nullptr;			//ボタンUIのインスタンス
 
-	std::vector<Saru*> m_sarus;				//サルのリスト
+	int m_numSaru = 0;						//サルの数。
+	Saru* m_sarus[MAX_SARU] = {nullptr};	//サルのリスト
 	std::vector<Enemy*> m_enemys;			//エネミーのリスト
 
 	Level m_level;		//レベルのインスタンス

@@ -10,6 +10,7 @@ struct LevelObjectData {
 	CVector3 position;		//<座標。
 	CQuaternion rotation;	//!<回転。
 	const wchar_t* name;	//!<名前。
+	std::wstring nameWStr;
 };
 /*!
  * @brief	レベル
