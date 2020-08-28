@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "IGameObjectManager.h"
 #include "graphics/ToonRender.h"
+#include "sound/SoundEngine.h"
+#include "sound/SoundSource.h"
 
 const float FLOOR_JUMP_POWER = 4000.0f;		//ジャンプ台ジャンプパワー。
 JumpFloor::JumpFloor()
@@ -35,6 +37,9 @@ void JumpFloor::Update()
 {
 	g_physics.ContactTest(m_player->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject)) {
+			prefab::CSoundSource* jumpFloorSE = g_goMgr.NewGO<prefab::CSoundSource>();
+			jumpFloorSE->Init(L"Assets/Sound/JumpFloorSE.wav");
+			jumpFloorSE->Play(false);
 			m_player->GetMoveSpd().y = FLOOR_JUMP_POWER;
 			m_enAnimClip = enAnim_jump;
 		}
