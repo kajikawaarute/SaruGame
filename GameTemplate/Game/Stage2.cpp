@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Stage2.h"
 #include "graphics/ShadowMap.h"
+#include "graphics/ToonRender.h"
 
 Stage2::Stage2()
 {
@@ -16,7 +17,13 @@ Stage2::~Stage2()
 
 void Stage2::Update()
 {
+	//シャドウキャスターを設定。
 	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
+
+	//トゥーンレンダーを設定。
+	ToonRender::GetInstance().RegistToonRender(&m_model);
+
+	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 

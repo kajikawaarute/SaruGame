@@ -46,6 +46,7 @@ private:
 	GameOver* m_gameOver = nullptr;			//ゲームオーバーのインスタンス
 	ButtonUI* m_buttonUI = nullptr;			//ボタンUIのインスタンス
 
+	int m_saruNo = 0;						//サルの数
 	Saru* m_sarus[MAX_SARU] = {nullptr};	//サルのリスト
 	std::vector<Enemy*> m_enemys;			//エネミーのリスト
 
