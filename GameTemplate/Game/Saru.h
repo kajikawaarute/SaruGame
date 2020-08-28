@@ -169,6 +169,11 @@ public:
 	void SaruGetSound();
 
 	/// <summary>
+	/// サルがプレイヤーに見つかった時のサウンドを再生する。
+	/// </summary>
+	void SaruFoundSound();
+
+	/// <summary>
 	/// 設定された座標をパスリストに登録
 	/// </summary>
 	/// <param name="m_pos"></param>

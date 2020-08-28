@@ -4,6 +4,7 @@
 
 void SaruStateFound::OnEnter()
 {
+	m_saru->SaruFoundSound();
 }
 
 void SaruStateFound::Update()

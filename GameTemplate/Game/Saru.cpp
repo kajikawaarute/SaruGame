@@ -264,6 +264,14 @@ void Saru::SaruGetSound()
 	saruGetSE->Play(false);
 }
 
+void Saru::SaruFoundSound()
+{
+	//ƒTƒEƒ“ƒh‚ğÄ¶
+	prefab::CSoundSource* saruFoundSE = g_goMgr.NewGO<prefab::CSoundSource>();
+	saruFoundSE->Init(L"Assets/Sound/SaruSE_Found.wav");
+	saruFoundSE->Play(false);
+}
+
 void Saru::ChangeState(EnSaruState nextState)
 {
 	ISaruState* pNextState = nullptr;
