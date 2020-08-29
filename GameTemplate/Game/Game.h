@@ -7,6 +7,7 @@
 class Player;
 class Saru;
 class Enemy;
+class GunEnemy;
 class JumpFloor;
 class Wall;
 class Sky;
@@ -49,6 +50,7 @@ private:
 	int m_saruNo = 0;						//サルの数
 	Saru* m_sarus[MAX_SARU] = {nullptr};	//サルのリスト
 	std::vector<Enemy*> m_enemys;			//エネミーのリスト
+	std::vector<GunEnemy*> m_gunEnemys;		//ガンエネミーのリスト
 
 	Level m_level;		//レベルのインスタンス
 

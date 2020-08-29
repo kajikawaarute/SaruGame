@@ -240,6 +240,7 @@
     <ClCompile Include="graphics\ToonRender.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="GunEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -439,6 +440,7 @@
     <ClInclude Include="graphics\ToonRender.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="GunEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -478,6 +480,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\SkyBox.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\GunEnemy.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

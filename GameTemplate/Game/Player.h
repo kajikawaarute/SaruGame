@@ -13,6 +13,7 @@
 
 class Saru;
 class Enemy;
+class GunEnemy;
 class PlayerHP;
 class Player : public IGameObject
 {
@@ -111,6 +112,10 @@ public:
 	void SetEnemy(Enemy* enemy)
 	{
 		m_enemys.push_back(enemy);
+	}
+	void SetGunEnemy(GunEnemy* gunEnemy)
+	{
+		m_gunEnemys.push_back(gunEnemy);
 	}
 	void SetPlayerHP(PlayerHP* playerHp)
 	{
@@ -259,6 +264,8 @@ private:
 
 	std::vector<Saru*> m_sarus;				//サルのリスト
 	std::vector<Enemy*> m_enemys;			//エネミーのリスト
+	std::vector<GunEnemy*> m_gunEnemys;		//ガンエネミーのリスト
+
 	PlayerHP* m_playerHp = nullptr;			//プレイヤーHPのインスタンス
 
 public:

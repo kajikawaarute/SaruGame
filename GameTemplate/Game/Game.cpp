@@ -10,6 +10,7 @@
 #include "GameOver.h"
 #include "Saru.h"
 #include "Enemy.h"
+#include "GunEnemy.h"
 #include "JumpFloor.h"
 #include "Wall.h"
 #include "level/Level.h"
@@ -157,6 +158,16 @@ Game::Game()
 					enemy->SetRotation(objData.rotation);
 					enemy->SetPlayer(m_pl);
 					m_pl->SetEnemy(enemy);
+					return true;
+				}
+
+				else if (wcscmp(objData.name, L"GunEnemy") == 0) {
+					GunEnemy* gunEnemy = g_goMgr.NewGO<GunEnemy>();
+					m_gunEnemys.push_back(gunEnemy);
+					gunEnemy->SetPosition(objData.position);
+					gunEnemy->SetRotation(objData.rotation);
+					gunEnemy->SetPlayer(m_pl);
+					m_pl->SetGunEnemy(gunEnemy);
 					return true;
 				}
 
