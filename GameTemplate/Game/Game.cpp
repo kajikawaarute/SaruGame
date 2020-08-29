@@ -22,7 +22,7 @@ Game::Game()
 	m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
 	m_gameBGM.Play(true);
 
-	//stageNo = 1;
+	stageNo = 1;
 
 	//ステージ1
 	if (stageNo == 0) {
