@@ -217,6 +217,10 @@ Game::~Game()
 		g_goMgr.DeleteGO(enemy);
 	}
 
+	for (auto& gunEnemy : m_gunEnemys) {
+		g_goMgr.DeleteGO(gunEnemy);
+	}
+
 	g_goMgr.DeleteGO(m_playerHP);
 	g_goMgr.DeleteGO(m_gCamera);
 	g_goMgr.DeleteGO(m_gameClear);

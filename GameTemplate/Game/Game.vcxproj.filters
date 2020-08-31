@@ -55,6 +55,12 @@
     <Filter Include="Player\State">
       <UniqueIdentifier>{d564249b-c4d1-4f20-958d-77fb1613a443}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GunEnemy">
+      <UniqueIdentifier>{a8d44355-8aab-4f74-aaf2-4a1c0c843ffb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GunEnemy\State">
+      <UniqueIdentifier>{8beb3c7e-c524-4306-b2df-1462ab16a25a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -139,7 +145,6 @@
     <ClCompile Include="PhysicsGhostObject.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="BananaPeel.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp">
       <Filter>sound</Filter>
     </ClCompile>
@@ -240,7 +245,25 @@
     <ClCompile Include="graphics\ToonRender.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="GunEnemy.cpp" />
+    <ClCompile Include="GunEnemy.cpp">
+      <Filter>GunEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="IGunEnemyState.cpp">
+      <Filter>GunEnemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="GunEnemyStateWait.cpp">
+      <Filter>GunEnemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="GunEnemyStateAttack.cpp">
+      <Filter>GunEnemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="GunEnemyStateFound.cpp">
+      <Filter>GunEnemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="GunEnemyBullet.cpp">
+      <Filter>GunEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BananaPeel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -440,7 +463,24 @@
     <ClInclude Include="graphics\ToonRender.h">
       <Filter>graphics</Filter>
     </ClInclude>
-    <ClInclude Include="GunEnemy.h" />
+    <ClInclude Include="IGunEnemyState.h">
+      <Filter>GunEnemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="GunEnemyStateWait.h">
+      <Filter>GunEnemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="GunEnemyStateAttack.h">
+      <Filter>GunEnemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="GunEnemy.h">
+      <Filter>GunEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GunEnemyStateFound.h">
+      <Filter>GunEnemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="GunEnemyBullet.h">
+      <Filter>GunEnemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -483,6 +523,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\GunEnemy.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\GunEnemyBullet.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
