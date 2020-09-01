@@ -6,6 +6,8 @@
 #include "graphics/ShadowMap.h"
 #include "graphics/ToonRender.h"
 
+const float GUNENEMY_FUTTOBI_POWER = 2500.0f;		//ガンエネミーのプレイヤーを吹っ飛ばす力。
+
 GunEnemy::GunEnemy()
 {
 	m_model.Init(L"Assets/modelData/GunEnemy.cmo");
@@ -83,11 +85,14 @@ void GunEnemy::Draw()
 void GunEnemy::Attack()
 {
 	//ガンエネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toSaruDir = m_player->GetPos() - m_position;
+	CVector3 toGunEnemyDir = m_player->GetPos() - m_position;
 	//プレイヤーの方を見る
 	float angle = 0.0f;
-	angle = atan2f(toSaruDir.x, toSaruDir.z);
+	angle = atan2f(toGunEnemyDir.x, toGunEnemyDir.z);
 	m_rotation.SetRotation(CVector3::AxisY(), angle);
+
+	toGunEnemyDir.Normalize();
+	m_player->SetAttackedPower(toGunEnemyDir * GUNENEMY_FUTTOBI_POWER);
 
 	//ガンエネミーの前方向を計算する。
 	CVector3 gunEnemyFoward = CVector3::AxisZ();

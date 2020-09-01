@@ -268,7 +268,7 @@ void Game::Update()
 	//プレイヤーのHPがなくなったらゲームオーバー
 	if (m_playerHP->GetGameOver() == true || m_pl->GetPos().y < -300.0f) {
 		m_gameOverTimer++;
-		if (m_gameOverTimer == 10) {
+		if (m_gameOverTimer == 1) {
 			m_gameOver = g_goMgr.NewGO<GameOver>();
 			m_pl->StateDeath();
 		}
