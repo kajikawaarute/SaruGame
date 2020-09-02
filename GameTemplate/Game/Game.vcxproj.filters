@@ -144,7 +144,6 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="PhysicsGhostObject.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp">
       <Filter>sound</Filter>
     </ClCompile>
@@ -264,6 +263,9 @@
       <Filter>GunEnemy</Filter>
     </ClCompile>
     <ClCompile Include="BananaPeel.cpp" />
+    <ClCompile Include="graphics\Sprite.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -354,7 +356,6 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="PhysicsGhostObject.h" />
     <ClInclude Include="BoxCollider.h" />
-    <ClInclude Include="Sprite.h" />
     <ClInclude Include="BananaPeel.h" />
     <ClInclude Include="sound\SoundEngine.h">
       <Filter>sound</Filter>
@@ -480,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="GunEnemyBullet.h">
       <Filter>GunEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Sprite.h">
+      <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

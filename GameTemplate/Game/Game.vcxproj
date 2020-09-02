@@ -124,6 +124,7 @@
     <ClCompile Include="graphics\SkinModel.cpp" />
     <ClCompile Include="graphics\SkinModelDataManager.cpp" />
     <ClCompile Include="graphics\SkinModelEffect.cpp" />
+    <ClCompile Include="graphics\Sprite.cpp" />
     <ClCompile Include="graphics\ToonRender.cpp" />
     <ClCompile Include="GunEnemy.cpp" />
     <ClCompile Include="GunEnemyBullet.cpp" />
@@ -173,7 +174,6 @@
     <ClCompile Include="sound\SoundSource.cpp" />
     <ClCompile Include="sound\WaveFile.cpp" />
     <ClCompile Include="sound\WaveFileBank.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Stage2.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -211,6 +211,7 @@
     <ClInclude Include="graphics\SkinModelDataManager.h" />
     <ClInclude Include="graphics\SkinModelEffect.h" />
     <ClInclude Include="graphics\SkinModelShaderConst.h" />
+    <ClInclude Include="graphics\Sprite.h" />
     <ClInclude Include="graphics\ToonRender.h" />
     <ClInclude Include="GunEnemy.h" />
     <ClInclude Include="GunEnemyBullet.h" />
@@ -261,7 +262,6 @@
     <ClInclude Include="sound\SoundSource.h" />
     <ClInclude Include="sound\WaveFile.h" />
     <ClInclude Include="sound\WaveFileBank.h" />
-    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="stdafx.h" />
