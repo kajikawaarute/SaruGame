@@ -1,7 +1,7 @@
 #pragma once
 #include "IGameObject.h"
 #include "physics/PhysicsStaticObject.h"
-#include "PhysicsGhostObject.h"
+#include "physics/PhysicsGhostObject.h"
 #include "character/CharacterController.h"
 
 class Player;

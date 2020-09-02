@@ -1,6 +1,6 @@
 #pragma once
 #include "IGameObject.h"
-#include "PhysicsGhostObject.h"
+#include "physics/PhysicsGhostObject.h"
 
 class Player;
 class GunEnemyBullet : public IGameObject

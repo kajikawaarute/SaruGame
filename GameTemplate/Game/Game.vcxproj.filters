@@ -142,7 +142,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="PhysicsGhostObject.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp">
       <Filter>sound</Filter>
@@ -268,6 +267,9 @@
     <ClCompile Include="graphics\RenderTarget.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="physics\PhysicsGhostObject.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -356,7 +358,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="PhysicsGhostObject.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="BananaPeel.h" />
     <ClInclude Include="sound\SoundEngine.h">
@@ -488,6 +489,9 @@
     </ClInclude>
     <ClInclude Include="graphics\RenderTarget.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\PhysicsGhostObject.h">
+      <Filter>physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
