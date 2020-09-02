@@ -84,6 +84,10 @@ void GunEnemy::Draw()
 
 void GunEnemy::Attack()
 {
+	CVector3 positionY = m_position;
+	positionY.y = m_position.y + 120.0f;
+
+
 	//ガンエネミーからプレイヤーに伸びるベクトルを求める。
 	CVector3 toGunEnemyDir = m_player->GetPos() - m_position;
 	//プレイヤーの方を見る
@@ -103,7 +107,7 @@ void GunEnemy::Attack()
 		GunEnemyBullet* gunBullet = g_goMgr.NewGO<GunEnemyBullet>();
 		gunBullet->SetPlayer(m_player);
 		gunBullet->SetMoveSpd(gunEnemyFoward);
-		gunBullet->SetPosition(m_position);
+		gunBullet->SetPosition(positionY);
 		m_bulletTimer = 0;
 	}
 }

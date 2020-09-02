@@ -230,7 +230,6 @@
     <ClCompile Include="SaruStateFound.cpp">
       <Filter>Saru\State</Filter>
     </ClCompile>
-    <ClCompile Include="BikkuriMark.cpp" />
     <ClCompile Include="graphics\ShadowMap.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
@@ -259,7 +258,6 @@
     <ClCompile Include="GunEnemyBullet.cpp">
       <Filter>GunEnemy</Filter>
     </ClCompile>
-    <ClCompile Include="BananaPeel.cpp" />
     <ClCompile Include="graphics\Sprite.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
@@ -271,6 +269,12 @@
     </ClCompile>
     <ClCompile Include="physics\BoxCollider.cpp">
       <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="BananaPeel.cpp">
+      <Filter>Saru</Filter>
+    </ClCompile>
+    <ClCompile Include="BikkuriMark.cpp">
+      <Filter>Saru</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -360,7 +364,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="BananaPeel.h" />
     <ClInclude Include="sound\SoundEngine.h">
       <Filter>sound</Filter>
     </ClInclude>
@@ -455,7 +458,6 @@
     <ClInclude Include="SaruStateFound.h">
       <Filter>Saru\State</Filter>
     </ClInclude>
-    <ClInclude Include="BikkuriMark.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="graphics\ShadowMap.h">
       <Filter>graphics</Filter>
@@ -496,6 +498,12 @@
     </ClInclude>
     <ClInclude Include="physics\BoxCollider.h">
       <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="BananaPeel.h">
+      <Filter>Saru</Filter>
+    </ClInclude>
+    <ClInclude Include="BikkuriMark.h">
+      <Filter>Saru</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,12 @@
 GunEnemyBullet::GunEnemyBullet()
 {
 	m_model.Init(L"Assets/modelData/GunEnemyBullet.cmo");
+
+	//ゴーストオブジェクトを作成。
 	m_ghostObject.CreateBox(m_position, m_rotation, { 10.0f, 50.0f, 10.0f });
+
+	//シャドウレシーバーを設定。
+	m_model.SetShadowReciever(true);
 }
 
 
@@ -19,7 +24,7 @@ GunEnemyBullet::~GunEnemyBullet()
 
 void GunEnemyBullet::Update()
 {
-	m_position.y = 570.0f;
+	//弾速
 	m_position += m_moveSpeed * 30.0f;
 
 	g_physics.ContactTest(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
