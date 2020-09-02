@@ -101,7 +101,6 @@
   <ItemGroup>
     <ClCompile Include="BananaPeel.cpp" />
     <ClCompile Include="BikkuriMark.cpp" />
-    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -146,6 +145,7 @@
     <ClCompile Include="math\kMath.cpp" />
     <ClCompile Include="math\Matrix.cpp" />
     <ClCompile Include="math\Vector.cpp" />
+    <ClCompile Include="physics\BoxCollider.cpp" />
     <ClCompile Include="physics\MeshCollider.cpp" />
     <ClCompile Include="physics\Physics.cpp" />
     <ClCompile Include="physics\PhysicsGhostObject.cpp" />
@@ -187,7 +187,6 @@
   <ItemGroup>
     <ClInclude Include="BananaPeel.h" />
     <ClInclude Include="BikkuriMark.h" />
-    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="Enemy.h" />
@@ -232,6 +231,7 @@
     <ClInclude Include="math\kMath.h" />
     <ClInclude Include="math\Matrix.h" />
     <ClInclude Include="math\Vector.h" />
+    <ClInclude Include="physics\BoxCollider.h" />
     <ClInclude Include="physics\ICollider.h" />
     <ClInclude Include="physics\MeshCollider.h" />
     <ClInclude Include="physics\Physics.h" />

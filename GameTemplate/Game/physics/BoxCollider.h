@@ -1,5 +1,5 @@
 #pragma once
-#include "physics/ICollider.h"
+#include "ICollider.h"
 class BoxCollider : public ICollider
 {
 public:
