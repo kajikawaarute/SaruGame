@@ -43,15 +43,20 @@ public:
 	/// </summary>
 	void CreateStaticObject();
 
+	/// <summary>
+	/// プレイヤーのインスタンスを設定。
+	/// </summary>
+	/// <param name="player"></param>
 	void SetPlayer(Player* player)
 	{
 		m_player = player;
 	}
 private:
-	SkinModel m_model;										//スキンモデル
-	CVector3 m_position = CVector3::Zero();					//座標
-	CQuaternion m_rotation = CQuaternion::Identity();		//回転
-	CVector3 m_scale = CVector3::One();						//拡大率
+	SkinModel m_model;											//スキンモデル
+	CVector3 m_position = CVector3::Zero();						//座標
+	CQuaternion m_rotation = CQuaternion::Identity();			//回転
+	CVector3 m_scale = CVector3::One();							//拡大率
+	CVector3 m_ghostObjectScale = { 450.0f, 60.0f, 400.0f };	//ゴーストオブジェクトの拡大率
 
 	PhysicsGhostObject m_ghost;							//ゴーストオブジェクト
 	PhysicsStaticObject m_static;						//静的オブジェクト

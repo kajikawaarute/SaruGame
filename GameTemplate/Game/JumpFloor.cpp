@@ -21,7 +21,7 @@ JumpFloor::JumpFloor()
 	//アニメーションを初期化
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
 
-	m_ghost.CreateBox(m_position, m_rotation,{450.0f, 60.0f, 400.0f});
+	m_ghost.CreateBox(m_position, m_rotation, m_ghostObjectScale);
 
 	//シャドウレシーバーを設定
 	m_model.SetShadowReciever(true);
