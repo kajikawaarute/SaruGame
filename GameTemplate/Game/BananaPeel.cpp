@@ -3,10 +3,16 @@
 #include "IGameObjectManager.h"
 #include "Player.h"
 
+const int DEATH_TIME = 60;		//バナナの皮が消えるタイム。
+const int STOP_TIME = 30;		//バナナの皮が止まるタイム。
+const float BANANAPEEL_SPEED_POWER = 10.0f;		//バナナの皮の滑る速度をあげる力。
+
 BananaPeel::BananaPeel()
 {
 	m_model.Init(L"Assets/modelData/BananaPeel.cmo");
-	m_ghost.CreateBox(m_position, m_rotation, {10.0f, 50.0f, 10.0f});
+
+	//ゴーストオブジェクトの作成。
+	m_ghost.CreateBox(m_position, m_rotation, m_ghostObjectScale);
 }
 
 
@@ -16,15 +22,14 @@ BananaPeel::~BananaPeel()
 
 void BananaPeel::Update()
 {
-	if (g_pad[0].IsTrigger(enButtonX)){
-		Delete();
-	}
 	m_deathTimer++;
-	if (m_deathTimer == 60)
+	//バナナの皮が消える。
+	if (m_deathTimer == DEATH_TIME)
 	{
 		Delete();
 	}
 
+	//ゴーストオブジェクトの判定。
 	g_physics.ContactTest(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject)) {
 			Delete();
@@ -33,9 +38,10 @@ void BananaPeel::Update()
 		});
 
 	m_stopTimer++;
-	if (m_stopTimer < 30)
+	//バナナの皮が滑っている。
+	if (m_stopTimer < STOP_TIME)
 	{
-		m_position += m_moveSpeed * 10.0f;
+		m_position += m_moveSpeed * BANANAPEEL_SPEED_POWER;
 	}
 	m_ghost.SetPosition(m_position);
 
