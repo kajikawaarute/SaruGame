@@ -5,13 +5,15 @@
 #include "graphics/ShadowMap.h"
 #include "graphics/ToonRender.h"
 
+const float GUN_SPPED_POWER = 30.0f;		//弾の速度を速くする力。
+const int DEATH_TIME = 20;					//弾が消えるタイム。
 
 GunEnemyBullet::GunEnemyBullet()
 {
 	m_model.Init(L"Assets/modelData/GunEnemyBullet.cmo");
 
 	//ゴーストオブジェクトを作成。
-	m_ghostObject.CreateBox(m_position, m_rotation, { 10.0f, 50.0f, 10.0f });
+	m_ghostObject.CreateBox(m_position, m_rotation, m_ghostObjectScale);
 
 	//シャドウレシーバーを設定。
 	m_model.SetShadowReciever(true);
@@ -24,10 +26,10 @@ GunEnemyBullet::~GunEnemyBullet()
 
 void GunEnemyBullet::Update()
 {
-	//弾速を設定
-	m_position += m_moveSpeed * 30.0f;
+	//弾速を設定。
+	m_position += m_moveSpeed * GUN_SPPED_POWER;
 
-	//ゴーストオブジェクトの判定
+	//ゴーストオブジェクトの判定。
 	g_physics.ContactTest(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghostObject.IsSelf(contactObject)) {
 			Delete();
@@ -36,7 +38,8 @@ void GunEnemyBullet::Update()
 		});
 
 	m_deathTimer++;
-	if (m_deathTimer == 20)
+	//弾が消える。
+	if (m_deathTimer == DEATH_TIME)
 	{
 		Delete();
 	}

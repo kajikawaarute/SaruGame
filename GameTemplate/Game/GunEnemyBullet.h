@@ -70,10 +70,12 @@ public:
 	}
 private:
 	SkinModel m_model;
-	CVector3 m_position = CVector3::Zero();				//座標
-	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
-	CQuaternion m_rotation = CQuaternion::Identity();	//回転
-	CVector3 m_scale = CVector3::One();					//拡大率
+	CVector3 m_position = CVector3::Zero();					//座標
+	CVector3 m_moveSpeed = CVector3::Zero();				//移動速度
+	CQuaternion m_rotation = CQuaternion::Identity();		//回転
+	CVector3 m_scale = CVector3::One();						//拡大率
+	CVector3 m_ghostObjectScale = { 10.0f, 50.0f, 10.0f };	//ゴーストオブジェクトの拡大率
+
 	PhysicsGhostObject	m_ghostObject;					//ゴーストオブジェクト
 	Player* m_pl = nullptr;								//プレイヤーのインスタンス
 	int m_deathTimer = 0;								//消えるまでのタイマー
