@@ -233,7 +233,6 @@
       <Filter>Saru\State</Filter>
     </ClCompile>
     <ClCompile Include="BikkuriMark.cpp" />
-    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="graphics\ShadowMap.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
@@ -264,6 +263,9 @@
     </ClCompile>
     <ClCompile Include="BananaPeel.cpp" />
     <ClCompile Include="graphics\Sprite.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\RenderTarget.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -453,7 +455,6 @@
     </ClInclude>
     <ClInclude Include="BikkuriMark.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="graphics\ShadowMap.h">
       <Filter>graphics</Filter>
     </ClInclude>
@@ -483,6 +484,9 @@
       <Filter>GunEnemy</Filter>
     </ClInclude>
     <ClInclude Include="graphics\Sprite.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\RenderTarget.h">
       <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>

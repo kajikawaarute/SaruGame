@@ -117,6 +117,7 @@
     <ClCompile Include="graphics\animation\AnimationPlayController.cpp" />
     <ClCompile Include="graphics\Camera.cpp" />
     <ClCompile Include="graphics\GraphicsEngine.cpp" />
+    <ClCompile Include="graphics\RenderTarget.cpp" />
     <ClCompile Include="graphics\Shader.cpp" />
     <ClCompile Include="graphics\ShaderResources.cpp" />
     <ClCompile Include="graphics\ShadowMap.cpp" />
@@ -161,7 +162,6 @@
     <ClCompile Include="PlayerStateSaruGet.cpp" />
     <ClCompile Include="PlayerStateSliped.cpp" />
     <ClCompile Include="PlayerStateWait.cpp" />
-    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Saru.cpp" />
     <ClCompile Include="SaruStateAttack.cpp" />
     <ClCompile Include="SaruStateFound.cpp" />
@@ -203,6 +203,7 @@
     <ClInclude Include="graphics\animation\AnimationPlayController.h" />
     <ClInclude Include="graphics\Camera.h" />
     <ClInclude Include="graphics\GraphicsEngine.h" />
+    <ClInclude Include="graphics\RenderTarget.h" />
     <ClInclude Include="graphics\Shader.h" />
     <ClInclude Include="graphics\ShaderResources.h" />
     <ClInclude Include="graphics\ShadowMap.h" />
@@ -249,7 +250,6 @@
     <ClInclude Include="PlayerStateSaruGet.h" />
     <ClInclude Include="PlayerStateSliped.h" />
     <ClInclude Include="PlayerStateWait.h" />
-    <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Saru.h" />
     <ClInclude Include="SaruStateAttack.h" />
     <ClInclude Include="SaruStateFound.h" />
