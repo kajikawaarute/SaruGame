@@ -24,9 +24,10 @@ GunEnemyBullet::~GunEnemyBullet()
 
 void GunEnemyBullet::Update()
 {
-	//弾速
+	//弾速を設定
 	m_position += m_moveSpeed * 30.0f;
 
+	//ゴーストオブジェクトの判定
 	g_physics.ContactTest(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghostObject.IsSelf(contactObject)) {
 			Delete();

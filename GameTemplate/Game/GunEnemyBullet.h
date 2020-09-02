@@ -60,6 +60,10 @@ public:
 		return m_moveSpeed;
 	}
 
+	/// <summary>
+	/// プレイヤーのインスタンスを設定。
+	/// </summary>
+	/// <param name="player"></param>
 	void SetPlayer(Player* player)
 	{
 		m_pl = player;
