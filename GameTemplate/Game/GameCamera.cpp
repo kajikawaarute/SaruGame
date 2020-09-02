@@ -40,7 +40,7 @@ void GameCamera::Update()
 
 	CVector3 toPosDir = m_toCameraPos;
 	toPosDir.Normalize();
-	if (toPosDir.y < -0.5f) {
+	if (toPosDir.y < -0.01f) {
 		m_toCameraPos = toCameraPosOld;
 	}
 	else if (toPosDir.y > 0.8) {
