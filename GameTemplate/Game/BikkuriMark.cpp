@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "BikkuriMark.h"
 #include "IGameObjectManager.h"
+#include "graphics/ToonRender.h"
 
 BikkuriMark::BikkuriMark()
 {
@@ -14,6 +15,10 @@ BikkuriMark::~BikkuriMark()
 
 void BikkuriMark::Update()
 {
+	//トゥーンレンダーを設定。
+	ToonRender::GetInstance().RegistToonRender(&m_model);
+
+	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
