@@ -3,6 +3,9 @@
 #include "Player.h"
 #include "Saru.h"
 
+const float PLAYER_SARU_DISTANCE = 150.0f;	//プレイヤーとサルの距離。
+const float PLAYER_ANGLE = 45.0f;			//プレイヤーの視野。
+
 void PlayerStateSaruGet::OnEnter()
 {
 }
@@ -20,7 +23,7 @@ void PlayerStateSaruGet::Update()
 		float d = plFoward.Dot(toPlayerDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 150.0f)
+		if (fabsf(angle) < CMath::DegToRad(PLAYER_ANGLE) && toEnemyLen < PLAYER_SARU_DISTANCE)
 		{
 			m_player->m_sarus[i]->GetSaru();
 		}

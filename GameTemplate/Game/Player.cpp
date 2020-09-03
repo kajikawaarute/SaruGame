@@ -259,6 +259,9 @@ void Player::AttackTry()
 {
 	if (g_pad[0].IsTrigger(enButtonB))
 	{
+		m_moveSpeed.x = 0.0f;
+		m_moveSpeed.z = 0.0f;
+
 		m_enPlayerState = enState_attack;
 
 		prefab::CSoundSource* player_AmiSE = g_goMgr.NewGO<prefab::CSoundSource>();
@@ -269,9 +272,6 @@ void Player::AttackTry()
 
 void Player::Attack()
 {
-	m_moveSpeed.x = 0.0f;
-	m_moveSpeed.z = 0.0f;
-
 	CVector3 plFoward = CVector3::AxisZ();
 	m_rotation.Multiply(plFoward);
 	//エネミーを倒す
