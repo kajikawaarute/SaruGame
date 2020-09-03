@@ -26,13 +26,12 @@ const int GAMEOVER_TITLE_TIME = 60;			//ゲームオーバーからタイトルに遷移するまで
 const float PLAYER_DEATH_HEIGHT = -300.0f;	//プレイヤーが落ちた時にゲームオーバーになる高さ。
 Game::Game()
 {
-	m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
-	m_gameBGM.Play(true);
-
 	stageNo = 1;
 
 	//ステージ1
 	if (stageNo == 0) {
+		m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
+		m_gameBGM.Play(true);
 		std::vector< LevelObjectData> pathObjData;		//パスのデータを保存する。
 		//レベルを初期化
 		m_level.Init(L"Assets/level/Stage_01.tkl", [&](const LevelObjectData& objData)
@@ -118,6 +117,8 @@ Game::Game()
 	}
 	//ステージ2
 	if (stageNo == 1){
+		m_gameBGM2.Init(L"Assets/Sound/GameBgm2.wav");
+		m_gameBGM2.Play(true);
 		std::vector< LevelObjectData> pathObjData;		//パスのデータを保存する。
 		m_level.Init(L"Assets/level/Stage_02.tkl", [&](const LevelObjectData& objData)
 			{
@@ -239,8 +240,8 @@ Game::~Game()
 	}
 	//ステージ番号が0の時にタイトルに遷移する。
 	else if (stageNo == 0) {
-		/*stageNo = 1;
-		g_goMgr.NewGO<Game>();*/
+		stageNo = 1;
+		g_goMgr.NewGO<Game>();
 		g_goMgr.NewGO<Title>();
 	}
 	//ステージ番号が1の時にタイトルに遷移する。

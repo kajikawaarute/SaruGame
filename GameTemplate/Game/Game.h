@@ -30,7 +30,8 @@ public:
 	void Draw();
 private:
 	enum { MAX_SARU = 100 };				//1ステージのサルの最大数。
-	prefab::CSoundSource m_gameBGM;			//ゲームのBGM
+	prefab::CSoundSource m_gameBGM;			//ステージ1のBGM
+	prefab::CSoundSource m_gameBGM2;		//ステージ2のBGM
 
 	Player* m_pl = nullptr;					//プレイヤーのインスタンス
 
