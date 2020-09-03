@@ -301,9 +301,14 @@ void Player::Attack()
 		float d = plFoward.Dot(toPlayer_GunEnemyDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toGunEnemyLen < 100.0f)
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toGunEnemyLen < 130.0f)
 		{
 			m_gunEnemys[i]->Death();
+		}
+		//ƒKƒ“ƒGƒlƒ~|‚Ì•û‚ğŒ©‚é
+		if (fabsf(angle) < CMath::DegToRad(90.0f) && toGunEnemyLen < 250.0f) {
+			float foundAngle = atan2f(toPlayer_GunEnemyDir.x, toPlayer_GunEnemyDir.z);
+			m_rotation.SetRotation(CVector3::AxisY(), foundAngle);
 		}
 	}
 
