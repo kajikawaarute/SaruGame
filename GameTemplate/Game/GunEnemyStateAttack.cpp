@@ -3,6 +3,8 @@
 #include "GunEnemy.h"
 #include "Player.h"
 
+const float GUNENEMY_WAIT_DISTANCE = 700.0f;	//待機状態になる距離。
+
 void GunEnemyStateAttack::OnEnter()
 {
 	
@@ -15,7 +17,8 @@ void GunEnemyStateAttack::Update()
 	float toGunEnemyLen = toGunEnemyDir.Length();
 	toGunEnemyDir.Normalize();
 
-	if (toGunEnemyLen > 800.0f) {
+	//待機状態になる範囲。
+	if (toGunEnemyLen > GUNENEMY_WAIT_DISTANCE) {
 		m_gunEnemy->m_enGunEnemyState = m_gunEnemy->enState_wait;
 	}
 }

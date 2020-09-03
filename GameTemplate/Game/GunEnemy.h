@@ -56,6 +56,10 @@ public:
 	/// </summary>
 	void Found();
 
+	/// <summary>
+	/// プレイヤーのインスタンスを設定。
+	/// </summary>
+	/// <param name="player">プレイヤーのインスタンス</param>
 	void SetPlayer(Player* player)
 	{
 		m_player = player;

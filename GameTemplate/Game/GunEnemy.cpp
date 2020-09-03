@@ -7,6 +7,9 @@
 #include "graphics/ToonRender.h"
 
 const float GUNENEMY_FUTTOBI_POWER = 2500.0f;		//ガンエネミーのプレイヤーを吹っ飛ばす力。
+const float GUNENEMY_BULLET_POSITION_Y = 120.0f;	//ガンエネミーの弾丸を発射するY座標。
+const int GUNENEMY_BULLET_TIME = 30;				//ガンエネミーが弾丸を発射するタイム。
+const float GUNENEMY_ATTACK_DISTANCE = 500.0f;		//ガンエネミーが攻撃をする範囲。
 
 GunEnemy::GunEnemy()
 {
@@ -85,7 +88,7 @@ void GunEnemy::Draw()
 void GunEnemy::Attack()
 {
 	CVector3 positionY = m_position;
-	positionY.y = m_position.y + 120.0f;
+	positionY.y = m_position.y + GUNENEMY_BULLET_POSITION_Y;
 
 
 	//ガンエネミーからプレイヤーに伸びるベクトルを求める。
@@ -103,7 +106,7 @@ void GunEnemy::Attack()
 	m_rotation.Multiply(gunEnemyFoward);
 
 	m_bulletTimer++;
-	if (m_bulletTimer == 30) {
+	if (m_bulletTimer == GUNENEMY_BULLET_TIME) {
 		GunEnemyBullet* gunBullet = g_goMgr.NewGO<GunEnemyBullet>();
 		gunBullet->SetPlayer(m_player);
 		gunBullet->SetMoveSpd(gunEnemyFoward);
@@ -118,7 +121,8 @@ void GunEnemy::AttackDistance()
 	CVector3 toSaruDir = m_player->GetPos() - m_position;
 	float toSaruLen = toSaruDir.Length();
 
-	if (toSaruLen < 800.0f) {
+	//プレイヤーを見つける範囲。
+	if (toSaruLen < GUNENEMY_ATTACK_DISTANCE) {
 		m_enGunEnemyState = enState_found;
 	}
 }
