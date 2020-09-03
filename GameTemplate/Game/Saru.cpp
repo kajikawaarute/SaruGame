@@ -9,7 +9,7 @@
 
 const float SARU_MOVE_SPPED = 300.0f;			//サルの移動速度。
 const float SARU_RUN_SPPED = 1500.0f;			//サルの走っている時の移動速度。
-const float SARU_FUTTOBI_POWER = 2500.0f;		//サルのプレイヤーを吹っ飛ばす力。
+const float SARU_FUTTOBI_POWER = 2700.0f;		//サルのプレイヤーを吹っ飛ばす力。
 const float SARU_ATTACK_DISTANCE = 90.0f;		//サルが攻撃する距離。
 const int SARU_BANANAPEEL_TIME = 90;			//サルがバナナの皮を投げるタイム。
 const float SARU_BIKKURIMARK_POSITION_Y = 160.0f;	//ビックリマークを表示する座標Yを設定。

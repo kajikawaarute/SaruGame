@@ -94,32 +94,6 @@ public:
 	}
 
 	/// <summary>
-	/// 待機タイマーを取得
-	/// </summary>
-	/// <returns></returns>
-	int GetWaitTimer()
-	{
-		return m_waitTimer;
-	}
-	/// <summary>
-	/// 待機タイマーを加算
-	/// </summary>
-	/// <returns></returns>
-	int AddWaitTimer()
-	{
-		return m_waitTimer++;
-	}
-
-	/// <summary>
-	/// 待機タイマーをリセット
-	/// </summary>
-	/// <returns></returns>
-	int ReSetWaitTimer()
-	{
-		return m_waitTimer = 0;
-	}
-
-	/// <summary>
 	/// プレイヤーのインスタンスを設定。
 	/// </summary>
 	/// <param name="player">プレイヤーのインスタンス</param>
@@ -242,7 +216,6 @@ private:
 	BananaPeel* m_banaPeel = nullptr;		//バナナの皮のインスタンス
 	BikkuriMark* m_bikkuriMark = nullptr;
 
-	int m_waitTimer = 0;		//待機状態になるまでのタイマー
 	int m_banaPeelTimer = 0;	//バナナの皮を投げるまでのタイマー
 	int pathNum = 0;			//パスの番号
 	float angle = 0.0f;
