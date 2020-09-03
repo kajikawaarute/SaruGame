@@ -42,11 +42,6 @@ public:
 	void GetSaru();
 
 	/// <summary>
-	/// サルの攻撃処理
-	/// </summary>
-	void Attack();
-
-	/// <summary>
 	/// サルの回転処理
 	/// </summary>
 	void Turn();
@@ -160,6 +155,11 @@ public:
 	void SaruFoundSound();
 
 	/// <summary>
+	/// サルが攻撃した時のサウンドを再生する。
+	/// </summary>
+	void SaruAttackSound();
+
+	/// <summary>
 	/// 設定された座標をパスリストに登録
 	/// </summary>
 	/// <param name="m_pos"></param>
@@ -218,7 +218,7 @@ private:
 
 	int m_banaPeelTimer = 0;	//バナナの皮を投げるまでのタイマー
 	int pathNum = 0;			//パスの番号
-	float angle = 0.0f;
+	float m_angle = 0.0f;		//角度
 
 	std::vector<CVector3> m_pathList;		//パスのリスト
 
@@ -226,7 +226,7 @@ private:
 
 	Effekseer::Effect* m_saruGetEffekt = nullptr;		//捕まえられた時のエフェクト
 	Effekseer::Effect* m_saruRunEffect = nullptr;		//走っている時のエフェクト
-	Effekseer::Effect* m_saruDamegeEffect = nullptr;
+	Effekseer::Effect* m_saruDamegeEffect = nullptr;	//ダメージを受けた時のエフェクト
 	Effekseer::Handle m_playEffectHandle = -1;
 
 public:

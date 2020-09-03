@@ -9,7 +9,6 @@
 
 const float SARU_MOVE_SPPED = 300.0f;			//サルの移動速度。
 const float SARU_RUN_SPPED = 1500.0f;			//サルの走っている時の移動速度。
-const float SARU_FUTTOBI_POWER = 2700.0f;		//サルのプレイヤーを吹っ飛ばす力。
 const float SARU_ATTACK_DISTANCE = 90.0f;		//サルが攻撃する距離。
 const int SARU_BANANAPEEL_TIME = 90;			//サルがバナナの皮を投げるタイム。
 const float SARU_BIKKURIMARK_POSITION_Y = 160.0f;	//ビックリマークを表示する座標Yを設定。
@@ -83,8 +82,8 @@ void Saru::Update()
 			}
 			auto addSpeed = diff;
 			addSpeed.Normalize();
-			angle = atan2f(-addSpeed.x, -addSpeed.z);
-			m_rotation.SetRotation(CVector3::AxisY(), angle);
+			m_angle = atan2f(-addSpeed.x, -addSpeed.z);
+			m_rotation.SetRotation(CVector3::AxisY(), m_angle);
 			m_moveSpeed += addSpeed;
 		}
 	}
@@ -167,8 +166,8 @@ void Saru::Turn()
 	if (fabsf(m_moveSpeed.x) < 0.001f && fabsf(m_moveSpeed.z) < 0.001f) {
 		return;
 	}
-	angle = atan2f(-toSaruDir.x, -toSaruDir.z);
-	m_rotation.SetRotation(CVector3::AxisY(),angle );
+	m_angle = atan2f(-toSaruDir.x, -toSaruDir.z);
+	m_rotation.SetRotation(CVector3::AxisY(), m_angle);
 }
 
 void Saru::BanaPeelThrow()
@@ -211,7 +210,7 @@ void Saru::Found()
 	//サルからプレイヤーに伸びるベクトルを求める。
 	CVector3 toSaruDir = m_pl->GetPos() - m_position;
 	//プレイヤーの方を見る
-	angle = atan2f(toSaruDir.x, toSaruDir.z);
+	m_angle = atan2f(toSaruDir.x, toSaruDir.z);
 	m_rotation.SetRotation(CVector3::AxisY(),angle);
 
 	g_goMgr.DeleteGO(m_bikkuriMark);
@@ -230,24 +229,6 @@ void Saru::AttackDistance()
 	if (toSaruLen < SARU_ATTACK_DISTANCE) {
 		m_enSaruState = enState_attack;
 	}
-}
-
-void Saru::Attack()
-{
-	//サルからプレイヤーに伸びるベクトルを求める。
-	CVector3 toSaruDir = m_pl->GetPos() - m_position;
-	//プレイヤーの方を見る
-	angle = atan2f(toSaruDir.x, toSaruDir.z);
-	m_rotation.SetRotation(CVector3::AxisY(),angle );
-	
-	toSaruDir.Normalize();
-	m_pl->SetAttackedPower(toSaruDir * SARU_FUTTOBI_POWER);
-	m_pl->Attacked();
-
-	//サウンドを再生
-	prefab::CSoundSource* saruAttackSE = g_goMgr.NewGO<prefab::CSoundSource>();
-	saruAttackSE->Init(L"Assets/Sound/SaruSE_Attack.wav");
-	saruAttackSE->Play(false);
 }
 
 void Saru::Death()
@@ -276,6 +257,14 @@ void Saru::SaruFoundSound()
 	prefab::CSoundSource* saruFoundSE = g_goMgr.NewGO<prefab::CSoundSource>();
 	saruFoundSE->Init(L"Assets/Sound/SaruSE_Found.wav");
 	saruFoundSE->Play(false);
+}
+
+void Saru::SaruAttackSound()
+{
+	//サウンドを再生
+	prefab::CSoundSource* saruAttackSE = g_goMgr.NewGO<prefab::CSoundSource>();
+	saruAttackSE->Init(L"Assets/Sound/SaruSE_Attack.wav");
+	saruAttackSE->Play(false);
 }
 
 void Saru::ChangeState(EnSaruState nextState)
