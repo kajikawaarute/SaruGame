@@ -90,11 +90,6 @@ public:
 		return m_charaCon;
 	}
 
-	SkinModel* GetSkinModel()
-	{
-		return &m_model;
-	}
-
 	/// <summary>
 	/// サルを捕まえた時の処理
 	/// </summary>
@@ -294,6 +289,10 @@ private:
 	PlayerHP* m_playerHp = nullptr;			//プレイヤーHPのインスタンス
 
 public:
+	/// <summary>
+	/// 状態を切り替える処理。
+	/// </summary>
+	/// <param name="nextState">プレイヤーの状態</param>
 	void ChangeState(EnPlayerState nextState);
 };
 

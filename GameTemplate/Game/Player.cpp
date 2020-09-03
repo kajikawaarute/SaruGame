@@ -10,7 +10,10 @@
 
 const float PLAYER_GRAVITY = 5000.0f;		//プレイヤーにかかる重力(単位cm/秒)。
 const float PLAYER_JUMP_POWER = 2000.0f;	//プレイヤーがジャンプしたときに加算される速度。
-const float PLAYER_MOVE_SPEED = 850.0f;	//プレイヤーの移動速度。
+const float PLAYER_MOVE_SPEED = 850.0f;		//プレイヤーの移動速度。
+const float PLAYER_SARU_DISTANCE = 300.0f;	//プレイヤーとサルの距離。
+const float PLAYER_ATTACK_DISTANCE = 150.0f;	//プレイヤーの攻撃距離。
+const float PLAYER_ATTACK_ANGLE = 45.0f;		//プレイヤーの攻撃視野。
 
 Player::Player()
 {
@@ -150,7 +153,7 @@ void Player::GetSaru()
 		float d = plFoward.Dot(toPlayerDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 300.0f)
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < PLAYER_SARU_DISTANCE)
 		{
 			m_sarus[i]->GetSaru();
 		}
@@ -280,15 +283,9 @@ void Player::Attack()
 		float d = plFoward.Dot(toPlayer_EnemyDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 150.0f)
+		if (fabsf(angle) < CMath::DegToRad(PLAYER_ATTACK_ANGLE) && toEnemyLen < PLAYER_ATTACK_DISTANCE)
 		{
 			m_enemys[i]->Delete();
-		}
-
-		//エネミ－の方を見る
-		if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 250.0f) {
-			float foundAngle = atan2f(toPlayer_EnemyDir.x, toPlayer_EnemyDir.z);
-			m_rotation.SetRotation(CVector3::AxisY(), foundAngle);
 		}
 	}
 
@@ -301,14 +298,9 @@ void Player::Attack()
 		float d = plFoward.Dot(toPlayer_GunEnemyDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toGunEnemyLen < 130.0f)
+		if (fabsf(angle) < CMath::DegToRad(PLAYER_ATTACK_ANGLE) && toGunEnemyLen < PLAYER_ATTACK_DISTANCE)
 		{
 			m_gunEnemys[i]->Death();
-		}
-		//ガンエネミ－の方を見る
-		if (fabsf(angle) < CMath::DegToRad(90.0f) && toGunEnemyLen < 250.0f) {
-			float foundAngle = atan2f(toPlayer_GunEnemyDir.x, toPlayer_GunEnemyDir.z);
-			m_rotation.SetRotation(CVector3::AxisY(), foundAngle);
 		}
 	}
 
@@ -321,15 +313,9 @@ void Player::Attack()
 		float d = plFoward.Dot(toPlayer_SaruDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toSaruLen < 150.0f)
+		if (fabsf(angle) < CMath::DegToRad(PLAYER_ATTACK_ANGLE) && toSaruLen < PLAYER_ATTACK_DISTANCE)
 		{
 			m_sarus[i]->Stun();
-		}
-
-		//サルの方を見る
-		if (fabsf(angle) < CMath::DegToRad(90.0f) && toSaruLen < 250.0f) {
-			float foundAngle = atan2f(toPlayer_SaruDir.x, toPlayer_SaruDir.z);
-			m_rotation.SetRotation(CVector3::AxisY(), foundAngle);
 		}
 	}
 }
