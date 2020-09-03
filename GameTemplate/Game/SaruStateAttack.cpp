@@ -10,8 +10,8 @@ void SaruStateAttack::OnEnter()
 	//サルからプレイヤーに伸びるベクトルを求める。
 	CVector3 toSaruDir = m_saru->m_pl->GetPos() - m_saru->m_position;
 	//プレイヤーの方を見る
-	m_saru->angle = atan2f(toSaruDir.x, toSaruDir.z);
-	m_saru->m_rotation.SetRotation(CVector3::AxisY(), m_saru->angle);
+	m_saru->m_angle = atan2f(toSaruDir.x, toSaruDir.z);
+	m_saru->m_rotation.SetRotation(CVector3::AxisY(), m_saru->m_angle);
 
 	toSaruDir.Normalize();
 	m_saru->m_pl->SetAttackedPower(toSaruDir * SARU_FUTTOBI_POWER);

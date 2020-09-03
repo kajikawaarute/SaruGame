@@ -211,7 +211,7 @@ void Saru::Found()
 	CVector3 toSaruDir = m_pl->GetPos() - m_position;
 	//ƒvƒŒƒCƒ„[‚Ì•û‚ğŒ©‚é
 	m_angle = atan2f(toSaruDir.x, toSaruDir.z);
-	m_rotation.SetRotation(CVector3::AxisY(),angle);
+	m_rotation.SetRotation(CVector3::AxisY(),m_angle);
 
 	g_goMgr.DeleteGO(m_bikkuriMark);
 
