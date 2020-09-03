@@ -20,6 +20,9 @@ GunEnemy::GunEnemy()
 	m_animClip[enAnim_attack].Load(L"Assets/animData/GunEnemy-attack.tka");
 	m_animClip[enAnim_found].Load(L"Assets/animData/GunEnemy-found.tka");
 
+	//エフェクトの生成。
+	m_gunEnemyDeathEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/EnemyDeath.efk");
+
 	//アニメーションのループフラグを設定。
 	m_animClip[enAnim_wait].SetLoopFlag(true);
 	m_animClip[enAnim_attack].SetLoopFlag(true);
@@ -139,6 +142,9 @@ void GunEnemy::Found()
 
 void GunEnemy::Death()
 {
+	//エフェクトを表示。
+	m_playEffectHandle = g_effekseerManager->Play(m_gunEnemyDeathEffekt, m_position.x, m_position.y, m_position.z);
+
 	g_goMgr.DeleteGO(this);
 	m_player->DeleteGunEnemy(this);
 }

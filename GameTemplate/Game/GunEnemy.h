@@ -116,6 +116,9 @@ private:
 	bool m_foundFlag = false;		//見つかった時の判定
 
 	Player* m_player = nullptr;		//プレイヤーのインスタンス
+
+	Effekseer::Effect* m_gunEnemyDeathEffekt = nullptr;		//エフェクト
+	Effekseer::Handle m_playEffectHandle = -1;
 public:
 	/// <summary>
 	/// 状態を切り替える処理
