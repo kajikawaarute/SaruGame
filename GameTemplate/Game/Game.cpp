@@ -18,6 +18,12 @@
 #include "Sky.h"
 
 int Game::stageNo = 0;
+
+const int GAMECLEAR_TIME = 30;				//ゲームクリアを表示するタイム。
+const int GAMECLEAR_TITLE_TIME = 120;		//ゲームクリアからタイトルに遷移するまでのタイム。
+const int GAMEOVER_TIME = 1;				//ゲームオーバーを表示するタイム。
+const int GAMEOVER_TITLE_TIME = 60;			//ゲームオーバーからタイトルに遷移するまでのタイム。
+const float PLAYER_DEATH_HEIGHT = -300.0f;	//プレイヤーが落ちた時にゲームオーバーになる高さ。
 Game::Game()
 {
 	m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
@@ -71,7 +77,7 @@ Game::Game()
 					saru->SetRotation(objData.rotation);
 					saru->SetPlayer(m_pl);
 					m_pl->SetSaru(saru);
-					m_saruNo = 3;
+					m_saruNo++;
 					return true;
 				}
 
@@ -147,7 +153,7 @@ Game::Game()
 					saru->SetRotation(objData.rotation);
 					saru->SetPlayer(m_pl);
 					m_pl->SetSaru(saru);
-					m_saruNo = 1;
+					m_saruNo++;
 					return true;
 				}
 
@@ -257,22 +263,22 @@ void Game::Update()
 	if (m_pl->GetSaruCount() == m_saruNo)
 	{
 		m_gameClearTimer++;
-		if (m_gameClearTimer == 30) {
+		if (m_gameClearTimer == GAMECLEAR_TIME) {
 			m_gameClear = g_goMgr.NewGO<GameClear>();
 		}
-		if (m_gameClearTimer == 120) {
+		if (m_gameClearTimer == GAMECLEAR_TITLE_TIME) {
 			g_goMgr.DeleteGO(this);
 		}
 	}
 
 	//プレイヤーのHPがなくなったらゲームオーバー
-	if (m_playerHP->GetGameOver() == true || m_pl->GetPos().y < -300.0f) {
+	if (m_playerHP->GetGameOver() == true || m_pl->GetPos().y < PLAYER_DEATH_HEIGHT) {
 		m_gameOverTimer++;
-		if (m_gameOverTimer == 1) {
+		if (m_gameOverTimer == GAMEOVER_TIME) {
 			m_gameOver = g_goMgr.NewGO<GameOver>();
 			m_pl->StateDeath();
 		}
-		if (m_gameOverTimer == 60) {
+		if (m_gameOverTimer == GAMEOVER_TITLE_TIME) {
 			g_goMgr.DeleteGO(this);
 		}
 	}
