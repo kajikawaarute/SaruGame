@@ -9,7 +9,7 @@
 const float GUNENEMY_FUTTOBI_POWER = 2500.0f;		//ガンエネミーのプレイヤーを吹っ飛ばす力。
 const float GUNENEMY_BULLET_POSITION_Y = 120.0f;	//ガンエネミーの弾丸を発射するY座標。
 const int GUNENEMY_BULLET_TIME = 30;				//ガンエネミーが弾丸を発射するタイム。
-const float GUNENEMY_ATTACK_DISTANCE = 500.0f;		//ガンエネミーが攻撃をする範囲。
+const float GUNENEMY_ATTACK_DISTANCE = 600.0f;		//ガンエネミーが攻撃をする範囲。
 
 GunEnemy::GunEnemy()
 {
