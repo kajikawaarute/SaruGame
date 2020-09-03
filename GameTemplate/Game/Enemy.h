@@ -32,7 +32,7 @@ public:
 	/// <summary>
 	/// エネミーの座標を設定
 	/// </summary>
-	/// <param name="pos"></param>
+	/// <param name="pos">座標</param>
 	/// <returns></returns>
 	void SetPosition(const CVector3& pos)
 	{
@@ -42,7 +42,7 @@ public:
 	/// <summary>
 	/// エネミーの回転を設定
 	/// </summary>
-	/// <param name="rot"></param>
+	/// <param name="rot">回転</param>
 	void SetRotation(const CQuaternion rot)
 	{
 		m_rotation = rot;
@@ -58,9 +58,6 @@ public:
 	/// </summary>
 	void Turn();
 
-	//エネミーの攻撃処理
-	void Attack();
-	
 	/// <summary>
 	/// 攻撃するまでの距離
 	/// </summary>
@@ -74,7 +71,7 @@ public:
 	/// <summary>
 	/// 待機タイマーを加算
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>待機タイマー</returns>
 	int AddWaitTimer()
 	{
 		return m_waitTimer++;
@@ -82,7 +79,7 @@ public:
 	/// <summary>
 	/// 待機タイマーを取得
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>待機タイマー</returns>
 	int GetWaitTimer()
 	{
 		return m_waitTimer;
@@ -90,7 +87,7 @@ public:
 	/// <summary>
 	/// 待機タイマーをリセット
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>待機タイマー</returns>
 	int ReSetWaitTimer()
 	{
 		return m_waitTimer = 0;
@@ -112,11 +109,16 @@ public:
 		m_enEnemyState = enState_move;
 	}
 
+	/// <summary>
+	/// プレイヤーのインスタンスを設定。
+	/// </summary>
+	/// <param name="player">プレイヤーのインスタンス</param>
 	void SetPlayer(Player* player)
 	{
 		m_pl = player;
 	}
 private:
+	friend class EnemyStateAttack;
 	friend class EnemyStateWait;
 	friend class EnemyStateMove;
 
@@ -154,10 +156,14 @@ private:
 	EnemyStateWait m_enemyStateWait;		//待機状態
 	EnemyStateMove m_enemyStateMove;		//移動状態
 
-	Effekseer::Effect* m_enemyDeathEffekt = nullptr;
+	Effekseer::Effect* m_enemyDeathEffekt = nullptr;	//エフェクト。
 	Effekseer::Handle m_playEffectHandle = -1;
 
 public:
+	/// <summary>
+	/// 状態を切り替える処理。
+	/// </summary>
+	/// <param name="nextState">エネミ－の状態</param>
 	void ChangeState(EnEnemyState nextState);
 };
 

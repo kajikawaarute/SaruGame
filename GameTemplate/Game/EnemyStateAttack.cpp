@@ -1,12 +1,21 @@
 #include "stdafx.h"
 #include "Enemy.h"
+#include "Player.h"
 #include "EnemyStateAttack.h"
 
 const int ENEMY_WAIT_TIME = 60;		//エネミーが待機状態になるタイム。
+const float ENEMY_FUTTOBI_POWER = 1200.0f;	//プレイヤーを吹っ飛ばす力。
 
 void EnemyStateAttack::OnEnter()
 {
-	m_enemy->Attack();
+	//エネミーからプレイヤーに伸びるベクトルを求める。
+	CVector3 toEnemyDir = m_enemy->m_pl->GetPos() - m_enemy->m_position;
+
+	m_enemy->m_rotation.SetRotation(CVector3::AxisY(), atan2f(toEnemyDir.x, toEnemyDir.z));
+	toEnemyDir.Normalize();
+
+	m_enemy->m_pl->SetAttackedPower(toEnemyDir * ENEMY_FUTTOBI_POWER);
+	m_enemy->m_pl->Attacked();
 }
 
 void EnemyStateAttack::Update()

@@ -6,7 +6,6 @@
 #include "graphics/ToonRender.h"
 
 const float ENEMY_MOVE_SPPED = 5.0f;		//エネミーの移動速度。
-const float ENEMY_FUTTOBI_POWER = 1200.0f;	//プレイヤーを吹っ飛ばす力。
 const float ENEMY_FOUND_PLAYER_DISTANCE = 90.0f;		//エネミーがプレイヤーを見つける距離。
 
 Enemy::Enemy()
@@ -107,18 +106,6 @@ void Enemy::Turn()
 	}
 	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toEnemyDir.x, toEnemyDir.z));
 
-}
-
-void Enemy::Attack()
-{
-	//エネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toEnemyDir = m_pl->GetPos() - m_position;
-
-	m_rotation.SetRotation(CVector3::AxisY(), atan2f(toEnemyDir.x, toEnemyDir.z));
-	toEnemyDir.Normalize();
-
-	m_pl->SetAttackedPower( toEnemyDir * ENEMY_FUTTOBI_POWER );
-	m_pl->Attacked();
 }
 
 void Enemy::AttackDistance()
