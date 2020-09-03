@@ -41,6 +41,15 @@ public:
 	{
 		m_rotation = rot;
 	}
+
+	/// <summary>
+	/// ガンエネミーの座標を取得。
+	/// </summary>
+	/// <returns>ガンエネミーの座標</returns>
+	CVector3& GetPosition()
+	{
+		return m_position;
+	}
 	/// <summary>
 	/// ガンエネミーの攻撃処理
 	/// </summary>
@@ -55,6 +64,11 @@ public:
 	/// 見つかった時の処理
 	/// </summary>
 	void Found();
+
+	/// <summary>
+	/// 倒された時の処理。
+	/// </summary>
+	void Death();
 
 	/// <summary>
 	/// プレイヤーのインスタンスを設定。

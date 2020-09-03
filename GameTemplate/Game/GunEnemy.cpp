@@ -137,6 +137,12 @@ void GunEnemy::Found()
 	m_rotation.SetRotation(CVector3::AxisY(), angle);
 }
 
+void GunEnemy::Death()
+{
+	g_goMgr.DeleteGO(this);
+	m_player->DeleteGunEnemy(this);
+}
+
 void GunEnemy::ChangeState(EnGunEnemyState nextState)
 {
 	IGunEnemyState* pNextState = nullptr;

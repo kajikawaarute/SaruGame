@@ -105,18 +105,37 @@ public:
 	/// </summary>
 	void Turn();
 
+	/// <summary>
+	/// サルのインスタンスを設定。
+	/// </summary>
+	/// <param name="saru">サルのインスタンス</param>
 	void SetSaru(Saru* saru)
 	{
 		m_sarus.push_back(saru);
 	}
+
+	/// <summary>
+	/// エネミ－のインスタンスを取得。
+	/// </summary>
+	/// <param name="enemy">エネミ－のインスタンス</param>
 	void SetEnemy(Enemy* enemy)
 	{
 		m_enemys.push_back(enemy);
 	}
+
+	/// <summary>
+	/// ガンエネミーのインスタンスを設定。
+	/// </summary>
+	/// <param name="gunEnemy">ガンエネミーのインスタンス</param>
 	void SetGunEnemy(GunEnemy* gunEnemy)
 	{
 		m_gunEnemys.push_back(gunEnemy);
 	}
+
+	/// <summary>
+	/// プレイヤーHPのインスタンスを設定。
+	/// </summary>
+	/// <param name="playerHp">レイヤーHPのインスタンス</param>
 	void SetPlayerHP(PlayerHP* playerHp)
 	{
 		m_playerHp = playerHp;
@@ -125,14 +144,20 @@ public:
 	/// <summary>
 	/// サルを消すときの処理
 	/// </summary>
-	/// <param name="saru"></param>
+	/// <param name="saru">サルのインスタンス</param>
 	void DeleteSaru(Saru* saru);
 
 	/// <summary>
 	/// エネミーを消す時の処理
 	/// </summary>
-	/// <param name="enemy"></param>
+	/// <param name="enemy">サルのインスタンス</param>
 	void DeleteEnemy(Enemy* enemy);
+
+	/// <summary>
+	/// ガンエネミーを消す時の処理
+	/// </summary>
+	/// <param name="gunEnemy">ガンエネミーのインスタンス</param>
+	void DeleteGunEnemy(GunEnemy* gunEnemy);
 
 	/// <summary>
 	/// 攻撃されたときの処理

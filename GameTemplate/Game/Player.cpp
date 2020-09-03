@@ -3,6 +3,7 @@
 #include "IGameObjectManager.h"
 #include "Saru.h"
 #include "Enemy.h"
+#include "GunEnemy.h"
 #include "PlayerHP.h"
 #include "graphics/ShadowMap.h"
 #include "graphics/ToonRender.h"
@@ -173,7 +174,6 @@ void Player::DeleteSaru(Saru* saru)
 		if (*it == saru) {
 			it = m_sarus.erase(it);
 			m_saruCount++;
-			//it++;
 		}
 		else {
 			//リクエストを受けていない。
@@ -187,7 +187,19 @@ void Player::DeleteEnemy(Enemy * enemy)
 	for (auto it = m_enemys.begin(); it != m_enemys.end();) {
 		if (*it == enemy) {
 			it = m_enemys.erase(it);
-			//it++;
+		}
+		else {
+			//リクエストを受けていない。
+			it++;
+		}
+	}
+}
+
+void Player::DeleteGunEnemy(GunEnemy * gunEnemy)
+{
+	for (auto it = m_gunEnemys.begin(); it != m_gunEnemys.end();) {
+		if (*it == gunEnemy) {
+			it = m_gunEnemys.erase(it);
 		}
 		else {
 			//リクエストを受けていない。
@@ -268,9 +280,30 @@ void Player::Attack()
 		float d = plFoward.Dot(toPlayer_EnemyDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 300.0f)
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < 150.0f)
 		{
 			m_enemys[i]->Delete();
+		}
+
+		//エネミ－の方を見る
+		if (fabsf(angle) < CMath::DegToRad(90.0f) && toEnemyLen < 250.0f) {
+			float foundAngle = atan2f(toPlayer_EnemyDir.x, toPlayer_EnemyDir.z);
+			m_rotation.SetRotation(CVector3::AxisY(), foundAngle);
+		}
+	}
+
+	//ガンエネミーを倒す。
+	for (int i = 0; i < m_gunEnemys.size(); i++) {
+		CVector3 toPlayer_GunEnemyDir = m_gunEnemys[i]->GetPosition() - m_position;
+		float toGunEnemyLen = toPlayer_GunEnemyDir.Length();
+		toPlayer_GunEnemyDir.Normalize();
+
+		float d = plFoward.Dot(toPlayer_GunEnemyDir);
+		float angle = acos(d);
+
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toGunEnemyLen < 100.0f)
+		{
+			m_gunEnemys[i]->Death();
 		}
 	}
 
@@ -283,9 +316,15 @@ void Player::Attack()
 		float d = plFoward.Dot(toPlayer_SaruDir);
 		float angle = acos(d);
 
-		if (fabsf(angle) < CMath::DegToRad(45.0f) && toSaruLen < 300.0f)
+		if (fabsf(angle) < CMath::DegToRad(45.0f) && toSaruLen < 150.0f)
 		{
 			m_sarus[i]->Stun();
+		}
+
+		//サルの方を見る
+		if (fabsf(angle) < CMath::DegToRad(90.0f) && toSaruLen < 250.0f) {
+			float foundAngle = atan2f(toPlayer_SaruDir.x, toPlayer_SaruDir.z);
+			m_rotation.SetRotation(CVector3::AxisY(), foundAngle);
 		}
 	}
 }
