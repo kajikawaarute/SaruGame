@@ -22,9 +22,7 @@ void SaruStateAttack::OnEnter()
 
 void SaruStateAttack::Update()
 {
-	if (m_saru->m_animation.IsPlaying() != true) {
-		m_saru->ChangeStateWait();
-	}
+	m_saru->ChangeStateWaitAnim();
 }
 
 void SaruStateAttack::OnLeave()
