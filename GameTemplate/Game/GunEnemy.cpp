@@ -6,10 +6,10 @@
 #include "graphics/ShadowMap.h"
 #include "graphics/ToonRender.h"
 
-const float GUNENEMY_FUTTOBI_POWER = 2500.0f;		//ガンエネミーのプレイヤーを吹っ飛ばす力。
-const float GUNENEMY_BULLET_POSITION_Y = 120.0f;	//ガンエネミーの弾丸を発射するY座標。
-const int GUNENEMY_BULLET_TIME = 30;				//ガンエネミーが弾丸を発射するタイム。
+
 const float GUNENEMY_ATTACK_DISTANCE = 600.0f;		//ガンエネミーが攻撃をする範囲。
+const int GUNENEMY_BULLET_TIME = 30;			//ガンエネミーが弾丸を発射するタイム。
+const float GUNENEMY_BULLET_POSITION_Y = 120.0f;	//ガンエネミーの弾丸を発射するY座標。
 
 GunEnemy::GunEnemy()
 {
@@ -92,17 +92,6 @@ void GunEnemy::Attack()
 {
 	CVector3 positionY = m_position;
 	positionY.y = m_position.y + GUNENEMY_BULLET_POSITION_Y;
-
-
-	//ガンエネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toGunEnemyDir = m_player->GetPos() - m_position;
-	//プレイヤーの方を見る
-	float angle = 0.0f;
-	angle = atan2f(toGunEnemyDir.x, toGunEnemyDir.z);
-	m_rotation.SetRotation(CVector3::AxisY(), angle);
-
-	toGunEnemyDir.Normalize();
-	m_player->SetAttackedPower(toGunEnemyDir * GUNENEMY_FUTTOBI_POWER);
 
 	//ガンエネミーの前方向を計算する。
 	CVector3 gunEnemyFoward = CVector3::AxisZ();
