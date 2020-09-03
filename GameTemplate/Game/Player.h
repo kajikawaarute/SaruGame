@@ -180,11 +180,6 @@ public:
 	void AttackTry();
 
 	/// <summary>
-	/// UŒ‚‚µ‚Ä‚¢‚é‚Ìˆ—
-	/// </summary>
-	void Attack();
-
-	/// <summary>
 	/// €–S‚µ‚Ä‚¢‚é‚Æ‚«‚Ìó‘Ô‚É‚·‚éB
 	/// </summary>
 	void StateDeath();
