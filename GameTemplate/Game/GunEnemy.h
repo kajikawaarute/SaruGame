@@ -56,14 +56,17 @@ public:
 	void Attack();
 
 	/// <summary>
-	/// 攻撃するまでの距離
-	/// </summary>
-	void AttackDistance();
-
-	/// <summary>
 	/// 倒された時の処理。
 	/// </summary>
 	void Death();
+
+	/// <summary>
+	/// 見つかった状態にする。
+	/// </summary>
+	void ChangeStateFound()
+	{
+		m_enGunEnemyState = enState_found;;
+	}
 
 	/// <summary>
 	/// プレイヤーのインスタンスを設定。

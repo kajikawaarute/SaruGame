@@ -6,8 +6,6 @@
 #include "graphics/ShadowMap.h"
 #include "graphics/ToonRender.h"
 
-
-const float GUNENEMY_ATTACK_DISTANCE = 600.0f;		//ガンエネミーが攻撃をする範囲。
 const int GUNENEMY_BULLET_TIME = 30;			//ガンエネミーが弾丸を発射するタイム。
 const float GUNENEMY_BULLET_POSITION_Y = 120.0f;	//ガンエネミーの弾丸を発射するY座標。
 
@@ -104,18 +102,6 @@ void GunEnemy::Attack()
 		gunBullet->SetMoveSpd(gunEnemyFoward);
 		gunBullet->SetPosition(positionY);
 		m_bulletTimer = 0;
-	}
-}
-
-void GunEnemy::AttackDistance()
-{
-	//ガンエネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toSaruDir = m_player->GetPos() - m_position;
-	float toSaruLen = toSaruDir.Length();
-
-	//プレイヤーを見つける範囲。
-	if (toSaruLen < GUNENEMY_ATTACK_DISTANCE) {
-		m_enGunEnemyState = enState_found;
 	}
 }
 
