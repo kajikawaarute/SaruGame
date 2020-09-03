@@ -61,11 +61,6 @@ public:
 	void AttackDistance();
 
 	/// <summary>
-	/// Œ©‚Â‚©‚Á‚½‚Ìˆ—
-	/// </summary>
-	void Found();
-
-	/// <summary>
 	/// “|‚³‚ê‚½‚Ìˆ—B
 	/// </summary>
 	void Death();

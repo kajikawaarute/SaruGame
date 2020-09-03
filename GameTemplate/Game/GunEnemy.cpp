@@ -119,16 +119,6 @@ void GunEnemy::AttackDistance()
 	}
 }
 
-void GunEnemy::Found()
-{
-	//ガンエネミーからプレイヤーに伸びるベクトルを求める。
-	CVector3 toSaruDir = m_player->GetPos() - m_position;
-	//プレイヤーの方を見る
-	float angle = 0.0f;
-	angle = atan2f(toSaruDir.x, toSaruDir.z);
-	m_rotation.SetRotation(CVector3::AxisY(), angle);
-}
-
 void GunEnemy::Death()
 {
 	//エフェクトを表示。
