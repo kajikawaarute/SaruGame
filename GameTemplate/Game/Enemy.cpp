@@ -6,23 +6,26 @@
 #include "graphics/ToonRender.h"
 
 const float ENEMY_MOVE_SPPED = 5.0f;		//エネミーの移動速度。
-const float ENEMY_FUTTOBI_POWER = 1000.0f;	//プレイヤーを吹っ飛ばす力。
+const float ENEMY_FUTTOBI_POWER = 1200.0f;	//プレイヤーを吹っ飛ばす力。
+const float ENEMY_FOUND_PLAYER_DISTANCE = 90.0f;		//エネミーがプレイヤーを見つける距離。
 
 Enemy::Enemy()
 {
+	//モデルの初期化。
 	m_model.Init(L"Assets/modelData/Enemy.cmo");
 
-	//アニメーションのロード
+	//アニメーションのロード。
 	m_animationClip[enAnim_walk].Load(L"Assets/animData/Enemy-walk.tka");
 	m_animationClip[enAnim_wait].Load(L"Assets/animData/Enemy-taiki.tka");
 
+	//エフェクトの生成。
 	m_enemyDeathEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/EnemyDeath.efk");
 
-	//アニメーションのループを設定
+	//アニメーションのループを設定。
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 	m_animationClip[enAnim_wait].SetLoopFlag(true);
 
-	//アニメーションを初期化
+	//アニメーションを初期化。
 	m_animation.Init(m_model, m_animationClip, enAnim_num);
 
 	//状態を初期化する。
@@ -30,13 +33,13 @@ Enemy::Enemy()
 	m_enemyStateWait.Init(this);
 	m_enemyStateMove.Init(this);
 
-	//エネミーの初期状態
+	//エネミーの初期状態。
 	m_currentState = &m_enemyStateWait;
 
-	//エネミーの初期アニメーション
+	//エネミーの初期アニメーション。
 	m_enAnimClip = enAnim_wait;
 
-	//シャドウレシーバーを設定
+	//シャドウレシーバーを設定。
 	m_model.SetShadowReciever(true);
 }
 
@@ -54,16 +57,17 @@ void Enemy::Update()
 	//エネミーのアニメーション
 	switch (m_enAnimClip)
 	{
-	case enAnim_wait:
+	case enAnim_wait:	//待機アニメーション。
 		m_animation.Play(enAnim_wait, m_animTime);
 		break;
-	case enAnim_walk:
+	case enAnim_walk:	//歩きアニメーション
 		m_animation.Play(enAnim_walk, m_animTime);
 		break;
 	}
 
 	m_animation.Update(1.0f / 30.0f);
 
+	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
 	//シャドウキャスターを設定。
@@ -129,13 +133,15 @@ void Enemy::AttackDistance()
 	float d = enemyFoward.Dot(toEnemyDir);
 	float angle = acos(d);
 
-	if (toEnemyLen < 90.0f) {
+	//プレイヤーを見つける。
+	if (toEnemyLen < ENEMY_FOUND_PLAYER_DISTANCE) {
 		m_enEnemyState = enState_attack;
 	}
 }
 
 void Enemy::Delete()
 {
+	//エフェクトを表示。
 	m_playEffectHandle = g_effekseerManager->Play(m_enemyDeathEffekt, m_position.x, m_position.y, m_position.z);
 
 	g_goMgr.DeleteGO(this);

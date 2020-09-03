@@ -3,6 +3,8 @@
 #include "EnemyStateMove.h"
 #include "Player.h"
 
+const float ENEMY_WAIT_CHANGE_DISTANCE = 400.0f;	//‘Ò‹@ó‘Ô‚ÉØ‚è‘Ö‚í‚é‹——£B
+
 void EnemyStateMove::OnEnter()
 {
 }
@@ -19,7 +21,7 @@ void EnemyStateMove::Update()
 	m_enemy->Move();
 	m_enemy->AttackDistance();
 	m_enemy->m_moveSpeed = toEnemyDir;
-	if (toEnemyLen > 400.0f) {
+	if (toEnemyLen > ENEMY_WAIT_CHANGE_DISTANCE) {
 		m_enemy->ChangeStateWait();
 	}
 }

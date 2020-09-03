@@ -3,6 +3,9 @@
 #include "EnemyStateWait.h"
 #include "Player.h"
 
+const float ENEMY_MOVE_CHANGE_DISTANCE = 400.0f;	//移動状態に切り替わる距離。
+const float ENEMY_ANGLE = 160;						//エネミーの視野
+
 void EnemyStateWait::OnEnter()
 {
 }
@@ -20,7 +23,7 @@ void EnemyStateWait::Update()
 
 	m_enemy->AttackDistance();
 	m_enemy->m_moveSpeed = CVector3::Zero();
-	if (fabsf(angle) < CMath::DegToRad(180.0f) && toEnemyLen < 400.0f) {
+	if (fabsf(angle) < CMath::DegToRad(ENEMY_ANGLE) && toEnemyLen < ENEMY_MOVE_CHANGE_DISTANCE) {
 		m_enemy->ChangeStateMove();
 	}
 }
