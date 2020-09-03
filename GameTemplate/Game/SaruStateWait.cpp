@@ -3,6 +3,9 @@
 #include "Saru.h"
 #include "Player.h"
 
+const float SARU_PLAYER_DISTANCE = 600.0f;		//サルとプレイヤーの距離。
+const float SARU_ANGLE = 50.0f;					//サルの視野。
+
 void SaruStateWait::OnEnter()
 {
 }
@@ -24,7 +27,7 @@ void SaruStateWait::Update()
 	m_saru->m_moveSpeed = CVector3::Zero();
 
 	//サルがプレイヤーを発見する範囲
-	if (fabsf(angle) < CMath::DegToRad(50.0f) && toSaruLen < 600.0f)
+	if (fabsf(angle) < CMath::DegToRad(SARU_ANGLE) && toSaruLen < SARU_PLAYER_DISTANCE)
 	{
 		m_saru->ChangeStateFound();
 	}

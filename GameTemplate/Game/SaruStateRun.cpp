@@ -3,6 +3,8 @@
 #include "Saru.h"
 #include "Player.h"
 
+const float SARU_PLAYER_DISTANCE = 700.0f;		//サルとプレイヤーの距離。
+
 void SaruStateRun::OnEnter()
 {
 }
@@ -18,7 +20,7 @@ void SaruStateRun::Update()
 	m_saru->Run();
 	m_saru->BanaPeelThrow();
 	m_saru->m_moveSpeed = toSaruDir;
-	if (toSaruLen > 700.0f)
+	if (toSaruLen > SARU_PLAYER_DISTANCE)
 	{
 		m_saru->ChangeStateWait();
 	}

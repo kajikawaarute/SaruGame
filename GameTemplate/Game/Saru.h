@@ -119,6 +119,10 @@ public:
 		return m_waitTimer = 0;
 	}
 
+	/// <summary>
+	/// プレイヤーのインスタンスを設定。
+	/// </summary>
+	/// <param name="player">プレイヤーのインスタンス</param>
 	void SetPlayer(Player* player)
 	{
 		m_pl = player;
@@ -154,6 +158,14 @@ public:
 	}
 
 	/// <summary>
+	/// 怯んだ状態に設定。
+	/// </summary>
+	void ChangeStateStun()
+	{
+		m_enSaruState = enState_stun;
+	}
+
+	/// <summary>
 	/// 捕まえられた時に呼ばれる関数
 	/// </summary>
 	void Death();
@@ -184,6 +196,7 @@ public:
 private:
 	friend class SaruStateWait;
 	friend class SaruStateRun;
+	friend class SaruStateAttack;
 	friend class SaruStateGet;
 	friend class SaruStateStun;
 	friend class SaruStateFound;
@@ -230,7 +243,6 @@ private:
 	BikkuriMark* m_bikkuriMark = nullptr;
 
 	int m_waitTimer = 0;		//待機状態になるまでのタイマー
-	int m_deathTimer = 0;		//捕獲されるまでのタイマー
 	int m_banaPeelTimer = 0;	//バナナの皮を投げるまでのタイマー
 	int pathNum = 0;			//パスの番号
 	float angle = 0.0f;
@@ -245,6 +257,10 @@ private:
 	Effekseer::Handle m_playEffectHandle = -1;
 
 public:
+	/// <summary>
+	/// 状態を切り替える処理。
+	/// </summary>
+	/// <param name="nextState">サルの状態</param>
 	void ChangeState(EnSaruState nextState);
 };
 

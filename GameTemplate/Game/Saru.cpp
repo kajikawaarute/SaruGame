@@ -8,13 +8,19 @@
 #include "graphics/ToonRender.h"
 
 const float SARU_MOVE_SPPED = 300.0f;			//サルの移動速度。
+const float SARU_RUN_SPPED = 1500.0f;			//サルの走っている時の移動速度。
 const float SARU_FUTTOBI_POWER = 2500.0f;		//サルのプレイヤーを吹っ飛ばす力。
+const float SARU_ATTACK_DISTANCE = 90.0f;		//サルが攻撃する距離。
+const int SARU_BANANAPEEL_TIME = 90;			//サルがバナナの皮を投げるタイム。
+const float SARU_BIKKURIMARK_POSITION_Y = 160.0f;	//ビックリマークを表示する座標Yを設定。
+const float SARU_PATH_DISTANCE = 50.0f;		//パスまでの距離。
 
 Saru::Saru()
 {
+	//モデルの初期化。
 	m_model.Init(L"Assets/modelData/Saru.cmo");
 
-	//アニメーションをロード
+	//アニメーションを生成。
 	m_animClip[enAnim_wait].Load(L"Assets/animData/Saru-taiki.tka");
 	m_animClip[enAnim_run].Load(L"Assets/animData/Saru-run.tka");
 	m_animClip[enAnim_attack].Load(L"Assets/animData/Saru-Attack.tka");
@@ -58,7 +64,7 @@ Saru::~Saru()
 
 void Saru::Update()
 {
-	//エネミ－の状態
+	//サルの状態
 	m_currentState->Update();
 	ChangeState(m_enSaruState);
 
@@ -67,7 +73,7 @@ void Saru::Update()
 	{
 		if (m_enSaruState == enState_wait) {
 			auto diff = m_position - m_pathList[pathNum];
-			if (diff.Length() < 50.0f)
+			if (diff.Length() < SARU_PATH_DISTANCE)
 			{
 				if (pathNum < m_pathList.size() - 1)
 				{
@@ -97,7 +103,7 @@ void Saru::Update()
 	case Saru::enAnim_Get:			//捕獲アニメーション
 		m_animation.Play(enAnim_Get, m_animTime);
 		break;
-	case enState_stun:
+	case enState_stun:				//怯みアニメーション
 		m_animation.Play(enAnim_Get, m_animTime);
 		break;
 	case enState_found:				//見つかったアニメーション
@@ -131,8 +137,8 @@ void Saru::Move()
 void Saru::Run()
 {
 	m_moveSpeed.Normalize();
-	m_moveSpeed.x *= SARU_MOVE_SPPED * 5.0f;
-	m_moveSpeed.z *= SARU_MOVE_SPPED * 5.0f;
+	m_moveSpeed.x *= SARU_RUN_SPPED;
+	m_moveSpeed.z *= SARU_RUN_SPPED;
 	m_moveSpeed.y = 0.0f;
 
 	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();
@@ -175,7 +181,7 @@ void Saru::BanaPeelThrow()
 
 	//バナナの皮を投げる
 	m_banaPeelTimer++;
-	if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f && m_banaPeelTimer > 90) {
+	if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f && m_banaPeelTimer > SARU_BANANAPEEL_TIME) {
 		m_banaPeel = g_goMgr.NewGO<BananaPeel>();
 		m_banaPeel->SetPlayer(m_pl);
 		m_banaPeel->SetMoveSpd(saruFoward);
@@ -197,7 +203,7 @@ void Saru::Stun()
 void Saru::Found()
 {
 	CVector3 positionY = m_position;
-	positionY.y = m_position.y + 160.0f;
+	positionY.y = m_position.y + SARU_BIKKURIMARK_POSITION_Y;
 
 	m_bikkuriMark = g_goMgr.NewGO<BikkuriMark>();
 	m_bikkuriMark->SetPosition(positionY);
@@ -221,7 +227,7 @@ void Saru::AttackDistance()
 	CVector3 toSaruDir = m_pl->GetPos() - m_position;
 	float toSaruLen = toSaruDir.Length();
 
-	if (toSaruLen < 90.0f) {
+	if (toSaruLen < SARU_ATTACK_DISTANCE) {
 		m_enSaruState = enState_attack;
 	}
 }
