@@ -21,7 +21,7 @@ Player::Player()
 	//キャラクターコントローラーの初期化
 	m_charaCon.Init(50.0f, 100.0f, m_position);
 	
-	//ぷれいやーのアニメーションをロード
+	//プレイヤーのアニメーションをロード
 	m_animationClip[enAnim_walk].Load(L"Assets/animData/Player-walk.tka");
 	m_animationClip[enAnim_wait].Load(L"Assets/animData/Player-taiki.tka");
 	m_animationClip[enAnim_saruGet].Load(L"Assets/animData/Player-SaruGet.tka");
@@ -31,6 +31,7 @@ Player::Player()
 	m_animationClip[enAnim_attack].Load(L"Assets/animData/Player-attack.tka");
 	m_animationClip[enAnim_death].Load(L"Assets/animData/Player-death.tka");
 
+	//アニメーションのループ設定。
 	m_animationClip[enAnim_walk].SetLoopFlag(true);
 	m_animationClip[enAnim_wait].SetLoopFlag(true);
 
@@ -41,9 +42,9 @@ Player::Player()
 	m_enAnimClip = enAnim_wait;
 
 	//プレイヤーの初期状態
-	//m_enPlayerState = enState_taiki;
 	m_currentState = &m_playerStateWait;
 
+	//シャドウレシーバーを設定。
 	m_model.SetShadowReciever(true);
 }
 
@@ -54,12 +55,8 @@ Player::~Player()
 
 void Player::Update()
 {
+	//プレイヤーの重力
 	m_moveSpeed.y -= PLAYER_GRAVITY *  GameTime().GetFrameDeltaTime();
-
-	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
-
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
 	//プレイヤーの状態
 	m_currentState->Init(this);
@@ -73,7 +70,6 @@ void Player::Update()
 		m_animation.Play(enAnim_wait, animTime);
 		break;
 	case enAnim_walk:		//歩きアニメーション
-		//m_player_walkSE.Play(false);
 		m_animation.Play(enAnim_walk, animTime);
 		break;
 	case enAnim_saruGet:	//サルの捕獲アニメーション
@@ -95,9 +91,10 @@ void Player::Update()
 		m_animation.Play(enAnim_death, animTime);
 		break;
 	}
+	//アニメーションの更新。
+	m_animation.Update(GameTime().GetFrameDeltaTime());
 
-	m_animation.Update(1.0f / 30.0f);
-
+	//シャドウキャスターを設定。
 	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
 
 	//シャドウマップの作成
@@ -106,7 +103,14 @@ void Player::Update()
 		m_position
 	);
 
+	//トゥーンレンダーを設定。
 	ToonRender::GetInstance().RegistToonRender(&m_model);
+
+	//キャラコンの更新。
+	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
+
+	//ワールド行列の更新。
+	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
 void Player::Move()
@@ -151,6 +155,7 @@ void Player::GetSaru()
 		float d = plFoward.Dot(toPlayerDir);
 		float angle = acos(d);
 
+		//サルを捕まえる範囲。
 		if (fabsf(angle) < CMath::DegToRad(45.0f) && toEnemyLen < PLAYER_SARU_DISTANCE)
 		{
 			m_sarus[i]->GetSaru();
@@ -211,6 +216,7 @@ void Player::DeleteGunEnemy(GunEnemy * gunEnemy)
 
 void Player::Attacked()
 {
+	//攻撃を受けたフラグ
 	m_playerHp->SetDamageFlag(true);
 	m_enPlayerState = enState_attacked;
 }
@@ -220,6 +226,7 @@ void Player::Sliped()
 	m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;
 
+	//回転する。
 	CQuaternion addRot;
 	addRot.SetRotationDeg(CVector3::AxisY(), 5.0f);
 	m_rotation.Multiply(addRot);
@@ -229,12 +236,14 @@ void Player::Jump()
 {
 	if (g_pad[0].IsTrigger(enButtonA))
 	{
+		//ジャンプする
+		m_moveSpeed.y = PLAYER_JUMP_POWER;
+		m_enPlayerState = enState_Jump;
+
+		//サウンドの再生。
 		prefab::CSoundSource* player_JumpSE = g_goMgr.NewGO<prefab::CSoundSource>();
 		player_JumpSE->Init(L"Assets/Sound/PlayerSE_Jump.wav");
 		player_JumpSE->Play(false);
-
-		m_moveSpeed.y = PLAYER_JUMP_POWER;
-		m_enPlayerState = enState_Jump;
 	}
 }
 
@@ -245,6 +254,7 @@ void Player::SaruGet()
 		m_moveSpeed.x = 0.0f;
 		m_moveSpeed.z = 0.0f;
 
+		//サウンドの再生。
 		prefab::CSoundSource* player_AmiSE = g_goMgr.NewGO<prefab::CSoundSource>();
 		player_AmiSE->Init(L"Assets/Sound/PlayerSE_Ami.wav");
 		player_AmiSE->Play(false);
@@ -262,6 +272,7 @@ void Player::AttackTry()
 
 		m_enPlayerState = enState_attack;
 
+		//サウンドの再生。
 		prefab::CSoundSource* player_AmiSE = g_goMgr.NewGO<prefab::CSoundSource>();
 		player_AmiSE->Init(L"Assets/Sound/PlayerSE_sword.wav");
 		player_AmiSE->Play(false);
