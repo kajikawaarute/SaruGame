@@ -8,12 +8,12 @@ public:
 	~GameClear();
 	
 	/// <summary>
-	/// 更新関数
+	/// ゲームクリアの更新関数
 	/// </summary>
 	void Update();
 
 	/// <summary>
-	/// 描画関数
+	/// ゲームクリアの描画関数
 	/// </summary>
 	void Draw();
 
@@ -21,11 +21,6 @@ public:
 	/// スプライトバッチの描画関数
 	/// </summary>
 	void SpriteBatchDraw();
-
-	float GetPositionY()
-	{
-		return m_positionY;
-	}
 private:
 	DirectX::SpriteBatch* m_spriteBatch;					//スプライトバッチ
 	DirectX::FXMVECTOR color = DirectX::Colors::White;		//カラー。

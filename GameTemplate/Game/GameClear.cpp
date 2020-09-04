@@ -2,10 +2,15 @@
 #include "GameClear.h"
 #include "IGameObjectManager.h"
 
+const float GAMECLEAR_POSITION_Y = 100.0f;		//ゲームオーバーの文字が落ちる座標Y
+const float GAMECLEAR_MOVE_SPEED = 10.0f;	//ゲームオーバーの文字が落ちる速度。
+
 GameClear::GameClear()
 {
 	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
 	m_device = g_graphicsEngine->GetDevice();
+
+	//画像の読み込み。
 	DirectX::CreateDDSTextureFromFile(
 		m_device,
 		L"Assets/sprite/GAMECLEAR.dds",
@@ -20,9 +25,10 @@ GameClear::~GameClear()
 
 void GameClear::Update()
 {
-	if (m_positionY < 100.0f)
+	//ゲームクリアの文字が落ちる。
+	if (m_positionY < GAMECLEAR_POSITION_Y)
 	{
-		m_positionY += 10.0f;
+		m_positionY += GAMECLEAR_MOVE_SPEED;
 	}
 }
 
