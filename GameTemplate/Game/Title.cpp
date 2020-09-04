@@ -3,6 +3,9 @@
 #include "IGameObjectManager.h"
 #include "Game.h"
 
+const float TITLE_POSITION_X = 50.0f;	//タイトル文字の座標X
+const float TITLE_POSITION_Y = 10.0f;	//タイトル文字の座標Y
+
 Title::Title()
 {
 	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
@@ -53,10 +56,10 @@ void Title::Update()
 		g_goMgr.DeleteGO(this);
 	}
 	if (m_positionX[1] < 0.0f) {
-		m_positionX[1] += 50.0f;
+		m_positionX[1] += TITLE_POSITION_X;
 	}
 	if (m_positionY[2] > 0.0f) {
-		m_positionY[2] -= 10.0f;
+		m_positionY[2] -= TITLE_POSITION_Y;
 	}
 	
 }
