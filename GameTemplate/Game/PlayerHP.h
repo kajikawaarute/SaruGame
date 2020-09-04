@@ -8,12 +8,12 @@ public:
 	~PlayerHP();
 
 	/// <summary>
-	/// 更新関数
+	/// プレイヤーHPの更新関数
 	/// </summary>
 	void Update();
 
 	/// <summary>
-	/// 描画関数
+	/// プレイヤーHPの描画関数
 	/// </summary>
 	void Draw();
 

@@ -2,11 +2,15 @@
 #include "IGameObjectManager.h"
 #include "PlayerHP.h"
 
+const float PLAYER_HP_SPRITE_SCALE = 0.005f;	//プレイヤーHPの拡大率
+const float PLAYER_HP_SPRITE_SIZE = 0.001f;		//プレイヤーHPの大きさ
+
 PlayerHP::PlayerHP()
 {
 	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
 
 	for (int i = 0; i < m_playerHP; i++) {
+		//画像の読み込み。
 		m_device[i] = g_graphicsEngine->GetDevice();
 		DirectX::CreateDDSTextureFromFile(
 			m_device[i],						//デバイス
@@ -25,6 +29,7 @@ void PlayerHP::Update()
 {
 	if (m_muteki) {
 		m_mutekiTimer++;
+		//無敵時間
 		if (m_mutekiTimer > 30) {
 			m_muteki = false;
 			m_damageFlag = false;
@@ -33,21 +38,21 @@ void PlayerHP::Update()
 	}
 
 	if (!m_muteki) {
-		if (m_damageFlag && m_scale[2] > 0.001f) {
-			m_scale[2] -= 0.005f;
-			if (m_scale[2] < 0.001f){
+		if (m_damageFlag && m_scale[2] > PLAYER_HP_SPRITE_SIZE) {
+			m_scale[2] -= PLAYER_HP_SPRITE_SCALE;
+			if (m_scale[2] < PLAYER_HP_SPRITE_SIZE){
 				m_muteki = true;
 			}
 		}
-		else if (m_damageFlag && m_scale[1] > 0.001f) {
-			m_scale[1] -= 0.005f;
-			if (m_scale[1] < 0.001f) {
+		else if (m_damageFlag && m_scale[1] > PLAYER_HP_SPRITE_SIZE) {
+			m_scale[1] -= PLAYER_HP_SPRITE_SCALE;
+			if (m_scale[1] < PLAYER_HP_SPRITE_SIZE) {
 				m_muteki = true;
 			}
 		}
-		else if (m_damageFlag && m_scale[0] > 0.001f) {
-			m_scale[0] -= 0.005f;
-			if (m_scale[0] < 0.001f) {
+		else if (m_damageFlag && m_scale[0] > PLAYER_HP_SPRITE_SIZE) {
+			m_scale[0] -= PLAYER_HP_SPRITE_SCALE;
+			if (m_scale[0] < PLAYER_HP_SPRITE_SIZE) {
 				m_gameOverFlag = true;
 			}
 		}
