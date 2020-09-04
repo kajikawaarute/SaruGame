@@ -7,7 +7,15 @@ class Stage2 : public IGameObject
 public:
 	Stage2();
 	~Stage2();
+
+	/// <summary>
+	/// ステージ2の更新関数
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// ステージ2の描画関数
+	/// </summary>
 	void Draw();
 
 	/// <summary>
