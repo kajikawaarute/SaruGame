@@ -20,12 +20,12 @@ public:
 	void Draw();
 
 	/// <summary>
-	/// 深度値を出力する処理
+	/// 深度値を書き込むためのパス
 	/// </summary>
 	void ZPrepass();
 
 	/// <summary>
-	/// トゥーンレンダのSRVを取得
+	/// トゥーンレンダーのSRVを取得
 	/// </summary>
 	/// <returns></returns>
 	ID3D11ShaderResourceView* GetToonRenderSRV()
