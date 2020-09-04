@@ -69,7 +69,7 @@ public:
 		m_pl = player;
 	}
 private:
-	SkinModel m_model;
+	SkinModel m_model;										//ƒ‚ƒfƒ‹
 	CVector3 m_position = CVector3::Zero();					//À•W
 	CVector3 m_moveSpeed = CVector3::Zero();				//ˆÚ“®‘¬“x
 	CQuaternion m_rotation = CQuaternion::Identity();		//‰ñ“]
