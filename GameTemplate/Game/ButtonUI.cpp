@@ -10,7 +10,7 @@ ButtonUI::ButtonUI()
 
 	DirectX::CreateDDSTextureFromFile(
 		m_device,							//デバイス
-		L"Resource/sprite/Button_UI.dds",		//読み込む画像ファイル
+		L"Assets/sprite/Button_UI.dds",		//読み込む画像ファイル
 		nullptr,
 		&m_shaderResourceView				//読み込んだファイルの情報を格納
 	);
