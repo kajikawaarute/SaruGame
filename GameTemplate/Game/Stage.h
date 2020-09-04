@@ -8,7 +8,15 @@ class Stage : public IGameObject
 public:
 	Stage();
 	~Stage();
+
+	/// <summary>
+	/// ステージの更新関数
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// ステージの描画関数
+	/// </summary>
 	void Draw();
 
 	/// <summary>
