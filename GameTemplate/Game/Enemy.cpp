@@ -64,16 +64,17 @@ void Enemy::Update()
 		break;
 	}
 
-	m_animation.Update(1.0f / 30.0f);
-
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+	//アニメーションの更新。
+	m_animation.Update(GameTime().GetFrameDeltaTime());
 
 	//シャドウキャスターを設定。
 	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
 
 	//トゥーンレンダを設定。
 	ToonRender::GetInstance().RegistToonRender(&m_model);
+
+	//ワールド行列の更新。
+	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
 void Enemy::Draw()
