@@ -35,6 +35,7 @@ JumpFloor::~JumpFloor()
 
 void JumpFloor::Update()
 {
+	//ゴーストオブジェクトの判定。
 	g_physics.ContactTest(m_player->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject)) {
 			prefab::CSoundSource* jumpFloorSE = g_goMgr.NewGO<prefab::CSoundSource>();
@@ -45,6 +46,7 @@ void JumpFloor::Update()
 		}
 		});
 
+	//ジャンプ台のアニメーション
 	switch (m_enAnimClip)
 	{
 	case JumpFloor::enAnim_wait:
