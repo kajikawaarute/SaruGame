@@ -26,8 +26,6 @@ const int GAMEOVER_TITLE_TIME = 60;			//ゲームオーバーからタイトルに遷移するまで
 const float PLAYER_DEATH_HEIGHT = -300.0f;	//プレイヤーが落ちた時にゲームオーバーになる高さ。
 Game::Game()
 {
-	stageNo = 1;
-
 	//ステージ1
 	if (stageNo == 0) {
 		m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
@@ -238,11 +236,10 @@ Game::~Game()
 	if (m_playerHP->GetGameOver() == true) {
 		g_goMgr.NewGO<Title>();
 	}
-	//ステージ番号が0の時にタイトルに遷移する。
+	//ステージ番号が0の時にステージ2に遷移する。
 	else if (stageNo == 0) {
 		stageNo = 1;
 		g_goMgr.NewGO<Game>();
-		g_goMgr.NewGO<Title>();
 	}
 	//ステージ番号が1の時にタイトルに遷移する。
 	else if (stageNo == 1) {

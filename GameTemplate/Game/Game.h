@@ -26,7 +26,15 @@ public:
 	static int stageNo;	//ステージ番号
 	Game();
 	~Game();
+
+	/// <summary>
+	/// ゲームの更新関数
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// ゲームの描画関数
+	/// </summary>
 	void Draw();
 private:
 	enum { MAX_SARU = 100 };				//1ステージのサルの最大数。
