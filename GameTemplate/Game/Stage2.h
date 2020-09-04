@@ -14,7 +14,7 @@ public:
 	/// 座標を設定。
 	/// </summary>
 	/// <param name="pos"></param>
-	void Setposition(const CVector3& pos)
+	void SetPosition(const CVector3& pos)
 	{
 		m_position = pos;
 	}
@@ -28,7 +28,7 @@ public:
 		m_rotation = rot;
 	}
 private:
-	SkinModel m_model;
+	SkinModel m_model;									//モデル
 
 	CVector3 m_position = CVector3::Zero();				//座標
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転

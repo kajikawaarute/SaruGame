@@ -26,7 +26,7 @@ const int GAMEOVER_TITLE_TIME = 60;			//ゲームオーバーからタイトルに遷移するまで
 const float PLAYER_DEATH_HEIGHT = -300.0f;	//プレイヤーが落ちた時にゲームオーバーになる高さ。
 Game::Game()
 {
-	//stageNo = 1;
+	stageNo = 1;
 
 	//ステージ1
 	if (stageNo == 0) {
@@ -124,7 +124,7 @@ Game::Game()
 			{
 				if (wcscmp(objData.name, L"stage_02") == 0) {
 					m_stage2 = g_goMgr.NewGO<Stage2>();
-					m_stage2->Setposition(objData.position);
+					m_stage2->SetPosition(objData.position);
 					m_stage2->SetRotation(objData.rotation);
 					return true;
 				}

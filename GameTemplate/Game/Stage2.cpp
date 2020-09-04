@@ -5,9 +5,13 @@
 
 Stage2::Stage2()
 {
+	//モデルの初期化。
 	m_model.Init(L"Assets/modelData/stage_02.cmo");
+
+	//静的オブジェクトを作成。
 	m_staticObject.CreateMeshObject(m_model, m_position, m_rotation);
 
+	//シャドウレシーバーを設定。
 	m_model.SetShadowReciever(true);
 }
 
