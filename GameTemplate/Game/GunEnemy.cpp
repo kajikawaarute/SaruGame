@@ -11,6 +11,7 @@ const float GUNENEMY_BULLET_POSITION_Y = 120.0f;	//ガンエネミーの弾丸を発射するY
 
 GunEnemy::GunEnemy()
 {
+	//モデルの初期化。
 	m_model.Init(L"Assets/modelData/GunEnemy.cmo");
 
 	//アニメーションをロード。
@@ -65,6 +66,7 @@ void GunEnemy::Update()
 		m_animation.Play(enAnim_found, m_animTime);
 		break;
 	}
+	//アニメーションの更新。
 	m_animation.Update(GameTime().GetFrameDeltaTime());
 
 	//シャドウキャスターを設定。
