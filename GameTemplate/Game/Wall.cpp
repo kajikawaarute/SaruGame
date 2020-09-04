@@ -4,8 +4,10 @@
 
 Wall::Wall()
 {
+	//モデルの初期化。
 	m_model.Init(L"Assets/modelData/wall.cmo");
 
+	//シャドウレシーバーを設定。
 	m_model.SetShadowReciever(true);
 }
 
@@ -16,11 +18,11 @@ Wall::~Wall()
 
 void Wall::Update()
 {
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-
 	//トゥーンレンダを設定。
 	ToonRender::GetInstance().RegistToonRender(&m_model);
+
+	//ワールド行列の更新。
+	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
 void Wall::Draw()

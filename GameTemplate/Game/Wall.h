@@ -7,7 +7,15 @@ class Wall : public IGameObject
 public:
 	Wall();
 	~Wall();
+
+	/// <summary>
+	/// 壁の更新関数。
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// 壁の描画関数。
+	/// </summary>
 	void Draw();
 
 	/// <summary>
