@@ -5,6 +5,7 @@
 
 BikkuriMark::BikkuriMark()
 {
+	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»B
 	m_model.Init(L"Assets/modelData/Bikkuri_Mark.cmo");
 }
 

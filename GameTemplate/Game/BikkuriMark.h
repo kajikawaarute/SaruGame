@@ -7,19 +7,19 @@ public:
 	BikkuriMark();
 	~BikkuriMark();
 	/// <summary>
-	/// 更新関数
+	/// ビックリマークの更新関数
 	/// </summary>
 	void Update();
 
 	/// <summary>
-	/// 描画関数
+	/// ビックリマークの描画関数
 	/// </summary>
 	void Draw();
 
 	/// <summary>
 	/// 座標を設定。
 	/// </summary>
-	/// <param name="pos"></param>
+	/// <param name="pos">座標</param>
 	void SetPosition(CVector3 pos)
 	{
 		m_position = pos;
