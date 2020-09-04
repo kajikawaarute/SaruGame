@@ -9,6 +9,7 @@
 const float FLOOR_JUMP_POWER = 4000.0f;		//ジャンプ台ジャンプパワー。
 JumpFloor::JumpFloor()
 {
+	//モデルの初期化。
 	m_model.Init(L"Assets/modelData/JumpFloor2.cmo");
 
 	//アニメーションをロード
@@ -63,11 +64,11 @@ void JumpFloor::Update()
 
 	m_animation.Update(1.0f / 30.0f);
 
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-
 	//トゥーンレンダを設定。
 	ToonRender::GetInstance().RegistToonRender(&m_model);
+
+	//ワールド行列の更新。
+	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
 void JumpFloor::Draw()

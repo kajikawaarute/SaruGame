@@ -11,12 +11,12 @@ public:
 	JumpFloor();
 	~JumpFloor();
 	/// <summary>
-	/// 更新関数
+	/// シャンプ台の更新関数
 	/// </summary>
 	void Update();
 
 	/// <summary>
-	/// 描画関数
+	/// ジャンプ台の描画関数
 	/// </summary>
 	void Draw();
 
