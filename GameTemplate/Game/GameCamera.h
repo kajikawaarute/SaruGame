@@ -6,7 +6,15 @@ class GameCamera : public IGameObject
 public:
 	GameCamera();
 	~GameCamera();
+
+	/// <summary>
+	/// ゲームカメラの更新関数
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// ゲームカメラの描画関数。
+	/// </summary>
 	void Draw();
 
 	/// <summary>
