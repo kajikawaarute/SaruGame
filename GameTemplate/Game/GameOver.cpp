@@ -1,11 +1,15 @@
 #include "stdafx.h"
 #include "GameOver.h"
 
+const float GAMEOVER_POSITION_Y = 100.0f;		//ゲームオーバーの文字が落ちる座標Y
+const float GAMEOVER_MOVE_POSITION = 10.0f;	//ゲームオーバーの文字が落ちる速度。
 
 GameOver::GameOver()
 {
 	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
 	m_device = g_graphicsEngine->GetDevice();
+
+	//画像の読み込み
 	DirectX::CreateDDSTextureFromFile(
 		m_device,
 		L"Assets/sprite/GAMEOVER.dds",
@@ -20,9 +24,10 @@ GameOver::~GameOver()
 
 void GameOver::Update()
 {
-	if (m_positionY < 100.0f)
+	//ゲームオーバーの文字が落ちる。
+	if (m_positionY < GAMEOVER_POSITION_Y)
 	{
-		m_positionY += 10.0f;
+		m_positionY += GAMEOVER_MOVE_POSITION;
 	}
 }
 

@@ -6,8 +6,20 @@ class GameOver : public IGameObject
 public:
 	GameOver();
 	~GameOver();
+
+	/// <summary>
+	/// ゲームオーバーの更新関数
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// ゲームオーバーの描画関数
+	/// </summary>
 	void Draw();
+
+	/// <summary>
+	/// SpriteBatchの描画関数
+	/// </summary>
 	void SpriteBatchDraw();
 private:
 	DirectX::SpriteBatch* m_spriteBatch;					//スプライトバッチ
