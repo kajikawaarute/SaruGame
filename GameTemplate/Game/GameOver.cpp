@@ -2,7 +2,7 @@
 #include "GameOver.h"
 
 const float GAMEOVER_POSITION_Y = 100.0f;		//ゲームオーバーの文字が落ちる座標Y
-const float GAMEOVER_MOVE_POSITION = 10.0f;	//ゲームオーバーの文字が落ちる速度。
+const float GAMEOVER_MOVE_SPEED = 10.0f;	//ゲームオーバーの文字が落ちる速度。
 
 GameOver::GameOver()
 {
@@ -27,7 +27,7 @@ void GameOver::Update()
 	//ゲームオーバーの文字が落ちる。
 	if (m_positionY < GAMEOVER_POSITION_Y)
 	{
-		m_positionY += GAMEOVER_MOVE_POSITION;
+		m_positionY += GAMEOVER_MOVE_SPEED;
 	}
 }
 
