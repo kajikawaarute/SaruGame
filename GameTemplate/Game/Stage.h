@@ -10,19 +10,29 @@ public:
 	~Stage();
 	void Update();
 	void Draw();
-	void Setposition(const CVector3& pos)
+
+	/// <summary>
+	/// ステージの座標を設定。
+	/// </summary>
+	/// <param name="pos">座標</param>
+	void SetPosition(const CVector3& pos)
 	{
 		m_position = pos;
 	}
+
+	/// <summary>
+	/// ステージの回転を設定。
+	/// </summary>
+	/// <param name="rot"></param>
 	void SetRotation(const CQuaternion rot)
 	{
 		m_rotation = rot;
 	}
 private:
-	SkinModel m_model;
-	CVector3 m_position = CVector3::Zero();
-	CQuaternion m_rotation = CQuaternion::Identity();
-	CVector3 m_scale = CVector3::One();
+	SkinModel m_model;									//モデル
+	CVector3 m_position = CVector3::Zero();				//座標
+	CQuaternion m_rotation = CQuaternion::Identity();	//回転
+	CVector3 m_scale = CVector3::One();					//拡大率
 
 	PhysicsStaticObject m_static;						//静的オブジェクト
 };
