@@ -6,7 +6,15 @@ class Sky : public IGameObject
 public:
 	Sky();
 	~Sky();
+
+	/// <summary>
+	/// ‹ó‚ÌXVŠÖ”
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// ‹ó‚Ì•`‰æŠÖ”
+	/// </summary>
 	void Draw();
 
 	/// <summary>

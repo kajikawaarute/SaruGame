@@ -3,6 +3,7 @@
 
 Sky::Sky()
 {
+	//モデルの初期化。
 	m_model.Init(L"Assets/modelData/SkyBox.cmo");
 }
 
@@ -12,6 +13,7 @@ Sky::~Sky()
 
 void Sky::Update()
 {
+	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
