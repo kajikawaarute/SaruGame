@@ -5,9 +5,9 @@
 ButtonUI::ButtonUI()
 {
 	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
-
 	m_device = g_graphicsEngine->GetDevice();
 
+	//画像の読み込み。
 	DirectX::CreateDDSTextureFromFile(
 		m_device,							//デバイス
 		L"Assets/sprite/Button_UI.dds",		//読み込む画像ファイル

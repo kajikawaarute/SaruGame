@@ -6,8 +6,20 @@ class ButtonUI : public IGameObject
 public:
 	ButtonUI();
 	~ButtonUI();
+
+	/// <summary>
+	/// ButtonUIの更新関数
+	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// ButtonUIの描画関数
+	/// </summary>
 	void Draw();
+
+	/// <summary>
+	/// SpriteBatchの描画関数
+	/// </summary>
 	void SpriteBatch();
 private:
 	DirectX::SpriteBatch* m_spriteBatch;					//スプライトバッチ
