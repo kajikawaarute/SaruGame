@@ -11,7 +11,10 @@
 
 Stage::Stage()
 {
+	//モデルの初期化。
 	m_model.Init(L"Assets/modelData/stage_01.cmo");
+
+	//静的オブジェクトを作成。
 	m_static.CreateMeshObject(m_model, m_position, m_rotation);
 
 	//シャドウレシーバーを設定
@@ -25,14 +28,14 @@ Stage::~Stage()
 
 void Stage::Update()
 {
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-
 	//シャドウキャスターを設定
 	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
 
 	//トゥーンレンダを設定。
 	ToonRender::GetInstance().RegistToonRender(&m_model);
+
+	//ワールド行列の更新。
+	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
 void Stage::Draw()
