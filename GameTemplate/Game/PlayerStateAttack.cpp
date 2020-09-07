@@ -5,7 +5,7 @@
 #include "GunEnemy.h"
 #include "Saru.h"
 
-const float PLAYER_ATTACK_DISTANCE = 150.0f;	//プレイヤーの攻撃距離。
+const float PLAYER_ATTACK_DISTANCE = 170.0f;	//プレイヤーの攻撃距離。
 const float PLAYER_ATTACK_ANGLE = 45.0f;		//プレイヤーの攻撃視野。
 
 void PlayerStateAttack::OnEnter()
