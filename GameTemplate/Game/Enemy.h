@@ -5,6 +5,9 @@
 #include "EnemyStateWait.h"
 #include "EnemyStateMove.h"
 
+#include "sound/SoundEngine.h"
+#include "sound/SoundSource.h"
+
 class Player;
 class Enemy : public IGameObject
 {

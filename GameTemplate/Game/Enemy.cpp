@@ -5,8 +5,9 @@
 #include "graphics/ShadowMap.h"
 #include "graphics/ToonRender.h"
 
-const float ENEMY_MOVE_SPPED = 5.0f;		//エネミーの移動速度。
+const float ENEMY_MOVE_SPPED = 5.0f;					//エネミーの移動速度。
 const float ENEMY_FOUND_PLAYER_DISTANCE = 90.0f;		//エネミーがプレイヤーを見つける距離。
+const float ENEMY_DEATH_SE_VOLUME = 1.5f;				//エネミ－が倒された時のSEのボリューム
 
 Enemy::Enemy()
 {
@@ -131,6 +132,12 @@ void Enemy::Delete()
 {
 	//エフェクトを表示。
 	m_playEffectHandle = g_effekseerManager->Play(m_enemyDeathEffekt, m_position.x, m_position.y, m_position.z);
+
+	//サウンドの再生。
+	prefab::CSoundSource* enemySE_Death = g_goMgr.NewGO<prefab::CSoundSource>();
+	enemySE_Death->Init(L"Assets/Sound/EnemySE_Death.wav");
+	enemySE_Death->Play(false);
+	enemySE_Death->SetVolume(ENEMY_DEATH_SE_VOLUME);
 
 	g_goMgr.DeleteGO(this);
 	m_pl->DeleteEnemy(this);
