@@ -21,6 +21,7 @@ GunEnemy::GunEnemy()
 
 	//エフェクトの生成。
 	m_gunEnemyDeathEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/EnemyDeath.efk");
+	m_gunEnemySandDustEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/GunEnemySandDust.efk");
 
 	//アニメーションのループフラグを設定。
 	m_animClip[enAnim_wait].SetLoopFlag(true);

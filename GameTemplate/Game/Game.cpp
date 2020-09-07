@@ -255,6 +255,11 @@ Game::~Game()
 
 void Game::Update()
 {
+	if (g_pad[0].IsTrigger(enButtonSelect))
+	{
+		g_goMgr.DeleteGO(this);
+	}
+
 	//サルを全員捕まえたらゲームクリア
 	if (m_pl->GetSaruCount() == m_saruNo)
 	{

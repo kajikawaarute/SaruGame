@@ -115,10 +115,12 @@ private:
 
 	int m_bulletTimer = 0;			//弾を撃つまでの時間
 	bool m_foundFlag = false;		//見つかった時の判定
+	bool m_sandDustFlag = false;	//砂ぼこりを表示するかどうかのフラグ
 
 	Player* m_player = nullptr;		//プレイヤーのインスタンス
 
-	Effekseer::Effect* m_gunEnemyDeathEffekt = nullptr;		//エフェクト
+	Effekseer::Effect* m_gunEnemyDeathEffekt = nullptr;			//倒された時のエフェクト
+	Effekseer::Effect* m_gunEnemySandDustEffekt = nullptr;		//砂ぼこりのエフェクト
 	Effekseer::Handle m_playEffectHandle = -1;
 public:
 	/// <summary>

@@ -7,6 +7,15 @@ const float GUNENEMY_POSITION_Y_UP = 7.5f;		//ガンエネミーが上に上がる座標。
 
 void GunEnemyStateFound::OnEnter()
 {
+	if (m_gunEnemy->m_sandDustFlag == false) {
+		//エフェクトの表示。
+		m_gunEnemy->m_playEffectHandle = g_effekseerManager->Play(
+			m_gunEnemy->m_gunEnemySandDustEffekt,
+			m_gunEnemy->m_position.x,
+			m_gunEnemy->m_position.y,
+			m_gunEnemy->m_position.z);
+		m_gunEnemy->m_sandDustFlag = true;
+	}
 }
 
 void GunEnemyStateFound::Update()
