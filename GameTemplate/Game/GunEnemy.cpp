@@ -8,6 +8,7 @@
 
 const int GUNENEMY_BULLET_TIME = 30;			//ガンエネミーが弾丸を発射するタイム。
 const float GUNENEMY_BULLET_POSITION_Y = 120.0f;	//ガンエネミーの弾丸を発射するY座標。
+const float GUNENEMY_DEATH_SE_VOLUME = 1.5f;				//ガンエネミ－が倒された時のSEのボリューム
 
 GunEnemy::GunEnemy()
 {
@@ -100,10 +101,12 @@ void GunEnemy::Attack()
 
 	m_bulletTimer++;
 	if (m_bulletTimer == GUNENEMY_BULLET_TIME) {
-		prefab::CSoundSource* gunEnemyShotSE = g_goMgr.NewGO<prefab::CSoundSource>();
-		gunEnemyShotSE->Init(L"Assets/Sound/GunEnemy_shot.wav");
-		gunEnemyShotSE->Play(false);
+		//サウンドの再生。
+		prefab::CSoundSource* gunEnemySE_Shot = g_goMgr.NewGO<prefab::CSoundSource>();
+		gunEnemySE_Shot->Init(L"Assets/Sound/GunEnemy_shot.wav");
+		gunEnemySE_Shot->Play(false);
 
+		//弾丸の生成。
 		GunEnemyBullet* gunBullet = g_goMgr.NewGO<GunEnemyBullet>();
 		gunBullet->SetPlayer(m_player);
 		gunBullet->SetMoveSpd(gunEnemyFoward);
@@ -116,6 +119,12 @@ void GunEnemy::Death()
 {
 	//エフェクトを表示。
 	m_playEffectHandle = g_effekseerManager->Play(m_gunEnemyDeathEffekt, m_position.x, m_position.y, m_position.z);
+
+	//サウンドの再生。
+	prefab::CSoundSource* gunEnemySE_death = g_goMgr.NewGO<prefab::CSoundSource>();
+	gunEnemySE_death->Init(L"Assets/Sound/EnemySE_Death.wav");
+	gunEnemySE_death->Play(false);
+	gunEnemySE_death->SetVolume(GUNENEMY_DEATH_SE_VOLUME);
 
 	g_goMgr.DeleteGO(this);
 	m_player->DeleteGunEnemy(this);
