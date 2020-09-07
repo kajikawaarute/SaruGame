@@ -12,6 +12,7 @@ const float PLAYER_GRAVITY = 5000.0f;		//プレイヤーにかかる重力(単位cm/秒)。
 const float PLAYER_JUMP_POWER = 2000.0f;	//プレイヤーがジャンプしたときに加算される速度。
 const float PLAYER_MOVE_SPEED = 850.0f;		//プレイヤーの移動速度。
 const float PLAYER_SARU_DISTANCE = 300.0f;	//プレイヤーとサルの距離。
+const float PLAYER_SWORD_SE_VOLUME = 0.9f;	//プレイヤーが攻撃している時のSEのボリューム。
 
 Player::Player()
 {
@@ -273,9 +274,10 @@ void Player::AttackTry()
 		m_enPlayerState = enState_attack;
 
 		//サウンドの再生。
-		prefab::CSoundSource* player_AmiSE = g_goMgr.NewGO<prefab::CSoundSource>();
-		player_AmiSE->Init(L"Assets/Sound/PlayerSE_sword.wav");
-		player_AmiSE->Play(false);
+		prefab::CSoundSource* player_swordSE = g_goMgr.NewGO<prefab::CSoundSource>();
+		player_swordSE->Init(L"Assets/Sound/PlayerSE_sword.wav");
+		player_swordSE->Play(false);
+		player_swordSE->SetVolume(PLAYER_SWORD_SE_VOLUME);
 	}
 }
 
