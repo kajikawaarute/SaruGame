@@ -99,6 +99,10 @@ void GunEnemy::Attack()
 
 	m_bulletTimer++;
 	if (m_bulletTimer == GUNENEMY_BULLET_TIME) {
+		prefab::CSoundSource* gunEnemyShotSE = g_goMgr.NewGO<prefab::CSoundSource>();
+		gunEnemyShotSE->Init(L"Assets/Sound/GunEnemy_shot.wav");
+		gunEnemyShotSE->Play(false);
+
 		GunEnemyBullet* gunBullet = g_goMgr.NewGO<GunEnemyBullet>();
 		gunBullet->SetPlayer(m_player);
 		gunBullet->SetMoveSpd(gunEnemyFoward);

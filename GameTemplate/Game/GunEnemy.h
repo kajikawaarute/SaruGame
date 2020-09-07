@@ -5,6 +5,9 @@
 #include "GunEnemyStateAttack.h"
 #include "GunEnemyStateFound.h"
 
+#include "sound/SoundEngine.h"
+#include "sound/SoundSource.h"
+
 class Player;
 class GunEnemyBullet;
 class GunEnemy : public IGameObject
