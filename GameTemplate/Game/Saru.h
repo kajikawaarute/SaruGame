@@ -127,14 +127,6 @@ public:
 	}
 
 	/// <summary>
-	/// 怯んだ状態に設定。
-	/// </summary>
-	void ChangeStateStun()
-	{
-		m_enSaruState = enState_stun;
-	}
-
-	/// <summary>
 	/// 捕まえられた時に呼ばれる関数
 	/// </summary>
 	void Death();
@@ -158,6 +150,11 @@ public:
 	/// サルが攻撃した時のサウンドを再生する。
 	/// </summary>
 	void SaruAttackSound();
+
+	/// <summary>
+	/// サルが怯んだ時のサウンドを再生する。
+	/// </summary>
+	void SaruStunSound();
 
 	/// <summary>
 	/// 設定された座標をパスリストに登録

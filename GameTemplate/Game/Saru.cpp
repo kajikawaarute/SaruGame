@@ -12,7 +12,9 @@ const float SARU_RUN_SPPED = 1500.0f;			//サルの走っている時の移動速度。
 const float SARU_ATTACK_DISTANCE = 90.0f;		//サルが攻撃する距離。
 const int SARU_BANANAPEEL_TIME = 90;			//サルがバナナの皮を投げるタイム。
 const float SARU_BIKKURIMARK_POSITION_Y = 160.0f;	//ビックリマークを表示する座標Yを設定。
-const float SARU_PATH_DISTANCE = 50.0f;		//パスまでの距離。
+const float SARU_PATH_DISTANCE = 50.0f;				//パスまでの距離。
+const float SARU_STUN_SE_VOLUME = 1.5f;				//サルが怯んだ時のSEのボリューム
+
 
 Saru::Saru()
 {
@@ -194,9 +196,6 @@ void Saru::Stun()
 	m_enSaruState = enState_stun;
 	m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;
-	if (m_animation.IsPlaying() != true) {
-		m_enSaruState = enState_wait;
-	}
 }
 
 void Saru::Found()
@@ -254,17 +253,26 @@ void Saru::SaruGetSound()
 void Saru::SaruFoundSound()
 {
 	//サウンドを再生
-	prefab::CSoundSource* saruFoundSE = g_goMgr.NewGO<prefab::CSoundSource>();
-	saruFoundSE->Init(L"Assets/Sound/SaruSE_Found.wav");
-	saruFoundSE->Play(false);
+	prefab::CSoundSource* saruSE_Found = g_goMgr.NewGO<prefab::CSoundSource>();
+	saruSE_Found->Init(L"Assets/Sound/SaruSE_Found.wav");
+	saruSE_Found->Play(false);
 }
 
 void Saru::SaruAttackSound()
 {
 	//サウンドを再生
-	prefab::CSoundSource* saruAttackSE = g_goMgr.NewGO<prefab::CSoundSource>();
-	saruAttackSE->Init(L"Assets/Sound/SaruSE_Attack.wav");
-	saruAttackSE->Play(false);
+	prefab::CSoundSource* saruSE_Attack = g_goMgr.NewGO<prefab::CSoundSource>();
+	saruSE_Attack->Init(L"Assets/Sound/SaruSE_Attack.wav");
+	saruSE_Attack->Play(false);
+}
+
+void Saru::SaruStunSound()
+{
+	//サウンドを再生
+	prefab::CSoundSource* saruSE_Stun = g_goMgr.NewGO<prefab::CSoundSource>();
+	saruSE_Stun->Init(L"Assets/Sound/SaruSE_Stun.wav");
+	saruSE_Stun->Play(false);
+	saruSE_Stun->SetVolume(SARU_STUN_SE_VOLUME);
 }
 
 void Saru::ChangeState(EnSaruState nextState)
