@@ -220,6 +220,11 @@ void Player::Attacked()
 	//攻撃を受けたフラグ
 	m_playerHp->SetDamageFlag(true);
 	m_enPlayerState = enState_attacked;
+
+	//サウンドの再生。
+	prefab::CSoundSource* playerSE_damage = g_goMgr.NewGO<prefab::CSoundSource>();
+	playerSE_damage->Init(L"Assets/Sound/PlayerSE_Damage.wav");
+	playerSE_damage->Play(false);
 }
 
 void Player::Sliped()
@@ -242,9 +247,9 @@ void Player::Jump()
 		m_enPlayerState = enState_Jump;
 
 		//サウンドの再生。
-		prefab::CSoundSource* player_JumpSE = g_goMgr.NewGO<prefab::CSoundSource>();
-		player_JumpSE->Init(L"Assets/Sound/PlayerSE_Jump.wav");
-		player_JumpSE->Play(false);
+		prefab::CSoundSource* playerSE_Jump = g_goMgr.NewGO<prefab::CSoundSource>();
+		playerSE_Jump->Init(L"Assets/Sound/PlayerSE_Jump.wav");
+		playerSE_Jump->Play(false);
 	}
 }
 
@@ -256,9 +261,9 @@ void Player::SaruGet()
 		m_moveSpeed.z = 0.0f;
 
 		//サウンドの再生。
-		prefab::CSoundSource* player_AmiSE = g_goMgr.NewGO<prefab::CSoundSource>();
-		player_AmiSE->Init(L"Assets/Sound/PlayerSE_Ami.wav");
-		player_AmiSE->Play(false);
+		prefab::CSoundSource* playerSE_Ami = g_goMgr.NewGO<prefab::CSoundSource>();
+		playerSE_Ami->Init(L"Assets/Sound/PlayerSE_Ami.wav");
+		playerSE_Ami->Play(false);
 		m_enPlayerState = enState_saruGet;
 	}
 	
@@ -274,10 +279,10 @@ void Player::AttackTry()
 		m_enPlayerState = enState_attack;
 
 		//サウンドの再生。
-		prefab::CSoundSource* player_swordSE = g_goMgr.NewGO<prefab::CSoundSource>();
-		player_swordSE->Init(L"Assets/Sound/PlayerSE_sword.wav");
-		player_swordSE->Play(false);
-		player_swordSE->SetVolume(PLAYER_SWORD_SE_VOLUME);
+		prefab::CSoundSource* playerSE_sword = g_goMgr.NewGO<prefab::CSoundSource>();
+		playerSE_sword->Init(L"Assets/Sound/PlayerSE_sword.wav");
+		playerSE_sword->Play(false);
+		playerSE_sword->SetVolume(PLAYER_SWORD_SE_VOLUME);
 	}
 }
 
