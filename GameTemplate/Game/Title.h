@@ -39,7 +39,7 @@ private:
 	float m_scale[3] = { 1.0f, 1.0f, 1.0f };			//拡大率
 	float m_depth[3] = { 0.0f, 0.0f, 0.0f };			//スプライトの深度
 
-	int m_gameStartTimer = 0;
-	bool m_startFlag = false;
+	int m_gameStartTimer = 0;		//ゲームを始めるタイマー
+	bool m_startFlag = false;		//ゲームを始めるフラグ
 };
 
