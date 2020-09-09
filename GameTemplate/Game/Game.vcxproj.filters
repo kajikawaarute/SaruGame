@@ -276,6 +276,7 @@
     <ClCompile Include="BikkuriMark.cpp">
       <Filter>Saru</Filter>
     </ClCompile>
+    <ClCompile Include="Fade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -505,6 +506,7 @@
     <ClInclude Include="BikkuriMark.h">
       <Filter>Saru</Filter>
     </ClInclude>
+    <ClInclude Include="Fade.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -576,6 +578,9 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\Button_UI.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Fade.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

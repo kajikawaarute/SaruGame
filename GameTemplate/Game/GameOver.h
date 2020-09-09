@@ -1,6 +1,7 @@
 #pragma once
 #include "IGameObject.h"
 
+class Fade;
 class GameOver : public IGameObject
 {
 public:
@@ -34,5 +35,7 @@ private:
 	float m_rotation = 0.0f;			//画像の回転
 	float m_scale = 0.5f;				//拡大率
 	float m_depth = 0.0f;				//スプライトの深度
+
+	Fade* m_fade = nullptr;				//フェードのインスタンス
 };
 

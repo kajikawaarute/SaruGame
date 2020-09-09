@@ -2,6 +2,7 @@
 #include "IGameObject.h"
 
 class Game;
+class Fade;
 class Title : public IGameObject
 {
 public:
@@ -23,6 +24,7 @@ public:
 	void SpriteBatchDraw();
 private:
 	Game* m_game = nullptr;				//ゲームのインスタンス
+	Fade* m_fade = nullptr;
 
 	DirectX::SpriteBatch* m_spriteBatch;					//スプライトバッチ
 	DirectX::FXMVECTOR color = DirectX::Colors::White;		//カラー。
@@ -36,5 +38,8 @@ private:
 	float m_rotation[3] = { 0.0f, 0.0f, 0.0f };			//画像の回転
 	float m_scale[3] = { 1.0f, 1.0f, 1.0f };			//拡大率
 	float m_depth[3] = { 0.0f, 0.0f, 0.0f };			//スプライトの深度
+
+	int m_gameStartTimer = 0;
+	bool m_startFlag = false;
 };
 

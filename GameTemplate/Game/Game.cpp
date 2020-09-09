@@ -26,9 +26,6 @@ const int GAMEOVER_TITLE_TIME = 60;			//ゲームオーバーからタイトルに遷移するまで
 const float PLAYER_DEATH_HEIGHT = -300.0f;	//プレイヤーが落ちた時にゲームオーバーになる高さ。
 Game::Game()
 {
-
-	stageNo = 1;
-
 	//ステージ1
 	if (stageNo == 0) {
 		m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
@@ -255,11 +252,6 @@ Game::~Game()
 
 void Game::Update()
 {
-	if (g_pad[0].IsTrigger(enButtonSelect))
-	{
-		g_goMgr.DeleteGO(this);
-	}
-
 	//サルを全員捕まえたらゲームクリア
 	if (m_pl->GetSaruCount() == m_saruNo)
 	{

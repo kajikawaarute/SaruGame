@@ -2,9 +2,11 @@
 #include "Title.h"
 #include "IGameObjectManager.h"
 #include "Game.h"
+#include "Fade.h"
 
 const float TITLE_POSITION_X = 50.0f;	//タイトル文字の座標X
 const float TITLE_POSITION_Y = 10.0f;	//タイトル文字の座標Y
+const int TITLE_GAME_START_TIME = 60;	//ゲームを開始するタイム
 
 Title::Title()
 {
@@ -51,9 +53,17 @@ void Title::Update()
 {
 	if (g_pad[0].IsTrigger(enButtonStart) && m_positionX[1] == 0.0f && m_positionY[2] == 0.0f)
 	{
-		Game::stageNo = 0;
-		m_game = g_goMgr.NewGO<Game>();
-		g_goMgr.DeleteGO(this);
+		m_startFlag = true;
+	}
+	if (m_startFlag == true) {
+		m_gameStartTimer++;
+		m_fade = g_goMgr.NewGO<Fade>();
+		m_fade->StartFadeOut();
+		if (m_gameStartTimer > TITLE_GAME_START_TIME) {
+			Game::stageNo = 0;
+			m_game = g_goMgr.NewGO<Game>();
+			g_goMgr.DeleteGO(this);
+		}
 	}
 	if (m_positionX[1] < 0.0f) {
 		m_positionX[1] += TITLE_POSITION_X;

@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "GameOver.h"
+#include "IGameObjectManager.h"
+#include "Fade.h"
 
 const float GAMEOVER_POSITION_Y = 100.0f;		//ゲームオーバーの文字が落ちる座標Y
 const float GAMEOVER_MOVE_SPEED = 10.0f;	//ゲームオーバーの文字が落ちる速度。
@@ -28,6 +30,11 @@ void GameOver::Update()
 	if (m_positionY < GAMEOVER_POSITION_Y)
 	{
 		m_positionY += GAMEOVER_MOVE_SPEED;
+	}
+	else {
+		//フェードアウト
+		m_fade = g_goMgr.NewGO<Fade>();
+		m_fade->StartFadeOut();
 	}
 }
 
