@@ -50,9 +50,6 @@ struct SDirectionLight {
 cbuffer LightCb : register(b1) {
 	SDirectionLight directionLight;
 	float3 eyePos;
-	float specPow;
-	float3 ambientLight;
-
 }
 
 /// <summary>
@@ -221,16 +218,6 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 //--------------------------------------------------------------------------------------
 float4 PSMain( PSInput In ) : SV_Target0
 {
-	/*float4 albedoColor = albedoTexture.Sample(Sampler, In.TexCoord);
-
-	float3 lig = 0.0f;
-
-	float3 lig = max(0.0f, dot(In.Normal * -1.0f ,directionCb)) * colorCb;
-	float4 finalColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
-
-	finalColor.xyz = albedoColor.xyz * lig;
-	return finalColor;*/
-
 	float3 lig = 0.0f;
 	for (int i = 0; i < 4; i++) {
 		//ディレクションライトの拡散反射光を計算する。
@@ -238,18 +225,6 @@ float4 PSMain( PSInput In ) : SV_Target0
 	}
 		//アルベドカラーを引っ張ってくる。
 		float4 albedo = albedoTexture.Sample(Sampler, In.TexCoord);
-		/*//①　反射ベクトルRを求める。
-		//float3 R = directionLight.directionCb[i] + 2 * dot(In.Normal, -directionLight.directionCb[i]) * In.Normal;
-
-		//②　視点からライトをあてる物体に伸びるベクトルEを求める。
-		//float3 E = normalize(In.worldPos - eyePos);
-
-		// ①と②で求まったベクトルの内積を計算して、スペキュラ反射の強さを求める。
-		//float specPower = max(0, dot(R, -E));
-
-		//③スペキュラ反射をライトに加算する。
-		//lig += directionLight.color.xyz * pow(specPower * specPow);
-		//lig += directionLight.colorCb[i].xyz * pow(specPower, specPow);*/
 
 		//影の生成
 		if (isShadowReciever == 1) {

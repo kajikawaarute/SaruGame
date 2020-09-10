@@ -84,9 +84,6 @@ void SkinModel::InitConstantBuffer()
 
 void SkinModel::InitLightCB()
 {
-	/*m_dirLight.direction = { 1.0f, 0.0f, 0.0f, 1.0f };
-	m_dirLight.color = { 1.0f, 1.0f, 1.0f, 1.0f };*/
-
 	m_light.directionLight.direction[0] = { 1.0f, 0.0f, -1.0f, 1.0f };
 	m_light.directionLight.color[0] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
@@ -98,8 +95,6 @@ void SkinModel::InitLightCB()
 
 	m_light.directionLight.direction[3] = { -1.0f, -1.0f, 0.0f, 1.0f };
 	m_light.directionLight.color[3] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-	m_light.specPow = 10.0f;
 }
 
 
