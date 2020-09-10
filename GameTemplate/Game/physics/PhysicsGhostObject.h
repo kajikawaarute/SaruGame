@@ -30,7 +30,7 @@ public:
 	/// <summary>
 	/// À•W‚ğİ’è
 	/// </summary>
-	/// <param name="pos"></param>
+	/// <param name="pos">À•W</param>
 	void SetPosition(const CVector3& pos);
 private:
 
