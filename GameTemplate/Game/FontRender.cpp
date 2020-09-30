@@ -14,7 +14,7 @@ void FontRender::Update()
 {
 }
 
-void FontRender::DrawScreen(const wchar_t* text)
+void FontRender::SetText(const wchar_t* text)
 {
 	m_font.DrawScreenPos(
 		text,

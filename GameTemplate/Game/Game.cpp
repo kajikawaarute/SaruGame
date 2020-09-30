@@ -206,8 +206,10 @@ Game::Game()
 	m_buttonUI = g_goMgr.NewGO<ButtonUI>();
 
 	m_font = g_goMgr.NewGO<FontRender>();
-}
 
+	//フォントの座標を設定。
+	m_font->SetPosition(m_fontPosition);
+}
 
 Game::~Game()
 {
@@ -285,6 +287,8 @@ void Game::Update()
 			g_goMgr.DeleteGO(this);
 		}
 	}
+	//フォントの文字
+	swprintf(m_text, L"サル %d/%d", m_pl->GetSaruCount(), m_saruNo);
 }
 
 void Game::Draw()
@@ -292,6 +296,6 @@ void Game::Draw()
 	//レベルを描画
 	m_level.Draw();
 
-	//フォント
-	m_font->DrawScreen(L"Saru");
+	//フォントを描画
+	m_font->SetText(m_text);
 }

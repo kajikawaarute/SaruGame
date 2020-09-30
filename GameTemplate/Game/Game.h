@@ -69,12 +69,9 @@ private:
 	int m_gameClearTimer = 0;		//ゲームクリアまでのタイマー
 	int m_gameOverTimer = 0;		//ゲームオーバーまでのタイマー
 
-	FontRender* m_font = nullptr;
+	FontRender* m_font = nullptr;	//フォントレンダーのインスタンス
 
-	CVector2 m_FontPosition = { 100.0f, 100.0f };	//フォントの座標
-	CVector4 m_FontColor = CVector4::White();		//フォントのカラー
-	CVector2 m_FontScale = CVector2::One();			//フォントのサイズ
-	CVector2 m_FontPivot = CVector2::Zero();		//フォントのピボット
-	float m_FontRotation = 0.0f;					//フォントの回転
+	wchar_t m_text[64];								//テキスト
+	CVector2 m_fontPosition = { 20.0f, 100.0f };	//フォントの座標
 };
 

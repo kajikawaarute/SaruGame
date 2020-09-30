@@ -22,6 +22,14 @@ public:
 		this->x = x;
 		this->y = y;
 	}
+	/*!
+	*@brief	‘ã“ü‰‰ZqB
+	*/
+	CVector2& operator=(const CVector2& _v)
+	{
+		vec = _v.vec;
+		return *this;
+	}
 	union {
 		DirectX::XMFLOAT2 vec;
 		struct { float x, y; };
