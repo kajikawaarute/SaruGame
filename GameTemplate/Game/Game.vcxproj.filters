@@ -277,6 +277,8 @@
       <Filter>Saru</Filter>
     </ClCompile>
     <ClCompile Include="Fade.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="FontRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -507,6 +509,8 @@
       <Filter>Saru</Filter>
     </ClInclude>
     <ClInclude Include="Fade.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="FontRender.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

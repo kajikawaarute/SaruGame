@@ -16,6 +16,7 @@
 #include "level/Level.h"
 #include "ButtonUI.h"
 #include "Sky.h"
+#include "FontRender.h"
 
 int Game::stageNo = 0;
 
@@ -26,6 +27,8 @@ const int GAMEOVER_TITLE_TIME = 60;			//ゲームオーバーからタイトルに遷移するまで
 const float PLAYER_DEATH_HEIGHT = -300.0f;	//プレイヤーが落ちた時にゲームオーバーになる高さ。
 Game::Game()
 {
+	stageNo = 1;
+
 	//ステージ1
 	if (stageNo == 0) {
 		m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
@@ -201,6 +204,8 @@ Game::Game()
 	m_pl->SetPlayerHP(m_playerHP);
 
 	m_buttonUI = g_goMgr.NewGO<ButtonUI>();
+
+	m_font = g_goMgr.NewGO<FontRender>();
 }
 
 
@@ -231,6 +236,7 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_gameClear);
 	g_goMgr.DeleteGO(m_gameOver);
 	g_goMgr.DeleteGO(m_buttonUI);
+	g_goMgr.DeleteGO(m_font);
 
 	//プレイヤーのHPがなくなったらタイトルに遷移する。
 	if (m_playerHP->GetGameOver() == true) {
@@ -239,7 +245,7 @@ Game::~Game()
 	//ステージ番号が0の時にステージ2に遷移する。
 	else if (stageNo == 0) {
 		stageNo = 1;
-		g_goMgr.NewGO<Game>();
+		//g_goMgr.NewGO<Game>();
 	}
 	//ステージ番号が1の時にタイトルに遷移する。
 	else if (stageNo == 1) {
@@ -252,6 +258,10 @@ Game::~Game()
 
 void Game::Update()
 {
+	if (g_pad[0].IsTrigger(enButtonSelect) == true) {
+		g_goMgr.DeleteGO(this);
+	}
+
 	//サルを全員捕まえたらゲームクリア
 	if (m_pl->GetSaruCount() == m_saruNo)
 	{
@@ -265,7 +275,7 @@ void Game::Update()
 	}
 
 	//プレイヤーのHPがなくなったらゲームオーバー
-	if (m_playerHP->GetGameOver() == true || m_pl->GetPos().y < PLAYER_DEATH_HEIGHT) {
+	if (m_playerHP->GetGameOver() == true/* || m_pl->GetPos().y < PLAYER_DEATH_HEIGHT*/) {
 		m_gameOverTimer++;
 		if (m_gameOverTimer == GAMEOVER_TIME) {
 			m_gameOver = g_goMgr.NewGO<GameOver>();
@@ -281,4 +291,7 @@ void Game::Draw()
 {
 	//レベルを描画
 	m_level.Draw();
+
+	//フォント
+	m_font->DrawScreen(L"Saru");
 }

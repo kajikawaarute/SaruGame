@@ -56,6 +56,10 @@ private:
 	/// </summary>
 	/// <param name="textureFIlePath">ロードするテクスチャのファイルパス。</param>
 	void LoadTexture(const wchar_t* textureFIlePath);
+	/// <summary>
+	/// ラスタライザステートの初期化。
+	/// </summary>
+	void InitRasterizerState();
 private:
 
 	Shader	m_vs;											//頂点シェーダー。
@@ -65,5 +69,6 @@ private:
 	ID3D11Buffer*	m_cbGPU = nullptr;			//GPU側の定数バッファにアクセスするためのインターフェース。
 	ID3D11ShaderResourceView* m_texture = nullptr;	//テクスチャにアクセスするためのインターフェース。
 	ID3D11SamplerState* m_samplerState = nullptr;	//サンプラステート。
+	ID3D11RasterizerState* m_rasterizerState = nullptr;	//ラスタライザステート
 	CMatrix m_world = CMatrix::Identity();					//ワールド行列。
 };

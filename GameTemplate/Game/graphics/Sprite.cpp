@@ -51,6 +51,8 @@ void Sprite::Init(const wchar_t* textureFilePath, float w, float h)
 	CreateConstantBuffer();
 	//サンプラステートを作成。
 	CreateSamplerState();
+	//ラスタライザステートを初期化。
+	InitRasterizerState();
 	//テクスチャをロード。
 	LoadTexture(textureFilePath);
 }
@@ -175,6 +177,19 @@ void Sprite::LoadTexture(const wchar_t* textureFIlePath)
 		false,
 		nullptr,
 		&m_texture);
+}
+
+void Sprite::InitRasterizerState()
+{
+	//ID3Dデバイスを取得。
+	auto pd3d = g_graphicsEngine->GetD3DDevice();
+	//作成するラスタライザステートを設定。
+	D3D11_RASTERIZER_DESC desc = {};
+	desc.CullMode = D3D11_CULL_NONE;
+	desc.FillMode = D3D11_FILL_SOLID;
+	desc.DepthClipEnable = true;
+	desc.MultisampleEnable = true;
+	pd3d->CreateRasterizerState(&desc, &m_rasterizerState);
 }
 
 void Sprite::UpdateWorldMatrix(CVector3 pos, CQuaternion rot, CVector3 scale)

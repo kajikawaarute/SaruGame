@@ -154,4 +154,6 @@ void GraphicsEngine::Init(HWND hWnd)
 
 	//spriteBatch‚Ì‰Šú‰»
 	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(m_pd3dDeviceContext);
+	//m_spriteFont‚Ì‰Šú‰»
+	m_spriteFont = std::make_unique<DirectX::SpriteFont>(m_pd3dDevice, L"Assets/font/myfile.spritefont");
 }

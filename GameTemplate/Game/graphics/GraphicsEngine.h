@@ -51,6 +51,14 @@ public:
 		return m_spriteBatch.get();
 	}
 	/// <summary>
+	/// スプライトフォントを取得
+	/// </summary>
+	/// <returns></returns>
+	DirectX::SpriteFont* GetSpriteFont()
+	{
+		return m_spriteFont.get();
+	}
+	/// <summary>
 	/// D3D11デバイスを取得
 	/// </summary>
 	/// <returns></returns>
@@ -77,6 +85,7 @@ private:
 	ID3D11DepthStencilView* m_depthStencilView = NULL;	//デプスステンシルビュー。
 
 	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;	//スプライトバッチ
+	std::unique_ptr<DirectX::SpriteFont> m_spriteFont;		//スプライトフォント
 
 };
 

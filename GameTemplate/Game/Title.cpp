@@ -98,6 +98,5 @@ void Title::SpriteBatchDraw()
 		m_spriteBatch->End();
 	}
 
-	
 
 }
