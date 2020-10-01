@@ -1,6 +1,9 @@
 #pragma once
 #include "IGameObject.h"
 #include "Player.h"
+#define SKINMODELRENDER_MODE
+#ifdef SKINMODELRENDER_MODE
+
 class GameCamera : public IGameObject
 {
 public:
@@ -13,20 +16,15 @@ public:
 	void Update();
 
 	/// <summary>
-	/// ゲームカメラの描画関数。
-	/// </summary>
-	void Draw();
-
-	/// <summary>
 	/// プレイヤーのインスタンスを設定。
 	/// </summary>
 	/// <param name="player">プレイヤーのインスタンス</param>
 	void SetPlayer(Player* player)
 	{
-		pl = player;
+		m_player = player;
 	}
 private:
-	Player* pl = nullptr;		//プレイヤーのインスタンス
-	CVector3 m_toCameraPos;		//カメラの座標
+	Player* m_player = nullptr;		//プレイヤーのインスタンス
+	CVector3 m_toCameraPos;			//カメラの座標
 };
-
+#endif 

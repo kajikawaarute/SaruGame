@@ -18,7 +18,7 @@ GameCamera::~GameCamera()
 void GameCamera::Update()
 {
 	//注視点
-	CVector3 Target = pl->GetPos();
+	CVector3 Target = m_player->GetPos();
 	Target.y += 50.0f;
 
 	//Rスティックでカメラを回す
@@ -53,8 +53,4 @@ void GameCamera::Update()
 	g_camera3D.SetTarget(Target);
 	g_camera3D.SetPosition(Position);
 	g_camera3D.Update();
-}
-
-void GameCamera::Draw()
-{
 }
