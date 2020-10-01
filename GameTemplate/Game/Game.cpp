@@ -28,7 +28,7 @@ const float PLAYER_DEATH_HEIGHT = -300.0f;	//ƒvƒŒƒCƒ„[‚ª—‚¿‚½‚ÉƒQ[ƒ€ƒI[ƒo
 Game::Game()
 {
 	stageNo = 1;
-
+	m_gCamera = g_goMgr.NewGO<GameCamera>();
 	//ƒXƒe[ƒW1
 	if (stageNo == 0) {
 		m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
@@ -197,7 +197,7 @@ Game::Game()
 		}
 	}
 
-	m_gCamera = g_goMgr.NewGO<GameCamera>();
+	
 	m_gCamera->SetPlayer(m_pl);
 
 	m_playerHP = g_goMgr.NewGO<PlayerHP>();

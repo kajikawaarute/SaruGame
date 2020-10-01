@@ -279,6 +279,7 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontRender.cpp" />
+    <ClCompile Include="SkinModelRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -511,6 +512,7 @@
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontRender.h" />
+    <ClInclude Include="SkinModelRender.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

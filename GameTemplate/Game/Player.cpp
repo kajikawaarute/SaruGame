@@ -5,8 +5,7 @@
 #include "Enemy.h"
 #include "GunEnemy.h"
 #include "PlayerHP.h"
-#include "graphics/ShadowMap.h"
-#include "graphics/ToonRender.h"
+#include "SkinModelRender.h"
 
 const float PLAYER_GRAVITY = 5000.0f;		//ƒvƒŒƒCƒ„[‚É‚©‚©‚éd—Í(’PˆÊcm/•b)B
 const float PLAYER_JUMP_POWER = 2000.0f;	//ƒvƒŒƒCƒ„[‚ªƒWƒƒƒ“ƒv‚µ‚½‚Æ‚«‚É‰ÁZ‚³‚ê‚é‘¬“xB
@@ -17,7 +16,8 @@ const float PLAYER_SWORD_SE_VOLUME = 0.9f;	//ƒvƒŒƒCƒ„[‚ªUŒ‚‚µ‚Ä‚¢‚é‚ÌSE‚Ìƒ{ƒ
 Player::Player()
 {
 	//cmoƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İB
-	m_model.Init(L"Assets/modelData/Player.cmo");
+	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel->Init(L"Assets/modelData/Player.cmo");
 
 	//ƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[‚Ì‰Šú‰»
 	m_charaCon.Init(50.0f, 100.0f, m_position);
@@ -37,7 +37,7 @@ Player::Player()
 	m_animationClip[enAnim_wait].SetLoopFlag(true);
 
 	//ƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‰Šú‰»
-	m_animation.Init(m_model, m_animationClip, enAnim_num);
+	m_animation.Init(m_skinModel->GetSkinModel(), m_animationClip, enAnim_num);
 
 	//ƒvƒŒƒCƒ„[‚Ì‰ŠúƒAƒjƒ[ƒVƒ‡ƒ“
 	m_enAnimClip = enAnim_wait;
@@ -46,12 +46,14 @@ Player::Player()
 	m_currentState = &m_playerStateWait;
 
 	//ƒVƒƒƒhƒEƒŒƒV[ƒo[‚ğİ’èB
-	m_model.SetShadowReciever(true);
+	m_skinModel->SetShadowReciever();
+	
 }
 
 
 Player::~Player()
 {
+	g_goMgr.DeleteGO(m_skinModel);
 }
 
 void Player::Update()
@@ -96,7 +98,7 @@ void Player::Update()
 	m_animation.Update(GameTime().GetFrameDeltaTime());
 
 	//ƒVƒƒƒhƒEƒLƒƒƒXƒ^[‚ğİ’èB
-	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
+	m_skinModel->SetShadowCaster();
 
 	//ƒVƒƒƒhƒEƒ}ƒbƒv‚Ìì¬
 	ShadowMap::GetInstance().UpdateShadowMap(
@@ -105,13 +107,15 @@ void Player::Update()
 	);
 
 	//ƒgƒD[ƒ“ƒŒƒ“ƒ_[‚ğİ’èB
-	ToonRender::GetInstance().RegistToonRender(&m_model);
+	m_skinModel->SetToonRender();
 
 	//ƒLƒƒƒ‰ƒRƒ“‚ÌXVB
 	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
 
-	//ƒ[ƒ‹ƒhs—ñ‚ÌXVB
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+	//À•W‚ğİ’èB
+	m_skinModel->SetPosition(m_position);
+	//‰ñ“]‚ğİ’èB
+	m_skinModel->SetRotation(m_rotation);
 }
 
 void Player::Move()
@@ -136,11 +140,6 @@ void Player::Move()
 
 void Player::Draw()
 {
-	m_model.Draw(
-		enRenderMode_Normal,
-		g_camera3D.GetViewMatrix(), 
-		g_camera3D.GetProjectionMatrix()
-	);
 }
 
 void Player::GetSaru()

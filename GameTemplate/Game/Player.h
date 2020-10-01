@@ -15,6 +15,7 @@ class Saru;
 class Enemy;
 class GunEnemy;
 class PlayerHP;
+class SkinModelRender;
 class Player : public IGameObject
 {
 public:
@@ -228,7 +229,7 @@ private:
 	friend class PlayerStateDeath;
 	friend class PlayerStateAttacked;
 
-	SkinModel m_model;									//スキンモデル。
+	SkinModelRender* m_skinModel = nullptr;				//スキンモデル									
 	CVector3 m_position = CVector3::Zero();				//座標
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
 	CVector3 m_attackedPower = CVector3::Zero();		//攻撃を食らったときの吹き飛ばし力。
