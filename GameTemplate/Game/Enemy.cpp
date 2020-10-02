@@ -2,8 +2,6 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "IGameObjectManager.h"
-#include "graphics/ShadowMap.h"
-#include "graphics/ToonRender.h"
 
 const float ENEMY_MOVE_SPPED = 10.0f;					//ƒGƒlƒ~[‚ÌˆÚ“®‘¬“xB
 const float ENEMY_FOUND_PLAYER_DISTANCE = 90.0f;		//ƒGƒlƒ~[‚ªƒvƒŒƒCƒ„[‚ğŒ©‚Â‚¯‚é‹——£B
@@ -11,22 +9,8 @@ const float ENEMY_DEATH_SE_VOLUME = 1.5f;				//ƒGƒlƒ~|‚ª“|‚³‚ê‚½‚ÌSE‚Ìƒ{ƒŠƒ…
 
 Enemy::Enemy()
 {
-	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»B
-	m_model.Init(L"Assets/modelData/Enemy.cmo");
-
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒ[ƒhB
-	m_animationClip[enAnim_walk].Load(L"Assets/animData/Enemy-walk.tka");
-	m_animationClip[enAnim_wait].Load(L"Assets/animData/Enemy-taiki.tka");
-
 	//ƒGƒtƒFƒNƒg‚Ì¶¬B
 	m_enemyDeathEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/EnemyDeath.efk");
-
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒ‹[ƒv‚ğİ’èB
-	m_animationClip[enAnim_walk].SetLoopFlag(true);
-	m_animationClip[enAnim_wait].SetLoopFlag(true);
-
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‰Šú‰»B
-	m_animation.Init(m_model, m_animationClip, enAnim_num);
 
 	//ó‘Ô‚ğ‰Šú‰»‚·‚éB
 	m_enemyStateAttack.Init(this);
@@ -35,17 +19,38 @@ Enemy::Enemy()
 
 	//ƒGƒlƒ~[‚Ì‰Šúó‘ÔB
 	m_currentState = &m_enemyStateWait;
-
-	//ƒGƒlƒ~[‚Ì‰ŠúƒAƒjƒ[ƒVƒ‡ƒ“B
-	m_enAnimClip = enAnim_wait;
-
-	//ƒVƒƒƒhƒEƒŒƒV[ƒo[‚ğİ’èB
-	m_model.SetShadowReciever(true);
 }
 
 
 Enemy::~Enemy()
 {
+	g_goMgr.DeleteGO(m_skinModel);
+}
+
+bool Enemy::Start()
+{
+	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»B
+	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel->Init(L"Assets/modelData/Enemy.cmo");
+
+	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒ[ƒhB
+	m_animationClip[enAnim_walk].Load(L"Assets/animData/Enemy-walk.tka");
+	m_animationClip[enAnim_wait].Load(L"Assets/animData/Enemy-taiki.tka");
+
+	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒ‹[ƒv‚ğİ’èB
+	m_animationClip[enAnim_walk].SetLoopFlag(true);
+	m_animationClip[enAnim_wait].SetLoopFlag(true);
+
+	//ƒAƒjƒ[ƒVƒ‡ƒ“‚ğ‰Šú‰»B
+	m_animation.Init(m_skinModel->GetSkinModel(), m_animationClip, enAnim_num);
+
+	//ƒGƒlƒ~[‚Ì‰ŠúƒAƒjƒ[ƒVƒ‡ƒ“B
+	m_enAnimClip = enAnim_wait;
+
+	//ƒVƒƒƒhƒEƒŒƒV[ƒo[‚ğİ’èB
+	m_skinModel->SetShadowReciever();
+
+	return true;
 }
 
 void Enemy::Update()
@@ -69,22 +74,16 @@ void Enemy::Update()
 	m_animation.Update(GameTime().GetFrameDeltaTime());
 
 	//ƒVƒƒƒhƒEƒLƒƒƒXƒ^[‚ğİ’èB
-	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
+	m_skinModel->SetShadowCaster();
 
 	//ƒgƒD[ƒ“ƒŒƒ“ƒ_‚ğİ’èB
-	ToonRender::GetInstance().RegistToonRender(&m_model);
+	m_skinModel->SetToonRender();
 
-	//ƒ[ƒ‹ƒhs—ñ‚ÌXVB
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-}
+	//ƒXƒLƒ“ƒ‚ƒfƒ‹‚ÌÀ•W‚ğİ’èB
+	m_skinModel->SetPosition(m_position);
 
-void Enemy::Draw()
-{
-	m_model.Draw(
-		enRenderMode_Normal,
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
+	//ƒXƒLƒ“ƒ‚ƒfƒ‹‚Ì‰ñ“]‚ğİ’èB
+	m_skinModel->SetRotation(m_rotation);
 }
 
 void Enemy::Move()

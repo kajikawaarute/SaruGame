@@ -14,15 +14,17 @@ class Enemy : public IGameObject
 public:
 	Enemy();
 	~Enemy();
+
+	/// <summary>
+	/// エネミ－のUpdate関数前に呼ばれる開始関数
+	/// </summary>
+	/// <returns>trueを返すと一度だけ呼ばれる</returns>
+	bool Start();
+
 	/// <summary>
 	/// エネミーの更新関数
 	/// </summary>
 	void Update();
-
-	/// <summary>
-	/// エネミーの描画関数
-	/// </summary>
-	void Draw();
 
 	/// <summary>
 	/// エネミーの座標を取得
@@ -125,7 +127,8 @@ private:
 	friend class EnemyStateWait;
 	friend class EnemyStateMove;
 
-	SkinModel m_model;									//スキンモデル
+	//SkinModel m_model;								//スキンモデル
+	SkinModelRender* m_skinModel = nullptr;
 	CVector3 m_position = {0.0f, 0.0f, 300.0f};			//座標
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転
 	CVector3 m_scale = CVector3::One();					//拡大率
