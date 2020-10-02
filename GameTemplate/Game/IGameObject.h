@@ -42,7 +42,18 @@ public:
 		return isRequestDelete;
 	}
 
+	void SetStart(bool start)
+	{
+		isStart = start;
+	}
+
+	bool GetisStart()
+	{
+		return isStart;
+	}
+
 private:
 	bool isRequestDelete = false;	//削除リクエスト
+	bool isStart = false;
 };
 

@@ -5,7 +5,7 @@
 #include "Enemy.h"
 #include "GunEnemy.h"
 #include "PlayerHP.h"
-#include "SkinModelRender.h"
+#include "IPlayerState.h"
 
 const float PLAYER_GRAVITY = 5000.0f;		//ƒvƒŒƒCƒ„[‚É‚©‚©‚éd—Í(’PˆÊcm/•b)B
 const float PLAYER_JUMP_POWER = 2000.0f;	//ƒvƒŒƒCƒ„[‚ªƒWƒƒƒ“ƒv‚µ‚½‚Æ‚«‚É‰ÁZ‚³‚ê‚é‘¬“xB
@@ -15,13 +15,25 @@ const float PLAYER_SWORD_SE_VOLUME = 0.9f;	//ƒvƒŒƒCƒ„[‚ªUŒ‚‚µ‚Ä‚¢‚é‚ÌSE‚Ìƒ{ƒ
 
 Player::Player()
 {
+	//ƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[‚Ì‰Šú‰»
+	m_charaCon.Init(50.0f, 100.0f, m_position);
+
+	//ƒvƒŒƒCƒ„[‚Ì‰Šúó‘Ô
+	m_currentState = &m_playerStateWait;
+}
+
+
+Player::~Player()
+{
+	g_goMgr.DeleteGO(m_skinModel);
+}
+
+bool Player::Start()
+{
 	//cmoƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İB
 	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/Player.cmo");
 
-	//ƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[‚Ì‰Šú‰»
-	m_charaCon.Init(50.0f, 100.0f, m_position);
-	
 	//ƒvƒŒƒCƒ„[‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğƒ[ƒh
 	m_animationClip[enAnim_walk].Load(L"Assets/animData/Player-walk.tka");
 	m_animationClip[enAnim_wait].Load(L"Assets/animData/Player-taiki.tka");
@@ -42,18 +54,10 @@ Player::Player()
 	//ƒvƒŒƒCƒ„[‚Ì‰ŠúƒAƒjƒ[ƒVƒ‡ƒ“
 	m_enAnimClip = enAnim_wait;
 
-	//ƒvƒŒƒCƒ„[‚Ì‰Šúó‘Ô
-	m_currentState = &m_playerStateWait;
-
 	//ƒVƒƒƒhƒEƒŒƒV[ƒo[‚ğİ’èB
 	m_skinModel->SetShadowReciever();
-	
-}
 
-
-Player::~Player()
-{
-	g_goMgr.DeleteGO(m_skinModel);
+	return true;
 }
 
 void Player::Update()
@@ -116,6 +120,8 @@ void Player::Update()
 	m_skinModel->SetPosition(m_position);
 	//‰ñ“]‚ğİ’èB
 	m_skinModel->SetRotation(m_rotation);
+
+	//m_skinModel->GetmodelPos();
 }
 
 void Player::Move()

@@ -40,6 +40,7 @@
 
 #include "graphics/SkinModel.h"
 #include "graphics/Skeleton.h"
+#include "SkinModelRender.h"
 
 #include "graphics/animation/Animation.h"
 #include "graphics/animation/AnimationClip.h"

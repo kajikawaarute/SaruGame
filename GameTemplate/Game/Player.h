@@ -15,12 +15,14 @@ class Saru;
 class Enemy;
 class GunEnemy;
 class PlayerHP;
-class SkinModelRender;
 class Player : public IGameObject
 {
 public:
 	Player();
 	~Player();
+
+	bool Start();
+
 	/// <summary>
 	/// プレイヤーの更新関数
 	/// </summary>

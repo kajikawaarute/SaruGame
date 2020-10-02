@@ -8,13 +8,22 @@ IGameObjectManager g_goMgr;
 
 void IGameObjectManager::Update()
 {
+
+	//登録されているゲームオブジェクトのスタート関数を呼ぶ。
 	for (auto go : m_goList) {
-		go->Start();
+		//スタート関数を呼んでいなかったら呼ぶ。
+		if (!go->GetisStart()) {
+			go->Start();
+			go->SetStart(true);
+		}
 	}
 	int i = 0;
 	//登録されているゲームオブジェクトの更新処理を呼ぶ。
 	for (auto go : m_goList) {
-		go->Update();
+		//スタート関数が呼ばれた更新関数を呼ぶ。
+		if (go->GetisStart()) {
+			go->Update();
+		}
 		i++;
 	}
 
@@ -24,8 +33,12 @@ void IGameObjectManager::Update()
 	//トゥーンレンダー
 	ToonRender::GetInstance().Draw();
 
+	//登録されているゲームオブジェクトの描画処理を呼ぶ。
 	for (auto go : m_goList) {
-		go->Draw();
+		//スタート関数が呼ばれた描画関数を呼ぶ。
+		if(go->GetisStart()) {
+			go->Draw();
+		}
 	}
 
 	//すべてのゲームオブジェクトのリストの検索
