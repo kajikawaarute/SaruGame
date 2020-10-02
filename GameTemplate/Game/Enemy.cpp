@@ -9,26 +9,6 @@ const float ENEMY_DEATH_SE_VOLUME = 1.5f;				//ƒGƒlƒ~|‚ª“|‚³‚ê‚½‚ÌSE‚Ìƒ{ƒŠƒ…
 
 Enemy::Enemy()
 {
-	//ƒGƒtƒFƒNƒg‚Ì¶¬B
-	m_enemyDeathEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/EnemyDeath.efk");
-
-	//ó‘Ô‚ğ‰Šú‰»‚·‚éB
-	m_enemyStateAttack.Init(this);
-	m_enemyStateWait.Init(this);
-	m_enemyStateMove.Init(this);
-
-	//ƒGƒlƒ~[‚Ì‰Šúó‘ÔB
-	m_currentState = &m_enemyStateWait;
-}
-
-
-Enemy::~Enemy()
-{
-	g_goMgr.DeleteGO(m_skinModel);
-}
-
-bool Enemy::Start()
-{
 	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»B
 	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/Enemy.cmo");
@@ -50,7 +30,22 @@ bool Enemy::Start()
 	//ƒVƒƒƒhƒEƒŒƒV[ƒo[‚ğİ’èB
 	m_skinModel->SetShadowReciever();
 
-	return true;
+	//ƒGƒtƒFƒNƒg‚Ì¶¬B
+	m_enemyDeathEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/EnemyDeath.efk");
+
+	//ó‘Ô‚ğ‰Šú‰»‚·‚éB
+	m_enemyStateAttack.Init(this);
+	m_enemyStateWait.Init(this);
+	m_enemyStateMove.Init(this);
+
+	//ƒGƒlƒ~[‚Ì‰Šúó‘ÔB
+	m_currentState = &m_enemyStateWait;
+}
+
+
+Enemy::~Enemy()
+{
+	g_goMgr.DeleteGO(m_skinModel);
 }
 
 void Enemy::Update()

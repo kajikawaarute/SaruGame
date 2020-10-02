@@ -16,12 +16,6 @@ public:
 	~Enemy();
 
 	/// <summary>
-	/// エネミ－のUpdate関数前に呼ばれる開始関数
-	/// </summary>
-	/// <returns>trueを返すと一度だけ呼ばれる</returns>
-	bool Start();
-
-	/// <summary>
 	/// エネミーの更新関数
 	/// </summary>
 	void Update();
