@@ -12,42 +12,46 @@ const float GUNENEMY_DEATH_SE_VOLUME = 1.5f;				//ガンエネミ－が倒された時のSEの
 
 GunEnemy::GunEnemy()
 {
-	//モデルの初期化。
-	m_model.Init(L"Assets/modelData/GunEnemy.cmo");
-
-	//アニメーションをロード。
-	m_animClip[enAnim_wait].Load(L"Assets/animData/GunEnemy-wait.tka");
-	m_animClip[enAnim_attack].Load(L"Assets/animData/GunEnemy-attack.tka");
-	m_animClip[enAnim_found].Load(L"Assets/animData/GunEnemy-found.tka");
-
 	//エフェクトの生成。
 	m_gunEnemyDeathEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/EnemyDeath.efk");
-	m_gunEnemySandDustEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/GunEnemySandDust.efk");
-
-	//アニメーションのループフラグを設定。
-	m_animClip[enAnim_wait].SetLoopFlag(true);
-	m_animClip[enAnim_attack].SetLoopFlag(true);
+	m_gunEnemySandDustEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/GunEnemySandDust.efk");	
 
 	//状態を初期化する。
 	m_gunEnemyStateWait.Init(this);
 	m_gunEnemyStateAttack.Init(this);
 	m_gunEnemyStateFound.Init(this);
 
-	//アニメーションの初期化
-	m_animation.Init(m_model, m_animClip, enAnim_num);
-
-	//ガンエネミーの初期アニメーション
-	m_enAnimClip = enAnim_wait;
-
 	//ガンエネミーの初期状態
 	m_currentState = &m_gunEnemyStateWait;
-
-	//シャドウレシーバーを設定。
-	m_model.SetShadowReciever(true);
 }
 
 GunEnemy::~GunEnemy()
 {
+	g_goMgr.DeleteGO(m_skinModel);
+}
+
+bool GunEnemy::Start()
+{
+	//モデルの初期化。
+	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel->Init(L"Assets/modelData/GunEnemy.cmo");
+
+	//アニメーションをロード。
+	m_animClip[enAnim_wait].Load(L"Assets/animData/GunEnemy-wait.tka");
+	m_animClip[enAnim_attack].Load(L"Assets/animData/GunEnemy-attack.tka");
+	m_animClip[enAnim_found].Load(L"Assets/animData/GunEnemy-found.tka");
+
+	//アニメーションのループフラグを設定。
+	m_animClip[enAnim_wait].SetLoopFlag(true);
+	m_animClip[enAnim_attack].SetLoopFlag(true);
+
+	//アニメーションの初期化
+	m_animation.Init(m_skinModel->GetSkinModel(), m_animClip, enAnim_num);
+
+	//ガンエネミーの初期アニメーション
+	m_enAnimClip = enAnim_wait;
+
+	return true;
 }
 
 void GunEnemy::Update()
@@ -72,22 +76,20 @@ void GunEnemy::Update()
 	m_animation.Update(GameTime().GetFrameDeltaTime());
 
 	//シャドウキャスターを設定。
-	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
+	m_skinModel->SetShadowCaster();
 
 	//トゥーンレンダーを設定。
-	ToonRender::GetInstance().RegistToonRender(&m_model);
+	m_skinModel->SetToonRender();
 
-	//ワールド行列の更新
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+	//スキンモデルの座標を設定。
+	m_skinModel->SetPosition(m_position);
+
+	//スキンモデルの回転を設定。
+	m_skinModel->SetRotation(m_rotation);
 }
 
 void GunEnemy::Draw()
 {
-	m_model.Draw(
-		enRenderMode_Normal, 
-		g_camera3D.GetViewMatrix(), 
-		g_camera3D.GetProjectionMatrix()
-	);
 }
 
 void GunEnemy::Attack()
