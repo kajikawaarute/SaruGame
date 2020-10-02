@@ -1,27 +1,25 @@
 #include "stdafx.h"
 #include "Sky.h"
+#include "IGameObjectManager.h"
 
 Sky::Sky()
 {
 	//モデルの初期化。
-	m_model.Init(L"Assets/modelData/SkyBox.cmo");
+	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel->Init(L"Assets/modelData/SkyBox.cmo");
 }
 
 Sky::~Sky()
 {
+	//スキンモデルを削除。
+	g_goMgr.DeleteGO(m_skinModel);
 }
 
 void Sky::Update()
 {
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-}
+	//スキンモデルの座標を設定。
+	m_skinModel->SetPosition(m_position);
 
-void Sky::Draw()
-{
-	m_model.Draw(
-		enRenderMode_Normal,
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
+	//スキンモデルの回転を設定。
+	m_skinModel->SetRotation(m_rotation);
 }
