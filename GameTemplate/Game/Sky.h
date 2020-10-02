@@ -15,7 +15,7 @@ public:
 	/// <summary>
 	/// ‹ó‚ÌÀ•W‚ğİ’è
 	/// </summary>
-	/// <param name="pos"></param>
+	/// <param name="pos">À•W</param>
 	void SetPosition(const CVector3& pos)
 	{
 		m_position = pos;
@@ -24,7 +24,7 @@ public:
 	/// <summary>
 	/// ‹ó‚Ì‰ñ“]‚ğİ’è
 	/// </summary>
-	/// <param name="rot"></param>
+	/// <param name="rot">‰ñ“]</param>
 	void SetRotation(const CQuaternion rot)
 	{
 		m_rotation = rot;
