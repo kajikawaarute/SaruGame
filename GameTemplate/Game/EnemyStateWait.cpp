@@ -3,7 +3,7 @@
 #include "EnemyStateWait.h"
 #include "Player.h"
 
-const float ENEMY_MOVE_CHANGE_DISTANCE = 400.0f;	//移動状態に切り替わる距離。
+const float ENEMY_MOVE_CHANGE_DISTANCE = 600.0f;	//移動状態に切り替わる距離。
 const float ENEMY_ANGLE = 160;						//エネミーの視野
 
 void EnemyStateWait::OnEnter()
