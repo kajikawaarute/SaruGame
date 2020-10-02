@@ -8,8 +8,11 @@ public:
 	virtual ~IGameObject() {}
 
 	/// <summary>
-	/// 
+	/// Updateの直前で呼ばれる開始処理。
 	/// </summary>
+	/// <returns>trueを返すとゲームオブジェクトの準備が完了したと判断されて
+	/// Update関数が呼ばれ出す。trueを返して以降はStart関数は呼ばれなくなる。
+	/// </returns>
 	virtual bool Start()
 	{
 		return true;
