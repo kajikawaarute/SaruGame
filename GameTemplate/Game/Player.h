@@ -21,6 +21,10 @@ public:
 	Player();
 	~Player();
 
+	/// <summary>
+	/// プレイヤーのUpdate関数前に呼ばれる開始関数
+	/// </summary>
+	/// <returns>trueを返すと一度だけ呼ばれる</returns>
 	bool Start();
 
 	/// <summary>
@@ -32,11 +36,6 @@ public:
 	/// プレイヤーの移動処理
 	/// </summary>
 	void Move();
-
-	/// <summary>
-	/// プレイヤーの描画関数
-	/// </summary>
-	void Draw();
 
 	/// <summary>
 	/// プレイヤーの座標を設定

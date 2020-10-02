@@ -118,10 +118,9 @@ void Player::Update()
 
 	//À•W‚ðÝ’èB
 	m_skinModel->SetPosition(m_position);
+
 	//‰ñ“]‚ðÝ’èB
 	m_skinModel->SetRotation(m_rotation);
-
-	//m_skinModel->GetmodelPos();
 }
 
 void Player::Move()
@@ -142,10 +141,6 @@ void Player::Move()
 
 
 	Turn();
-}
-
-void Player::Draw()
-{
 }
 
 void Player::GetSaru()
