@@ -3,8 +3,6 @@
 #include "IGameObjectManager.h"
 #include "Player.h"
 #include "GunEnemyBullet.h"
-#include "graphics/ShadowMap.h"
-#include "graphics/ToonRender.h"
 
 const int GUNENEMY_BULLET_TIME = 30;			//ガンエネミーが弾丸を発射するタイム。
 const float GUNENEMY_BULLET_POSITION_Y = 120.0f;	//ガンエネミーの弾丸を発射するY座標。
