@@ -37,5 +37,7 @@ private:
 	float m_depth = 0.0f;				//スプライトの深度
 
 	Fade* m_fade = nullptr;				//フェードのインスタンス
+
+	bool m_fadeFlag = false;			//フェードを行うかのフラグ
 };
 

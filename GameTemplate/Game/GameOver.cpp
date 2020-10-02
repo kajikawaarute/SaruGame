@@ -22,6 +22,7 @@ GameOver::GameOver()
 
 GameOver::~GameOver()
 {
+	g_goMgr.DeleteGO(m_fade);
 }
 
 void GameOver::Update()
@@ -31,9 +32,12 @@ void GameOver::Update()
 	{
 		m_positionY += GAMEOVER_MOVE_SPEED;
 	}
+	else if (m_fadeFlag == false) {
+		m_fade = g_goMgr.NewGO<Fade>();
+		m_fadeFlag = true;
+	}
 	else {
 		//フェードアウト
-		m_fade = g_goMgr.NewGO<Fade>();
 		m_fade->StartFadeOut();
 	}
 }

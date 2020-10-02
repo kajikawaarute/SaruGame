@@ -47,17 +47,18 @@ Title::Title()
 
 Title::~Title()
 {
+	g_goMgr.DeleteGO(m_fade);
 }
 
 void Title::Update()
 {
-	if (g_pad[0].IsTrigger(enButtonStart) && m_positionX[1] == 0.0f && m_positionY[2] == 0.0f)
+	if (g_pad[0].IsTrigger(enButtonStart) && m_startFlag == false && m_positionX[1] == 0.0f && m_positionY[2] == 0.0f)
 	{
+		m_fade = g_goMgr.NewGO<Fade>();
 		m_startFlag = true;
 	}
 	if (m_startFlag == true) {
 		m_gameStartTimer++;
-		m_fade = g_goMgr.NewGO<Fade>();
 		m_fade->StartFadeOut();
 		if (m_gameStartTimer > TITLE_GAME_START_TIME) {
 			Game::stageNo = 0;

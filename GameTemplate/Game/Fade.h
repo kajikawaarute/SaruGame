@@ -57,7 +57,7 @@ private:
 	};
 	EnState m_state = enState_Idle;	//状態
 
-	float m_alpha = 0.0f;					//アルファ値
-	float m_alphaIncAmount = 0.007f;		//アルファ値の量
+	float m_alpha = 0.0f;				//アルファ値
+	float m_alphaIncAmount = 0.06f;		//アルファ値の量
 };
 
