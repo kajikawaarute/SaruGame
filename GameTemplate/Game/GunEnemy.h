@@ -17,12 +17,6 @@ public:
 	~GunEnemy();
 
 	/// <summary>
-	/// ガンエネミ－のUpdate関数前に呼ばれる開始関数
-	/// </summary>
-	/// <returns>trueを返すと一度だけ呼ばれる</returns>
-	bool Start();
-
-	/// <summary>
 	/// ガンエネミーの更新関数
 	/// </summary>
 	void Update();

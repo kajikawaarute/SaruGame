@@ -10,26 +10,6 @@ const float GUNENEMY_DEATH_SE_VOLUME = 1.5f;				//ガンエネミ－が倒された時のSEの
 
 GunEnemy::GunEnemy()
 {
-	//エフェクトの生成。
-	m_gunEnemyDeathEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/EnemyDeath.efk");
-	m_gunEnemySandDustEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/GunEnemySandDust.efk");	
-
-	//状態を初期化する。
-	m_gunEnemyStateWait.Init(this);
-	m_gunEnemyStateAttack.Init(this);
-	m_gunEnemyStateFound.Init(this);
-
-	//ガンエネミーの初期状態
-	m_currentState = &m_gunEnemyStateWait;
-}
-
-GunEnemy::~GunEnemy()
-{
-	g_goMgr.DeleteGO(m_skinModel);
-}
-
-bool GunEnemy::Start()
-{
 	//モデルの初期化。
 	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/GunEnemy.cmo");
@@ -49,7 +29,22 @@ bool GunEnemy::Start()
 	//ガンエネミーの初期アニメーション
 	m_enAnimClip = enAnim_wait;
 
-	return true;
+	//エフェクトの生成。
+	m_gunEnemyDeathEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/EnemyDeath.efk");
+	m_gunEnemySandDustEffekt = Effekseer::Effect::Create(g_effekseerManager, (const EFK_CHAR*)L"Assets/effect/GunEnemySandDust.efk");	
+
+	//状態を初期化する。
+	m_gunEnemyStateWait.Init(this);
+	m_gunEnemyStateAttack.Init(this);
+	m_gunEnemyStateFound.Init(this);
+
+	//ガンエネミーの初期状態
+	m_currentState = &m_gunEnemyStateWait;
+}
+
+GunEnemy::~GunEnemy()
+{
+	g_goMgr.DeleteGO(m_skinModel);
 }
 
 void GunEnemy::Update()
