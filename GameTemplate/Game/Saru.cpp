@@ -61,6 +61,7 @@ Saru::Saru()
 
 Saru::~Saru()
 {
+	g_goMgr.DeleteGO(m_banaPeel);
 }
 
 void Saru::Update()
@@ -203,7 +204,6 @@ void Saru::Found()
 	CVector3 positionY = m_position;
 	positionY.y = m_position.y + SARU_BIKKURIMARK_POSITION_Y;
 
-	m_bikkuriMark = g_goMgr.NewGO<BikkuriMark>();
 	m_bikkuriMark->SetPosition(positionY);
 
 	//サルからプレイヤーに伸びるベクトルを求める。
@@ -212,9 +212,8 @@ void Saru::Found()
 	m_angle = atan2f(toSaruDir.x, toSaruDir.z);
 	m_rotation.SetRotation(CVector3::AxisY(),m_angle);
 
-	g_goMgr.DeleteGO(m_bikkuriMark);
-
 	if (m_animation.IsPlaying() != true) {
+		g_goMgr.DeleteGO(m_bikkuriMark);
 		m_enSaruState = enState_run;
 	}
 }
@@ -245,6 +244,7 @@ void Saru::ChangeStateWaitAnim()
 
 void Saru::SaruGetSound()
 {
+	//サウンドを再生
 	prefab::CSoundSource* saruGetSE = g_goMgr.NewGO<prefab::CSoundSource>();
 	saruGetSE->Init(L"Assets/Sound/SaruSE_Get.wav");
 	saruGetSE->Play(false);
@@ -252,6 +252,9 @@ void Saru::SaruGetSound()
 
 void Saru::SaruFoundSound()
 {
+	//ビックリマークを生成。
+	m_bikkuriMark = g_goMgr.NewGO<BikkuriMark>();
+
 	//サウンドを再生
 	prefab::CSoundSource* saruSE_Found = g_goMgr.NewGO<prefab::CSoundSource>();
 	saruSE_Found->Init(L"Assets/Sound/SaruSE_Found.wav");
