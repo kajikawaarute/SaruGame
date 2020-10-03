@@ -23,6 +23,7 @@ BananaPeel::BananaPeel()
 
 BananaPeel::~BananaPeel()
 {
+	//スキンモデルを削除。
 	g_goMgr.DeleteGO(m_skinModel);
 }
 
