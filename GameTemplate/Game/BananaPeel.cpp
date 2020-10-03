@@ -9,15 +9,21 @@ const float BANANAPEEL_SPEED_POWER = 10.0f;		//バナナの皮の滑る速度をあげる力。
 
 BananaPeel::BananaPeel()
 {
-	m_model.Init(L"Assets/modelData/BananaPeel.cmo");
+	//モデルの初期化。
+	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel->Init(L"Assets/modelData/BananaPeel.cmo");
 
 	//ゴーストオブジェクトの作成。
 	m_ghost.CreateBox(m_position, m_rotation, m_ghostObjectScale);
+
+	//シャドウレシーバーを設定。
+	m_skinModel->SetShadowReciever();
 }
 
 
 BananaPeel::~BananaPeel()
 {
+	
 }
 
 void BananaPeel::Update()
@@ -43,22 +49,26 @@ void BananaPeel::Update()
 	{
 		m_position += m_moveSpeed * BANANAPEEL_SPEED_POWER;
 	}
+
+	//ゴーストオブジェクトの座標を設定。
 	m_ghost.SetPosition(m_position);
 
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-}
+	//シャドウキャスターを設定。
+	m_skinModel->SetShadowCaster();
 
-void BananaPeel::Draw()
-{
-	m_model.Draw(
-		enRenderMode_Normal,
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
+	//トゥーンレンダーを設定。
+	m_skinModel->SetToonRender();
+
+	//スキンモデルの座標を設定。
+	m_skinModel->SetPosition(m_position);
+
+	//スキンモデルの回転を設定。
+	m_skinModel->SetRotation(m_rotation);
 }
 
 void BananaPeel::Delete()
 {
 	g_goMgr.DeleteGO(this);
-	m_ghost.Release();
+	//スキンモデルを削除。
+	g_goMgr.DeleteGO(m_skinModel);
 }

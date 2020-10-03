@@ -10,22 +10,17 @@ public:
 	~BananaPeel();
 
 	/// <summary>
-	/// バナナの皮の更新関数
+	/// バナナの皮の更新関数。
 	/// </summary>
 	void Update();
 
 	/// <summary>
-	/// バナナの皮の描画関数
-	/// </summary>
-	void Draw();
-
-	/// <summary>
-	/// バナナの皮を消す時の処理
+	/// バナナの皮を消す時の処理。
 	/// </summary>
 	void Delete();
 
 	/// <summary>
-	///	座標を設定
+	///	座標を設定。
 	/// </summary>
 	/// <param name="pos"></param>
 	void SetPosition(CVector3 pos)
@@ -34,7 +29,7 @@ public:
 	}
 
 	/// <summary>
-	/// 座標を取得
+	/// 座標を取得。
 	/// </summary>
 	/// <returns></returns>
 	CVector3& GetPosition()
@@ -43,7 +38,7 @@ public:
 	}
 
 	/// <summary>
-	/// 移動速度を設定
+	/// 移動速度を設定。
 	/// </summary>
 	/// <param name="move"></param>
 	void SetMoveSpd(CVector3 move)
@@ -52,7 +47,7 @@ public:
 	}
 
 	/// <summary>
-	/// 移動速度を取得
+	/// 移動速度を取得。
 	/// </summary>
 	/// <returns></returns>
 	CVector3 GetMoveSpd()
@@ -60,12 +55,16 @@ public:
 		return m_moveSpeed;
 	}
 
+	/// <summary>
+	/// プレイヤーのインスタンスを設定。
+	/// </summary>
+	/// <param name="player">プレイヤーのインスタンス</param>
 	void SetPlayer(Player* player)
 	{
 		m_pl = player;
 	}
 private:
-	SkinModel m_model;
+	SkinModelRender* m_skinModel = nullptr;					//スキンモデル
 	CVector3 m_position = CVector3::Zero();					//座標
 	CVector3 m_moveSpeed = CVector3::Zero();				//移動速度
 	CQuaternion m_rotation = CQuaternion::Identity();		//回転
