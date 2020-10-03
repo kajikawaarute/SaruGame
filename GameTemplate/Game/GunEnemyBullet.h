@@ -15,11 +15,6 @@ public:
 	void Update();
 
 	/// <summary>
-	/// ガンエネミーバレットの描画関数
-	/// </summary>
-	void Draw();
-
-	/// <summary>
 	/// ガンエネミーバレットを消す時の処理
 	/// </summary>
 	void Delete();
@@ -27,7 +22,7 @@ public:
 	/// <summary>
 	///	座標を設定
 	/// </summary>
-	/// <param name="pos"></param>
+	/// <param name="pos">座標</param>
 	void SetPosition(CVector3 pos)
 	{
 		m_position = pos;
@@ -36,7 +31,7 @@ public:
 	/// <summary>
 	/// 座標を取得
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>座標</returns>
 	CVector3& GetPosition()
 	{
 		return m_position;
@@ -45,7 +40,7 @@ public:
 	/// <summary>
 	/// 移動速度を設定
 	/// </summary>
-	/// <param name="move"></param>
+	/// <param name="move">移動速度</param>
 	void SetMoveSpd(CVector3 move)
 	{
 		m_moveSpeed += move;
@@ -54,7 +49,7 @@ public:
 	/// <summary>
 	/// 移動速度を取得
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>移動速度</returns>
 	CVector3 GetMoveSpd()
 	{
 		return m_moveSpeed;
@@ -63,13 +58,13 @@ public:
 	/// <summary>
 	/// プレイヤーのインスタンスを設定。
 	/// </summary>
-	/// <param name="player"></param>
+	/// <param name="player">プレイヤーのインスタンス</param>
 	void SetPlayer(Player* player)
 	{
 		m_pl = player;
 	}
 private:
-	SkinModel m_model;										//モデル
+	SkinModelRender* m_skinModel = nullptr;					//スキンモデル
 	CVector3 m_position = CVector3::Zero();					//座標
 	CVector3 m_moveSpeed = CVector3::Zero();				//移動速度
 	CQuaternion m_rotation = CQuaternion::Identity();		//回転
