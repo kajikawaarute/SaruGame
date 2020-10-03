@@ -10,7 +10,8 @@ const float FLOOR_JUMP_POWER = 4000.0f;		//ジャンプ台ジャンプパワー。
 JumpFloor::JumpFloor()
 {
 	//モデルの初期化。
-	m_model.Init(L"Assets/modelData/JumpFloor2.cmo");
+	m_skinModel = g_goMgr.NewGO <SkinModelRender>();
+	m_skinModel->Init(L"Assets/modelData/JumpFloor2.cmo");
 
 	//アニメーションをロード
 	m_animationClip[enAnim_wait].Load(L"Assets/animData/JumpFloor-wait.tka");
@@ -20,18 +21,20 @@ JumpFloor::JumpFloor()
 	m_enAnimClip = enAnim_wait;
 
 	//アニメーションを初期化
-	m_animation.Init(m_model, m_animationClip, enAnim_num);
+	m_animation.Init(m_skinModel->GetSkinModel(), m_animationClip, enAnim_num);
 
+	//ゴーストオブジェクトを生成。
 	m_ghost.CreateBox(m_position, m_rotation, m_ghostObjectScale);
 
-	//シャドウレシーバーを設定
-	m_model.SetShadowReciever(true);
+	//シャドウレシーバーを設定。
+	m_skinModel->SetShadowReciever();
 }
 
 
 JumpFloor::~JumpFloor()
 {
-	m_ghost.Release();
+	//スキンモデルを削除。
+	g_goMgr.DeleteGO(m_skinModel);
 }
 
 void JumpFloor::Update()
@@ -62,25 +65,21 @@ void JumpFloor::Update()
 		m_enAnimClip = enAnim_wait;
 	}
 
+	//アニメーションの更新。
 	m_animation.Update(1.0f / 30.0f);
 
 	//トゥーンレンダを設定。
-	ToonRender::GetInstance().RegistToonRender(&m_model);
+	m_skinModel->SetToonRender();
 
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-}
+	//スキンモデルの座標を設定。
+	m_skinModel->SetPosition(m_position);
 
-void JumpFloor::Draw()
-{
-	m_model.Draw(
-		enRenderMode_Normal,
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
+	//スキンモデルの回転を設定。
+	m_skinModel->SetRotation(m_rotation);
 }
 
 void JumpFloor::CreateStaticObject()
 {
-	m_static.CreateMeshObject(m_model, m_position, m_rotation);
+	//静的オブジェクトを作成。
+	m_static.CreateMeshObject(m_skinModel->GetSkinModel(), m_position, m_rotation);
 }

@@ -16,11 +16,6 @@ public:
 	void Update();
 
 	/// <summary>
-	/// ジャンプ台の描画関数
-	/// </summary>
-	void Draw();
-
-	/// <summary>
 	/// 座標を設定
 	/// </summary>
 	/// <param name="pos">座標</param>
@@ -52,7 +47,7 @@ public:
 		m_player = player;
 	}
 private:
-	SkinModel m_model;											//スキンモデル
+	SkinModelRender* m_skinModel= nullptr;						//スキンモデル
 	CVector3 m_position = CVector3::Zero();						//座標
 	CQuaternion m_rotation = CQuaternion::Identity();			//回転
 	CVector3 m_scale = CVector3::One();							//拡大率
