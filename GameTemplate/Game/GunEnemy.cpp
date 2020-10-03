@@ -44,6 +44,8 @@ GunEnemy::GunEnemy()
 
 GunEnemy::~GunEnemy()
 {
+	g_goMgr.DeleteGO(m_gunBullet);
+	//スキンモデルを削除。
 	g_goMgr.DeleteGO(m_skinModel);
 }
 
@@ -81,10 +83,6 @@ void GunEnemy::Update()
 	m_skinModel->SetRotation(m_rotation);
 }
 
-void GunEnemy::Draw()
-{
-}
-
 void GunEnemy::Attack()
 {
 	CVector3 positionY = m_position;
@@ -102,10 +100,10 @@ void GunEnemy::Attack()
 		gunEnemySE_Shot->Play(false);
 
 		//弾丸の生成。
-		GunEnemyBullet* gunBullet = g_goMgr.NewGO<GunEnemyBullet>();
-		gunBullet->SetPlayer(m_player);
-		gunBullet->SetMoveSpd(gunEnemyFoward);
-		gunBullet->SetPosition(positionY);
+		m_gunBullet = g_goMgr.NewGO<GunEnemyBullet>();
+		m_gunBullet->SetPlayer(m_player);
+		m_gunBullet->SetMoveSpd(gunEnemyFoward);
+		m_gunBullet->SetPosition(positionY);
 		m_bulletTimer = 0;
 	}
 }

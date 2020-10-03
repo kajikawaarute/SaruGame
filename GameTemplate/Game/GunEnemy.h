@@ -22,11 +22,6 @@ public:
 	void Update();
 
 	/// <summary>
-	/// ガンエネミーの描画
-	/// </summary>
-	void Draw();
-
-	/// <summary>
 	/// ガンエネミーの座標を設定
 	/// </summary>
 	/// <param name="pos">座標</param>
@@ -117,7 +112,8 @@ private:
 	bool m_foundFlag = false;		//見つかった時の判定
 	bool m_sandDustFlag = false;	//砂ぼこりを表示するかどうかのフラグ
 
-	Player* m_player = nullptr;		//プレイヤーのインスタンス
+	Player* m_player = nullptr;				//プレイヤーのインスタンス
+	GunEnemyBullet* m_gunBullet = nullptr;	//ガンエネミーバレットのインスタンス
 
 	Effekseer::Effect* m_gunEnemyDeathEffekt = nullptr;			//倒された時のエフェクト
 	Effekseer::Effect* m_gunEnemySandDustEffekt = nullptr;		//砂ぼこりのエフェクト
