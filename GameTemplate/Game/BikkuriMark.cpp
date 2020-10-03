@@ -1,33 +1,29 @@
 #include "stdafx.h"
 #include "BikkuriMark.h"
 #include "IGameObjectManager.h"
-#include "graphics/ToonRender.h"
 
 BikkuriMark::BikkuriMark()
 {
 	//モデルの初期化。
-	m_model.Init(L"Assets/modelData/Bikkuri_Mark.cmo");
+	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel->Init(L"Assets/modelData/Bikkuri_Mark.cmo");
 }
 
 
 BikkuriMark::~BikkuriMark()
 {
+	//スキンモデルを削除。
+	g_goMgr.DeleteGO(m_skinModel);
 }
 
 void BikkuriMark::Update()
 {
 	//トゥーンレンダーを設定。
-	ToonRender::GetInstance().RegistToonRender(&m_model);
+	m_skinModel->SetToonRender();
 
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-}
+	//スキンモデルの座標を設定。
+	m_skinModel->SetPosition(m_position);
 
-void BikkuriMark::Draw()
-{
-	m_model.Draw(
-		enRenderMode_Normal,
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
+	//スキンモデルの回転を設定。
+	m_skinModel->SetRotation(m_rotation);
 }
