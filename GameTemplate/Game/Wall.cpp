@@ -1,40 +1,38 @@
 #include "stdafx.h"
 #include "Wall.h"
-#include "graphics/ToonRender.h"
+#include "IGameObjectManager.h"
 
 Wall::Wall()
 {
 	//モデルの初期化。
-	m_model.Init(L"Assets/modelData/wall.cmo");
+	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel->Init(L"Assets/modelData/wall.cmo");
 
 	//シャドウレシーバーを設定。
-	m_model.SetShadowReciever(true);
+	m_skinModel->SetShadowReciever();
 }
 
 
 Wall::~Wall()
 {
+	//スキンモデルを削除。
+	g_goMgr.DeleteGO(m_skinModel);
 }
 
 void Wall::Update()
 {
 	//トゥーンレンダを設定。
-	ToonRender::GetInstance().RegistToonRender(&m_model);
+	m_skinModel->SetToonRender();
 
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-}
+	//スキンモデルの座標を設定。
+	m_skinModel->SetPosition(m_position);
 
-void Wall::Draw()
-{
-	m_model.Draw(
-		enRenderMode_Normal,
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
+	//スキンモデルの回転を設定。
+	m_skinModel->SetRotation(m_rotation);
 }
 
 void Wall::CreateStaticObject()
 {
-	m_static.CreateMeshObject(m_model, m_position, m_rotation);
+	//静的オブジェクトを作成。
+	m_static.CreateMeshObject(m_skinModel->GetSkinModel(), m_position, m_rotation);
 }
