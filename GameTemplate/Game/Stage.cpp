@@ -1,48 +1,39 @@
 #include "stdafx.h"
 #include "Stage.h"
-#include "level/Level.h"
 #include "IGameObjectManager.h"
-#include "Player.h"
-#include "Saru.h"
-#include "Enemy.h"
-#include "JumpFloor.h"
-#include "graphics/ShadowMap.h"
-#include "graphics/ToonRender.h"
+
 
 Stage::Stage()
 {
 	//モデルの初期化。
-	m_model.Init(L"Assets/modelData/stage_01.cmo");
+	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel->Init(L"Assets/modelData/stage_01.cmo");
 
 	//静的オブジェクトを作成。
-	m_static.CreateMeshObject(m_model, m_position, m_rotation);
+	m_static.CreateMeshObject(m_skinModel->GetSkinModel(), m_position, m_rotation);
 
 	//シャドウレシーバーを設定
-	m_model.SetShadowReciever(true);
+	m_skinModel->SetShadowReciever();
 }
 
 
 Stage::~Stage()
 {
+	//スキンモデルを削除。
+	g_goMgr.DeleteGO(m_skinModel);
 }
 
 void Stage::Update()
 {
 	//シャドウキャスターを設定
-	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
+	m_skinModel->SetShadowCaster();
 
 	//トゥーンレンダを設定。
-	ToonRender::GetInstance().RegistToonRender(&m_model);
+	m_skinModel->SetToonRender();
 
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-}
+	//スキンモデルの座標を設定。
+	m_skinModel->SetPosition(m_position);
 
-void Stage::Draw()
-{
-	m_model.Draw(
-		enRenderMode_Normal,
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
+	//スキンモデルの回転を設定。
+	m_skinModel->SetRotation(m_rotation);
 }
