@@ -45,6 +45,7 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
+	//スキンモデルを削除。
 	g_goMgr.DeleteGO(m_skinModel);
 }
 
