@@ -121,8 +121,7 @@ private:
 	friend class EnemyStateWait;
 	friend class EnemyStateMove;
 
-	//SkinModel m_model;								//スキンモデル
-	SkinModelRender* m_skinModel = nullptr;
+	SkinModelRender* m_skinModel = nullptr;				//スキンモデル
 	CVector3 m_position = {0.0f, 0.0f, 300.0f};			//座標
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転
 	CVector3 m_scale = CVector3::One();					//拡大率
