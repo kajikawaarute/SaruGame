@@ -22,7 +22,15 @@ public:
 	/// spriteBatchの描画関数
 	/// </summary>
 	void SpriteBatchDraw();
-private:
+private:	
+
+	enum EnSpriteNo {
+		EnSprite_title,
+		EnSprite_Catch_the_monkey,
+		EnSprite_Press_Start,
+		EnSpriteNum						//スプライトの数。
+	};
+
 	Game* m_game = nullptr;				//ゲームのインスタンス
 	Fade* m_fade = nullptr;
 

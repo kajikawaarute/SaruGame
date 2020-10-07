@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "IGameObjectManager.h"
 
-const float ENEMY_MOVE_SPPED = 10.0f;					//エネミーの移動速度。
+const float ENEMY_MOVE_SPPED = 350.0f;					//エネミーの移動速度。
 const float ENEMY_FOUND_PLAYER_DISTANCE = 90.0f;		//エネミーがプレイヤーを見つける距離。
 const float ENEMY_DEATH_SE_VOLUME = 1.5f;				//エネミ－が倒された時のSEのボリューム
 
@@ -49,8 +49,18 @@ Enemy::~Enemy()
 	g_goMgr.DeleteGO(m_skinModel);
 }
 
+bool Enemy::Start()
+{
+	//キャラクターコントローラーの初期化。
+	m_charaCon.Init(30.0f, 30.0f, m_position);
+
+	return true;
+}
+
 void Enemy::Update()
 {
+	m_moveSpeed.y -= 5000.0f * GameTime().GetFrameDeltaTime();
+
 	//エネミーの状態
 	m_currentState->Update();
 	ChangeState(m_enEnemyState);
@@ -75,6 +85,9 @@ void Enemy::Update()
 	//トゥーンレンダを設定。
 	m_skinModel->SetToonRender();
 
+	//キャラクターコントローラーの更新。
+	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
+
 	//スキンモデルの座標を設定。
 	m_skinModel->SetPosition(m_position);
 
@@ -87,8 +100,6 @@ void Enemy::Move()
 	m_moveSpeed.Normalize();
 	m_moveSpeed.x *= ENEMY_MOVE_SPPED;
 	m_moveSpeed.z *= ENEMY_MOVE_SPPED;
-	m_moveSpeed.y = 0.0f;
-	m_position += m_moveSpeed;
 
 	Turn();
 }

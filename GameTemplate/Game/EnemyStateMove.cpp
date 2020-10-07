@@ -18,9 +18,9 @@ void EnemyStateMove::Update()
 	float toEnemyLen = toEnemyDir.Length();
 	toEnemyDir.Normalize();
 
+	m_enemy->m_moveSpeed = toEnemyDir;
 	m_enemy->Move();
 	m_enemy->AttackDistance();
-	m_enemy->m_moveSpeed = toEnemyDir;
 	if (toEnemyLen > ENEMY_WAIT_CHANGE_DISTANCE) {
 		m_enemy->ChangeStateWait();
 	}

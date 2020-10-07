@@ -12,36 +12,36 @@ Title::Title()
 {
 	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < EnSpriteNum; i++)
 	{
 		m_device[i] = g_graphicsEngine->GetDevice();
 	}
 
 	//タイトル画像の読み込み
 	DirectX::CreateDDSTextureFromFile(
-		m_device[0],							//デバイス
+		m_device[EnSprite_title],							//デバイス
 		L"Assets/sprite/Title.dds",				//読み込む画像ファイル
 		nullptr,
-		&m_shaderResourceView[0]				//読み込んだファイルの情報を格納
+		&m_shaderResourceView[EnSprite_title]				//読み込んだファイルの情報を格納
 	);
 
 	//タイトル名の画像の読み込み
 	DirectX::CreateDDSTextureFromFile(
-		m_device[1],							//デバイス
+		m_device[EnSprite_Catch_the_monkey],							//デバイス
 		L"Assets/sprite/Catch_the_monkey.dds",	//読み込む画像ファイル
 		nullptr,
-		&m_shaderResourceView[1]				//読み込んだファイルの情報を格納
+		&m_shaderResourceView[EnSprite_Catch_the_monkey]				//読み込んだファイルの情報を格納
 	);
-	m_positionX[1] = -1500.0f;
+	m_positionX[EnSprite_Catch_the_monkey] = -1500.0f;
 
 	//Press_Start_Buttonの画像の読み込み
 	DirectX::CreateDDSTextureFromFile(
-		m_device[2],							//デバイス
+		m_device[EnSprite_Press_Start],							//デバイス
 		L"Assets/sprite/Press_Start.dds",		//読み込む画像ファイル
 		nullptr,
-		&m_shaderResourceView[2]				//読み込んだファイルの情報を格納
+		&m_shaderResourceView[EnSprite_Press_Start]				//読み込んだファイルの情報を格納
 	);
-	m_positionY[2] = 300.0f;
+	m_positionY[EnSprite_Press_Start] = 300.0f;
 }
 
 
@@ -52,7 +52,7 @@ Title::~Title()
 
 void Title::Update()
 {
-	if (g_pad[0].IsTrigger(enButtonStart) && m_startFlag == false && m_positionX[1] == 0.0f && m_positionY[2] == 0.0f)
+	if (g_pad[0].IsTrigger(enButtonStart) && m_startFlag == false && m_positionX[EnSprite_Catch_the_monkey] == 0.0f && m_positionY[EnSprite_Press_Start] == 0.0f)
 	{
 		m_fade = g_goMgr.NewGO<Fade>();
 		m_startFlag = true;
@@ -61,16 +61,16 @@ void Title::Update()
 		m_gameStartTimer++;
 		m_fade->StartFadeOut();
 		if (m_gameStartTimer > TITLE_GAME_START_TIME) {
-			Game::stageNo = 0;
+			Game::stageNo = eStage_1;
 			m_game = g_goMgr.NewGO<Game>();
 			g_goMgr.DeleteGO(this);
 		}
 	}
-	if (m_positionX[1] < 0.0f) {
-		m_positionX[1] += TITLE_POSITION_X;
+	if (m_positionX[EnSprite_Catch_the_monkey] < 0.0f) {
+		m_positionX[EnSprite_Catch_the_monkey] += TITLE_POSITION_X;
 	}
-	if (m_positionY[2] > 0.0f) {
-		m_positionY[2] -= TITLE_POSITION_Y;
+	if (m_positionY[EnSprite_Press_Start] > 0.0f) {
+		m_positionY[EnSprite_Press_Start] -= TITLE_POSITION_Y;
 	}
 	
 }
@@ -82,7 +82,7 @@ void Title::Draw()
 
 void Title::SpriteBatchDraw()
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < EnSpriteNum; i++)
 	{
 		m_spriteBatch->Begin();
 		m_spriteBatch->Draw(

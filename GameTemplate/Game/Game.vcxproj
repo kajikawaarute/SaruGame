@@ -166,6 +166,7 @@
     <ClCompile Include="PlayerStateSliped.cpp" />
     <ClCompile Include="PlayerStateWait.cpp" />
     <ClCompile Include="Saru.cpp" />
+    <ClCompile Include="SaruCounter.cpp" />
     <ClCompile Include="SaruStateAttack.cpp" />
     <ClCompile Include="SaruStateFound.cpp" />
     <ClCompile Include="SaruStateGet.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="sound\WaveFileBank.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Stage2.cpp" />
+    <ClCompile Include="StageBase.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -258,6 +260,7 @@
     <ClInclude Include="PlayerStateSliped.h" />
     <ClInclude Include="PlayerStateWait.h" />
     <ClInclude Include="Saru.h" />
+    <ClInclude Include="SaruCounter.h" />
     <ClInclude Include="SaruStateAttack.h" />
     <ClInclude Include="SaruStateFound.h" />
     <ClInclude Include="SaruStateGet.h" />
@@ -272,6 +275,7 @@
     <ClInclude Include="sound\WaveFileBank.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Stage2.h" />
+    <ClInclude Include="StageBase.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\GameTime.h" />
     <ClInclude Include="system\Stopwatch.h" />

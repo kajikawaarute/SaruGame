@@ -1,39 +1,17 @@
 #include "stdafx.h"
 #include "Stage.h"
-#include "IGameObjectManager.h"
 
-
-Stage::Stage()
+void Stage::LocalUpdate()
 {
-	//モデルの初期化。
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
-	m_skinModel->Init(L"Assets/modelData/stage_01.cmo");
-
-	//静的オブジェクトを作成。
-	m_static.CreateMeshObject(m_skinModel->GetSkinModel(), m_position, m_rotation);
-
-	//シャドウレシーバーを設定
-	m_skinModel->SetShadowReciever();
-}
-
-
-Stage::~Stage()
-{
-	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
-}
-
-void Stage::Update()
-{
-	//シャドウキャスターを設定
-	m_skinModel->SetShadowCaster();
-
-	//トゥーンレンダを設定。
-	m_skinModel->SetToonRender();
-
-	//スキンモデルの座標を設定。
-	m_skinModel->SetPosition(m_position);
-
-	//スキンモデルの回転を設定。
-	m_skinModel->SetRotation(m_rotation);
+	//ステージ１はサルを全員捕まえたらゲームクリア
+	/*if (m_pl->GetSaruCount() == m_saruNo)
+	{
+		m_gameClearTimer++;
+		if (m_gameClearTimer == GAMECLEAR_TIME) {
+			m_gameClear = g_goMgr.NewGO<GameClear>();
+		}
+		if (m_gameClearTimer == GAMECLEAR_TITLE_TIME) {
+			g_goMgr.DeleteGO(this);
+		}
+	}*/
 }

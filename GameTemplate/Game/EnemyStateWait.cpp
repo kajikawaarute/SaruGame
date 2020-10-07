@@ -22,7 +22,8 @@ void EnemyStateWait::Update()
 	float angle = acos(d);
 
 	m_enemy->AttackDistance();
-	m_enemy->m_moveSpeed = CVector3::Zero();
+	m_enemy->m_moveSpeed.x = 0.0f;
+	m_enemy->m_moveSpeed.z = 0.0f;
 	if (fabsf(angle) < CMath::DegToRad(ENEMY_ANGLE) && toEnemyLen < ENEMY_MOVE_CHANGE_DISTANCE) {
 		m_enemy->ChangeStateMove();
 	}

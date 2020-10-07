@@ -45,8 +45,8 @@ private:
 	DirectX::SpriteBatch* m_spriteBatch;					//スプライトバッチ
 	DirectX::FXMVECTOR color = DirectX::Colors::White;		//カラー。
 
-	ID3D11Device* m_device[3];									//構築済み
-	ID3D11DeviceContext* m_deviceContext[3];					//構築済み
+	ID3D11Device* m_device = nullptr;						//D3Dデバイス
+	ID3D11DeviceContext* m_deviceContext = nullptr;			//D3Dデバイスコンテキスト
 	ID3D11ShaderResourceView* m_shaderResourceView[3];			//読み込んだ画像ファイルの保存先
 
 	float m_positionX[3] = { 0.0f, 50.0f, 100.0f};		//X座標

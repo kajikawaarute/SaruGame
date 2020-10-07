@@ -11,12 +11,12 @@ PlayerHP::PlayerHP()
 
 	for (int i = 0; i < m_playerHP; i++) {
 		//画像の読み込み。
-		m_device[i] = g_graphicsEngine->GetDevice();
+		m_device = g_graphicsEngine->GetDevice();
 		DirectX::CreateDDSTextureFromFile(
-			m_device[i],						//デバイス
+			m_device,						//デバイス
 			L"Assets/sprite/PlayerHP.dds",	//読み込む画像
 			nullptr,
-			&m_shaderResourceView[i]			//読み込んだファイルの情報を格納
+			&m_shaderResourceView[i]		//読み込んだファイルの情報を格納
 		);
 	}
 }

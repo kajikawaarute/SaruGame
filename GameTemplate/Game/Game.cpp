@@ -16,9 +16,9 @@
 #include "level/Level.h"
 #include "ButtonUI.h"
 #include "Sky.h"
-#include "FontRender.h"
+#include "SaruCounter.h"
 
-int Game::stageNo = 0;
+EStage Game::stageNo = eStage_1;
 
 const int GAMECLEAR_TIME = 30;				//ゲームクリアを表示するタイム。
 const int GAMECLEAR_TITLE_TIME = 120;		//ゲームクリアからタイトルに遷移するまでのタイム。
@@ -27,9 +27,9 @@ const int GAMEOVER_TITLE_TIME = 60;			//ゲームオーバーからタイトルに遷移するまで
 const float PLAYER_DEATH_HEIGHT = -300.0f;	//プレイヤーが落ちた時にゲームオーバーになる高さ。
 Game::Game()
 {
-	stageNo = 1;
+	//stageNo = 1;
 	//ステージ1
-	if (stageNo == 0) {
+	if (stageNo == eStage_1) {
 		m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
 		m_gameBGM.Play(true);
 		std::vector< LevelObjectData> pathObjData;		//パスのデータを保存する。
@@ -116,7 +116,7 @@ Game::Game()
 			}
 	}
 	//ステージ2
-	if (stageNo == 1){
+	if (stageNo == eStage_2){
 		m_gameBGM2.Init(L"Assets/Sound/GameBgm2.wav");
 		m_gameBGM2.Play(true);
 		std::vector< LevelObjectData> pathObjData;		//パスのデータを保存する。
@@ -198,16 +198,6 @@ Game::Game()
 
 	m_gCamera = g_goMgr.NewGO<GameCamera>();
 	m_gCamera->SetPlayer(m_pl);
-
-	m_playerHP = g_goMgr.NewGO<PlayerHP>();
-	m_pl->SetPlayerHP(m_playerHP);
-
-	m_buttonUI = g_goMgr.NewGO<ButtonUI>();
-
-	m_font = g_goMgr.NewGO<FontRender>();
-
-	//フォントの座標を設定。
-	m_font->SetPosition(m_fontPosition);
 }
 
 Game::~Game()
@@ -237,22 +227,36 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_gameClear);
 	g_goMgr.DeleteGO(m_gameOver);
 	g_goMgr.DeleteGO(m_buttonUI);
-	g_goMgr.DeleteGO(m_font);
+	g_goMgr.DeleteGO(m_saruCounter);
 
 	//プレイヤーのHPがなくなったらタイトルに遷移する。
 	if (m_playerHP->GetGameOver() == true) {
 		g_goMgr.NewGO<Title>();
 	}
 	//ステージ番号が0の時にステージ2に遷移する。
-	else if (stageNo == 0) {
-		stageNo = 1;
-		//g_goMgr.NewGO<Game>();
+	else if (stageNo == eStage_1) {
+		stageNo = eStage_2;
+		g_goMgr.NewGO<Game>();
 	}
 	//ステージ番号が1の時にタイトルに遷移する。
-	else if (stageNo == 1) {
+	else if (stageNo == eStage_2) {
 		g_goMgr.NewGO<Title>();
-		stageNo = 0;
+		stageNo = eStage_1;
 	}
+}
+
+bool Game::Start()
+{
+	m_playerHP = g_goMgr.NewGO<PlayerHP>();
+	m_pl->SetPlayerHP(m_playerHP);
+
+	m_buttonUI = g_goMgr.NewGO<ButtonUI>();
+
+	m_saruCounter = g_goMgr.NewGO<SaruCounter>();
+	//サルの数をフォントで表示。
+	m_saruCounter->SetSaruNumber(m_saruNo);
+
+	return true;
 }
 
 
@@ -286,15 +290,13 @@ void Game::Update()
 			g_goMgr.DeleteGO(this);
 		}
 	}
-	//フォントの文字
-	swprintf(m_text, L"サル %d/%d", m_pl->GetSaruCount(), m_saruNo);
+
+	//捕まえたサルの数をフォントで表示。
+	m_saruCounter->AddSaruCounter(m_pl->GetSaruCount());
 }
 
 void Game::Draw()
 {
 	//レベルを描画
 	m_level.Draw();
-
-	//フォントを描画
-	m_font->SetText(m_text);
 }

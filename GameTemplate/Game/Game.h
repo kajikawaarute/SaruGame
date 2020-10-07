@@ -21,13 +21,25 @@ class PlayerHP;
 class GameClear;
 class GameOver;
 class ButtonUI;
-class FontRender;
+class SaruCounter;
+
+enum EStage {
+	eStage_1,	//ステージ１
+	eStage_2,	//ステージ２
+	eStage_Num,	//ステージ数。
+};
 class Game : public IGameObject
 {
 public:
-	static int stageNo;	//ステージ番号
+	static EStage stageNo;	//ステージ番号
 	Game();
 	~Game();
+
+	/// <summary>
+	/// ゲームのUpdate関数前に呼ばれる開始関数。
+	/// </summary>
+	/// <returns>trueを返すと一度だけ呼ばれる</returns>
+	bool Start();
 
 	/// <summary>
 	/// ゲームの更新関数
@@ -58,6 +70,7 @@ private:
 	GameOver* m_gameOver = nullptr;			//ゲームオーバーのインスタンス
 	ButtonUI* m_buttonUI = nullptr;			//ボタンUIのインスタンス
 	
+	SaruCounter* m_saruCounter = nullptr;	//サルカウンターのインスタンス
 
 	int m_saruNo = 0;						//サルの数
 	Saru* m_sarus[MAX_SARU] = {nullptr};	//サルのリスト
@@ -68,10 +81,5 @@ private:
 
 	int m_gameClearTimer = 0;		//ゲームクリアまでのタイマー
 	int m_gameOverTimer = 0;		//ゲームオーバーまでのタイマー
-
-	FontRender* m_font = nullptr;	//フォントレンダーのインスタンス
-
-	wchar_t m_text[64];								//テキスト
-	CVector2 m_fontPosition = { 20.0f, 100.0f };	//フォントの座標
 };
 
