@@ -9,6 +9,7 @@ SaruCounter::SaruCounter()
 
 SaruCounter::~SaruCounter()
 {
+	g_goMgr.DeleteGO(m_fontRender);
 }
 
 bool SaruCounter::Start()
