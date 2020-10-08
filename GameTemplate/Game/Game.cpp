@@ -6,7 +6,6 @@
 #include "GameCamera.h"
 #include "Title.h"
 #include "PlayerHP.h"
-#include "GameClear.h"
 #include "GameOver.h"
 #include "Saru.h"
 #include "Enemy.h"
@@ -20,14 +19,11 @@
 
 EStage Game::stageNo = eStage_1;
 
-const int GAMECLEAR_TIME = 30;				//ゲームクリアを表示するタイム。
-const int GAMECLEAR_TITLE_TIME = 120;		//ゲームクリアからタイトルに遷移するまでのタイム。
-const int GAMEOVER_TIME = 1;				//ゲームオーバーを表示するタイム。
-const int GAMEOVER_TITLE_TIME = 60;			//ゲームオーバーからタイトルに遷移するまでのタイム。
+const int GAMECLEAR_TIME = 90;				//ゲームクリアまでのタイム。
+const int GAMEOVER_TITLE_TIME = 90;			//ゲームオーバーからタイトルに遷移するまでのタイム。
 const float PLAYER_DEATH_HEIGHT = -300.0f;	//プレイヤーが落ちた時にゲームオーバーになる高さ。
 Game::Game()
 {
-	//stageNo = 1;
 	//ステージ1
 	if (stageNo == eStage_1) {
 		m_gameBGM.Init(L"Assets/Sound/GameBgm.wav");
@@ -224,8 +220,6 @@ Game::~Game()
 
 	g_goMgr.DeleteGO(m_playerHP);
 	g_goMgr.DeleteGO(m_gCamera);
-	g_goMgr.DeleteGO(m_gameClear);
-	g_goMgr.DeleteGO(m_gameOver);
 	g_goMgr.DeleteGO(m_buttonUI);
 	g_goMgr.DeleteGO(m_saruCounter);
 
@@ -233,12 +227,12 @@ Game::~Game()
 	if (m_playerHP->GetGameOver() == true) {
 		g_goMgr.NewGO<Title>();
 	}
-	//ステージ番号が0の時にステージ2に遷移する。
+	//ステージ番号がeStage_1の時にステージ2に遷移する。
 	else if (stageNo == eStage_1) {
 		stageNo = eStage_2;
 		g_goMgr.NewGO<Game>();
 	}
-	//ステージ番号が1の時にタイトルに遷移する。
+	//ステージ番号がeStage_2の時にタイトルに遷移する。
 	else if (stageNo == eStage_2) {
 		g_goMgr.NewGO<Title>();
 		stageNo = eStage_1;
@@ -267,27 +261,43 @@ void Game::Update()
 		g_goMgr.DeleteGO(this);
 	}
 
-	//サルを全員捕まえたらゲームクリア
-	if (m_pl->GetSaruCount() == m_saruNo)
-	{
-		m_gameClearTimer++;
-		if (m_gameClearTimer == GAMECLEAR_TIME) {
-			m_gameClear = g_goMgr.NewGO<GameClear>();
-		}
-		if (m_gameClearTimer == GAMECLEAR_TITLE_TIME) {
+	if (stageNo == eStage_1) {
+		m_stage->SetSaruNo(m_saruNo);
+		m_stage->SetSaruCounter(m_pl->GetSaruCount());
+		//ステージ１のゲームクリア
+		if (m_stage->GetClearTimer() == GAMECLEAR_TIME)
+		{
 			g_goMgr.DeleteGO(this);
+		}
+		//ステージ１のゲームオーバー
+		else if (m_playerHP->GetGameOver() == true)
+		{
+			m_stage->SetGameOverFlag(m_playerHP->GetGameOver());
+			m_pl->StateDeath();
+			if (m_stage->GetOverTimer() == GAMEOVER_TITLE_TIME)
+			{
+				g_goMgr.DeleteGO(this);
+			}
 		}
 	}
-
-	//プレイヤーのHPがなくなったらゲームオーバー
-	if (m_playerHP->GetGameOver() == true/* || m_pl->GetPos().y < PLAYER_DEATH_HEIGHT*/) {
-		m_gameOverTimer++;
-		if (m_gameOverTimer == GAMEOVER_TIME) {
-			m_gameOver = g_goMgr.NewGO<GameOver>();
-			m_pl->StateDeath();
-		}
-		if (m_gameOverTimer == GAMEOVER_TITLE_TIME) {
+	
+	else if (stageNo == eStage_2) {
+		m_stage2->SetSaruNo(m_saruNo);
+		m_stage2->SetSaruCounter(m_pl->GetSaruCount());
+		//ステージ２のゲームクリア
+		if (m_stage2->GetClearTimer() == GAMECLEAR_TIME)
+		{
 			g_goMgr.DeleteGO(this);
+		}
+		//ステージ１のゲームオーバー
+		else if (m_playerHP->GetGameOver() == true)
+		{
+			m_stage2->SetGameOverFlag(m_playerHP->GetGameOver());
+			m_pl->StateDeath();
+			if (m_stage2->GetOverTimer() == GAMEOVER_TITLE_TIME)
+			{
+				g_goMgr.DeleteGO(this);
+			}
 		}
 	}
 

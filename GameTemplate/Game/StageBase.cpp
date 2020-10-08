@@ -38,5 +38,6 @@ void StageBase::Update()
 	//スキンモデルの回転を設定。
 	m_skinModel->SetRotation(m_rotation);
 
+	//ステージ固有の更新処理。
 	LocalUpdate();
 }

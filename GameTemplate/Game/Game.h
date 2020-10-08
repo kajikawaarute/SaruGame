@@ -4,7 +4,6 @@
 #include "sound/SoundSource.h"
 #include "level/Level.h"
 
-
 class Player;
 class Saru;
 class Enemy;
@@ -18,8 +17,6 @@ class Stage2;
 class GameCamera;
 class Title;
 class PlayerHP;
-class GameClear;
-class GameOver;
 class ButtonUI;
 class SaruCounter;
 
@@ -66,8 +63,6 @@ private:
 	GameCamera* m_gCamera = nullptr;		//ゲームカメラのインスタンス
 
 	PlayerHP* m_playerHP = nullptr;			//プレイヤーHPのインスタンス
-	GameClear* m_gameClear = nullptr;		//ゲームクリアのインスタンス
-	GameOver* m_gameOver = nullptr;			//ゲームオーバーのインスタンス
 	ButtonUI* m_buttonUI = nullptr;			//ボタンUIのインスタンス
 	
 	SaruCounter* m_saruCounter = nullptr;	//サルカウンターのインスタンス
@@ -79,7 +74,6 @@ private:
 
 	Level m_level;		//レベルのインスタンス
 
-	int m_gameClearTimer = 0;		//ゲームクリアまでのタイマー
 	int m_gameOverTimer = 0;		//ゲームオーバーまでのタイマー
 };
 
