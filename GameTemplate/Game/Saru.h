@@ -1,5 +1,4 @@
 #pragma once
-#include "IGameObject.h"
 #include "sound/SoundEngine.h"
 #include "sound/SoundSource.h"
 #include "SaruStateWait.h"

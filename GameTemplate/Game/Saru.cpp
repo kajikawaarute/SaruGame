@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Saru.h"
 #include "Player.h"
-#include "IGameObjectManager.h"
 #include "BananaPeel.h"
 #include "BikkuriMark.h"
 

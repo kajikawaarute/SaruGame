@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "IGameObjectManager.h"
 #include "PlayerHP.h"
 
 const float PLAYER_HP_SPRITE_SCALE = 0.005f;	//ƒvƒŒƒCƒ„[HP‚ÌŠg‘å—¦

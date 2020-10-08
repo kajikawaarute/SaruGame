@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "BikkuriMark.h"
-#include "IGameObjectManager.h"
 
 BikkuriMark::BikkuriMark()
 {

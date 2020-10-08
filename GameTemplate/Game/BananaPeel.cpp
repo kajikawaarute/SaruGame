@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "BananaPeel.h"
-#include "IGameObjectManager.h"
 #include "Player.h"
 
 const int DEATH_TIME = 60;		//バナナの皮が消えるタイム。
