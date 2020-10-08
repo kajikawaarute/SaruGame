@@ -1,8 +1,5 @@
 #pragma once
-#include "IGameObject.h"
 #include "Player.h"
-#define SKINMODELRENDER_MODE
-#ifdef SKINMODELRENDER_MODE
 
 class GameCamera : public IGameObject
 {
@@ -27,4 +24,3 @@ private:
 	Player* m_player = nullptr;		//プレイヤーのインスタンス
 	CVector3 m_toCameraPos;			//カメラの座標
 };
-#endif 

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Fade.h"
-#include "IGameObjectManager.h"
 
 Fade::Fade()
 {

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "ButtonUI.h"
-#include "IGameObjectManager.h"
 
 ButtonUI::ButtonUI()
 {
