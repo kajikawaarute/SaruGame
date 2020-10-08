@@ -1,8 +1,6 @@
 #pragma once
 
 #include "sound/WaveFile.h"
-#include "IGameObject.h"
-	
 
 /// <summary>
 /// âπåπÉNÉâÉXÅB

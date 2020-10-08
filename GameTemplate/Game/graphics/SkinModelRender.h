@@ -1,5 +1,5 @@
 #pragma once
-#include "IGameObject.h"
+
 #include "graphics/ShadowMap.h"
 #include "graphics/ToonRender.h"
 

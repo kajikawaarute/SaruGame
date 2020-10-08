@@ -112,6 +112,8 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameClear.cpp" />
+    <ClCompile Include="gameObject\IGameObject.cpp" />
+    <ClCompile Include="gameObject\IGameObjectManager.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="graphics\animation\Animation.cpp" />
     <ClCompile Include="graphics\animation\AnimationClip.cpp" />
@@ -138,8 +140,6 @@
     <ClCompile Include="GunEnemyStateWait.cpp" />
     <ClCompile Include="HID\Pad.cpp" />
     <ClCompile Include="IEnenyState.cpp" />
-    <ClCompile Include="IGameObject.cpp" />
-    <ClCompile Include="IGameObjectManager.cpp" />
     <ClCompile Include="IGunEnemyState.cpp" />
     <ClCompile Include="IPlayerState.cpp" />
     <ClCompile Include="ISaruState.cpp" />
@@ -205,6 +205,8 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameClear.h" />
+    <ClInclude Include="gameObject\IGameObject.h" />
+    <ClInclude Include="gameObject\IGameObjectManager.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="graphics\animation\Animation.h" />
     <ClInclude Include="graphics\animation\AnimationClip.h" />
@@ -232,8 +234,6 @@
     <ClInclude Include="GunEnemyStateWait.h" />
     <ClInclude Include="HID\Pad.h" />
     <ClInclude Include="IEnenyState.h" />
-    <ClInclude Include="IGameObject.h" />
-    <ClInclude Include="IGameObjectManager.h" />
     <ClInclude Include="IGunEnemyState.h" />
     <ClInclude Include="IPlayerState.h" />
     <ClInclude Include="ISaruState.h" />

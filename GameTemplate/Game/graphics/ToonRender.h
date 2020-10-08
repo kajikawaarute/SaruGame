@@ -1,5 +1,4 @@
 #pragma once
-#include "IGameObject.h"
 #include "RenderTarget.h"
 
 class ToonRender

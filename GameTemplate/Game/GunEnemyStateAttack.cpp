@@ -2,7 +2,6 @@
 #include "GunEnemyStateAttack.h"
 #include "GunEnemy.h"
 #include "Player.h"
-#include "IGameObjectManager.h"
 
 const float GUNENEMY_WAIT_DISTANCE = 700.0f;	//待機状態になる距離。
 const float GUNENEMY_FUTTOBI_DISTANCE = 120.0f;	//プレイヤーを吹き飛ばすまでの距離。

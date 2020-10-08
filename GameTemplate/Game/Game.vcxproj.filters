@@ -64,6 +64,9 @@
     <Filter Include="Stage">
       <UniqueIdentifier>{8011fea4-052d-4da9-89fb-f251e48d2fa7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameObject">
+      <UniqueIdentifier>{52be901b-4e4f-4249-9331-5f421426e733}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -140,8 +143,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="IGameObject.cpp" />
-    <ClCompile Include="IGameObjectManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp">
@@ -298,6 +299,12 @@
     <ClCompile Include="graphics\Font.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="gameObject\IGameObject.cpp">
+      <Filter>gameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject\IGameObjectManager.cpp">
+      <Filter>gameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -381,8 +388,6 @@
     <ClInclude Include="level\MapChip.h">
       <Filter>level</Filter>
     </ClInclude>
-    <ClInclude Include="IGameObject.h" />
-    <ClInclude Include="IGameObjectManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="sound\SoundEngine.h">
@@ -545,6 +550,12 @@
     </ClInclude>
     <ClInclude Include="graphics\Font.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject\IGameObject.h">
+      <Filter>gameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject\IGameObjectManager.h">
+      <Filter>gameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

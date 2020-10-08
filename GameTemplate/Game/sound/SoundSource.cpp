@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "sound/SoundEngine.h"
 #include "sound/SoundSource.h"
-#include "IGameObjectManager.h"
 
 namespace prefab {
 	CSoundSource::CSoundSource()
