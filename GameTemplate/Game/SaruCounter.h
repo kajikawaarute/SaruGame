@@ -46,6 +46,7 @@ private:
 	FontRender* m_fontRender = nullptr;				//フォントのインスタンス
 
 	CVector2 m_fontPosition = { 20.0f, 100.0f };	//フォントの座標
+	CVector2 m_fontScale = { 0.7f, 0.7f };			//フォントの拡大率
 
 	int m_saruCount = 0;		//サルの数
 	int m_saruCounter = 0;		//捕まえたサルの数

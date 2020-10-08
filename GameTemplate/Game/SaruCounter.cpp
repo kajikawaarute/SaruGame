@@ -16,13 +16,14 @@ bool SaruCounter::Start()
 {
 	m_fontRender = g_goMgr.NewGO<FontRender>();
 	m_fontRender->SetPosition(m_fontPosition);
+	m_fontRender->SetScale(m_fontScale);
 
 	return true;
 }
 
 void SaruCounter::Update()
 {
-	swprintf(m_text, L"ƒTƒ‹ %d/%d", m_saruCounter, m_saruCount);
+	swprintf(m_text, L"Mission:ƒTƒ‹‚ð•ß‚Ü‚¦‚æ‚¤(%d/%d)", m_saruCounter, m_saruCount);
 }
 
 void SaruCounter::Draw()
