@@ -109,8 +109,6 @@
     <ClCompile Include="EnemyStateMove.cpp" />
     <ClCompile Include="EnemyStateWait.cpp" />
     <ClCompile Include="Fade.cpp" />
-    <ClCompile Include="Font.cpp" />
-    <ClCompile Include="FontRender.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameClear.cpp" />
@@ -119,6 +117,8 @@
     <ClCompile Include="graphics\animation\AnimationClip.cpp" />
     <ClCompile Include="graphics\animation\AnimationPlayController.cpp" />
     <ClCompile Include="graphics\Camera.cpp" />
+    <ClCompile Include="graphics\Font.cpp" />
+    <ClCompile Include="graphics\FontRender.cpp" />
     <ClCompile Include="graphics\GraphicsEngine.cpp" />
     <ClCompile Include="graphics\RenderTarget.cpp" />
     <ClCompile Include="graphics\Shader.cpp" />
@@ -202,8 +202,6 @@
     <ClInclude Include="EnemyStateMove.h" />
     <ClInclude Include="EnemyStateWait.h" />
     <ClInclude Include="Fade.h" />
-    <ClInclude Include="Font.h" />
-    <ClInclude Include="FontRender.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameClear.h" />
@@ -212,6 +210,8 @@
     <ClInclude Include="graphics\animation\AnimationClip.h" />
     <ClInclude Include="graphics\animation\AnimationPlayController.h" />
     <ClInclude Include="graphics\Camera.h" />
+    <ClInclude Include="graphics\Font.h" />
+    <ClInclude Include="graphics\FontRender.h" />
     <ClInclude Include="graphics\GraphicsEngine.h" />
     <ClInclude Include="graphics\RenderTarget.h" />
     <ClInclude Include="graphics\Shader.h" />

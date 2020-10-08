@@ -278,8 +278,6 @@
       <Filter>Saru</Filter>
     </ClCompile>
     <ClCompile Include="Fade.cpp" />
-    <ClCompile Include="Font.cpp" />
-    <ClCompile Include="FontRender.cpp" />
     <ClCompile Include="Stage2.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
@@ -292,6 +290,12 @@
     <ClCompile Include="SaruCounter.cpp" />
     <ClCompile Include="EnemyCounter.cpp" />
     <ClCompile Include="graphics\SkinModelRender.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\FontRender.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\Font.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -522,8 +526,6 @@
       <Filter>Saru</Filter>
     </ClInclude>
     <ClInclude Include="Fade.h" />
-    <ClInclude Include="Font.h" />
-    <ClInclude Include="FontRender.h" />
     <ClInclude Include="Stage2.h">
       <Filter>Stage</Filter>
     </ClInclude>
@@ -536,6 +538,12 @@
     <ClInclude Include="SaruCounter.h" />
     <ClInclude Include="EnemyCounter.h" />
     <ClInclude Include="graphics\SkinModelRender.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\FontRender.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\Font.h">
       <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
