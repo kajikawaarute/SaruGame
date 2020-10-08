@@ -3,11 +3,14 @@
 #include "Player.h"
 #include "EnemyStateAttack.h"
 
-const int ENEMY_WAIT_TIME = 60;		//エネミーが待機状態になるタイム。
-const float ENEMY_FUTTOBI_POWER = 1200.0f;	//プレイヤーを吹っ飛ばす力。
+const int ENEMY_WAIT_TIME = 60;				//エネミーが待機状態になるタイム。
+const float ENEMY_FUTTOBI_POWER = 2000.0f;	//プレイヤーを吹っ飛ばす力。
 
 void EnemyStateAttack::OnEnter()
 {
+	m_enemy->m_moveSpeed.x = 0.0f;
+	m_enemy->m_moveSpeed.z = 0.0f;
+
 	//エネミーからプレイヤーに伸びるベクトルを求める。
 	CVector3 toEnemyDir = m_enemy->m_pl->GetPos() - m_enemy->m_position;
 

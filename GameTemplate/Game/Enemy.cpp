@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "IGameObjectManager.h"
 
-const float ENEMY_MOVE_SPPED = 350.0f;					//エネミーの移動速度。
+const float ENEMY_MOVE_SPPED = 400.0f;					//エネミーの移動速度。
 const float ENEMY_FOUND_PLAYER_DISTANCE = 90.0f;		//エネミーがプレイヤーを見つける距離。
 const float ENEMY_DEATH_SE_VOLUME = 1.5f;				//エネミ－が倒された時のSEのボリューム
 
