@@ -1,5 +1,4 @@
 #pragma once
-#include "IGameObject.h"
 #include "character/CharacterController.h"
 #include "EnemyStateAttack.h"
 #include "EnemyStateWait.h"

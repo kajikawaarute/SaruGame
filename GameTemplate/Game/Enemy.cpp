@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Enemy.h"
 #include "Player.h"
-#include "IGameObjectManager.h"
 
 const float ENEMY_MOVE_SPPED = 400.0f;					//エネミーの移動速度。
 const float ENEMY_FOUND_PLAYER_DISTANCE = 90.0f;		//エネミーがプレイヤーを見つける距離。

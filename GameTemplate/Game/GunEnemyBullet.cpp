@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "GunEnemyBullet.h"
-#include "IGameObjectManager.h"
 #include "Player.h"
 
 const float GUN_SPPED_POWER = 30.0f;		//’e‚Ì‘¬“x‚ğ‘¬‚­‚·‚é—ÍB

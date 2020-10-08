@@ -1,6 +1,5 @@
 #pragma once
 #include "character/CharacterController.h"
-#include "IGameObject.h"
 
 #include "PlayerStateWait.h"
 #include "PlayerStateMove.h"

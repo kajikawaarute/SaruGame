@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "IGameObjectManager.h"
 #include "Saru.h"
 #include "Enemy.h"
 #include "GunEnemy.h"

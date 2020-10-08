@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "IGameObjectManager.h"
 #include "Game.h"
 #include "Stage.h"
 #include "Stage2.h"
