@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "GameOver.h"
-#include "IGameObjectManager.h"
 #include "Fade.h"
 
 const float GAMEOVER_POSITION_Y = 100.0f;		//ゲームオーバーの文字が落ちる座標Y

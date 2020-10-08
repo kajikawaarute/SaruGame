@@ -1,5 +1,4 @@
 #pragma once
-#include "IGameObject.h"
 
 class Fade;
 class GameOver : public IGameObject
