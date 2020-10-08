@@ -25,25 +25,21 @@ public:
 	void Draw();
 
 	/// <summary>
-	/// 捕まえたサルをカウントする。
+	/// 捕まえたサルの数をカウントする。
 	/// </summary>
 	/// <param name="saruCount">捕まえたサルの数</param>
-	/// <returns>捕まえたサルの数</returns>
-	int AddSaruCounter(int saruCount)
+	void AddSaruCounter(int saruCount)
 	{
 		m_saruCounter = saruCount;
-		return m_saruCounter;
 	}
 
 	/// <summary>
 	/// サルの数を設定。
 	/// </summary>
 	/// <param name="saruNo">サルの数</param>
-	/// <returns>サルの数</returns>
-	int SetSaruNumber(int saruNo)
+	void SetSaruNumber(int saruNo)
 	{
 		m_saruCount = saruNo;
-		return m_saruCount;
 	}
 
 private:
