@@ -128,6 +128,7 @@
     <ClCompile Include="graphics\SkinModel.cpp" />
     <ClCompile Include="graphics\SkinModelDataManager.cpp" />
     <ClCompile Include="graphics\SkinModelEffect.cpp" />
+    <ClCompile Include="graphics\SkinModelRender.cpp" />
     <ClCompile Include="graphics\Sprite.cpp" />
     <ClCompile Include="graphics\ToonRender.cpp" />
     <ClCompile Include="GunEnemy.cpp" />
@@ -174,7 +175,6 @@
     <ClCompile Include="SaruStateRun.cpp" />
     <ClCompile Include="SaruStateStun.cpp" />
     <ClCompile Include="SaruStateWait.cpp" />
-    <ClCompile Include="SkinModelRender.cpp" />
     <ClCompile Include="Sky.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp" />
     <ClCompile Include="sound\SoundSource.cpp" />
@@ -221,6 +221,7 @@
     <ClInclude Include="graphics\SkinModel.h" />
     <ClInclude Include="graphics\SkinModelDataManager.h" />
     <ClInclude Include="graphics\SkinModelEffect.h" />
+    <ClInclude Include="graphics\SkinModelRender.h" />
     <ClInclude Include="graphics\SkinModelShaderConst.h" />
     <ClInclude Include="graphics\Sprite.h" />
     <ClInclude Include="graphics\ToonRender.h" />
@@ -269,7 +270,6 @@
     <ClInclude Include="SaruStateRun.h" />
     <ClInclude Include="SaruStateStun.h" />
     <ClInclude Include="SaruStateWait.h" />
-    <ClInclude Include="SkinModelRender.h" />
     <ClInclude Include="Sky.h" />
     <ClInclude Include="sound\SoundEngine.h" />
     <ClInclude Include="sound\SoundSource.h" />

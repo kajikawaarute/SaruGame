@@ -40,7 +40,10 @@
 
 #include "graphics/SkinModel.h"
 #include "graphics/Skeleton.h"
-#include "SkinModelRender.h"
+#include "graphics/SkinModelRender.h"
+
+#include "IGameObject.h"
+#include "IGameObjectManager.h"
 
 #include "graphics/animation/Animation.h"
 #include "graphics/animation/AnimationClip.h"

@@ -280,7 +280,6 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontRender.cpp" />
-    <ClCompile Include="SkinModelRender.cpp" />
     <ClCompile Include="Stage2.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
@@ -292,6 +291,9 @@
     </ClCompile>
     <ClCompile Include="SaruCounter.cpp" />
     <ClCompile Include="EnemyCounter.cpp" />
+    <ClCompile Include="graphics\SkinModelRender.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -522,7 +524,6 @@
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontRender.h" />
-    <ClInclude Include="SkinModelRender.h" />
     <ClInclude Include="Stage2.h">
       <Filter>Stage</Filter>
     </ClInclude>
@@ -534,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="SaruCounter.h" />
     <ClInclude Include="EnemyCounter.h" />
+    <ClInclude Include="graphics\SkinModelRender.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
