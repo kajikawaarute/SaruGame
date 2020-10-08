@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Stage2.h"
-#include "IGameObjectManager.h"
 #include "GameClear.h"
 #include "GameOver.h"
 

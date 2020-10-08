@@ -1,5 +1,4 @@
 #pragma once
-#include "IGameObject.h"
 #include "physics/PhysicsStaticObject.h"
 
 /// <summary>

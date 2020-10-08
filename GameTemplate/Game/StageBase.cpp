@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "StageBase.h"
-#include "IGameObjectManager.h"
 
 StageBase::StageBase()
 {
