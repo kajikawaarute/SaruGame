@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Sky.h"
-#include "IGameObjectManager.h"
 
 Sky::Sky()
 {

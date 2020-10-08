@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "SaruCounter.h"
-#include "IGameObjectManager.h"
 
 SaruCounter::SaruCounter()
 {

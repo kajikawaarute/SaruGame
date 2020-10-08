@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Wall.h"
-#include "IGameObjectManager.h"
 
 Wall::Wall()
 {
