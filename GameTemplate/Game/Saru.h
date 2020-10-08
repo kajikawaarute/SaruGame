@@ -32,11 +32,6 @@ public:
 	void Run();
 
 	/// <summary>
-	/// サルの描画関数
-	/// </summary>
-	void Draw();
-
-	/// <summary>
 	/// サルが捕まえられた時の処理
 	/// </summary>
 	void GetSaru();
@@ -172,7 +167,7 @@ private:
 	friend class SaruStateStun;
 	friend class SaruStateFound;
 
-	SkinModel m_model;									//スキンモデル
+	SkinModelRender* m_skinModel = nullptr;				//スキンモデル
 	CVector3 m_position = CVector3::Zero();				//座標
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転
 	CVector3 m_scale = CVector3::One();					//拡大率

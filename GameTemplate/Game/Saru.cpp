@@ -4,8 +4,6 @@
 #include "IGameObjectManager.h"
 #include "BananaPeel.h"
 #include "BikkuriMark.h"
-#include "graphics/ShadowMap.h"
-#include "graphics/ToonRender.h"
 
 const float SARU_MOVE_SPPED = 300.0f;			//サルの移動速度。
 const float SARU_RUN_SPPED = 1500.0f;			//サルの走っている時の移動速度。
@@ -15,11 +13,11 @@ const float SARU_BIKKURIMARK_POSITION_Y = 160.0f;	//ビックリマークを表示する座標
 const float SARU_PATH_DISTANCE = 50.0f;				//パスまでの距離。
 const float SARU_STUN_SE_VOLUME = 1.5f;				//サルが怯んだ時のSEのボリューム
 
-
 Saru::Saru()
 {
 	//モデルの初期化。
-	m_model.Init(L"Assets/modelData/Saru.cmo");
+	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel->Init(L"Assets/modelData/Saru.cmo");
 
 	//アニメーションを生成。
 	m_animClip[enAnim_wait].Load(L"Assets/animData/Saru-taiki.tka");
@@ -45,7 +43,7 @@ Saru::Saru()
 	m_enSaruState = enState_wait;
 
 	//アニメーションの初期化
-	m_animation.Init(m_model, m_animClip, enAnim_num);
+	m_animation.Init(m_skinModel->GetSkinModel(), m_animClip, enAnim_num);
 
 	//状態を初期化する。
 	m_saruStateWait.Init(this);
@@ -56,12 +54,15 @@ Saru::Saru()
 	m_saruStateFound.Init(this);
 
 	//シャドウレシーバーを設定
-	m_model.SetShadowReciever(true);
+	m_skinModel->SetShadowReciever();
 }
 
 Saru::~Saru()
 {
+	g_goMgr.DeleteGO(m_bikkuriMark);
 	g_goMgr.DeleteGO(m_banaPeel);
+	//スキンモデルを削除。
+	g_goMgr.DeleteGO(m_skinModel);
 }
 
 void Saru::Update()
@@ -113,15 +114,20 @@ void Saru::Update()
 		break;
 	}
 
+	//アニメーションの更新。
 	m_animation.Update(GameTime().GetFrameDeltaTime());
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
 	//シャドウキャスターを設定
-	ShadowMap::GetInstance().RegistShadowCaster(&m_model);
+	m_skinModel->SetShadowCaster();
 
 	//トゥーンレンダを設定。
-	ToonRender::GetInstance().RegistToonRender(&m_model);
+	m_skinModel->SetToonRender();
+
+	//スキンモデルの座標を設定。
+	m_skinModel->SetPosition(m_position);
+
+	//スキンモデルの回転を設定。
+	m_skinModel->SetRotation(m_rotation);
 }
 
 void Saru::Move()
@@ -146,15 +152,6 @@ void Saru::Run()
 	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();
 
 	Turn();
-}
-
-void Saru::Draw()
-{
-	m_model.Draw(
-		enRenderMode_Normal,
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
 }
 
 void Saru::GetSaru()
