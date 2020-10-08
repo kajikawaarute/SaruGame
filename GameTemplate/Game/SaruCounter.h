@@ -1,6 +1,5 @@
 #pragma once
 #include "IGameObject.h"
-#include "FontRender.h"
 
 class SaruCounter : public IGameObject
 {

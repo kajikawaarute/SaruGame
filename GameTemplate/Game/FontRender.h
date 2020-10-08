@@ -1,6 +1,5 @@
 #pragma once
 #include "IGameObject.h"
-#include "Font.h"
 
 class FontRender : public IGameObject
 {

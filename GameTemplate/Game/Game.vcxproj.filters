@@ -291,6 +291,7 @@
       <Filter>Stage</Filter>
     </ClCompile>
     <ClCompile Include="SaruCounter.cpp" />
+    <ClCompile Include="EnemyCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -532,6 +533,7 @@
       <Filter>Stage</Filter>
     </ClInclude>
     <ClInclude Include="SaruCounter.h" />
+    <ClInclude Include="EnemyCounter.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

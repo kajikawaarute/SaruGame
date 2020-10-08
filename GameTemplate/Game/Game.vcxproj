@@ -104,6 +104,7 @@
     <ClCompile Include="ButtonUI.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyCounter.cpp" />
     <ClCompile Include="EnemyStateAttack.cpp" />
     <ClCompile Include="EnemyStateMove.cpp" />
     <ClCompile Include="EnemyStateWait.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="ButtonUI.h" />
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyCounter.h" />
     <ClInclude Include="EnemyStateAttack.h" />
     <ClInclude Include="EnemyStateMove.h" />
     <ClInclude Include="EnemyStateWait.h" />
