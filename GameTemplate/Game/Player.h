@@ -194,12 +194,21 @@ public:
 	}
 
 	/// <summary>
-	/// 捕まえたサルカウントを取得
+	/// 捕まえたサルカウントを取得。
 	/// </summary>
-	/// <returns></returns>
-	int GetSaruCount()
+	/// <returns>捕まえたサル</returns>
+	const int& GetSaruCount()
 	{
 		return m_saruCount;
+	}
+
+	/// <summary>
+	/// 倒したエネミーカウントを取得。
+	/// </summary>
+	/// <returns>倒したエネミー</returns>
+	const int& GetEnemyCount()
+	{
+		return m_enemyCount;
 	}
 
 	/// <summary>
@@ -275,6 +284,7 @@ private:
 	PlayerStateDeath m_playerStateDeath;		//死亡状態
 	
 	int m_saruCount = 0;					//サルを捕まえた数
+	int m_enemyCount = 0;					//エネミーを倒した数
 
 	const float animTime = 0.2f;			//アニメーションの補間時間
 

@@ -13,8 +13,8 @@ Stage2::~Stage2()
 
 void Stage2::LocalUpdate()
 {
-	//ステージ２はサルを全員捕まえたらゲームクリア。
-	if (m_getSaruCount == m_saruNo)
+	//ステージ２はサルを全員捕まえ、敵を一定数倒したらゲームクリア。
+	if (m_getSaruCount == m_saruNo && m_downEnemyCount >= m_downEnemyNo)
 	{
 		m_gameClearTimer++;
 		if (m_gameClearTimer == GAMECLEAR_TIME) {

@@ -14,8 +14,8 @@ Stage::~Stage()
 
 void Stage::LocalUpdate()
 {
-	//ステージ１はサルを全員捕まえたらゲームクリア。
-	if (m_getSaruCount == m_saruNo)
+	//ステージ１はサルを全員捕まえる、敵を全部倒したらゲームクリア。
+	if (m_getSaruCount == m_saruNo && m_downEnemyCount == m_downEnemyNo)
 	{
 		m_gameClearTimer++;
 		if (m_gameClearTimer == GAMECLEAR_TIME) {
@@ -23,7 +23,7 @@ void Stage::LocalUpdate()
 		}
 	}
 	//ステージ１はHPがなくなったらゲームオーバー。
-	if (m_gameOverFlag == true) 
+	else if (m_gameOverFlag == true) 
 	{
 		m_gameOverTimer++;
 		if (m_gameOverTimer == GAMECLEAR_TIME) {

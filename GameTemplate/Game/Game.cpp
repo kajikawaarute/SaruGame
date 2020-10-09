@@ -15,9 +15,11 @@
 #include "ButtonUI.h"
 #include "Sky.h"
 #include "SaruCounter.h"
+#include "EnemyCounter.h"
 
 EStage Game::stageNo = eStage_1;
 
+const int STAGE2_DOWN_ENEMY_NO = 10;		//ステージ２の敵を倒す数。
 const int GAMECLEAR_TIME = 90;				//ゲームクリアまでのタイム。
 const int GAMEOVER_TITLE_TIME = 90;			//ゲームオーバーからタイトルに遷移するまでのタイム。
 const float PLAYER_DEATH_HEIGHT = -300.0f;	//プレイヤーが落ちた時にゲームオーバーになる高さ。
@@ -82,6 +84,7 @@ Game::Game()
 					enemy->SetRotation(objData.rotation);
 					enemy->SetPlayer(m_pl);
 					m_pl->SetEnemy(enemy);
+					m_downEnemyNo++;
 					return true;
 				}
 
@@ -221,6 +224,7 @@ Game::~Game()
 	g_goMgr.DeleteGO(m_gCamera);
 	g_goMgr.DeleteGO(m_buttonUI);
 	g_goMgr.DeleteGO(m_saruCounter);
+	g_goMgr.DeleteGO(m_enemyCounter);
 
 	//プレイヤーのHPがなくなったらタイトルに遷移する。
 	if (m_playerHP->GetGameOver() == true) {
@@ -241,14 +245,24 @@ Game::~Game()
 bool Game::Start()
 {
 	m_playerHP = g_goMgr.NewGO<PlayerHP>();
+	m_buttonUI = g_goMgr.NewGO<ButtonUI>();
+	m_saruCounter = g_goMgr.NewGO<SaruCounter>();
+	m_enemyCounter = g_goMgr.NewGO<EnemyCounter>();
+	
 	m_pl->SetPlayerHP(m_playerHP);
 
-	m_buttonUI = g_goMgr.NewGO<ButtonUI>();
-
-	m_saruCounter = g_goMgr.NewGO<SaruCounter>();
 	//サルの数をフォントで表示。
 	m_saruCounter->SetSaruNumber(m_saruNo);
 
+	//エネミーの数をフォントで表示。
+	if (stageNo == eStage_1) {
+		//ステージ１の倒すエネミーの数
+		m_enemyCounter->SetEnemyNumber(m_downEnemyNo);
+	}
+	else if (stageNo == eStage_2) {
+		//ステージ２の倒すエネミーの数
+		m_enemyCounter->SetEnemyNumber(STAGE2_DOWN_ENEMY_NO);
+	}
 	return true;
 }
 
@@ -263,6 +277,8 @@ void Game::Update()
 	if (stageNo == eStage_1) {
 		m_stage->SetSaruNo(m_saruNo);
 		m_stage->SetSaruCounter(m_pl->GetSaruCount());
+		m_stage->SetDownEnemyNo(m_downEnemyNo);
+		m_stage->SetDownEnemyCounter(m_pl->GetEnemyCount());
 		//ステージ１のゲームクリア
 		if (m_stage->GetClearTimer() == GAMECLEAR_TIME)
 		{
@@ -283,6 +299,8 @@ void Game::Update()
 	else if (stageNo == eStage_2) {
 		m_stage2->SetSaruNo(m_saruNo);
 		m_stage2->SetSaruCounter(m_pl->GetSaruCount());
+		m_stage2->SetDownEnemyNo(STAGE2_DOWN_ENEMY_NO);
+		m_stage2->SetDownEnemyCounter(m_pl->GetEnemyCount());
 		//ステージ２のゲームクリア
 		if (m_stage2->GetClearTimer() == GAMECLEAR_TIME)
 		{
@@ -302,6 +320,15 @@ void Game::Update()
 
 	//捕まえたサルの数をフォントで表示。
 	m_saruCounter->AddSaruCounter(m_pl->GetSaruCount());
+
+	if (m_downEnemyNo >= m_pl->GetEnemyCount()) {
+		//ステージ１の倒したエネミーの数をフォントで表示。
+		m_enemyCounter->AddEnemyCounter(m_pl->GetEnemyCount());
+	}
+	else if (STAGE2_DOWN_ENEMY_NO >= m_pl->GetEnemyCount()) {
+		//ステージ２の倒したエネミーの数をフォントで表示。
+		m_enemyCounter->AddEnemyCounter(m_pl->GetEnemyCount());
+	}
 }
 
 void Game::Draw()

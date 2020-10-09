@@ -193,6 +193,7 @@ void Player::DeleteEnemy(Enemy * enemy)
 	for (auto it = m_enemys.begin(); it != m_enemys.end();) {
 		if (*it == enemy) {
 			it = m_enemys.erase(it);
+			m_enemyCount++;
 		}
 		else {
 			//リクエストを受けていない。
@@ -206,6 +207,7 @@ void Player::DeleteGunEnemy(GunEnemy * gunEnemy)
 	for (auto it = m_gunEnemys.begin(); it != m_gunEnemys.end();) {
 		if (*it == gunEnemy) {
 			it = m_gunEnemys.erase(it);
+			m_enemyCount++;
 		}
 		else {
 			//リクエストを受けていない。

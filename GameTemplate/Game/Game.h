@@ -17,7 +17,9 @@ class GameCamera;
 class Title;
 class PlayerHP;
 class ButtonUI;
+
 class SaruCounter;
+class EnemyCounter;
 
 enum EStage {
 	eStage_1,	//ステージ１
@@ -65,8 +67,10 @@ private:
 	ButtonUI* m_buttonUI = nullptr;			//ボタンUIのインスタンス
 	
 	SaruCounter* m_saruCounter = nullptr;	//サルカウンターのインスタンス
+	EnemyCounter* m_enemyCounter = nullptr;	//エネミーカウンターのインスタンス
 
 	int m_saruNo = 0;						//サルの数
+	int m_downEnemyNo = 0;					//倒すエネミーの数
 	Saru* m_sarus[MAX_SARU] = {nullptr};	//サルのリスト
 	std::vector<Enemy*> m_enemys;			//エネミーのリスト
 	std::vector<GunEnemy*> m_gunEnemys;		//ガンエネミーのリスト
