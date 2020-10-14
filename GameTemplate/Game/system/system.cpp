@@ -2,7 +2,6 @@
 #include "system.h"
 
 HWND			g_hWnd = NULL;				//ウィンドウハンドル。
-GraphicsEngine* g_graphicsEngine = NULL;	//グラフィックスエンジン。
 
 ///////////////////////////////////////////////////////////////////
 // DirectXの終了処理。
@@ -86,8 +85,10 @@ void InitGame(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, in
 	//ウィンドウを初期化。
 	InitWindow(hInstance, hPrevInstance, lpCmdLine, nCmdShow, appName);
 	//DirectXの初期化。
-	g_graphicsEngine = new GraphicsEngine();
-	g_graphicsEngine->Init(g_hWnd);
+	//g_graphicsEngine = new GraphicsEngine();
+	//GraphicsEngine::GetInstance();
+	//g_graphicsEngine->Init(g_hWnd);
+	GraphicsEngine::GetInstance()->Init(g_hWnd);
 
 	//ゲームパッドの初期化。
 	//最大４つのコントローラーを接続できるようにしましょう。
@@ -97,6 +98,9 @@ void InitGame(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, in
 	g_pad[3].Init(3);
 
 	g_physics.Init();
+
+	//IGameObjectManagerのインスタンスを作成する。
+	//IGameObjectManager::CreateInstance();
 }
 //ウィンドウメッセージをディスパッチ。falseが返ってきたら、ゲーム終了。
 bool DispatchWindowMessage()

@@ -8,7 +8,8 @@ const int GAMEOVER_TIME = 1;				//ゲームオーバーを表示するタイム。
 
 Stage2::~Stage2()
 {
-	g_goMgr.DeleteGO(m_gameClear);
+	DeleteGO(m_gameClear);
+	DeleteGO(m_gameOver);
 }
 
 void Stage2::LocalUpdate()
@@ -18,7 +19,7 @@ void Stage2::LocalUpdate()
 	{
 		m_gameClearTimer++;
 		if (m_gameClearTimer == GAMECLEAR_TIME) {
-			m_gameClear = g_goMgr.NewGO<GameClear>();
+			m_gameClear = NewGO<GameClear>();
 		}
 	}
 
@@ -27,7 +28,7 @@ void Stage2::LocalUpdate()
 	{
 		m_gameOverTimer++;
 		if (m_gameOverTimer == GAMEOVER_TIME) {
-			m_gameOver = g_goMgr.NewGO<GameOver>();
+			m_gameOver = NewGO<GameOver>();
 		}
 	}
 }

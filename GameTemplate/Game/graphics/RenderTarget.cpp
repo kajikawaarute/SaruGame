@@ -37,7 +37,7 @@ void RenderTarget::Release()
 void RenderTarget::Create(unsigned int w, unsigned int h, DXGI_FORMAT texFormat)
 {
 	//D3Dデバイスを取得。
-	auto d3dDevice = g_graphicsEngine->GetD3DDevice();
+	auto d3dDevice = GetD3DDeviceGraphicsEngine();
 	//1.レンダリングターゲットとなるテクスチャを作成。
 	D3D11_TEXTURE2D_DESC texDesc = { 0 };
 	{
@@ -152,7 +152,7 @@ void RenderTarget::Create(unsigned int w, unsigned int h, DXGI_FORMAT texFormat)
 
 void RenderTarget::ClearRenderTarget(float* clearColor)
 {
-	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	auto d3dDeviceContext = GetD3DDeviceContextGraphicsEngine();
 	//レンダリングターゲットをクリア。
 	d3dDeviceContext->ClearRenderTargetView(m_renderTargetView, clearColor);
 	d3dDeviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);

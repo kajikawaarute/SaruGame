@@ -4,14 +4,14 @@
 Sky::Sky()
 {
 	//モデルの初期化。
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel = NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/SkyBox.cmo");
 }
 
 Sky::~Sky()
 {
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }
 
 void Sky::Update()

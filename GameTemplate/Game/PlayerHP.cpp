@@ -6,11 +6,11 @@ const float PLAYER_HP_SPRITE_SIZE = 0.001f;		//プレイヤーHPの大きさ
 
 PlayerHP::PlayerHP()
 {
-	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
+	m_spriteBatch = GetSpriteBatchGraphicsEngine();
 
 	for (int i = 0; i < m_playerHP; i++) {
 		//画像の読み込み。
-		m_device = g_graphicsEngine->GetDevice();
+		m_device = GetD3DDeviceGraphicsEngine();
 		DirectX::CreateDDSTextureFromFile(
 			m_device,						//デバイス
 			L"Assets/sprite/PlayerHP.dds",	//読み込む画像

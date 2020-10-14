@@ -3,9 +3,6 @@
 #include "graphics/ShadowMap.h"
 #include "graphics/ToonRender.h"
 
-//IGameObjectManagerクラスのインスタンス。
-IGameObjectManager g_goMgr;
-
 void IGameObjectManager::Update()
 {
 

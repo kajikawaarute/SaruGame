@@ -16,7 +16,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, "Game");
 
 	//Titleクラスのインスタンス
-	Title* title = g_goMgr.NewGO<Title>();
+	Title* title = NewGO<Title>();
 
 	//サウンドエンジンのインスタンス
 	CSoundEngine soundEngine;
@@ -26,9 +26,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//Effekseerマネージャー管理
 	//レンダラーを初期化。
 	g_effekseerRenderer = EffekseerRendererDX11::Renderer::Create(
-		g_graphicsEngine->GetD3DDevice(),			//D3Dデバイス。
-		g_graphicsEngine->GetD3DDeviceContext(),	//D3Dデバイスコンテキスト。
-		20000										//板ポリの最大数。
+		GetD3DDeviceGraphicsEngine(),			//D3Dデバイス。
+		GetD3DDeviceContextGraphicsEngine(),	//D3Dデバイスコンテキスト。
+		20000									//板ポリの最大数。
 	);
 	//エフェクトマネージャを初期化。
 	g_effekseerManager = Effekseer::Manager::Create(10000);
@@ -52,7 +52,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//1フレームの時間計測を開始。
 		sw.Start();
 		//描画開始。
-		g_graphicsEngine->BegineRender();
+		GraphicsEngine::GetInstance()->BegineRender();
 		//ゲームパッドの更新。	
 		for (auto& pad : g_pad) {
 			pad.Update();
@@ -60,7 +60,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//物理エンジンの更新。
 		g_physics.Update();
 		//ゲームオブジェクトマネージャーの更新
-		g_goMgr.Update();
+		IGameObjectManager::GetInstance()->Update();
 
 		g_effekseerRenderer->BeginRendering();
 		g_effekseerManager->Draw();
@@ -84,7 +84,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//サウンドエンジンの更新
 		soundEngine.Update();
 		//描画終了。
-		g_graphicsEngine->EndRender();
+		GraphicsEngine::GetInstance()->EndRender();
 		//1フレームの時間計測を終了。
 		sw.Stop();
 		//経過時間を記憶しておく。

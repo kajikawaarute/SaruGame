@@ -8,7 +8,7 @@ const int DEATH_TIME = 20;					//弾が消えるタイム。
 GunEnemyBullet::GunEnemyBullet()
 {
 	//モデルの初期化。
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel = NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/GunEnemyBullet.cmo");
 
 	//ゴーストオブジェクトを作成。
@@ -22,7 +22,7 @@ GunEnemyBullet::GunEnemyBullet()
 GunEnemyBullet::~GunEnemyBullet()
 {
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }
 
 void GunEnemyBullet::Update()
@@ -64,7 +64,7 @@ void GunEnemyBullet::Update()
 
 void GunEnemyBullet::Delete()
 {
-	g_goMgr.DeleteGO(this);
+	DeleteGO(this);
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }

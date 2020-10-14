@@ -16,10 +16,12 @@ void SaruStateRun::Update()
 	//サルからプレイヤーに伸びるベクトルを求める。
 	CVector3 toSaruDir = m_saru->m_pl->GetPos() - m_saru->m_position;
 	float toSaruLen = toSaruDir.Length();
+	toSaruDir.Normalize();
 
+	m_saru->m_moveSpeed -= toSaruDir;
 	m_saru->Run();
 	m_saru->BanaPeelThrow();
-	m_saru->m_moveSpeed = toSaruDir;
+	
 	if (toSaruLen > SARU_PLAYER_DISTANCE)
 	{
 		m_saru->ChangeStateWait();

@@ -8,7 +8,7 @@ const float FLOOR_JUMP_POWER = 4000.0f;		//ジャンプ台ジャンプパワー。
 JumpFloor::JumpFloor()
 {
 	//モデルの初期化。
-	m_skinModel = g_goMgr.NewGO <SkinModelRender>();
+	m_skinModel = NewGO <SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/JumpFloor2.cmo");
 
 	//アニメーションをロード
@@ -32,7 +32,7 @@ JumpFloor::JumpFloor()
 JumpFloor::~JumpFloor()
 {
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }
 
 void JumpFloor::Update()
@@ -40,7 +40,7 @@ void JumpFloor::Update()
 	//ゴーストオブジェクトの判定。
 	g_physics.ContactTest(m_player->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject)) {
-			prefab::CSoundSource* jumpFloorSE = g_goMgr.NewGO<prefab::CSoundSource>();
+			prefab::CSoundSource* jumpFloorSE = NewGO<prefab::CSoundSource>();
 			jumpFloorSE->Init(L"Assets/Sound/JumpFloorSE.wav");
 			jumpFloorSE->Play(false);
 			m_player->GetMoveSpd().y = FLOOR_JUMP_POWER;

@@ -9,11 +9,11 @@ const int TITLE_GAME_START_TIME = 60;	//ゲームを開始するタイム
 
 Title::Title()
 {
-	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
+	m_spriteBatch = GetSpriteBatchGraphicsEngine();
 
 	for (int i = 0; i < EnSpriteNum; i++)
 	{
-		m_device[i] = g_graphicsEngine->GetDevice();
+		m_device[i] = GetD3DDeviceGraphicsEngine();
 	}
 
 	//タイトル画像の読み込み
@@ -46,14 +46,14 @@ Title::Title()
 
 Title::~Title()
 {
-	g_goMgr.DeleteGO(m_fade);
+	DeleteGO(m_fade);
 }
 
 void Title::Update()
 {
 	if (g_pad[0].IsTrigger(enButtonStart) && m_startFlag == false && m_positionX[EnSprite_Catch_the_monkey] == 0.0f && m_positionY[EnSprite_Press_Start] == 0.0f)
 	{
-		m_fade = g_goMgr.NewGO<Fade>();
+		m_fade = NewGO<Fade>();
 		m_startFlag = true;
 	}
 	if (m_startFlag == true) {
@@ -61,8 +61,8 @@ void Title::Update()
 		m_fade->StartFadeOut();
 		if (m_gameStartTimer > TITLE_GAME_START_TIME) {
 			Game::stageNo = eStage_1;
-			m_game = g_goMgr.NewGO<Game>();
-			g_goMgr.DeleteGO(this);
+			m_game = NewGO<Game>();
+			DeleteGO(this);
 		}
 	}
 	if (m_positionX[EnSprite_Catch_the_monkey] < 0.0f) {

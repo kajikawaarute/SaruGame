@@ -16,9 +16,24 @@ enum EnRenderMode {
  */
 class GraphicsEngine
 {
-public:
+private:
 	GraphicsEngine();
 	~GraphicsEngine();
+
+public:
+	/// <summary>
+	/// グラフィックスエンジンのインスタンスを取得。
+	/// </summary>
+	/// <returns>グラフィックスエンジンのインスタンス</returns>
+	static GraphicsEngine* GetInstance()
+	{
+		static GraphicsEngine* instance = nullptr;
+		if (instance == nullptr) {
+			instance = new GraphicsEngine();
+		}
+		return instance;
+	}
+
 	/*!
 	 *@brief	初期化。
 	 *@param[in]	hWnd		ウィンドウハンドル。
@@ -43,7 +58,7 @@ public:
 		return m_pd3dDeviceContext;
 	}
 	/// <summary>
-	/// スプライトバッチを取得
+	/// スプライトバッチを取得。
 	/// </summary>
 	/// <returns></returns>
 	DirectX::SpriteBatch* GetSpriteBatch()
@@ -89,4 +104,40 @@ private:
 
 };
 
-extern GraphicsEngine* g_graphicsEngine;			//グラフィックスエンジン
+//ヘルパー関数
+
+/// <summary>
+/// D3D11デバイスを取得。
+/// </summary>
+/// <returns>D3D11デバイス</returns>
+static inline ID3D11Device* GetD3DDeviceGraphicsEngine()
+{
+	return GraphicsEngine::GetInstance()->GetD3DDevice();
+}
+
+/// <summary>
+/// D3D11デバイスコンテキストを取得。
+/// </summary>
+/// <returns>D3D11デバイスコンテキスト</returns>
+static inline ID3D11DeviceContext* GetD3DDeviceContextGraphicsEngine()
+{
+	return GraphicsEngine::GetInstance()->GetD3DDeviceContext();
+}
+
+/// <summary>
+/// スプライトバッチを取得。
+/// </summary>
+/// <returns>スプライトバッチ</returns>
+static inline DirectX::SpriteBatch* GetSpriteBatchGraphicsEngine()
+{
+	return GraphicsEngine::GetInstance()->GetSpriteBatch();
+}
+
+/// <summary>
+/// スプライトフォントを取得。
+/// </summary>
+/// <returns>スプライトフォント</returns>
+static inline DirectX::SpriteFont* GetSpriteFontGraphicsEngine()
+{
+	return GraphicsEngine::GetInstance()->GetSpriteFont();
+}

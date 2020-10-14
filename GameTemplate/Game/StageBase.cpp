@@ -7,7 +7,7 @@ StageBase::StageBase()
 bool StageBase::Start()
 {
 	//モデルの初期化。
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel = NewGO<SkinModelRender>();
 	m_skinModel->Init(GetCMOFilePath());
 
 	//静的オブジェクトを作成。
@@ -20,7 +20,7 @@ bool StageBase::Start()
 StageBase::~StageBase()
 {
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }
 
 void StageBase::Update()

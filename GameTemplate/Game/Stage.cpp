@@ -8,8 +8,8 @@ const int GAMEOVER_TIME = 1;				//ゲームオーバーを表示するタイム。
 
 Stage::~Stage()
 {
-	g_goMgr.DeleteGO(m_gameClear);
-	g_goMgr.DeleteGO(m_gameOver);
+	DeleteGO(m_gameClear);
+	DeleteGO(m_gameOver);
 }
 
 void Stage::LocalUpdate()
@@ -19,7 +19,7 @@ void Stage::LocalUpdate()
 	{
 		m_gameClearTimer++;
 		if (m_gameClearTimer == GAMECLEAR_TIME) {
-			m_gameClear = g_goMgr.NewGO<GameClear>();
+			m_gameClear = NewGO<GameClear>();
 		}
 	}
 	//ステージ１はHPがなくなったらゲームオーバー。
@@ -27,7 +27,7 @@ void Stage::LocalUpdate()
 	{
 		m_gameOverTimer++;
 		if (m_gameOverTimer == GAMECLEAR_TIME) {
-			m_gameOver = g_goMgr.NewGO<GameOver>();
+			m_gameOver = NewGO<GameOver>();
 		}
 	}
 }

@@ -16,7 +16,7 @@ ToonRender::~ToonRender()
 void ToonRender::Draw()
 {
 	//トゥーンレンダにレンダリング
-	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	auto d3dDeviceContext = GetD3DDeviceContextGraphicsEngine();
 	ID3D11RenderTargetView* oldRenderTargetView;
 	ID3D11DepthStencilView* oldDepthStencilView;
 
@@ -46,7 +46,7 @@ void ToonRender::Draw()
 
 void ToonRender::ZPrepass()
 {
-	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	auto d3dDeviceContext = GetD3DDeviceContextGraphicsEngine();
 
 	//レンダリングターゲットを切り替える
 

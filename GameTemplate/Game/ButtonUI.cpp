@@ -3,8 +3,8 @@
 
 ButtonUI::ButtonUI()
 {
-	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
-	m_device = g_graphicsEngine->GetDevice();
+	m_spriteBatch = GetSpriteBatchGraphicsEngine();
+	m_device = GetD3DDeviceGraphicsEngine();
 
 	//‰æ‘œ‚Ì“Ç‚İ‚İB
 	DirectX::CreateDDSTextureFromFile(

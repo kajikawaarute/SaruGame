@@ -25,7 +25,7 @@ void MeshCollider::CreateFromSkinModel( const SkinModel& model, const CMatrix* o
 
 	model.FindMesh([&](const auto& mesh){
 
-			ID3D11DeviceContext* deviceContext = g_graphicsEngine->GetD3DDeviceContext();
+			ID3D11DeviceContext* deviceContext = GetD3DDeviceContextGraphicsEngine();
 			//頂点バッファを作成。
 			{
 				D3D11_MAPPED_SUBRESOURCE subresource;

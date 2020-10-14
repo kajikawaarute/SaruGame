@@ -9,7 +9,7 @@ const float BANANAPEEL_SPEED_POWER = 10.0f;		//バナナの皮の滑る速度をあげる力。
 BananaPeel::BananaPeel()
 {
 	//モデルの初期化。
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel = NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/BananaPeel.cmo");
 
 	//ゴーストオブジェクトの作成。
@@ -23,7 +23,7 @@ BananaPeel::BananaPeel()
 BananaPeel::~BananaPeel()
 {
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }
 
 void BananaPeel::Update()
@@ -68,7 +68,7 @@ void BananaPeel::Update()
 
 void BananaPeel::Delete()
 {
-	g_goMgr.DeleteGO(this);
+	DeleteGO(this);
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }

@@ -9,7 +9,7 @@ const float ENEMY_DEATH_SE_VOLUME = 1.5f;				//ƒGƒlƒ~|‚ª“|‚³‚ê‚½‚ÌSE‚Ìƒ{ƒŠƒ…
 Enemy::Enemy()
 {
 	//ƒ‚ƒfƒ‹‚Ì‰Šú‰»B
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel = NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/Enemy.cmo");
 
 	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒ[ƒhB
@@ -45,7 +45,7 @@ Enemy::Enemy()
 Enemy::~Enemy()
 {
 	//ƒXƒLƒ“ƒ‚ƒfƒ‹‚ğíœB
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }
 
 bool Enemy::Start()
@@ -139,12 +139,12 @@ void Enemy::Delete()
 	m_playEffectHandle = g_effekseerManager->Play(m_enemyDeathEffekt, m_position.x, m_position.y, m_position.z);
 
 	//ƒTƒEƒ“ƒh‚ÌÄ¶B
-	prefab::CSoundSource* enemySE_Death = g_goMgr.NewGO<prefab::CSoundSource>();
+	prefab::CSoundSource* enemySE_Death = NewGO<prefab::CSoundSource>();
 	enemySE_Death->Init(L"Assets/Sound/EnemySE_Death.wav");
 	enemySE_Death->Play(false);
 	enemySE_Death->SetVolume(ENEMY_DEATH_SE_VOLUME);
 
-	g_goMgr.DeleteGO(this);
+	DeleteGO(this);
 	m_pl->DeleteEnemy(this);
 }
 

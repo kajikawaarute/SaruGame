@@ -24,13 +24,13 @@ Player::Player()
 
 Player::~Player()
 {
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }
 
 bool Player::Start()
 {
 	//cmoファイルの読み込み。
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel = NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/Player.cmo");
 
 	//プレイヤーのアニメーションをロード
@@ -223,7 +223,7 @@ void Player::Attacked()
 	m_enPlayerState = enState_attacked;
 
 	//サウンドの再生。
-	prefab::CSoundSource* playerSE_damage = g_goMgr.NewGO<prefab::CSoundSource>();
+	prefab::CSoundSource* playerSE_damage = NewGO<prefab::CSoundSource>();
 	playerSE_damage->Init(L"Assets/Sound/PlayerSE_Damage.wav");
 	playerSE_damage->Play(false);
 }
@@ -248,7 +248,7 @@ void Player::Jump()
 		m_enPlayerState = enState_Jump;
 
 		//サウンドの再生。
-		prefab::CSoundSource* playerSE_Jump = g_goMgr.NewGO<prefab::CSoundSource>();
+		prefab::CSoundSource* playerSE_Jump = NewGO<prefab::CSoundSource>();
 		playerSE_Jump->Init(L"Assets/Sound/PlayerSE_Jump.wav");
 		playerSE_Jump->Play(false);
 	}
@@ -262,7 +262,7 @@ void Player::SaruGet()
 		m_moveSpeed.z = 0.0f;
 
 		//サウンドの再生。
-		prefab::CSoundSource* playerSE_Ami = g_goMgr.NewGO<prefab::CSoundSource>();
+		prefab::CSoundSource* playerSE_Ami = NewGO<prefab::CSoundSource>();
 		playerSE_Ami->Init(L"Assets/Sound/PlayerSE_Ami.wav");
 		playerSE_Ami->Play(false);
 		m_enPlayerState = enState_saruGet;
@@ -280,7 +280,7 @@ void Player::AttackTry()
 		m_enPlayerState = enState_attack;
 
 		//サウンドの再生。
-		prefab::CSoundSource* playerSE_sword = g_goMgr.NewGO<prefab::CSoundSource>();
+		prefab::CSoundSource* playerSE_sword = NewGO<prefab::CSoundSource>();
 		playerSE_sword->Init(L"Assets/Sound/PlayerSE_sword.wav");
 		playerSE_sword->Play(false);
 		playerSE_sword->SetVolume(PLAYER_SWORD_SE_VOLUME);

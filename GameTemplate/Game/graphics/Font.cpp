@@ -3,8 +3,8 @@
 
 Font::Font()
 {
-	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
-	m_spriteFont = g_graphicsEngine->GetSpriteFont();
+	m_spriteBatch = GetSpriteBatchGraphicsEngine();
+	m_spriteFont = GetSpriteFontGraphicsEngine();
 
 	m_screenSize.x = FRAME_BUFFER_W;
 	m_screenSize.y = FRAME_BUFFER_H;

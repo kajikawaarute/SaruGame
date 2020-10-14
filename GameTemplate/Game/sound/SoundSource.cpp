@@ -78,7 +78,7 @@ namespace prefab {
 			m_sourceVoice = nullptr;
 		}
 		g_soundEngine->RemoveSoundSource(this);
-		g_goMgr.DeleteGO(this);
+		DeleteGO(this);
 	}
 	void CSoundSource::Play(char* buff, unsigned int bufferSize)
 	{
@@ -166,7 +166,7 @@ namespace prefab {
 						if (state.BuffersQueued == 0) {
 							//çƒê∂èIóπÅB
 							m_isPlaying = false;
-							g_goMgr.DeleteGO(this);
+							DeleteGO(this);
 						}
 					}
 				}
@@ -192,7 +192,7 @@ namespace prefab {
 				Play(m_isLoop);
 			}
 			else {
-				g_goMgr.DeleteGO(this);
+				DeleteGO(this);
 			}
 		}
 	}

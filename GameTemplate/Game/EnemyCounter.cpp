@@ -10,12 +10,12 @@ EnemyCounter::EnemyCounter()
 
 EnemyCounter::~EnemyCounter()
 {
-	g_goMgr.DeleteGO(m_fontRender);
+	DeleteGO(m_fontRender);
 }
 
 bool EnemyCounter::Start()
 {
-	m_fontRender = g_goMgr.NewGO<FontRender>();
+	m_fontRender = NewGO<FontRender>();
 	m_fontRender->SetPosition(m_fontPosition);
 	m_fontRender->SetScale(m_fontScale);
 

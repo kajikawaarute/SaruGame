@@ -4,7 +4,7 @@
 BikkuriMark::BikkuriMark()
 {
 	//モデルの初期化。
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel = NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/Bikkuri_Mark.cmo");
 }
 
@@ -12,7 +12,7 @@ BikkuriMark::BikkuriMark()
 BikkuriMark::~BikkuriMark()
 {
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }
 
 void BikkuriMark::Update()

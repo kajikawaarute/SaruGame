@@ -4,7 +4,7 @@
 Wall::Wall()
 {
 	//モデルの初期化。
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel = NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/wall.cmo");
 
 	//シャドウレシーバーを設定。
@@ -15,7 +15,7 @@ Wall::Wall()
 Wall::~Wall()
 {
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }
 
 void Wall::Update()

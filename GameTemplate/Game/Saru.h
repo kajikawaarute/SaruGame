@@ -1,4 +1,6 @@
 #pragma once
+#include "character/CharacterController.h"
+
 #include "sound/SoundEngine.h"
 #include "sound/SoundSource.h"
 #include "SaruStateWait.h"
@@ -16,6 +18,13 @@ class Saru : public IGameObject
 public:
 	Saru();
 	~Saru();
+
+	/// <summary>
+	/// サルのUpdate関数前に呼ばれる開始関数。
+	/// </summary>
+	/// <returns>trueを返すと一度だけ呼ばれる</returns>
+	bool Start();
+
 	/// <summary>
 	/// サルの更新関数
 	/// </summary>
@@ -171,6 +180,8 @@ private:
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転
 	CVector3 m_scale = CVector3::One();					//拡大率
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
+
+	CharacterController m_charaCon;
 	
 	enum EnAnimationClip {
 		enAnim_wait,			//待機アニメーション

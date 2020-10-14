@@ -76,7 +76,7 @@ void Sprite::CreateConstantBuffer()
 	desc.CPUAccessFlags = 0;								//CPU アクセスのフラグです。
 															//CPUアクセスが不要な場合は0。
 	//作成。
-	auto d3dDevice = g_graphicsEngine->GetD3DDevice();
+	auto d3dDevice = GetD3DDeviceGraphicsEngine();
 	d3dDevice->CreateBuffer(&desc, NULL, &m_cbGPU);
 }
 void Sprite::CreateVertexBuffer(float w, float h)
@@ -123,7 +123,7 @@ void Sprite::CreateVertexBuffer(float w, float h)
 	initData.pSysMem = vertices;					//元データのアドレスを代入。
 
 	//ここまで設定してきた情報を使って、VRAM上に頂点バッファを作成する。
-	auto d3dDevice = g_graphicsEngine->GetD3DDevice();
+	auto d3dDevice = GetD3DDeviceGraphicsEngine();
 	d3dDevice->CreateBuffer(&desc, &initData, &m_vertexBuffer);
 }
 
@@ -145,7 +145,7 @@ void Sprite::CreateIndexBuffer()
 	initData.pSysMem = indices;						//元データのアドレスを代入する。
 
 	//ここまで設定してきた情報を使って、VRAM上にインデックスバッファを作成する。
-	auto d3dDevice = g_graphicsEngine->GetD3DDevice();
+	auto d3dDevice = GetD3DDeviceGraphicsEngine();
 	d3dDevice->CreateBuffer(&desc, &initData, &m_indexBuffer);
 }
 
@@ -159,12 +159,12 @@ void Sprite::CreateSamplerState()
 	desc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
 	desc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
 	desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-	g_graphicsEngine->GetD3DDevice()->CreateSamplerState(&desc, &m_samplerState);
+	GetD3DDeviceGraphicsEngine()->CreateSamplerState(&desc, &m_samplerState);
 }
 void Sprite::LoadTexture(const wchar_t* textureFIlePath)
 {
 	//D3Dデバイスを取得。
-	auto d3dDevice = g_graphicsEngine->GetD3DDevice();
+	auto d3dDevice = GetD3DDeviceGraphicsEngine();
 
 	DirectX::CreateDDSTextureFromFileEx(
 		d3dDevice,
@@ -182,7 +182,7 @@ void Sprite::LoadTexture(const wchar_t* textureFIlePath)
 void Sprite::InitRasterizerState()
 {
 	//ID3Dデバイスを取得。
-	auto pd3d = g_graphicsEngine->GetD3DDevice();
+	auto pd3d = GetD3DDeviceGraphicsEngine();
 	//作成するラスタライザステートを設定。
 	D3D11_RASTERIZER_DESC desc = {};
 	desc.CullMode = D3D11_CULL_NONE;
@@ -205,7 +205,7 @@ void Sprite::UpdateWorldMatrix(CVector3 pos, CQuaternion rot, CVector3 scale)
 void Sprite::Draw(CMatrix mView, CMatrix mProj)
 {
 	//デバイスコンテキストを引っ張ってくる。
-	auto deviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	auto deviceContext = GetD3DDeviceContextGraphicsEngine();
 
 	//定数バッファを更新。
 	SSpriteCB cb;

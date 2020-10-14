@@ -2,13 +2,13 @@
 #include "GameOver.h"
 #include "Fade.h"
 
-const float GAMEOVER_POSITION_Y = 100.0f;		//ゲームオーバーの文字が落ちる座標Y
+const float GAMEOVER_POSITION_Y = 100.0f;	//ゲームオーバーの文字が落ちる座標Y
 const float GAMEOVER_MOVE_SPEED = 10.0f;	//ゲームオーバーの文字が落ちる速度。
 
 GameOver::GameOver()
 {
-	m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
-	m_device = g_graphicsEngine->GetDevice();
+	m_spriteBatch = GetSpriteBatchGraphicsEngine();
+	m_device = GetD3DDeviceGraphicsEngine();
 
 	//画像の読み込み
 	DirectX::CreateDDSTextureFromFile(
@@ -21,7 +21,7 @@ GameOver::GameOver()
 
 GameOver::~GameOver()
 {
-	g_goMgr.DeleteGO(m_fade);
+	DeleteGO(m_fade);
 }
 
 void GameOver::Update()
@@ -32,7 +32,7 @@ void GameOver::Update()
 		m_positionY += GAMEOVER_MOVE_SPEED;
 	}
 	else if (m_fadeFlag == false) {
-		m_fade = g_goMgr.NewGO<Fade>();
+		m_fade = NewGO<Fade>();
 		m_fadeFlag = true;
 	}
 	else {

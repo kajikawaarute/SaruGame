@@ -75,11 +75,11 @@ void SkinModel::InitConstantBuffer()
 	bufferDesc.CPUAccessFlags = 0;								//CPU アクセスのフラグです。
 																//CPUアクセスが不要な場合は0。
 	//作成。
-	g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_cb);
+	GetD3DDeviceGraphicsEngine()->CreateBuffer(&bufferDesc, NULL, &m_cb);
 
 	//ライト用定数バッファを作成
 	bufferDesc.ByteWidth = sizeof(SDirectionLight);
-	g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_lightCb);
+	GetD3DDeviceGraphicsEngine()->CreateBuffer(&bufferDesc, NULL, &m_lightCb);
 }
 
 void SkinModel::InitLightCB()
@@ -107,7 +107,7 @@ void SkinModel::InitSamplerState()
 	desc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
 	desc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
 	desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-	g_graphicsEngine->GetD3DDevice()->CreateSamplerState(&desc, &m_samplerState);
+	GetD3DDeviceGraphicsEngine()->CreateSamplerState(&desc, &m_samplerState);
 }
 void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVector3 scale)
 {
@@ -136,9 +136,9 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 }
 void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMatrix)
 {
-	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
+	DirectX::CommonStates state(GetD3DDeviceGraphicsEngine());
 
-	ID3D11DeviceContext* d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	ID3D11DeviceContext* d3dDeviceContext = GetD3DDeviceContextGraphicsEngine();
 
 	//定数バッファの内容を更新。
 	SVSConstantBuffer vsCb;

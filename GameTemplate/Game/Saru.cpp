@@ -4,6 +4,7 @@
 #include "BananaPeel.h"
 #include "BikkuriMark.h"
 
+const float SARU_GRAVITY = 2000.0f;				//サルにかかる重力(単位cm/秒)。
 const float SARU_MOVE_SPPED = 300.0f;			//サルの移動速度。
 const float SARU_RUN_SPPED = 1500.0f;			//サルの走っている時の移動速度。
 const float SARU_ATTACK_DISTANCE = 90.0f;		//サルが攻撃する距離。
@@ -15,7 +16,7 @@ const float SARU_STUN_SE_VOLUME = 1.5f;				//サルが怯んだ時のSEのボリューム
 Saru::Saru()
 {
 	//モデルの初期化。
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel = NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/Saru.cmo");
 
 	//アニメーションを生成。
@@ -58,14 +59,24 @@ Saru::Saru()
 
 Saru::~Saru()
 {
-	g_goMgr.DeleteGO(m_bikkuriMark);
-	g_goMgr.DeleteGO(m_banaPeel);
+	DeleteGO(m_bikkuriMark);
+	DeleteGO(m_banaPeel);
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
+}
+
+bool Saru::Start()
+{
+	//キャラクターコントローラーの初期化。
+	m_charaCon.Init(50.0f, 100.0f, m_position);
+
+	return true;
 }
 
 void Saru::Update()
 {
+	m_moveSpeed.y -= SARU_GRAVITY * GameTime().GetFrameDeltaTime();
+
 	//サルの状態
 	m_currentState->Update();
 	ChangeState(m_enSaruState);
@@ -84,10 +95,13 @@ void Saru::Update()
 				else pathNum = 0;
 			}
 			auto addSpeed = diff;
-			addSpeed.Normalize();
+			//addSpeed.Normalize();
 			m_angle = atan2f(-addSpeed.x, -addSpeed.z);
 			m_rotation.SetRotation(CVector3::AxisY(), m_angle);
-			m_moveSpeed += addSpeed;
+			//m_moveSpeed += addSpeed;
+			m_moveSpeed.x -= addSpeed.x * 0.5f;
+			m_moveSpeed.z -= addSpeed.z * 0.5f;
+			m_moveSpeed.y -= addSpeed.y;
 		}
 	}
 	//サルのアニメーション
@@ -122,6 +136,9 @@ void Saru::Update()
 	//トゥーンレンダを設定。
 	m_skinModel->SetToonRender();
 
+	//キャラクターコントローラーの更新。
+	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
+
 	//スキンモデルの座標を設定。
 	m_skinModel->SetPosition(m_position);
 
@@ -131,30 +148,45 @@ void Saru::Update()
 
 void Saru::Move()
 {
-	m_moveSpeed.Normalize();
+	/*m_moveSpeed.Normalize();
 	m_moveSpeed.x *= SARU_MOVE_SPPED;
 	m_moveSpeed.z *= SARU_MOVE_SPPED;
 	m_moveSpeed.y = 0.0f;
 
-	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();
+	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();*/
+
+	CVector3 moveSpeedXZ = m_moveSpeed;
+	moveSpeedXZ.Normalize();
+
+	m_moveSpeed.x = moveSpeedXZ.x * SARU_MOVE_SPPED;
+	m_moveSpeed.z = moveSpeedXZ.z * SARU_MOVE_SPPED;
 
 	Turn();
 }
 
 void Saru::Run()
 {
-	m_moveSpeed.Normalize();
+	/*m_moveSpeed.Normalize();
 	m_moveSpeed.x *= SARU_RUN_SPPED;
 	m_moveSpeed.z *= SARU_RUN_SPPED;
 	m_moveSpeed.y = 0.0f;
 
-	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();
+	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();*/
+
+	CVector3 moveSpeedXZ = m_moveSpeed;
+	moveSpeedXZ.Normalize();
+
+	m_moveSpeed.x = moveSpeedXZ.x * SARU_RUN_SPPED;
+	m_moveSpeed.z = moveSpeedXZ.z * SARU_RUN_SPPED;
 
 	Turn();
 }
 
 void Saru::GetSaru()
 {
+	m_moveSpeed.x = 0.0f;
+	m_moveSpeed.z = 0.0f;
+
 	m_enSaruState = enState_Get;
 }
 
@@ -180,7 +212,7 @@ void Saru::BanaPeelThrow()
 	//バナナの皮を投げる
 	m_banaPeelTimer++;
 	if (moveSpeedXZ.LengthSq() >= 1.0f * 1.0f && m_banaPeelTimer > SARU_BANANAPEEL_TIME) {
-		m_banaPeel = g_goMgr.NewGO<BananaPeel>();
+		m_banaPeel = NewGO<BananaPeel>();
 		m_banaPeel->SetPlayer(m_pl);
 		m_banaPeel->SetMoveSpd(saruFoward);
 		m_banaPeel->SetPosition(m_position);
@@ -197,6 +229,9 @@ void Saru::Stun()
 
 void Saru::Found()
 {
+	m_moveSpeed.x = 0.0f;
+	m_moveSpeed.z = 0.0f;
+
 	CVector3 positionY = m_position;
 	positionY.y = m_position.y + SARU_BIKKURIMARK_POSITION_Y;
 
@@ -209,7 +244,7 @@ void Saru::Found()
 	m_rotation.SetRotation(CVector3::AxisY(),m_angle);
 
 	if (m_animation.IsPlaying() != true) {
-		g_goMgr.DeleteGO(m_bikkuriMark);
+		DeleteGO(m_bikkuriMark);
 		m_enSaruState = enState_run;
 	}
 }
@@ -227,7 +262,7 @@ void Saru::AttackDistance()
 
 void Saru::Death()
 {
-	g_goMgr.DeleteGO(this);
+	DeleteGO(this);
 	m_pl->DeleteSaru(this);
 }
 
@@ -241,7 +276,7 @@ void Saru::ChangeStateWaitAnim()
 void Saru::SaruGetSound()
 {
 	//サウンドを再生
-	prefab::CSoundSource* saruGetSE = g_goMgr.NewGO<prefab::CSoundSource>();
+	prefab::CSoundSource* saruGetSE = NewGO<prefab::CSoundSource>();
 	saruGetSE->Init(L"Assets/Sound/SaruSE_Get.wav");
 	saruGetSE->Play(false);
 }
@@ -249,10 +284,10 @@ void Saru::SaruGetSound()
 void Saru::SaruFoundSound()
 {
 	//ビックリマークを生成。
-	m_bikkuriMark = g_goMgr.NewGO<BikkuriMark>();
+	m_bikkuriMark = NewGO<BikkuriMark>();
 
 	//サウンドを再生
-	prefab::CSoundSource* saruSE_Found = g_goMgr.NewGO<prefab::CSoundSource>();
+	prefab::CSoundSource* saruSE_Found = NewGO<prefab::CSoundSource>();
 	saruSE_Found->Init(L"Assets/Sound/SaruSE_Found.wav");
 	saruSE_Found->Play(false);
 }
@@ -260,7 +295,7 @@ void Saru::SaruFoundSound()
 void Saru::SaruAttackSound()
 {
 	//サウンドを再生
-	prefab::CSoundSource* saruSE_Attack = g_goMgr.NewGO<prefab::CSoundSource>();
+	prefab::CSoundSource* saruSE_Attack = NewGO<prefab::CSoundSource>();
 	saruSE_Attack->Init(L"Assets/Sound/SaruSE_Attack.wav");
 	saruSE_Attack->Play(false);
 }
@@ -268,7 +303,7 @@ void Saru::SaruAttackSound()
 void Saru::SaruStunSound()
 {
 	//サウンドを再生
-	prefab::CSoundSource* saruSE_Stun = g_goMgr.NewGO<prefab::CSoundSource>();
+	prefab::CSoundSource* saruSE_Stun = NewGO<prefab::CSoundSource>();
 	saruSE_Stun->Init(L"Assets/Sound/SaruSE_Stun.wav");
 	saruSE_Stun->Play(false);
 	saruSE_Stun->SetVolume(SARU_STUN_SE_VOLUME);

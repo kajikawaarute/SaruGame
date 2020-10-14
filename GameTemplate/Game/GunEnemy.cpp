@@ -10,7 +10,7 @@ const float GUNENEMY_DEATH_SE_VOLUME = 1.5f;				//ガンエネミ－が倒された時のSEの
 GunEnemy::GunEnemy()
 {
 	//モデルの初期化。
-	m_skinModel = g_goMgr.NewGO<SkinModelRender>();
+	m_skinModel = NewGO<SkinModelRender>();
 	m_skinModel->Init(L"Assets/modelData/GunEnemy.cmo");
 
 	//アニメーションをロード。
@@ -43,9 +43,9 @@ GunEnemy::GunEnemy()
 
 GunEnemy::~GunEnemy()
 {
-	g_goMgr.DeleteGO(m_gunBullet);
+	DeleteGO(m_gunBullet);
 	//スキンモデルを削除。
-	g_goMgr.DeleteGO(m_skinModel);
+	DeleteGO(m_skinModel);
 }
 
 void GunEnemy::Update()
@@ -94,12 +94,12 @@ void GunEnemy::Attack()
 	m_bulletTimer++;
 	if (m_bulletTimer == GUNENEMY_BULLET_TIME) {
 		//サウンドの再生。
-		prefab::CSoundSource* gunEnemySE_Shot = g_goMgr.NewGO<prefab::CSoundSource>();
+		prefab::CSoundSource* gunEnemySE_Shot = NewGO<prefab::CSoundSource>();
 		gunEnemySE_Shot->Init(L"Assets/Sound/GunEnemy_shot.wav");
 		gunEnemySE_Shot->Play(false);
 
 		//弾丸の生成。
-		m_gunBullet = g_goMgr.NewGO<GunEnemyBullet>();
+		m_gunBullet = NewGO<GunEnemyBullet>();
 		m_gunBullet->SetPlayer(m_player);
 		m_gunBullet->SetMoveSpd(gunEnemyFoward);
 		m_gunBullet->SetPosition(positionY);
@@ -113,12 +113,12 @@ void GunEnemy::Death()
 	m_playEffectHandle = g_effekseerManager->Play(m_gunEnemyDeathEffekt, m_position.x, m_position.y, m_position.z);
 
 	//サウンドの再生。
-	prefab::CSoundSource* gunEnemySE_death = g_goMgr.NewGO<prefab::CSoundSource>();
+	prefab::CSoundSource* gunEnemySE_death = NewGO<prefab::CSoundSource>();
 	gunEnemySE_death->Init(L"Assets/Sound/EnemySE_Death.wav");
 	gunEnemySE_death->Play(false);
 	gunEnemySE_death->SetVolume(GUNENEMY_DEATH_SE_VOLUME);
 
-	g_goMgr.DeleteGO(this);
+	DeleteGO(this);
 	m_player->DeleteGunEnemy(this);
 }
 

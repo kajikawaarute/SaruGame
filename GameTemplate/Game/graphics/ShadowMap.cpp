@@ -51,7 +51,7 @@ void ShadowMap::UpdateShadowMap(CVector3 lightCameraPos, CVector3 lightCameraTar
 void ShadowMap::Draw()
 {
 	//シャドウマップにレンダリング
-	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	auto d3dDeviceContext = GetD3DDeviceContextGraphicsEngine();
 	ID3D11RenderTargetView* oldRenderTargetView;
 	ID3D11DepthStencilView* oldDepthStencilView;
 
@@ -81,7 +81,7 @@ void ShadowMap::Draw()
 
 void ShadowMap::RenderToShadowMap()
 {
-	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	auto d3dDeviceContext = GetD3DDeviceContextGraphicsEngine();
 	
 	//レンダリングターゲットを切り替える
 
