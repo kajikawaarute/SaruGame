@@ -25,7 +25,7 @@ void PhysicsGhostObject::CreateBox(CVector3 pos, CQuaternion rot, CVector3 size)
 void PhysicsGhostObject::Release()
 {
 	if (m_isRegistPhysicsWorld == true) {
-		g_physics.RemoveCollisionObject(m_ghostObject);
+		PhysicsWorld::GetInstance()->RemoveCollisionObject(m_ghostObject);
 		m_isRegistPhysicsWorld = false;
 	}
 }
@@ -39,7 +39,7 @@ void PhysicsGhostObject::CreateCommon(CVector3 pos, CQuaternion rot)
 	m_ghostObject.setWorldTransform(btTrans);
 
 	//•¨—ƒGƒ“ƒWƒ“‚É“o˜^B
-	g_physics.AddCollisionObject(m_ghostObject);
+	PhysicsWorld::GetInstance()->AddCollisionObject(m_ghostObject);
 	m_isRegistPhysicsWorld = true;
 }
 

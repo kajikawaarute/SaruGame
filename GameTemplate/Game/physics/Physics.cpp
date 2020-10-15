@@ -3,8 +3,6 @@
 #include "Physics/RigidBody.h"
 #include "character/CharacterController.h"
 
-PhysicsWorld g_physics;
-
 namespace {
 	struct MyContactResultCallback : public btCollisionWorld::ContactResultCallback {
 		using ContantTestCallback = std::function<void(const btCollisionObject& contactCollisionObject)>;

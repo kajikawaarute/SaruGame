@@ -97,7 +97,8 @@ void InitGame(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, in
 	g_pad[2].Init(2);
 	g_pad[3].Init(3);
 
-	g_physics.Init();
+	//Physicsの初期化。
+	PhysicsWorld::GetInstance()->Init();
 
 	//IGameObjectManagerのインスタンスを作成する。
 	//IGameObjectManager::CreateInstance();

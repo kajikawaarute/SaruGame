@@ -58,7 +58,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			pad.Update();
 		}
 		//物理エンジンの更新。
-		g_physics.Update();
+		PhysicsWorld::GetInstance()->Update();
 		//ゲームオブジェクトマネージャーの更新
 		IGameObjectManager::GetInstance()->Update();
 

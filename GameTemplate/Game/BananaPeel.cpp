@@ -36,7 +36,7 @@ void BananaPeel::Update()
 	}
 
 	//ゴーストオブジェクトの判定。
-	g_physics.ContactTest(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
+	ContactTestPhysicsWorld(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject)) {
 			Delete();
 			m_pl->SetStateSliped();

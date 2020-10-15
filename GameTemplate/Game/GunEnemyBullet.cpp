@@ -31,7 +31,7 @@ void GunEnemyBullet::Update()
 	m_position += m_moveSpeed * GUN_SPPED_POWER;
 
 	//ゴーストオブジェクトの判定。
-	g_physics.ContactTest(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
+	ContactTestPhysicsWorld(m_pl->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghostObject.IsSelf(contactObject)) {
 			Delete();
 			m_pl->Attacked();

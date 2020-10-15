@@ -38,7 +38,7 @@ JumpFloor::~JumpFloor()
 void JumpFloor::Update()
 {
 	//ゴーストオブジェクトの判定。
-	g_physics.ContactTest(m_player->GetcharaCon(), [&](const btCollisionObject& contactObject) {
+	ContactTestPhysicsWorld(m_player->GetcharaCon(), [&](const btCollisionObject& contactObject) {
 		if (m_ghost.IsSelf(contactObject)) {
 			prefab::CSoundSource* jumpFloorSE = NewGO<prefab::CSoundSource>();
 			jumpFloorSE->Init(L"Assets/Sound/JumpFloorSE.wav");
