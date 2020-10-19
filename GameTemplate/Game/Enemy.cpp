@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Player.h"
 
+const float ENEMY_GRAVITY = 5000.0f;					//エネミーにかかる重力(単位cm/秒)。
 const float ENEMY_MOVE_SPPED = 400.0f;					//エネミーの移動速度。
 const float ENEMY_FOUND_PLAYER_DISTANCE = 90.0f;		//エネミーがプレイヤーを見つける距離。
 const float ENEMY_DEATH_SE_VOLUME = 1.5f;				//エネミ－が倒された時のSEのボリューム
@@ -58,7 +59,7 @@ bool Enemy::Start()
 
 void Enemy::Update()
 {
-	m_moveSpeed.y -= 5000.0f * GameTime().GetFrameDeltaTime();
+	m_moveSpeed.y -= ENEMY_GRAVITY * GameTime().GetFrameDeltaTime();
 
 	//エネミーの状態
 	m_currentState->Update();
