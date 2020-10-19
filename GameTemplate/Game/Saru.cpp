@@ -148,13 +148,6 @@ void Saru::Update()
 
 void Saru::Move()
 {
-	/*m_moveSpeed.Normalize();
-	m_moveSpeed.x *= SARU_MOVE_SPPED;
-	m_moveSpeed.z *= SARU_MOVE_SPPED;
-	m_moveSpeed.y = 0.0f;
-
-	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();*/
-
 	CVector3 moveSpeedXZ = m_moveSpeed;
 	moveSpeedXZ.Normalize();
 
@@ -166,13 +159,6 @@ void Saru::Move()
 
 void Saru::Run()
 {
-	/*m_moveSpeed.Normalize();
-	m_moveSpeed.x *= SARU_RUN_SPPED;
-	m_moveSpeed.z *= SARU_RUN_SPPED;
-	m_moveSpeed.y = 0.0f;
-
-	m_position -= m_moveSpeed * GameTime().GetFrameDeltaTime();*/
-
 	CVector3 moveSpeedXZ = m_moveSpeed;
 	moveSpeedXZ.Normalize();
 
