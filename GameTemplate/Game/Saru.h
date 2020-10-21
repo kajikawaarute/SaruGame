@@ -181,7 +181,7 @@ private:
 	CVector3 m_scale = CVector3::One();					//拡大率
 	CVector3 m_moveSpeed = CVector3::Zero();			//移動速度
 
-	CharacterController m_charaCon;
+	CharacterController m_charaCon;		//キャラクターコントローラー
 	
 	enum EnAnimationClip {
 		enAnim_wait,			//待機アニメーション
