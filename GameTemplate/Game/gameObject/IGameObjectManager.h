@@ -51,32 +51,10 @@ public:
 			}
 		}
 	}
-	/*/// <summary>
-	/// IGameObjectManagerのインスタンスを作成する。
-	/// </summary>
-	static void CreateInstance()
-	{
-		if (m_instance != nullptr) {
-			//IGameObjectManagerのインスタンスは複数作れない！！！
-			//おそらくプログラムの間違いなのでプログラムを停止させる。
-			std::abort();
-		}
-		m_instance = new IGameObjectManager;
-	}*/
-
-	/*/// <summary>
-	/// IGameObjectManagerのインスタンスを破棄する。
-	/// </summary>
-	static void DeleteInstance()
-	{
-		//delete m_instance;
-		//m_instance = nullptr;
-	}*/
 private:
 	//IGameObject*の可変長配列を
 	//メンバ変数に追加する。
 	std::list<IGameObject*> m_goList;		//ゲームオブジェクトのリスト
-	//static const IGameObjectManager* m_instance;	//唯一のインスタンス。
 };
 
 //ヘルパー関数
