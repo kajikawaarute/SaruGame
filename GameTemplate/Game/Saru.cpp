@@ -95,13 +95,12 @@ void Saru::Update()
 				else pathNum = 0;
 			}
 			auto addSpeed = diff;
-			//addSpeed.Normalize();
+			m_moveSpeed.y -= addSpeed.y;
+			addSpeed.Normalize();
 			m_angle = atan2f(-addSpeed.x, -addSpeed.z);
 			m_rotation.SetRotation(CVector3::AxisY(), m_angle);
-			//m_moveSpeed += addSpeed;
-			m_moveSpeed.x -= addSpeed.x * 0.5f;
-			m_moveSpeed.z -= addSpeed.z * 0.5f;
-			m_moveSpeed.y -= addSpeed.y;
+			m_moveSpeed.x -= addSpeed.x * SARU_MOVE_SPPED;
+			m_moveSpeed.z -= addSpeed.z * SARU_MOVE_SPPED;
 		}
 	}
 	//サルのアニメーション
