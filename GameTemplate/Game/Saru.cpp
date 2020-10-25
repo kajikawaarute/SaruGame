@@ -68,7 +68,7 @@ Saru::~Saru()
 bool Saru::Start()
 {
 	//キャラクターコントローラーの初期化。
-	m_charaCon.Init(50.0f, 100.0f, m_position);
+	m_charaCon.Init(30.0f, 100.0f, m_position);
 
 	return true;
 }
