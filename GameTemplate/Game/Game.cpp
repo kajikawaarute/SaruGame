@@ -213,7 +213,7 @@ bool Game::Start()
 
 void Game::Update()
 {
-	if (g_pad[0].IsTrigger(enButtonSelect) == true) {
+	if (g_pad[0].IsTrigger(enButtonSelect)) {
 		DeleteGO(this);
 	}
 
@@ -249,10 +249,10 @@ void Game::Update()
 		{
 			DeleteGO(this);
 		}
-		//ステージ１のゲームオーバー
-		else if (m_playerHP->GetGameOver() == true)
+		//ステージ２のゲームオーバー
+		else if (m_playerHP->GetGameOver() == true || m_pl->GetPos().y < PLAYER_DEATH_HEIGHT)
 		{
-			m_stage2->SetGameOverFlag(m_playerHP->GetGameOver());
+			m_stage2->SetGameOverFlag(true);
 			m_pl->StateDeath();
 			if (m_stage2->GetOverTimer() == GAMEOVER_TITLE_TIME)
 			{
