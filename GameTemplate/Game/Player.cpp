@@ -7,7 +7,7 @@
 #include "IPlayerState.h"
 
 const float PLAYER_GRAVITY = 5000.0f;		//プレイヤーにかかる重力(単位cm/秒)。
-const float PLAYER_JUMP_POWER = 2000.0f;	//プレイヤーがジャンプしたときに加算される速度。
+const float PLAYER_JUMP_POWER = 1700.0f;	//プレイヤーがジャンプしたときに加算される速度。
 const float PLAYER_MOVE_SPEED = 850.0f;		//プレイヤーの移動速度。
 const float PLAYER_SARU_DISTANCE = 300.0f;	//プレイヤーとサルの距離。
 const float PLAYER_SWORD_SE_VOLUME = 0.9f;	//プレイヤーが攻撃している時のSEのボリューム。
