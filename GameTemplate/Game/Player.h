@@ -271,7 +271,7 @@ private:
 		enState_attack,		//攻撃状態
 		enState_death		//死亡状態
 	};
-	EnPlayerState m_enPlayerState;
+	EnPlayerState m_enPlayerState = enState_wait;
 
 	IPlayerState* m_currentState = nullptr;		//現在のプレイヤーの状態
 	PlayerStateWait m_playerStateWait;			//待機状態

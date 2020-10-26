@@ -16,9 +16,6 @@ Player::Player()
 {
 	//キャラクターコントローラーの初期化
 	m_charaCon.Init(50.0f, 100.0f, m_position);
-
-	//プレイヤーの初期状態
-	m_currentState = &m_playerStateWait;
 }
 
 
@@ -52,6 +49,9 @@ bool Player::Start()
 
 	//プレイヤーの初期アニメーション
 	m_enAnimClip = enAnim_wait;
+
+	//プレイヤーの初期状態
+	m_currentState = &m_playerStateWait;
 
 	//シャドウレシーバーを設定。
 	m_skinModel->SetShadowReciever();
@@ -347,7 +347,7 @@ void Player::ChangeState(EnPlayerState nextState)
 		pNextState = &m_playerStateAttack;
 		nextAnimClip = enAnim_attack;
 		break;
-	case Player::enAnim_death:
+	case Player::enState_death:
 		//現在の状態を死亡状態にする。
 		pNextState = &m_playerStateDeath;
 		nextAnimClip = enAnim_death;

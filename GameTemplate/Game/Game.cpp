@@ -230,7 +230,7 @@ void Game::Update()
 		//ステージ１のゲームオーバー
 		else if (m_playerHP->GetGameOver() == true)
 		{
-			m_stage->SetGameOverFlag(m_playerHP->GetGameOver());
+			m_stage->SetGameOverFlag(true);
 			m_pl->StateDeath();
 			if (m_stage->GetOverTimer() == GAMEOVER_TITLE_TIME)
 			{
