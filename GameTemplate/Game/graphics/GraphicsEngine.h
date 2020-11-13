@@ -57,6 +57,16 @@ public:
 	{
 		return m_pd3dDeviceContext;
 	}
+
+	/// <summary>
+	/// デプスステンシルビューを取得。
+	/// </summary>
+	/// <returns>デプスステンシルビュー</returns>
+	ID3D11DepthStencilView* GetDepthStencilView()
+	{
+		return m_depthStencilView;
+	}
+
 	/// <summary>
 	/// スプライトバッチを取得。
 	/// </summary>

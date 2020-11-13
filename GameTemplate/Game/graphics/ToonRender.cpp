@@ -5,7 +5,7 @@
 ToonRender::ToonRender()
 {
 	//深度値出力用のレンダリングターゲットを作成。
-	m_toonRenderRT.Create(2048, 2048, DXGI_FORMAT_R32_FLOAT);
+	m_toonRenderRT.Create(FRAME_BUFFER_W, FRAME_BUFFER_H, DXGI_FORMAT_R32_FLOAT);
 }
 
 
@@ -53,7 +53,8 @@ void ToonRender::ZPrepass()
 	ID3D11RenderTargetView* rts[] = {
 		m_toonRenderRT.GetRenderTargetView()
 	};
-	d3dDeviceContext->OMSetRenderTargets(1, rts, m_toonRenderRT.GetDepthStensilView());
+	//ZPrepassの処理で使用するデプスステンシルビューはメインレンダリングターゲットのものを使用する。
+	d3dDeviceContext->OMSetRenderTargets(1, rts, GraphicsEngine::GetInstance()->GetDepthStencilView());
 
 
 	//ビューポートを設定
